@@ -86,6 +86,90 @@ nav{position:fixed;left:0;top:0;bottom:0;width:232px;flex-direction:column;gap:2
 nav button{text-align:left;width:100%;border-radius:6px;padding:11px 14px;font-size:14px;font-weight:700;background:none;color:var(--mut)}
 nav button:hover{color:var(--tx);background:none}nav button.on{background:color-mix(in srgb,var(--tx) 12%,transparent);color:var(--tx)}
 nav .brand{margin:0 0 18px 8px;font-size:20px}nav .lbl{margin-top:auto!important;margin-left:8px!important}main{margin-top:12px}}
+
+/* ---- Simple UI refresh: presentation only; app logic and stored data unchanged ---- */
+:root{
+  --bg:#1b2027; --card:#20262e; --bd:#303944; --tx:#f1f4f8;
+  --mut:#a5afbc; --ac:#a5b4fc; --ok:#5ee0ad; --bad:#fb7185;
+  --warn:#fbbf24; --side:#111418;
+}
+:root[data-theme="light"]{
+  --bg:#f4f6fa; --card:#ffffff; --bd:#e0e5ed; --tx:#18202b;
+  --mut:#667386; --ac:#5968dc; --ok:#059669; --bad:#e11d48;
+  --warn:#b7791f; --side:#ffffff;
+}
+body{font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.5}
+body::before{display:none}
+nav{background:var(--side);border-color:var(--bd);gap:6px;padding:18px 12px}
+nav button{
+  color:var(--mut);background:transparent;border:1px solid transparent;
+  border-radius:10px;padding:11px 13px;font-weight:600;text-align:left;
+}
+nav button:hover{background:var(--card);color:var(--tx)}
+nav button.on{
+  background:color-mix(in srgb,var(--ac) 16%,var(--card));
+  color:var(--tx);border-color:color-mix(in srgb,var(--ac) 35%,var(--bd));
+}
+nav .brand{font-size:19px;font-weight:800;margin:0 0 16px 8px}
+nav .lbl{color:var(--mut);font-size:11px}
+main{
+  max-width:1180px;margin:0 auto;padding:30px 28px 64px;
+  background:transparent;border-radius:0;
+}
+.card{
+  background:var(--card);border:1px solid var(--bd);border-radius:14px;
+  box-shadow:0 5px 18px rgba(0,0,0,.08);padding:18px;
+}
+.card:hover{background:var(--card);border-color:color-mix(in srgb,var(--ac) 32%,var(--bd))}
+.card b.serif{font-size:28px}
+.serif{font-family:Inter,system-ui,sans-serif;font-weight:750;letter-spacing:-.035em}
+.lbl{font-size:11px;letter-spacing:.09em;font-weight:700;color:var(--mut)}
+.big{font-size:clamp(52px,10vw,104px);font-weight:800;letter-spacing:-.055em;margin:20px 0}
+.stat b{font-size:28px}
+.btn,.chip,nav button,.play{transition:background .16s,border-color .16s,color .16s,transform .16s}
+.btn{
+  background:var(--card);color:var(--tx);border:1px solid var(--bd);
+  border-radius:9px;padding:9px 14px;font-weight:650;
+}
+.btn:hover{background:color-mix(in srgb,var(--ac) 9%,var(--card));border-color:var(--ac)}
+.btn.pri,.pri{background:var(--ac);color:#171a24;border-color:var(--ac);font-weight:750}
+.btn.pri:hover{filter:brightness(1.04);transform:translateY(-1px)}
+.chip{background:var(--card);color:var(--tx);border:1px solid var(--bd);border-radius:9px;padding:8px 12px}
+.chip.on{background:color-mix(in srgb,var(--ac) 17%,var(--card));color:var(--tx);border-color:var(--ac)}
+.play{background:var(--ac);color:#171a24;border:0;width:54px;height:54px}
+input,select,textarea{
+  background:var(--bg);color:var(--tx);border:1px solid var(--bd);
+  border-radius:9px;padding:9px 11px;
+}
+input:focus,select:focus,textarea:focus{border-color:var(--ac);outline:2px solid color-mix(in srgb,var(--ac) 20%,transparent)}
+.bar{height:7px;background:var(--bd);border-radius:99px}
+.bar i{background:var(--ac);border-radius:99px}
+.it{border-bottom:1px solid var(--bd);border-radius:8px;padding:11px 10px}
+.it:hover{background:color-mix(in srgb,var(--tx) 4%,transparent)}
+td,th{padding:10px 12px;border-color:var(--bd)}
+th{color:var(--mut)}
+hr{border-color:var(--bd)}
+#toast{background:var(--card);border-color:var(--ac);border-radius:10px}
+button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,a:focus-visible,summary:focus-visible{outline:2px solid var(--ac);outline-offset:3px}
+@media(min-width:900px){
+  body{padding-left:220px}
+  nav{width:220px;padding:20px 12px}
+  nav button{width:100%;border-radius:9px;padding:12px 13px}
+  nav .brand{margin:0 0 20px 8px}
+  nav .lbl{margin-top:auto!important;margin-left:8px!important}
+  main{margin-top:0}
+}
+@media(max-width:899px){
+  nav{padding:10px 12px}
+  nav .brand{margin-right:8px}
+  main{padding:22px 14px 48px}
+}
+@media(max-width:520px){
+  .card{padding:14px;border-radius:12px}
+  .big{font-size:54px}
+  .grid{gap:9px}
+}
+
 </style></head><body>
 <nav id="nav"></nav><main id="m"></main><div id="toast"></div>
 <script>
