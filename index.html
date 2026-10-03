@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><title>JEE 2027 · Study Clock</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#05080d;--card:#0b1119;--bd:#1b2633;--tx:#e8eef6;--mut:#7d8a9a;--ac:#4aa3ff;--ok:#3ecf8e;--bad:#ff6b6b;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:light){:root:not([data-theme="dark"]){--bg:#f6f7f9;--card:#fff;--bd:#d9dee5;--tx:#10151c;--mut:#5d6877;--ac:#0b6fd6;--ok:#0f9d63;--bad:#d33}}
+:root[data-theme="dark"]{--bg:#05080d}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--tx);font:13px 'JetBrains Mono',ui-monospace,Menlo,monospace}
+.serif{font-family:'Playfair Display',Georgia,'Times New Roman',serif;font-weight:900}
+nav{display:flex;gap:8px;padding:10px 14px;border-bottom:1px solid var(--bd);overflow-x:auto}
+nav button,.btn{background:var(--card);color:var(--tx);border:1px solid var(--bd);border-radius:6px;padding:7px 12px;font:inherit;cursor:pointer;white-space:nowrap;text-decoration:none;display:inline-block}
+nav button.on,.chip.on{border-color:var(--ac);color:var(--ac);background:color-mix(in srgb,var(--ac) 10%,var(--card))}
+main{max-width:760px;margin:0 auto;padding:22px 16px 60px}
+.row{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap}
+.lbl{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--mut)}
+.big{font-size:clamp(56px,16vw,140px);line-height:1.05;margin:26px 0;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.stat{text-align:right}.stat b{font-size:32px;display:block}
+.play{width:50px;height:50px;border-radius:50%;border:1px solid var(--bd);background:var(--card);color:var(--tx);font-size:18px;cursor:pointer}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0 22px}
+.chip{background:var(--card);border:1px solid var(--bd);color:var(--tx);border-radius:6px;padding:8px 12px;font:inherit;cursor:pointer;text-align:left}
+.chip small{display:block;color:var(--mut);margin-top:3px}
+input,select,textarea{background:var(--card);color:var(--tx);border:1px solid var(--bd);border-radius:6px;padding:8px;font:inherit;min-width:0}
+input[type=number]{width:80px}.f{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}
+.pri{background:color-mix(in srgb,var(--ac) 15%,var(--card));border-color:var(--ac);color:var(--ac)}
+hr{border:0;border-top:1px solid var(--bd);margin:20px 0}
+.it{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--bd)}.it span{flex:1}
+.done span{text-decoration:line-through;color:var(--mut)}
+.x{background:none;border:0;color:var(--mut);cursor:pointer;font:inherit}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:8px;padding:14px}
+.card b.serif{font-size:26px}.bar{height:6px;background:var(--bd);border-radius:3px;margin-top:8px;overflow:hidden}.bar i{display:block;height:100%;background:var(--ok)}
+.tblw{overflow-x:auto}table{border-collapse:collapse;width:100%}td,th{padding:7px 8px;border-bottom:1px solid var(--bd);text-align:left}th{color:var(--mut);font-weight:400}
+.mut{color:var(--mut)}.ok{color:var(--ok)}.bad{color:var(--bad)}
+#toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translate(-50%,30px);background:var(--card);border:1px solid var(--ac);color:var(--tx);padding:10px 16px;border-radius:8px;opacity:0;transition:.25s;pointer-events:none;z-index:9;white-space:nowrap}#toast.show{opacity:1;transform:translate(-50%,0)}
+</style></head><body>
+<nav id="nav"></nav><main id="m"></main><div id="toast"></div>
+<script>
+const K='jee27',TABS=['Study clock','Todo','Test plan','Practice','Daily'];
+let S={exam:'2027-01-21',subs:['Physics','Chemistry','Mathematics','Test'],cur:'Mathematics',days:{},qlog:[],todos:[],tests:[],notes:{}},tab=0,run=false,last=0;
+try{const r=localStorage.getItem(K);if(r)S=Object.assign(S,JSON.parse(r))}catch(e){}
+const save=()=>{try{localStorage.setItem(K,JSON.stringify(S))}catch(e){}};
+const td=()=>new Date().toLocaleDateString('en-CA');
+const day=d=>S.days[d]||(S.days[d]={s:0,sub:{}});
+const esc=t=>String(t).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const p2=n=>String(n).padStart(2,'0');
+const hms=s=>`${p2(Math.floor(s/3600))}:${p2(Math.floor(s%3600/60))}:${p2(s%60)}`;
+const hm=s=>`${Math.floor(s/3600)}h ${Math.floor(s%3600/60)}m ${s%60}s`;
+const dd=d=>Math.ceil((new Date(d+'T00:00:00')-new Date(td()+'T00:00:00'))/864e5);
+const dstr=o=>{const d=new Date();d.setDate(d.getDate()-o);return d.toLocaleDateString('en-CA')};
+function streak(){let n=0,o=day(td()).s>=60?0:1;for(;;o++){const d=S.days[dstr(o)];if(d&&d.s>=60)n++;else break}return n}
+function avg(){const k=Object.values(S.days).filter(d=>d.s>=60);return k.length?k.reduce((a,d)=>a+d.s,0)/k.length/3600:0}
+function qstat(sub,from){let d=0,c=0;S.qlog.forEach(q=>{if((!sub||q.sub===sub)&&(!from||q.d>=from)){d+=q.done;c+=q.ok}});return{d,c,a:d?Math.round(c/d*100):0}}
+setInterval(()=>{if(!run)return;const n=Date.now(),e=Math.round((n-last)/1000);if(e<1)return;last=n;const d=day(td());d.s+=e;d.sub[S.cur]=(d.sub[S.cur]||0)+e;fx(e);save();tick()},500);
+function tick(){const c=document.getElementById('clk');if(!c)return;const d=day(td());c.textContent=hms(d.s);document.querySelectorAll('[data-s]').forEach(e=>e.querySelector('small').textContent=hm(d.sub[e.dataset.s]||0));const g=document.getElementById('gb');if(g)g.style.width=Math.min(100,d.s/3600/(S.goal||10)*100)+'%';const a=document.getElementById('avg');if(a)a.textContent=avg().toFixed(1)}
+function nav(){document.getElementById('nav').innerHTML=TABS.map((t,i)=>`<button class="${i==tab?'on':''}" onclick="tab=${i};go()">${t}</button>`).join('')+`<span class="lbl" style="margin-left:auto;align-self:center;white-space:nowrap">Lv ${lv()} · ${Math.round(S.xp||0)} XP</span>`}
+function go(){nav();const m=document.getElementById('m');m.innerHTML=[vClock,vTodo,vTests,vPrac,vDaily][tab]();tick()}
+function logForm(){return `<div class="f"><select id="qs">${S.subs.filter(s=>s!='Test').map(s=>`<option>${esc(s)}</option>`).join('')}</select><input id="qch" placeholder="chapter (optional)" style="width:150px"><input type="number" id="qd" placeholder="done" min="0"><input type="number" id="qc" placeholder="correct" min="0"><button class="btn pri" onclick="addQ()">add</button><button class="btn" onclick="S.qlog.pop();save();go()">undo last</button></div>`}
+function addQ(){const d=+qd.value,c=+qc.value;if(!(d>0)||c<0||c>d){alert('Enter done > 0 and 0 ≤ correct ≤ done');return}S.qlog.push({d:td(),sub:qs.value,ch:qch.value.trim(),done:d,ok:c});delete S.pend;addXP(Math.round(c+(d-c)*.5),true);save();go()}
+function vClock(){const n=dd(S.exam),t=qstat(null,td());
+return `<div class="row"><div><div class="serif" style="font-size:30px;cursor:pointer" title="Click to change exam date" onclick="setExam()">D-${n>0?n:0}</div><div class="mut" style="font-size:10px">${S.exam} · tap to edit</div></div>
+<div class="stat"><div class="lbl">Streak</div><b class="serif">${streak()} <small class="lbl">days</small></b></div></div>
+<div class="big serif" id="clk">00:00:00</div><div class="bar" title="Daily goal"><i id="gb" style="background:var(--ac)"></i></div>
+<div class="row" style="align-items:center"><div class="f" style="align-items:center;margin:0"><button class="play" onclick="toggle()">${run?'❚❚':'▶'}</button><button class="x" onclick="if(confirm('Reset today?')){S.days[td()]={s:0,sub:{}};save();go()}">reset today</button></div>
+<div class="stat"><div class="lbl">Avg study / day</div><b class="serif"><span id="avg">0</span> <small class="lbl">hours</small></b></div></div>
+<hr><div class="lbl">科目 — Subject</div><div class="chips">${S.subs.map(s=>`<button class="chip ${s==S.cur?'on':''}" data-s="${esc(s)}" onclick="S.cur=this.dataset.s;save();go()">${esc(s)}<small></small></button>`).join('')}<button class="chip" onclick="addSub()">+</button></div>
+<hr><div class="lbl">Questions</div>${logForm()}<div class="mut">Today: ${t.d} done · ${t.c} correct${t.d?` · ${t.a}%`:''}</div>`}
+function toggle(){run=!run;last=Date.now();fs=0;fi=0;go()}
+function setExam(){const v=prompt('Exam date (YYYY-MM-DD)',S.exam);if(v&&!isNaN(new Date(v))){S.exam=v;save();go()}}
+function addSub(){const v=prompt('New subject name');if(v&&v.trim()&&!S.subs.includes(v.trim())){S.subs.push(v.trim());save();go()}}
+let fs=0,fi=0;const MS=[[25,15],[50,30],[90,60]];
+const lv=()=>Math.floor(Math.sqrt((S.xp||0)/60))+1;
+function toast(m){const e=document.getElementById('toast');e.textContent=m;e.classList.add('show');clearTimeout(toast.t);toast.t=setTimeout(()=>e.classList.remove('show'),3200)}
+function addXP(n,q){if(n<=0)return;const a=lv();S.xp=(S.xp||0)+n;if(lv()>a)toast('⭐ Level up! You are Lv '+lv());else if(q)toast('+'+n+' XP');nav()}
+function fx(e){fs+=e;S.xs=(S.xs||0)+e;while(S.xs>=60){S.xs-=60;addXP(1)}
+while(fi<MS.length&&fs>=MS[fi][0]*60){toast('🔥 '+MS[fi][0]+' min focus streak! +'+MS[fi][1]+' XP');addXP(MS[fi][1]);fi++}
+if(S.goal&&day(td()).s>=S.goal*3600&&S.gd!==td()){S.gd=td();addXP(50);toast('🎯 Daily goal hit! +50 XP')}}
+const SUBS=()=>S.subs.filter(s=>s!='Test'),PRI={H:0,M:1,L:2},KINDS={'JEE Main mock':300,'JEE Adv mock':360,'Chapter test':100,'PYQ paper':300};
+const ML='href="https://web.getmarks.app" target="_blank" rel="noopener" onclick="S.pend=Date.now();save()"';
+const tot=t=>{const a=[t.p,t.c,t.m].filter(v=>v!==''&&v!==undefined&&v!==null);return a.length?a.reduce((x,y)=>x+ +y,0):(t.tot!==undefined&&t.tot!==''?+t.tot:null)};
+function normalize(){S.goal=S.goal||10;S.todos.forEach(t=>{t.pri=t.pri||'M';t.sub=t.sub||'';t.ch=t.ch||'';t.due=t.due||'';if(t.rep&&t.x&&t.doneOn!==td())t.x=false});S.tests.forEach(t=>{if(t.kind===undefined){t.kind='JEE Main mock';t.p=t.p||'';t.c=t.c||'';t.m=t.m||'';if(t.sc!==''&&t.sc!==undefined)t.tot=+t.sc}});save()}
+function weakCh(){const m={};S.qlog.forEach(q=>{if(!q.ch)return;const k=q.sub+'|'+q.ch,o=m[k]||(m[k]={sub:q.sub,ch:q.ch,d:0,c:0});o.d+=q.done;o.c+=q.ok});return Object.values(m).filter(o=>o.d>=10).map(o=>({...o,a:Math.round(o.c/o.d*100)})).sort((a,b)=>a.a-b.a)}
+function weak(){const m={};S.tests.forEach(t=>[['p','Physics'],['c','Chemistry'],['m','Mathematics']].forEach(([k,n])=>{if(t[k]!==''&&t[k]!==undefined&&t.mx)(m[n]=m[n]||[]).push(+t[k]/(t.kind=='JEE Adv mock'?120:t.kind=='Chapter test'?100:100))}));let w=null,b=9;Object.keys(m).forEach(n=>{const a=m[n].reduce((x,y)=>x+y,0)/m[n].length;if(a<b){b=a;w=n}});if(!w){let q2=101;SUBS().forEach(n=>{const q=qstat(n);if(q.d>=10&&q.a<q2){q2=q.a;w=n}})}return w}
+let tf='All';
+function vTodo(){const T=td(),L=S.todos.map((t,i)=>({...t,i}));
+const fl=L.filter(t=>tf=='All'||(tf=='Today'&&(!t.due||t.due<=T))||(tf=='Overdue'&&t.due&&t.due<T&&!t.x)||t.sub==tf).sort((a,b)=>(a.x-b.x)||((a.due||'9')>(b.due||'9')?1:(a.due||'9')<(b.due||'9')?-1:0)||PRI[a.pri]-PRI[b.pri]);
+const tt=L.filter(t=>!t.due||t.due<=T),dn=tt.filter(t=>t.x).length,rem=tt.filter(t=>!t.x).reduce((a,t)=>a+(+t.min||0),0);
+return `<div class="row"><div class="lbl">Todo · ${dn}/${tt.length} done today · ${rem} min left</div><button class="btn pri" onclick="planToday()">✨ Plan today</button></div><div class="bar"><i style="width:${tt.length?dn/tt.length*100:0}%"></i></div>
+<div class="f" style="margin-top:14px"><input id="ti" placeholder="Task (e.g. Solve 30 PYQs)" style="flex:1 1 220px" onkeydown="if(event.key=='Enter')addT()"><select id="ts"><option value="">General</option>${SUBS().map(s=>`<option>${esc(s)}</option>`).join('')}</select><input id="tc" placeholder="Chapter" style="width:130px"><select id="tp"><option value="H">High</option><option value="M" selected>Med</option><option value="L">Low</option></select><input type="date" id="td_" value="${T}"><input type="number" id="tm" placeholder="min"><label class="mut"><input type="checkbox" id="tr"> daily</label><button class="btn pri" onclick="addT()">add</button></div>
+<div class="chips">${['All','Today','Overdue',...SUBS()].map(c=>`<button class="chip ${c==tf?'on':''}" onclick="tf=this.textContent;go()">${esc(c)}</button>`).join('')}</div>
+${fl.map(t=>`<div class="it ${t.x?'done':''}"><input type="checkbox" ${t.x?'checked':''} onchange="chk(${t.i},this.checked)"><span>${esc(t.t)}<br><small class="mut">${[t.sub,t.ch,t.min?t.min+'m':'',t.rep?'daily':''].filter(Boolean).map(esc).join(' · ')}</small></span><b class="${t.pri=='H'?'bad':'mut'}">${t.pri}</b><small class="${t.due&&t.due<T&&!t.x?'bad':'mut'}">${t.due?(t.due==T?'today':t.due):''}</small><button class="x" onclick="S.todos.splice(${t.i},1);save();go()">✕</button></div>`).join('')||'<p class="mut">Nothing here. Try ✨ Plan today.</p>'}
+${S.todos.some(t=>t.x&&!t.rep)?'<div class="f"><button class="btn" onclick="S.todos=S.todos.filter(t=>!t.x||t.rep);save();go()">clear completed</button></div>':''}`}
+function chk(i,v){const t=S.todos[i];t.x=v;t.doneOn=v?td():undefined;if(v&&t.rw!==td()){t.rw=td();addXP(10+(t.pri=='H'?10:0),true)}save();go()}
+function addT(){if(!ti.value.trim())return;S.todos.push({t:ti.value.trim(),sub:ts.value,ch:tc.value.trim(),pri:tp.value,due:td_.value,min:+tm.value||0,rep:tr.checked,x:false});save();go()}
+function planToday(){const T=td(),w=weak(),wc=weakCh()[0],add=[];
+SUBS().forEach(s=>add.push({t:'Solve 20 PYQs on MARKS',sub:s,min:60,pri:s==w?'H':'M'}));
+add.push(wc?{t:`Fix weak chapter (${wc.a}% accuracy): 30 PYQs`,sub:wc.sub,ch:wc.ch,min:75,pri:'H'}:{t:'Weak-area drill: 30 PYQs',sub:w||'',min:75,pri:'H'});
+add.push({t:'Revise formula sheet / short notes',sub:'',min:30,pri:'M'});
+S.tests.filter(t=>t.date==T&&tot(t)===null).forEach(t=>add.push({t:'Attempt: '+t.name,sub:'',min:180,pri:'H'}));
+S.tests.filter(t=>t.date<T&&t.date>=dstr(7)&&tot(t)!==null&&!t.an).forEach(t=>add.push({t:'Analyse mistakes: '+t.name,sub:'',min:45,pri:'H'}));
+add.forEach(a=>{if(!S.todos.some(x=>x.t==a.t&&x.sub==(a.sub||'')&&x.due==T))S.todos.push({ch:'',...a,sub:a.sub||'',due:T,x:false})});save();tf='Today';go()}
+function drill(i){const o=weakCh()[i];S.todos.push({t:`Fix ${o.ch} (${o.a}% accuracy): 30 PYQs`,sub:o.sub,ch:o.ch,pri:'H',due:td(),min:60,x:false});save();tab=1;go()}
+function vTests(){const T=td(),L=S.tests.map((t,i)=>({...t,i,tt:tot(t)})).sort((a,b)=>a.date<b.date?-1:1),sc=L.filter(t=>t.tt!==null&&t.mx),pc=t=>Math.round(t.tt/t.mx*100),w=sc.length?weak():null;
+const av=sc.length?Math.round(sc.reduce((a,t)=>a+pc(t),0)/sc.length):0,bs=sc.length?Math.max(...sc.map(pc)):0,nx=L.find(t=>t.date>=T&&t.tt===null);
+return `<div class="row"><div class="lbl">Test plan</div><div class="f" style="margin:0"><button class="btn pri" onclick="autoSched()">⚡ Auto-schedule till exam</button><a class="btn" ${ML}>Take a test on MARKS ↗</a></div></div>
+<div class="grid" style="margin:12px 0"><div class="card"><div class="lbl">Taken</div><b class="serif">${sc.length}</b></div><div class="card"><div class="lbl">Average</div><b class="serif">${av}%</b></div><div class="card"><div class="lbl">Best</div><b class="serif">${bs}%</b></div><div class="card"><div class="lbl">Next</div><b class="serif" style="font-size:16px">${nx?esc(nx.name)+' · '+(dd(nx.date)?'in '+dd(nx.date)+'d':'today'):'—'}</b></div></div>
+${sc.length?`<div class="lbl">Trend (last 10)${w?` · weakest: <span class="bad">${esc(w)}</span>`:''}</div><div style="display:flex;gap:4px;align-items:flex-end;height:70px;margin:8px 0 16px">${sc.slice(-10).map(t=>`<div title="${esc(t.name)}: ${pc(t)}%" style="flex:1;height:${Math.max(4,pc(t))}%;background:var(--ac);border-radius:3px"></div>`).join('')}</div>`:''}
+<div class="f"><input id="tn" placeholder="Test name" style="flex:1 1 170px"><input type="date" id="tdt"><select id="tk" onchange="tmx.value=KINDS[this.value]">${Object.keys(KINDS).map(k=>`<option>${k}</option>`).join('')}</select><input type="number" id="tmx" value="300" title="max marks"><input type="number" id="tmin" placeholder="mins"><button class="btn pri" onclick="addTest()">add</button></div>
+<div class="tblw"><table><tr><th>Date</th><th>Test</th><th>When</th><th>Result</th><th></th></tr>${L.map(t=>{const n=dd(t.date);return `<tr><td>${t.date}</td><td>${esc(t.name)}<br><small class="mut">${esc(t.kind||'')}${t.mins?' · '+t.mins+'m':''}</small></td><td class="mut">${n>0?'in '+n+'d':n==0?'today':Math.abs(n)+'d ago'}</td><td>${t.tt!==null&&t.mx?`<span class="${pc(t)>=60?'ok':'bad'}">${t.tt}/${t.mx} (${pc(t)}%)</span><br><small class="mut">P ${t.p??'–'} · C ${t.c??'–'} · M ${t.m??'–'}</small>`:`<button class="x" onclick="res(${t.i})">+ enter result</button>`}</td><td>${t.tt!==null?`<button class="x" onclick="S.tests[${t.i}].an=!S.tests[${t.i}].an;save();go()">${t.an?'✓ analysed':'mark analysed'}</button>`:''}<button class="x" onclick="S.tests.splice(${t.i},1);save();go()">✕</button></td></tr>`}).join('')}</table></div>${L.length?'':'<p class="mut">No tests yet. Tap ⚡ Auto-schedule.</p>'}`}
+function addTest(){if(!tn.value.trim()||!tdt.value){alert('Name and date needed');return}S.tests.push({name:tn.value.trim(),date:tdt.value,kind:tk.value,mx:+tmx.value||300,mins:tmin.value,p:'',c:'',m:''});save();go()}
+function res(i){const v=prompt('Marks as Physics, Chemistry, Maths (blank if n/a), e.g. 62, 48, 71',''); if(v===null)return;const a=v.split(',').map(x=>x.trim()===''?'':+x);if(a.some(x=>x!==''&&isNaN(x))){alert('Numbers only');return}Object.assign(S.tests[i],{p:a[0]??'',c:a[1]??'',m:a[2]??''});delete S.tests[i].tot;save();go()}
+function autoSched(){const lim=new Date(new Date(S.exam+'T00:00:00')-7*864e5).toLocaleDateString('en-CA'),sb=SUBS(),has=(d,n)=>S.tests.some(t=>t.date==d&&t.name==n);let d=new Date(td()+'T00:00:00'),mi=S.tests.filter(t=>t.kind=='JEE Main mock').length,k=0,n=0;
+for(let g=0;g<400&&n<30;g++){d.setDate(d.getDate()+1);const ds=d.toLocaleDateString('en-CA');if(ds>lim)break;const wd=d.getDay();let t=null;
+if(wd==0){mi++;t={name:'Full mock #'+mi,kind:'JEE Main mock',mx:300,mins:180}}else if(wd==3){t={name:sb[k++%sb.length]+' chapter test',kind:'Chapter test',mx:100,mins:60}}
+if(t&&!has(ds,t.name)){S.tests.push({...t,date:ds,p:'',c:'',m:''});n++}}
+save();go()}
+function vPrac(){const a=qstat(),w=weakCh().slice(0,5);
+return `<div class="row"><div class="lbl">Practice · linked to MARKS</div><div class="f" style="margin:0"><a class="btn pri" ${ML}>Open MARKS web ↗</a><a class="btn" href="https://getmarks.app" target="_blank" rel="noopener" onclick="S.pend=Date.now();save()">getmarks.app ↗</a></div></div>
+${S.pend&&Date.now()-S.pend<216e5?'<div class="card" style="border-color:var(--ac);margin:12px 0">Back from MARKS? Log what you solved below (add the chapter so weak spots get tracked).</div>':''}
+${logForm()}<hr><div class="grid">${SUBS().map(s=>{const q=qstat(s);return `<div class="card"><div class="lbl">${esc(s)}</div><b class="serif">${q.a}%</b><div class="mut">${q.c}/${q.d} correct</div><div class="bar"><i style="width:${q.a}%"></i></div><div class="f"><a class="btn" ${ML}>Practice on MARKS ↗</a></div></div>`}).join('')}</div>
+<hr><div class="lbl">Weakest chapters (≥10 attempts)</div>${w.map((o,i)=>`<div class="it"><span>${esc(o.sub)} · ${esc(o.ch)}</span><b class="${o.a<60?'bad':'mut'}">${o.a}%</b><button class="btn" onclick="drill(${i})">+ todo</button><a class="btn" ${ML}>MARKS ↗</a></div>`).join('')||'<p class="mut">Log sessions with a chapter name and the weakest ones show up here.</p>'}
+<hr><div class="lbl">Overall · ${a.d} questions · ${a.a}%</div>${S.qlog.slice(-8).reverse().map(q=>`<div class="it"><span>${q.d} · ${esc(q.sub)}${q.ch?' · '+esc(q.ch):''}</span><span class="mut" style="flex:none">${q.ok}/${q.done}</span></div>`).join('')}`}
+function vDaily(){const rows=[];for(let o=0;o<14;o++){const d=dstr(o),x=S.days[d]||{s:0,sub:{}},qq=S.qlog.filter(l=>l.d==d),dn=qq.reduce((a,l)=>a+l.done,0),ck=qq.reduce((a,l)=>a+l.ok,0);rows.push({d,h:x.s/3600,sub:x.sub||{},dn,a:dn?Math.round(ck/dn*100):null,ck})}
+const wk=rows.slice(0,7),wh=wk.reduce((a,r)=>a+r.h,0),wd=wk.reduce((a,r)=>a+r.dn,0),wc=wk.reduce((a,r)=>a+r.ck,0),g=S.goal||10,mx=Math.max(g,...rows.map(r=>r.h)),sp={};
+wk.forEach(r=>Object.entries(r.sub).forEach(([k,v])=>sp[k]=(sp[k]||0)+v));const st=Object.values(sp).reduce((a,b)=>a+b,0)||1,tw=S.tests.filter(t=>t.date<=td()&&t.date>=dstr(6)&&tot(t)!==null).length;
+return `<div class="row"><div class="lbl">Daily · last 14 days</div><label class="mut">goal <input type="number" value="${g}" style="width:60px" onchange="S.goal=+this.value||10;save();go()"> h/day</label></div>
+<div class="grid" style="margin:12px 0"><div class="card"><div class="lbl">Today</div><b class="serif">${rows[0].h.toFixed(1)}h</b><div class="bar"><i style="width:${Math.min(100,rows[0].h/g*100)}%;background:var(--ac)"></i></div></div><div class="card"><div class="lbl">This week</div><b class="serif">${wh.toFixed(1)}h</b><div class="mut">avg ${(wh/7).toFixed(1)}h/day</div></div><div class="card"><div class="lbl">Questions (7d)</div><b class="serif">${wd}</b><div class="mut">${wd?Math.round(wc/wd*100):0}% accuracy</div></div><div class="card"><div class="lbl">Tests (7d)</div><b class="serif">${tw}</b><div class="mut">${wk.filter(r=>r.h>=g).length}/7 goal days</div></div></div>
+<div class="lbl">Subject split (7d)</div>${Object.entries(sp).map(([k,v])=>`<div class="it"><span>${esc(k)}</span><span class="mut" style="flex:none">${(v/3600).toFixed(1)}h · ${Math.round(v/st*100)}%</span></div>`).join('')||'<p class="mut">Run the study clock to see this.</p>'}
+<div style="display:flex;gap:4px;align-items:flex-end;height:90px;margin:18px 0;position:relative">${[...rows].reverse().map(r=>`<div title="${r.d}: ${r.h.toFixed(1)}h" style="flex:1;background:${r.h>=g?'var(--ok)':'var(--ac)'};opacity:${r.h?1:.15};height:${Math.max(4,r.h/mx*100)}%;border-radius:3px"></div>`).join('')}</div>
+<div class="tblw"><table><tr><th>Date</th><th>Hours</th><th>Questions</th><th>Accuracy</th><th>Goal</th></tr>${rows.map(r=>`<tr><td>${r.d}</td><td>${r.h.toFixed(1)}</td><td>${r.dn}</td><td>${r.a===null?'—':r.a+'%'}</td><td>${r.h>=g?'<span class="ok">✓</span>':'<span class="mut">·</span>'}</td></tr>`).join('')}</table></div>
+<hr><div class="lbl">Today's note</div><textarea id="nt" rows="4" style="width:100%;margin-top:8px" placeholder="What went well? What to fix tomorrow?" oninput="S.notes[td()]=this.value;save()">${esc(S.notes[td()]||'')}</textarea>`}
+let ld=td();setInterval(()=>{if(td()!==ld){ld=td();normalize();go()}},30000);
+document.addEventListener('visibilitychange',()=>{if(!document.hidden&&S.pend&&Date.now()-S.pend<216e5&&tab!=3){tab=3;go()}});
+normalize();go();
+</script></body></html>
