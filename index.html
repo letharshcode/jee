@@ -1,7 +1,11 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="utf-8"><title>JEE 2027 · Study Clock</title>
+<html lang="en"><head><meta charset="utf-8"><title>JEE 2027 · Study Tracker</title>
+<meta name="description" content="JEE Main 2027 study tracker: study clock, to-do, Quizrr tests, syllabus planner, calendar and stats.">
+<meta name="theme-color" content="#121212">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="favicon.png">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#070b16;--card:#0f1628d9;--bd:#222c46;--tx:#eaf0ff;--mut:#8b97b4;--ac:#5b8cff;--ok:#34d399;--bad:#fb7185;--warn:#fbbf24;
 box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
@@ -10,6 +14,9 @@ box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:en
 .hmg{display:grid;grid-template-rows:repeat(7,auto);grid-auto-flow:column;grid-auto-columns:minmax(0,1fr);gap:3px}.hm{aspect-ratio:1;border-radius:3px;background:var(--bd);display:block}
 .l1{background:color-mix(in srgb,var(--ac) 28%,var(--bd))}.l2{background:color-mix(in srgb,var(--ac) 50%,var(--bd))}.l3{background:color-mix(in srgb,var(--ac) 75%,var(--bd))}.l4{background:var(--ac)}
 .card{backdrop-filter:blur(6px)}
+.cal{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px}.cal>div{text-align:center;color:var(--mut);font-size:10px;padding:4px 0}
+.cd{aspect-ratio:1;border:1px solid var(--bd);border-radius:6px;color:var(--tx);font:inherit;padding:2px;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;line-height:1.25;min-width:0}
+.cd.l0{background:var(--card)}.cd small{font-size:9px;color:inherit;opacity:.75}.cd.td{border-color:var(--ac)}.cd.sel{outline:2px solid var(--ac);outline-offset:1px}
 body::before{content:'';position:fixed;inset:0;z-index:-1;background:url(bg.jpg) center/cover no-repeat;opacity:var(--bgo,.5);pointer-events:none}
 html{scroll-padding-top:env(safe-area-inset-top,0px)}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--tx);font:13px 'JetBrains Mono',ui-monospace,Menlo,monospace}
@@ -39,11 +46,51 @@ hr{border:0;border-top:1px solid var(--bd);margin:20px 0}
 .tblw{overflow-x:auto}table{border-collapse:collapse;width:100%}td,th{padding:7px 8px;border-bottom:1px solid var(--bd);text-align:left}th{color:var(--mut);font-weight:400}
 .mut{color:var(--mut)}.ok{color:var(--ok)}.bad{color:var(--bad)}
 #toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translate(-50%,30px);background:var(--card);border:1px solid var(--ac);color:var(--tx);padding:10px 16px;border-radius:8px;opacity:0;transition:.25s;pointer-events:none;z-index:9;white-space:nowrap}#toast.show{opacity:1;transform:translate(-50%,0)}
+nav{position:sticky;top:0;z-index:5;background:color-mix(in srgb,var(--bg) 82%,transparent);backdrop-filter:blur(10px)}
+nav button{background:none;border-color:transparent;color:var(--mut);transition:.15s}nav button:hover{color:var(--tx)}
+nav button.on{background:color-mix(in srgb,var(--ac) 14%,transparent);border-color:transparent;color:var(--ac)}
+.brand{font-size:18px;margin-right:6px;white-space:nowrap;align-self:center}
+.btn,.chip,.play{transition:.15s}.btn:hover,.chip:hover,.play:hover{border-color:var(--ac)}
+button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,a:focus-visible,summary:focus-visible{outline:2px solid var(--ac);outline-offset:2px}
+.btn,input,select{min-height:36px}input[type=checkbox],input[type=range]{min-height:0;accent-color:var(--ac)}input[type=checkbox]{width:16px;height:16px}
+.card{border-radius:12px;box-shadow:0 1px 2px #0003,0 10px 28px -14px #0007}
+.lbl{font-weight:600}tr:hover td{background:color-mix(in srgb,var(--ac) 5%,transparent)}
+::-webkit-scrollbar{height:6px;width:6px}::-webkit-scrollbar-thumb{background:var(--bd);border-radius:3px}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+@media print{nav,#toast{display:none}body::before{display:none}}
+/* ---- Spotify-style theme ---- */
+:root{--bg:#121212;--card:#181818e6;--bd:#2a2a2a;--tx:#fff;--mut:#b3b3b3;--ac:#1db954;--ok:#1ed760;--bad:#f15e6c;--warn:#ffa42b;--side:#000}
+@media(prefers-color-scheme:light){:root:not([data-theme]){--side:#e8ebf3}}
+:root[data-theme="light"]{--side:#e8ebf3}
+body{font:14px/1.45 'Inter',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif}
+.serif{font-family:'Inter',system-ui,sans-serif;font-weight:800;letter-spacing:-.02em}
+.lbl{font-size:11px;letter-spacing:.08em;font-weight:700}
+main{background:linear-gradient(180deg,color-mix(in srgb,var(--ac) 20%,transparent),transparent 300px);border-radius:10px}
+nav button{border-radius:999px;background:color-mix(in srgb,var(--tx) 9%,transparent);color:var(--tx);font-weight:600}
+nav button:hover{background:color-mix(in srgb,var(--tx) 16%,transparent);color:var(--tx)}
+nav button.on{background:var(--ac);color:#000}
+.card{border-color:transparent;border-radius:8px;box-shadow:none;background:var(--card)}.card:hover{background:color-mix(in srgb,var(--tx) 8%,var(--card))}
+.btn{border-radius:999px;padding:8px 18px;font-weight:700;background:color-mix(in srgb,var(--tx) 10%,transparent);border-color:transparent}
+.btn:hover{background:color-mix(in srgb,var(--tx) 18%,transparent);border-color:transparent}
+.btn.pri,.pri{background:var(--ac);color:#000;border-color:transparent}.btn.pri:hover{background:var(--ac);filter:brightness(1.1);transform:scale(1.03)}
+.play{background:var(--ac);color:#000;border:0;width:56px;height:56px}.play:hover{transform:scale(1.07);border-color:transparent}
+.chip{border-radius:999px;padding:8px 16px;font-weight:600;background:color-mix(in srgb,var(--tx) 9%,transparent);border-color:transparent}
+.chip:hover{border-color:transparent;background:color-mix(in srgb,var(--tx) 16%,transparent)}.chip.on{background:var(--ac);color:#000;border-color:transparent}.chip small{color:inherit;opacity:.7}
+input,select,textarea{background:color-mix(in srgb,var(--tx) 8%,var(--card));border:1px solid transparent;border-radius:6px}
+input:focus,select:focus,textarea:focus{border-color:var(--tx);outline:none}
+.bar{height:4px;background:color-mix(in srgb,var(--tx) 18%,transparent)}.bar i{background:var(--ac)}
+.it{border-bottom:0;border-radius:6px;padding:10px 8px}.it:hover{background:color-mix(in srgb,var(--tx) 7%,transparent)}
+th{text-transform:uppercase;font-size:10px;letter-spacing:.08em;font-weight:700}
+@media(min-width:900px){body{padding-left:232px}
+nav{position:fixed;left:0;top:0;bottom:0;width:232px;flex-direction:column;gap:2px;padding:20px 12px;background:var(--side);border:0;overflow-y:auto;overflow-x:hidden;backdrop-filter:none}
+nav button{text-align:left;width:100%;border-radius:6px;padding:11px 14px;font-size:14px;font-weight:700;background:none;color:var(--mut)}
+nav button:hover{color:var(--tx);background:none}nav button.on{background:color-mix(in srgb,var(--tx) 12%,transparent);color:var(--tx)}
+nav .brand{margin:0 0 18px 8px;font-size:20px}nav .lbl{margin-top:auto!important;margin-left:8px!important}main{margin-top:12px}}
 </style></head><body>
 <nav id="nav"></nav><main id="m"></main><div id="toast"></div>
 <script>
-const K='jee27',TABS=['Study clock','To Do','Quizrr Tests','Practice','Daily','Syllabus','Stats','Settings'],ACC=['#5b8cff','#8b7cff','#14b8a6','#f59e0b','#f43f5e'];
-let S={exam:'2027-01-21',subs:['Physics','Chemistry','Mathematics','Test'],cur:'Mathematics',days:{},qlog:[],todos:[],tests:[],notes:{}},tab=0,run=false,last=0;
+const K='jee27',TABS=['Study clock','To Do','Quizrr Tests','Practice','Daily','Syllabus','Stats','Settings'],ACC=['#1db954','#5b8cff','#8b7cff','#f59e0b','#f43f5e'];
+let S={exam:'2027-01-21',subs:['Physics','Chemistry','Mathematics','PYQs','Test','Analysis'],cur:'Mathematics',days:{},qlog:[],todos:[],tests:[],notes:{}},tab=0,run=false,last=0;
 try{const r=localStorage.getItem(K);if(r)S=Object.assign(S,JSON.parse(r))}catch(e){}
 const save=()=>{try{localStorage.setItem(K,JSON.stringify(S))}catch(e){}};
 const td=()=>new Date().toLocaleDateString('en-CA');
@@ -59,17 +106,17 @@ function avg(){const k=Object.values(S.days).filter(d=>d.s>=60);return k.length?
 function qstat(sub,from){let d=0,c=0;S.qlog.forEach(q=>{if((!sub||q.sub===sub)&&(!from||q.d>=from)){d+=q.done;c+=q.ok}});return{d,c,a:d?Math.round(c/d*100):0}}
 setInterval(()=>{if(!run)return;const n=Date.now(),e=Math.floor((n-last)/1000);if(e<1)return;last+=e*1000;const d=day(td());d.s+=e;d.sub[S.cur]=(d.sub[S.cur]||0)+e;fx(e);save();tick()},500);
 function tick(){const c=document.getElementById('clk');if(!c)return;const d=day(td());c.textContent=hms(d.s);document.querySelectorAll('[data-s]').forEach(e=>e.querySelector('small').textContent=hm(d.sub[e.dataset.s]||0));const g=document.getElementById('gb');if(g)g.style.width=Math.min(100,d.s/3600/(S.goal||10)*100)+'%';const a=document.getElementById('avg');if(a)a.textContent=avg().toFixed(1)}
-function nav(){document.getElementById('nav').innerHTML=TABS.map((t,i)=>`<button class="${i==tab?'on':''}" onclick="tab=${i};go()">${t}</button>`).join('')+`<span class="lbl" style="margin-left:auto;align-self:center;white-space:nowrap">Lv ${lv()} · ${Math.round(S.xp||0)} XP</span>`}
+function nav(){document.getElementById('nav').innerHTML='<span class="serif brand"><img src="favicon.png" alt="" width="28" height="28" style="border-radius:7px;vertical-align:middle;margin-right:8px">JEE<b style="color:var(--ac)">27</b></span>'+TABS.map((t,i)=>`<button class="${i==tab?'on':''}" onclick="tab=${i};go()">${t}</button>`).join('')+`<span class="lbl" style="margin-left:auto;align-self:center;white-space:nowrap">Lv ${lv()} · ${Math.round(S.xp||0)} XP</span>`}
 function go(){nav();const m=document.getElementById('m');m.innerHTML=[vClock,vTodo,vTests,vPrac,vDaily,vSyl,vStats,vSettings][tab]();tick()}
-function logForm(){return `<div class="f"><select id="qs">${S.subs.filter(s=>s!='Test').map(s=>`<option>${esc(s)}</option>`).join('')}</select><input id="qch" placeholder="chapter (optional)" style="width:150px"><input type="number" id="qd" placeholder="done" min="0"><input type="number" id="qc" placeholder="correct" min="0"><button class="btn pri" onclick="addQ()">add</button><button class="btn" onclick="S.qlog.pop();save();go()">undo last</button></div>`}
+function logForm(){return `<div class="f"><select id="qs">${SUBS().map(s=>`<option>${esc(s)}</option>`).join('')}</select><input id="qch" placeholder="chapter (optional)" style="width:150px"><input type="number" id="qd" placeholder="done" min="0"><input type="number" id="qc" placeholder="correct" min="0"><button class="btn pri" onclick="addQ()">add</button><button class="btn" onclick="S.qlog.pop();save();go()">undo last</button></div>`}
 function addQ(){const d=+qd.value,c=+qc.value;if(!(d>0)||c<0||c>d){alert('Enter done > 0 and 0 ≤ correct ≤ done');return}S.qlog.push({d:td(),sub:qs.value,ch:qch.value.trim(),done:d,ok:c});delete S.pend;addXP(Math.round(c+(d-c)*.5),true);save();go()}
 function vClock(){const n=dd(S.exam),t=qstat(null,td());
 return `<div class="row"><div><div class="serif" style="font-size:30px;cursor:pointer" title="Click to change exam date" onclick="setExam()">D-${n>0?n:0}</div><div class="mut" style="font-size:10px">${S.exam} · tap to edit</div></div>
 <div class="stat"><div class="lbl">Streak</div><b class="serif">${streak()} <small class="lbl">days</small></b></div></div>
 <div class="big serif" id="clk">00:00:00</div><div class="bar" title="Daily goal"><i id="gb" style="background:var(--ac)"></i></div>
-<div class="row" style="align-items:center"><div class="f" style="align-items:center;margin:0"><button class="play" onclick="toggle()">${run?'❚❚':'▶'}</button><button class="x" onclick="if(confirm('Reset today?')){S.days[td()]={s:0,sub:{}};save();go()}">reset today</button></div>
+<div class="row" style="align-items:center"><div class="f" style="align-items:center;margin:0"><button class="play" onclick="toggle()" title="Start / pause (Space)" aria-label="Start or pause timer">${run?'❚❚':'▶'}</button><button class="x" onclick="if(confirm('Reset today?')){S.days[td()]={s:0,sub:{}};save();go()}">reset today</button></div>
 <div class="stat"><div class="lbl">Avg study / day</div><b class="serif"><span id="avg">0</span> <small class="lbl">hours</small></b></div></div>
-<hr><div class="lbl">科目 — Subject</div><div class="chips">${S.subs.map(s=>`<button class="chip ${s==S.cur?'on':''}" data-s="${esc(s)}" onclick="S.cur=this.dataset.s;save();go()">${esc(s)}<small></small></button>`).join('')}<button class="chip" onclick="addSub()">+</button></div>
+${glance()}<hr><div class="lbl">Subject</div><div class="chips">${S.subs.map(s=>`<button class="chip ${s==S.cur?'on':''}" data-s="${esc(s)}" onclick="S.cur=this.dataset.s;save();go()">${esc(s)}<small></small></button>`).join('')}</div>
 <hr><div class="lbl">Questions</div>${logForm()}<div class="mut">Today: ${t.d} done · ${t.c} correct${t.d?` · ${t.a}%`:''}</div>`}
 function toggle(){run=!run;last=Date.now();fs=0;fi=0;go()}
 function setExam(){const v=prompt('Exam date (YYYY-MM-DD)',S.exam);if(v&&!isNaN(new Date(v))){S.exam=v;save();go()}}
@@ -81,10 +128,10 @@ function addXP(n,q){if(n<=0)return;const a=lv();S.xp=(S.xp||0)+n;if(lv()>a)toast
 function fx(e){fs+=e;S.xs=(S.xs||0)+e;while(S.xs>=60){S.xs-=60;addXP(1)}
 while(fi<MS.length&&fs>=MS[fi][0]*60){toast('🔥 '+MS[fi][0]+' min focus streak! +'+MS[fi][1]+' XP');addXP(MS[fi][1]);fi++}
 if(S.goal&&day(td()).s>=S.goal*3600&&S.gd!==td()){S.gd=td();addXP(50);toast('🎯 Daily goal hit! +50 XP')}}
-const SUBS=()=>S.subs.filter(s=>s!='Test'),PRI={H:0,M:1,L:2},KINDS={'Quizrr QPT':300,'Quizrr QFT':300};
+const SUBS=()=>S.subs.filter(s=>!['Test','PYQs','Analysis'].includes(s)),PRI={H:0,M:1,L:2},KINDS={'Quizrr QPT':300,'Quizrr QFT':300};
 const ML='href="https://web.getmarks.app" target="_blank" rel="noopener" onclick="S.pend=Date.now();save()"';
 const tot=t=>{const a=[t.p,t.c,t.m].filter(v=>v!==''&&v!==undefined&&v!==null);return a.length?a.reduce((x,y)=>x+ +y,0):(t.tot!==undefined&&t.tot!==''?+t.tot:null)};
-function normalize(){S.goal=S.goal||10;S.todos.forEach(t=>{t.pri=t.pri||'M';t.sub=t.sub||'';t.ch=t.ch||'';t.due=t.due||'';if(t.rep&&t.x&&t.doneOn!==td())t.x=false});S.tests.forEach(t=>{if(t.kind===undefined){t.kind='JEE Main mock';t.p=t.p||'';t.c=t.c||'';t.m=t.m||'';if(t.sc!==''&&t.sc!==undefined)t.tot=+t.sc}});S.tests.forEach(t=>{t.name=String(t.name).replace(/^Quizrr /,'')});if(!S.qzOnly){S.tests=S.tests.filter(t=>/^Quizrr/.test(t.kind||'')||tot(t)!==null);S.qzOnly=1}save()}
+function normalize(){S.goal=S.goal||10;S.subs=['Physics','Chemistry','Mathematics','PYQs','Test','Analysis'];if(!S.subs.includes(S.cur))S.cur='Mathematics';S.todos.forEach(t=>{t.pri=t.pri||'M';t.sub=t.sub||'';t.ch=t.ch||'';t.due=t.due||'';if(t.rep&&t.x&&t.doneOn!==td())t.x=false});S.tests.forEach(t=>{if(t.kind===undefined){t.kind='JEE Main mock';t.p=t.p||'';t.c=t.c||'';t.m=t.m||'';if(t.sc!==''&&t.sc!==undefined)t.tot=+t.sc}});S.tests.forEach(t=>{t.name=String(t.name).replace(/^Quizrr /,'')});if(!S.qzOnly){S.tests=S.tests.filter(t=>/^Quizrr/.test(t.kind||'')||tot(t)!==null);S.qzOnly=1}save()}
 function weakCh(){const m={};S.qlog.forEach(q=>{if(!q.ch)return;const k=q.sub+'|'+q.ch,o=m[k]||(m[k]={sub:q.sub,ch:q.ch,d:0,c:0});o.d+=q.done;o.c+=q.ok});return Object.values(m).filter(o=>o.d>=10).map(o=>({...o,a:Math.round(o.c/o.d*100)})).sort((a,b)=>a.a-b.a)}
 function weak(){const m={};S.tests.forEach(t=>[['p','Physics'],['c','Chemistry'],['m','Mathematics']].forEach(([k,n])=>{if(t[k]!==''&&t[k]!==undefined&&t.mx)(m[n]=m[n]||[]).push(+t[k]/(t.kind=='JEE Adv mock'?120:t.kind=='Chapter test'?100:100))}));let w=null,b=9;Object.keys(m).forEach(n=>{const a=m[n].reduce((x,y)=>x+y,0)/m[n].length;if(a<b){b=a;w=n}});if(!w){let q2=101;SUBS().forEach(n=>{const q=qstat(n);if(q.d>=10&&q.a<q2){q2=q.a;w=n}})}return w}
 let tf='All';
@@ -163,6 +210,22 @@ ${R('Background image strength',`<input type="range" min="0" max="100" value="${
 <hr><div class="lbl">Your data (saved only in this browser)</div>
 <div class="f"><button class="btn pri" onclick="exp()">⬇ Export backup</button><label class="btn">⬆ Import backup<input type="file" accept=".json" hidden onchange="imp(this.files[0])"></label><button class="btn" onclick="if(confirm('Delete ALL data? This cannot be undone.')){localStorage.removeItem(K);location.reload()}"><span class="bad">Reset everything</span></button></div>
 <p class="mut">Export a backup to move your progress between phone and laptop, or before clearing browser data.</p>`}
+let cy=new Date().getFullYear(),cm=new Date().getMonth(),sd=null;
+function cal(n){if(!n){cy=new Date().getFullYear();cm=new Date().getMonth();sd=td()}else{cm+=n;if(cm>11){cm=0;cy++}if(cm<0){cm=11;cy--}}go()}
+function calHTML(){const T=td(),g=S.goal||10,k0=new Date(cy,cm,1).getDay(),dim=new Date(cy,cm+1,0).getDate(),sel=sd||T,cells=[];
+for(let i=0;i<k0;i++)cells.push('<i></i>');
+for(let d=1;d<=dim;d++){const k=`${cy}-${p2(cm+1)}-${p2(d)}`,h=(S.days[k]?.s||0)/3600,r=h/g,l=h<=0?0:r<.25?1:r<.5?2:r<1?3:4,nt=S.tests.filter(t=>t.date==k).length;
+cells.push(`<button class="cd l${l}${k==T?' td':''}${k==sel?' sel':''}" onclick="sd='${k}';go()"><b>${d}</b><small>${h?h.toFixed(1)+'h':'·'}</small><small>${k==S.exam?'🎯':nt?'📝'+nt:'&nbsp;'}</small></button>`)}
+const x=S.days[sel]||{s:0,sub:{}},qq=S.qlog.filter(l=>l.d==sel),qd=qq.reduce((a,l)=>a+l.done,0),qc=qq.reduce((a,l)=>a+l.ok,0),tk=S.todos.filter(t=>t.due==sel),ts=S.tests.filter(t=>t.date==sel);
+return `<div class="row" style="align-items:center"><div class="lbl">Calendar</div><div class="f" style="margin:0;align-items:center"><button class="btn" onclick="cal(-1)">‹</button><b style="min-width:130px;text-align:center">${new Date(cy,cm,1).toLocaleDateString('en-US',{month:'long',year:'numeric'})}</b><button class="btn" onclick="cal(1)">›</button><button class="btn" onclick="cal(0)">Today</button></div></div>
+<div class="cal" style="margin:12px 0">${['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].map(d=>`<div>${d}</div>`).join('')}${cells.join('')}</div>
+<div class="mut" style="font-size:10px">Shade = share of your ${g}h goal · 📝 tests that day · 🎯 exam date</div>
+<div class="card" style="margin-top:12px"><b class="serif" style="font-size:20px">${sel}${sel==T?' · today':''}</b>
+<p>${x.s?hm(x.s)+' studied · '+Object.entries(x.sub||{}).map(([a,b])=>esc(a)+' '+(b/3600).toFixed(1)+'h').join(', '):'No study time logged'}</p>
+<p>${qd?qd+' questions · '+qc+' correct ('+Math.round(qc/qd*100)+'%)':'No questions logged'}</p>
+${ts.length?'<p>'+ts.map(t=>esc(t.name)+' — '+[t.at?'attempted':'',t.an?'analysed':'',t.so?'solutions':''].filter(Boolean).join(', ')||'pending').join('<br>')+'</p>':''}
+${tk.length?`<p>${tk.filter(t=>t.x).length}/${tk.length} To Do tasks done</p>`:''}
+${S.notes[sel]?`<p class="mut">“${esc(S.notes[sel])}”</p>`:''}</div>`}
 function vStats(){const ds=Object.entries(S.days),secs=ds.reduce((a,[,d])=>a+d.s,0),q=qstat(),g=S.goal||10,tg=S.target||80,wd=new Date().getDay(),sp={};
 ds.forEach(([,d])=>Object.entries(d.sub||{}).forEach(([k,v])=>sp[k]=(sp[k]||0)+v));
 const act=ds.filter(([,d])=>d.s>=60).map(([k])=>k).sort();let best=0,c=0,pv=null;act.forEach(k=>{c=pv&&Math.round((new Date(k)-new Date(pv))/864e5)==1?c+1:1;best=Math.max(best,c);pv=k});
@@ -170,8 +233,8 @@ const hm=[];for(let i=91+wd;i>=0;i--){const k=dstr(i),h=(S.days[k]?.s||0)/3600,r
 const wk=[];for(let w=7;w>=0;w--){let t=0;for(let i=w*7;i<w*7+7;i++)t+=(S.days[dstr(i)]?.s||0);wk.push(t/3600)}const wm=Math.max(1,...wk);
 const sc=S.tests.map(t=>({...t,v:tot(t)})).filter(t=>t.v!==null&&t.mx).sort((a,b)=>a.date<b.date?-1:1),pc=t=>Math.round(t.v/t.mx*100),ta=sc.length?Math.round(sc.reduce((a,t)=>a+pc(t),0)/sc.length):0,st=Object.values(sp).reduce((a,b)=>a+b,0)||1;
 const K2=(l,v,n)=>`<div class="card"><div class="lbl">${l}</div><b class="serif">${v}</b>${n?`<div class="mut">${n}</div>`:''}</div>`;
-return `<div class="lbl">Stats · all time</div><div class="grid" style="margin:12px 0">${K2('Study hours',(secs/3600).toFixed(1),act.length+' active days')}${K2('Best streak',best,'days · now '+streak())}${K2('Questions',q.d,q.a+'% accuracy')}${K2('Level',lv(),Math.round(S.xp||0)+' XP')}${K2('Tests taken',sc.length,'avg '+ta+'% · target '+tg+'%')}${K2('Days to exam',Math.max(0,dd(S.exam)),S.exam)}</div>
-<div class="lbl">Consistency · last 13 weeks</div><div class="hmg" style="margin:8px 0 18px">${hm.join('')}</div>
+return calHTML()+`<div class="lbl" style="margin-top:22px">Stats · all time</div><div class="grid" style="margin:12px 0">${K2('Study hours',(secs/3600).toFixed(1),act.length+' active days')}${K2('Best streak',best,'days · now '+streak())}${K2('Questions',q.d,q.a+'% accuracy')}${K2('Level',lv(),Math.round(S.xp||0)+' XP')}${K2('Tests taken',sc.length,'avg '+ta+'% · target '+tg+'%')}${K2('Days to exam',Math.max(0,dd(S.exam)),S.exam)}</div>
+
 <div class="lbl">Weekly hours · last 8 weeks</div><div style="display:flex;gap:6px;align-items:flex-end;height:90px;margin:8px 0 18px">${wk.map((h,i)=>`<div title="${h.toFixed(1)}h" style="flex:1;height:${Math.max(4,h/wm*100)}%;background:var(--ac);border-radius:3px;opacity:${i==7?1:.6}"></div>`).join('')}</div>
 <div class="lbl">Time by subject</div>${Object.entries(sp).map(([k,v])=>`<div class="it"><span>${esc(k)}</span><span class="mut" style="flex:none">${(v/3600).toFixed(1)}h · ${Math.round(v/st*100)}%</span></div>`).join('')||'<p class="mut">Run the study clock to see this.</p>'}
 <div class="lbl" style="margin-top:18px">Accuracy by subject</div>${SUBS().map(n=>{const a=qstat(n);return `<div class="it"><span>${esc(n)}</span><span class="mut" style="flex:none">${a.c}/${a.d}</span><b class="${a.a>=tg?'ok':a.d?'bad':'mut'}" style="width:48px;text-align:right">${a.a}%</b></div>`}).join('')}
@@ -200,6 +263,9 @@ ${o.left?`<button class="btn pri" onclick="planSyl('${sf}')">+ Add today's targe
 <div class="lbl" style="margin-top:16px">${o.L.length} chapters · ${o.L.reduce((a,c)=>a+c.t,0)} QCTs · tap a chapter to open · Theory +20 XP · Attempted / Analysis +10 · Revise +5</div>
 ${o.L.map((c,i)=>{const r=cpr(sf,i),qs=[];for(let q=1;q<=c.t;q++){const b=qb(sf,i,q);qs.push(`<div class="f" style="margin:4px 0;align-items:center"><span class="mut" style="width:56px">QCT ${q}</span>${[['Attempted',1],['Analysis',2],['Revise',4]].map(([l,m])=>CB([b&m,`sq('${sf}',${i},${q},${m})`],l)).join('')}</div>`)}
 return `<details class="it" style="display:block" ${so[sf+i]?'open':''} ontoggle="so['${sf}${i}']=this.open"><summary style="cursor:pointer;display:flex;gap:10px;align-items:center"><span style="flex:1"><span class="mut">${i+1}.</span> ${esc(c.n)}<br><small class="mut">${c.t} QCTs${c.s?' · beyond JEE Main':''}</small></span><small class="${r[0]==r[1]?'ok':'mut'}">${r[0]}/${r[1]}</small></summary><div class="f" style="margin:8px 0">${CB([sb(sf,i)&1,`sy('${sf}',${i},1)`],'Theory')}</div>${qs.join('')}</details>`}).join('')}`}
+function glance(){const T=td(),tt=S.todos.filter(t=>!t.due||t.due<=T),dn=tt.filter(t=>t.x).length,nx=S.tests.filter(t=>t.date>=T&&!t.at).sort((a,b)=>a.date<b.date?-1:1)[0],A=Object.keys(CHA),sp=Math.round(A.reduce((a,n)=>a+synfo(n).pr,0)/A.length),C=(l,v,n)=>`<div class="card"><div class="lbl">${l}</div><b class="serif" style="font-size:22px">${v}</b>${n?`<div class="mut">${n}</div>`:''}</div>`;
+return `<div class="grid" style="margin-top:20px">${C('To Do today',dn+'/'+tt.length,tt.length-dn?tt.length-dn+' remaining':'all done')}${C('Next test',nx?esc(nx.name):'—',nx?(dd(nx.date)>0?'in '+dd(nx.date)+' days':dd(nx.date)==0?'today':Math.abs(dd(nx.date))+' days ago')+' · '+nx.date:'')}${C('Syllabus',sp+'%','theory + QCT progress')}</div>`}
+document.addEventListener('keydown',e=>{if(e.code=='Space'&&tab==0&&!/INPUT|TEXTAREA|SELECT|BUTTON|A/.test(e.target.tagName)){e.preventDefault();toggle()}});
 let ld=td();setInterval(()=>{if(td()!==ld){ld=td();normalize();go()}},30000);
 document.addEventListener('visibilitychange',()=>{if(!document.hidden&&S.pend&&Date.now()-S.pend<216e5&&tab!=3){tab=3;go()}});
 normalize();apply();if(!S.tests.length)loadQuizrr();go();
