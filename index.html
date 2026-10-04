@@ -130,15 +130,6 @@ dialog::backdrop{background:rgba(0,0,0,.5);backdrop-filter:blur(4px)}
 .mini{padding:4px 8px;min-width:0}.steps{display:flex;flex-wrap:wrap;gap:6px 14px;width:100%;margin:2px 0 4px 34px}
 
 .slb{display:flex;gap:6px;align-items:flex-end;height:110px}.slb div{flex:1;border-radius:6px;background:var(--ac);min-height:4px}
-/* ---- single area button ---- */
-.areabtn{display:inline-flex;gap:2px;padding:3px;border-radius:999px;border:1px solid var(--bd);background:var(--g);cursor:pointer;font:inherit;color:var(--mut)}
-.areabtn span{padding:5px 11px;border-radius:999px;font-weight:600;font-size:12.5px;transition:.2s}
-.areabtn span.on{background:var(--ac);color:#03101c;animation:glow 1.8s ease-in-out infinite}
-.areabtn:hover span:not(.on){color:var(--tx)}
-.areabtn.flash span{animation:blink .6s ease}.areabtn.flash span.on{animation:blink .6s ease,glow 1.8s ease-in-out .6s infinite}
-@keyframes blink{0%,100%{opacity:1}25%{opacity:.15}55%{opacity:1}75%{opacity:.35}}
-@keyframes glow{0%,100%{box-shadow:0 0 0 0 transparent}50%{box-shadow:0 0 14px 1px color-mix(in srgb,var(--ac) 65%,transparent)}}
-@media(prefers-reduced-motion:reduce){.areabtn span,.areabtn.flash span{animation:none!important}}
 /* ---- very dark, very transparent themes ---- */
 :root[data-theme=slate]{--bg:#02050a;--g:rgba(110,175,255,.02);--g2:rgba(110,175,255,.05);--bd:rgba(140,195,255,.14);--b1:rgba(76,198,255,.10);--b2:rgba(129,140,248,.06)}
 :root[data-theme=forest]{--bg:#000503;--g:rgba(90,230,170,.02);--g2:rgba(90,230,170,.05);--bd:rgba(110,235,185,.14);--b1:rgba(61,235,156,.09);--b2:rgba(250,204,21,.05)}
@@ -196,10 +187,52 @@ body{padding-left:var(--sw);transition:padding .25s}
 dialog[open]{animation:pop .24s ease}dialog::backdrop{animation:fadein .25s}
 .cdn b{transition:color .3s}.pill{animation:pop .4s both}
 :root[data-anim=off] *,:root[data-anim=off] *::before,:root[data-anim=off] *::after{animation:none!important;transition:none!important}
+/* ---- area dropdown ---- */
+.areawrap{position:relative}
+.areabtn{display:inline-flex;align-items:center;gap:8px;padding:7px 14px 7px 16px;border-radius:999px;border:1px solid color-mix(in srgb,var(--ac) 55%,var(--bd));background:color-mix(in srgb,var(--ac) 12%,var(--g));color:var(--tx);font:inherit;font-weight:650;cursor:pointer;animation:glow 2.4s ease-in-out infinite}
+.areabtn:hover{background:color-mix(in srgb,var(--ac) 20%,var(--g))}
+.areabtn[aria-expanded=true] svg{transform:rotate(180deg)}.areabtn svg{transition:transform .25s}
+.areamenu{position:absolute;top:calc(100% + 8px);left:0;min-width:160px;padding:6px;border:1px solid var(--bd);border-radius:16px;background:color-mix(in srgb,var(--bg) 85%,transparent);backdrop-filter:blur(26px);-webkit-backdrop-filter:blur(26px);z-index:30;display:flex;flex-direction:column;gap:2px;box-shadow:0 20px 44px -16px rgba(0,0,0,.85);animation:pop .2s ease}
+.areamenu[hidden]{display:none}
+.areamenu button{background:none;border:0;color:var(--tx);font:inherit;font-weight:550;text-align:left;padding:10px 14px;border-radius:11px;cursor:pointer;transition:background .15s}
+.areamenu button:hover,.areamenu button.on{background:var(--g2)}.areamenu button.on{color:var(--ac)}
+.areamenu.flash button{animation:blink .75s ease}.areamenu.flash button:nth-child(2){animation-delay:.1s}.areamenu.flash button:nth-child(3){animation-delay:.2s}
+@keyframes blink{0%,100%{opacity:1}25%{opacity:.15}55%{opacity:1}75%{opacity:.4}}
+@keyframes glow{0%,100%{box-shadow:0 0 0 0 transparent}50%{box-shadow:0 0 16px 1px color-mix(in srgb,var(--ac) 55%,transparent)}}
+@keyframes flashit{0%{box-shadow:0 0 0 0 var(--ac);background:color-mix(in srgb,var(--ac) 55%,transparent)}100%{box-shadow:0 0 0 14px transparent}}
+.flashit{animation:flashit .65s ease-out}
+/* ---- status badge, next-test strip ---- */
+.stbadge{width:108px;height:108px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;text-align:center;font-weight:700;font-size:13.5px;line-height:1.2;padding:12px;border:2px solid currentColor;flex:none}
+.stbadge b{font-size:11px}.stbadge.bad{color:#fb7185;background:rgba(251,113,133,.12)}.stbadge.ok{color:#4ade80;background:rgba(74,222,128,.12)}
+.tstrip{display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;margin-top:16px;padding:10px 14px;border:1px dashed var(--bd);border-radius:12px;background:var(--g)}.tsc{margin-left:auto;color:var(--ac);font-weight:650}
+/* ---- compact settings ---- */
+#dlg .set{font-size:13px}#dlg .set h3{font-size:17px}
+#dlg .set .lbl{margin:12px 0 5px!important;font-size:10.5px}
+#dlg .set .chips{gap:5px;margin:0}#dlg .set .chip{padding:4px 11px;font-size:12px;min-height:0}
+#dlg .set .f{gap:8px;margin:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(135px,1fr));align-items:end}
+#dlg .set .fl{font-size:11.5px}#dlg .set input,#dlg .set select{min-height:32px;padding:4px 9px}
+#dlg .set .btn{padding:5px 12px;min-height:32px;font-size:12.5px}#dlg .set p{margin:8px 0 0!important}
+/* ---- background / blur toggles ---- */
+:root[data-bg=off] body::before{display:none}
+:root[data-blur=off] *{backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
+:root[data-showxp=off] #xtag{display:none}
+/* ---- clean & calm ---- */
+main{max-width:1040px;padding:26px 20px 90px}
+.card{padding:20px 22px;border-color:color-mix(in srgb,var(--bd) 70%,transparent);box-shadow:none}
+h3{font-size:19px;font-weight:650;letter-spacing:-.01em}
+.lbl{font-size:11.5px;letter-spacing:.07em;font-weight:600}
+.btn{min-height:36px;padding:7px 15px;font-weight:550}
+.it{padding:11px 4px;border-bottom:1px solid color-mix(in srgb,var(--bd) 55%,transparent)}
+.two{gap:18px}.g2,.grid{gap:14px}
+@media(max-width:700px){.stbadge{width:92px;height:92px;font-size:12px}main{padding:18px 14px 90px}}
+.tstrip{margin:0 0 14px!important}
+.stbar{display:inline-flex;align-items:center;gap:8px;padding:5px 13px;border-radius:999px;font-size:12.5px;font-weight:650;border:1px solid currentColor;white-space:nowrap;flex:none}
+.stbar i{width:8px;height:8px;border-radius:50%;background:currentColor;display:block}
+.stbar.bad{color:#fb7185;background:rgba(251,113,133,.12)}.stbar.ok{color:#4ade80;background:rgba(74,222,128,.12)}
 </style></head><body>
 <header class="top"><div class="hw">
  <div class="brand" onclick="goTab(0)" title="Home" role="link" tabindex="0"><img src="favicon.png" alt="" width="22" height="22"><span id="bt">JEE 2027</span></div>
- <button class="areabtn" id="areasw" onclick="areaClick(event)" aria-label="Switch section: JEE, Board or Overall" title="Click to switch: JEE → Board → Overall"></button>
+ <div class="areawrap"><button class="areabtn" id="areasw" onclick="toggleAreaMenu(event)" aria-haspopup="menu" aria-expanded="false" aria-label="Switch section" title="Switch between JEE, Board and Overall"></button><div class="areamenu" id="areamenu" role="menu" hidden></div></div>
  <span class="tag mono hide-sm" id="xtag"></span>
  <nav class="tabs" id="tabs" aria-label="Sections"></nav>
  <button class="icon-btn" onclick="openSettings()" aria-label="Settings" id="setb"></button>
@@ -369,17 +402,22 @@ const TA=[['Overall','stats']],TJ=[['Today','clock'],['Syllabus','book'],['Tests
 function setArea(a){if(S.area===a)return;if(run){if(!confirm('Stop the running timer and switch?'))return;stop()}S.area=a;tab=(S.tabs&&S.tabs[a])||0;S.tab=tab;save();enterAnim();go();scrollTo(0,0)}
 function nav(){const TABS=tabsOf(),b=(t,i)=>`<button class="${i==tab?'on':''}" onclick="goTab(${i})" ${i==tab?'aria-current="page"':''}>${ic(t[1],16)}<span>${t[0]}</span></button>`;
  $('tabs').innerHTML=TABS.map(b).join('');$('tabbar').innerHTML=TABS.map(b).join('');
- $('areasw').innerHTML=[['jee','JEE'],['board','Board'],['all','Overall']].map(([k,l])=>`<span data-a="${k}" class="${(S.area||'jee')===k?'on':''}">${l}</span>`).join('')
+ renderAreaSw()
  const sb=(t,i)=>`<button class="nv ${i==tab?'on':''}" onclick="goTab(${i})" title="${t[0]}" ${i==tab?'aria-current="page"':''}>${ic(t[1],20)}<span class="lb">${t[0]}</span></button>`;
  $('side').innerHTML=`<div class="sb-brand" onclick="goTab(0)" role="link" tabindex="0" title="Home"><img src="favicon.png" alt=""><span class="lb">${areaTitle()}</span></div>${TABS.map(sb).join('')}<button class="setc" onclick="openSettings()" aria-label="Settings" title="Settings">${ic('gear',20)}</button>`}
-function areaClick(e){const o=['jee','board','all'],t=e.target.closest('[data-a]'),n=t?t.dataset.a:o[(o.indexOf(S.area||'jee')+1)%3],b=$('areasw');b.classList.remove('flash');void b.offsetWidth;b.classList.add('flash');setArea(n)}
+const AREAS=[['jee','JEE'],['board','Board'],['all','Overall']];
+function renderAreaSw(){const cur=S.area||'jee';$('areasw').innerHTML=`<span>${AREAS.find(a=>a[0]===cur)[1]}</span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m6 9 6 6 6-6"/></svg>`;$('areamenu').innerHTML=AREAS.map(([k,l])=>`<button role="menuitem" class="${cur===k?'on':''}" onclick="pickArea('${k}')">${l}</button>`).join('')}
+function toggleAreaMenu(e){e.stopPropagation();const m=$('areamenu'),open=m.hidden;m.hidden=!open;$('areasw').setAttribute('aria-expanded',String(open));if(open){m.classList.remove('flash');void m.offsetWidth;m.classList.add('flash')}}
+function pickArea(k){$('areamenu').hidden=true;$('areasw').setAttribute('aria-expanded','false');setArea(k)}
+document.addEventListener('click',()=>{const m=$('areamenu');if(m&&!m.hidden){m.hidden=true;$('areasw').setAttribute('aria-expanded','false')}});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){const m=$('areamenu');if(m)m.hidden=true}});
 function go(){tab=(S.tabs&&S.tabs[S.area||'jee'])||0;applyLook();nav();hdr();const V=S.area==='board'?[vToday,vBSyl,vBTests,vTodo,vBStats]:S.area==='all'?[vOverall]:[vToday,vSyl,vTests,vPrac,vTodo,vBack,vStats,vSleep];if(tab>=V.length)tab=0;$('m').innerHTML=V[tab]();tick();cdTick()}
 function enterAnim(){const m=$('m');m.classList.add('enter');clearTimeout(enterAnim.t);enterAnim.t=setTimeout(()=>m.classList.remove('enter'),900)}
 function goTab(i){S.tabs=S.tabs||{};S.tabs[S.area||'jee']=i;tab=i;S.tab=i;save();enterAnim();go();scrollTo(0,0)}
 function theme(){const r=document.documentElement,l=r.dataset.theme!=='light';r.dataset.theme=l?'light':'dark';S.theme=r.dataset.theme;save();hdr()}
 function setExam(){const B=S.area==='board',v=prompt((B?'Board exam':'JEE Main')+' date (YYYY-MM-DD)',(B?S.bexam:S.exam)||'');if(v&&!isNaN(new Date(v))){if(B)S.bexam=v;else S.exam=v;save();go()}}
 function addSub(){const v=prompt('New subject name');if(v&&v.trim()&&!S.subs.includes(v.trim())){S.subs.push(v.trim());save();go()}}
-function dlg(h){const d=$('dlg');d.innerHTML=h;if(!d.open)d.showModal();d.scrollTop=0}
+function dlg(h){const d=$('dlg');d.innerHTML=h;if(!d.open)d.showModal();d.scrollTop=0;if(window._fk){const e=d.querySelector('[data-k="'+window._fk+'"]');window._fk=null;if(e)e.classList.add('flashit')}}
 function closeDlg(){$('dlg').close()}
 $('dlg').addEventListener('click',e=>{if(e.target.id==='dlg')closeDlg()});
 const nv=id=>{const e=$(id);if(!e)return'';const v=e.value.trim();return v===''?'':+v};
@@ -401,7 +439,7 @@ function delSess(i){const x=S.sess[i];if(!x||!confirm('Delete this session? Its 
 function vToday(){const T=td(),t=qstat(null,T),d=day(T),now=new Date();
  const ss=S.sess.map((x,i)=>({...x,i})).filter(x=>x.d===T&&(x.a||'jee')===(S.area||'jee')).reverse();
  const tq=TODOS().filter(x=>!x.due||x.due<=T),tdn=tq.filter(x=>x.x).length;
- return bkBanner()+heroHTML()+testCdHTML()+cdHTML()+`<div class="two">
+ return bkBanner()+cdHTML()+testStrip()+heroHTML()+`<div class="two">
 <section class="card" aria-label="Study clock">
  <div class="row"><div class="lbl">${now.toLocaleDateString('en-IN',{weekday:'long',day:'numeric',month:'short'})}</div>
  <div class="seg" role="group" aria-label="Timer mode">${MODES.map((m,i)=>`<button class="${(S.mode||0)==i?'on':''}" onclick="setMode(${i})">${m[0]}</button>`).join('')}</div></div>
@@ -466,8 +504,9 @@ function lineChart(series,h=130){const n=Math.max(0,...series.map(s=>s.pts.lengt
 function vTests(){const T=td(),L=S.tests.map((t,i)=>({...t,i,tt:tot(t)})).sort((a,b)=>a.date<b.date?-1:1),sc=L.filter(t=>t.tt!==null&&t.mx),pc=t=>Math.round(t.tt/t.mx*100),w=sc.length?weak():null;
  const av=sc.length?Math.round(sc.reduce((a,t)=>a+pc(t),0)/sc.length):0,bs=sc.length?Math.max(...sc.map(pc)):0,nx=L.find(t=>t.date>=T&&t.tt===null);
  const last10=sc.slice(-10),subAvg=SK.map(([k,n])=>{const v=sc.filter(t=>t[k]!==''&&t[k]!=null).map(t=>+t[k]/(t.mx/3)*100);return{n,a:v.length?Math.round(v.reduce((a,b)=>a+b,0)/v.length):null}});
- const KF=['All',...SER,...(L.some(t=>!SER.includes(t.kind))?['Other']:[])],FL=L.filter(t=>tkf==='All'||t.kind===tkf||(tkf==='Other'&&!SER.includes(t.kind)));
+ const KF=['All',...SER,...(L.some(t=>!SER.includes(t.kind))?['Other']:[])],KL=L.filter(t=>tkf==='All'||t.kind===tkf||(tkf==='Other'&&!SER.includes(t.kind))),stF={All:()=>true,Upcoming:t=>t.date>=td()&&!t.at,Attempted:t=>!!t.at,'Not attempted':t=>t.date<td()&&!t.at},FL=KL.filter(stF[tst]||stF.All);
  return `<div class="row" style="margin-bottom:14px"><h3>Tests & analysis</h3><div class="f" style="margin:0"><div class="seg" role="group" aria-label="Filter tests">${KF.map(k=>`<button class="${k===tkf?'on':''}" onclick="tkf='${k}';go()">${k}</button>`).join('')}</div></div></div>
+<div class="seg" role="group" aria-label="Filter by status" style="margin-bottom:14px">${Object.keys(stF).map(k=>`<button class="${k===tst?'on':''}" onclick="tst='${k}';go()">${k} <span class="mono">${KL.filter(stF[k]).length}</span></button>`).join('')}</div>
 <div class="grid" style="margin-bottom:14px">
  <div class="card stat"><div class="lbl">Taken</div><b class="mono">${sc.length}</b></div>
  <div class="card stat"><div class="lbl">Average</div><b class="mono">${av}%</b></div>
@@ -487,7 +526,7 @@ function vTests(){const T=td(),L=S.tests.map((t,i)=>({...t,i,tt:tot(t)})).sort((
   ${p!==null?`<br><small class="mut mono">P ${t.p===''?'–':t.p} · C ${t.c===''?'–':t.c} · M ${t.m===''?'–':t.m}</small>`:sylH(t)}</span>
   <div class="f" style="flex:none;gap:4px">${p!==null?`<button class="btn sm pri" onclick="openAn(${t.i})">Analysis</button><button class="x" onclick="openRes(${t.i})">Edit</button>`:`<button class="btn sm" onclick="openRes(${t.i})">Enter result</button>`}<button class="x" onclick="if(confirm('Delete test?')){S.tests.splice(${t.i},1);save();go()}" aria-label="Delete test">${ic('x',15)}</button></div></div>`}).join('')||'<div class="empty">No tests in this filter.</div>'}
 </section>`}
-let tkf='All';
+let tkf='All',tst='All';
 
 const sylH=t=>!t.syl?'':typeof t.syl==='string'?`<br><small class="mut">${esc(t.syl)}</small>`:`<div class="tsy">${SK.map(([k,n])=>`<small><span class="dot" style="background:${col(n)}"></span>${esc(t.syl[k])}</small>`).join('')}</div>`;
 function openRes(i){const t=S.tests[i],r=t.r||{},K2=KINDS[t.kind]||{pos:4,neg:1},pos=t.pos??K2.pos,neg=t.neg??K2.neg,mi=t.mist||{};
@@ -643,23 +682,29 @@ const cdTarget=()=>S.area==='board'?(S.bexam?new Date(S.bexam+'T10:15:00'):null)
 function cdTick(){testTick();if(!$('cdD'))return;const T=cdTarget();if(!T){['cdD','cdH','cdM','cdS'].forEach(i=>$(i).textContent='--');return}const s=Math.floor(Math.max(0,T-Date.now())/1000);$('cdD').textContent=Math.floor(s/86400);$('cdH').textContent=p2(Math.floor(s%86400/3600));$('cdM').textContent=p2(Math.floor(s%3600/60));$('cdS').textContent=p2(s%60)}
 setInterval(cdTick,1000);
 /* ---------- settings dialog ---------- */
-function applyLook(){const r=document.documentElement;r.dataset.rad=S.rad||'rounded';r.dataset.den=S.den||'normal';r.dataset.fs=S.fs||'m';r.dataset.anim=S.anim||'on';r.dataset.side=S.side||'auto'}
-function setLook(k,v){S[k]=v;save();applyLook();openSettings()}
-function setTheme(k){S.theme=k;document.documentElement.dataset.theme=k;save();hdr();openSettings()}
+function applyLook(){const r=document.documentElement;r.dataset.rad=S.rad||'rounded';r.dataset.den=S.den||'normal';r.dataset.fs=S.fs||'m';r.dataset.anim=S.anim||'on';r.dataset.side=S.side||'auto';r.dataset.bg=S.bg||'on';r.dataset.blur=S.blur||'on';r.dataset.showxp=S.showxp||'on'}
+function setLook(k,v){S[k]=v;save();applyLook();window._fk=k+':'+v;openSettings()}
+function resetLook(){['rad','den','fs','anim','side','bg','blur','showxp','sa'].forEach(k=>delete S[k]);S.theme='dark';document.documentElement.dataset.theme='dark';save();applyLook();window._fk='th:dark';openSettings();toast('Appearance reset')}
+function setTheme(k){window._fk='th:'+k;S.theme=k;document.documentElement.dataset.theme=k;save();hdr();openSettings()}
 function resetAll(){if(prompt('Type DELETE to erase ALL data')==='DELETE'){localStorage.removeItem(K);location.reload()}}
 function openSettings(){const th=S.theme||'dark',T=[['dark','Midnight'],['amoled','AMOLED'],['slate','Slate'],['forest','Forest'],['rose','Rose'],['ocean','Ocean'],['violet','Violet'],['sunset','Sunset'],['graphite','Graphite'],['light','Light']];
-dlg(`<div class="row"><h3>Settings</h3><button class="icon-btn" onclick="closeDlg()" aria-label="Close">${ic('x',16)}</button></div>
+dlg(`<div class="set"><div class="row"><h3>Settings</h3><button class="icon-btn" onclick="closeDlg()" aria-label="Close">${ic('x',16)}</button></div>
 <div class="lbl" style="margin:16px 0 8px">Profile &amp; goals</div>
 <div class="f"><label class="fl">Name<input value="${esc(S.name||'')}" placeholder="Your name" onchange="S.name=this.value.trim();save()"></label><label class="fl">JEE Main date<input type="date" value="${S.exam}" onchange="if(this.value){S.exam=this.value;save();go()}"></label><label class="fl">Daily goal (h)<input type="number" min="1" max="18" value="${S.goal||10}" onchange="S.goal=+this.value||10;save();go()"></label><label class="fl">Target score /300<input type="number" min="0" max="300" value="${S.goalMain||''}" onchange="S.goalMain=+this.value||0;save()"></label><label class="fl">Board daily goal (h)<input type="number" min="1" max="18" value="${S.bgoal||6}" onchange="S.bgoal=+this.value||6;save();go()"></label><label class="fl">Sleep goal (h)<input type="number" min="4" max="12" step=".5" value="${S.sleepGoal||8}" onchange="S.sleepGoal=+this.value||8;save();go()"></label><label class="fl">Board exam date<input type="date" value="${S.bexam||''}" onchange="S.bexam=this.value;save();go()"></label></div>
-<div class="lbl" style="margin:18px 0 8px">Theme</div><div class="chips">${T.map(([k,l])=>`<button class="chip ${th==k?'on':''}" onclick="setTheme('${k}')">${l}</button>`).join('')}</div>
-<div class="lbl" style="margin:18px 0 8px">Corner style</div><div class="chips">${[['sharp','Sharp'],['rounded','Rounded'],['pill','Pill']].map(([k,l])=>`<button class="chip ${(S.rad||'rounded')==k?'on':''}" onclick="setLook('rad','${k}')">${l}</button>`).join('')}</div>
-<div class="lbl" style="margin:18px 0 8px">Layout density</div><div class="chips">${[['compact','Compact'],['normal','Normal'],['relaxed','Relaxed']].map(([k,l])=>`<button class="chip ${(S.den||'normal')==k?'on':''}" onclick="setLook('den','${k}')">${l}</button>`).join('')}</div>
-<div class="lbl" style="margin:18px 0 8px">Font size</div><div class="chips">${[['s','Small'],['m','Medium'],['l','Large']].map(([k,l])=>`<button class="chip ${(S.fs||'m')==k?'on':''}" onclick="setLook('fs','${k}')">${l}</button>`).join('')}</div>
-<div class="lbl" style="margin:18px 0 8px">Animations</div><div class="chips">${[['on','On'],['off','Off']].map(([k,l])=>`<button class="chip ${(S.anim||'on')==k?'on':''}" onclick="setLook('anim','${k}')">${l}</button>`).join('')}</div>
-<div class="lbl" style="margin:18px 0 8px">Sidebar (desktop)</div><div class="chips">${[['auto','Expand on hover'],['open','Always open'],['compact','Always compact']].map(([k,l])=>`<button class="chip ${(S.side||'auto')==k?'on':''}" onclick="setLook('side','${k}')">${l}</button>`).join('')}</div>
-<div class="lbl" style="margin:18px 0 8px">Data</div>
+<div class="lbl" style="margin:18px 0 8px">Theme</div><div class="chips">${T.map(([k,l])=>`<button class="chip ${th==k?'on':''}" data-k="th:${k}" onclick="setTheme('${k}')">${l}</button>`).join('')}</div>
+<div class="lbl" style="margin:18px 0 8px">Corner style</div><div class="chips">${[['sharp','Sharp'],['rounded','Rounded'],['pill','Pill']].map(([k,l])=>`<button class="chip ${(S.rad||'rounded')==k?'on':''}" data-k="rad:${k}" onclick="setLook('rad','${k}')\">${l}</button>`).join('')}</div>
+<div class="lbl" style="margin:18px 0 8px">Layout density</div><div class="chips">${[['compact','Compact'],['normal','Normal'],['relaxed','Relaxed']].map(([k,l])=>`<button class="chip ${(S.den||'normal')==k?'on':''}" data-k="den:${k}" onclick="setLook('den','${k}')\">${l}</button>`).join('')}</div>
+<div class="lbl" style="margin:18px 0 8px">Font size</div><div class="chips">${[['s','Small'],['m','Medium'],['l','Large']].map(([k,l])=>`<button class="chip ${(S.fs||'m')==k?'on':''}" data-k="fs:${k}" onclick="setLook('fs','${k}')\">${l}</button>`).join('')}</div>
+<div class="lbl" style="margin:18px 0 8px">Animations</div><div class="chips">${[['on','On'],['off','Off']].map(([k,l])=>`<button class="chip ${(S.anim||'on')==k?'on':''}" data-k="anim:${k}" onclick="setLook('anim','${k}')\">${l}</button>`).join('')}</div>
+<div class="lbl" style="margin:18px 0 8px">Sidebar (desktop)</div><div class="chips">${[['auto','Expand on hover'],['open','Always open'],['compact','Always compact']].map(([k,l])=>`<button class="chip ${(S.side||'auto')==k?'on':''}" data-k="side:${k}" onclick="setLook('side','${k}')\">${l}</button>`).join('')}</div>
+<div class="lbl">Background</div><div class="chips">${[['on','Show'],['off','Hide']].map(([k,l])=>`<button class="chip ${(S.bg||'on')==k?'on':''}" data-k="bg:${k}" onclick="setLook('bg','${k}')">${l}</button>`).join('')}</div>
+<div class="lbl">Glass blur</div><div class="chips">${[['on','On'],['off','Off (faster)']].map(([k,l])=>`<button class="chip ${(S.blur||'on')==k?'on':''}" data-k="blur:${k}" onclick="setLook('blur','${k}')">${l}</button>`).join('')}</div>
+<div class="lbl">Level &amp; XP tag</div><div class="chips">${[['on','Show'],['off','Hide']].map(([k,l])=>`<button class="chip ${(S.showxp||'on')==k?'on':''}" data-k="showxp:${k}" onclick="setLook('showxp','${k}')">${l}</button>`).join('')}</div>
+<div class="lbl">Open on start</div><div class="chips">${[['last','Last used'],['jee','JEE'],['board','Board'],['all','Overall']].map(([k,l])=>`<button class="chip ${(S.sa||'last')==k?'on':''}" data-k="sa:${k}" onclick="setLook('sa','${k}')">${l}</button>`).join('')}</div>
+<div class="f"><button class="btn" onclick="resetLook()">Reset appearance</button></div>
+<div class="lbl">Data</div>
 <div class="f"><button class="btn" onclick="exportData()">Export backup</button><label class="btn" style="cursor:pointer">Import backup<input type="file" accept="application/json" class="sr-only" onchange="importData(this.files[0])"></label><button class="x bad" onclick="if(confirm('Reset the study time logged today?')){DAYS()[td()]={s:0,sub:{}};S.sess=S.sess.filter(x=>x.d!==td()||(x.a||'jee')!==(S.area||'jee'));save();go();closeDlg()}">Reset today</button><button class="x bad" onclick="resetAll()">Reset everything</button></div>
-<p class="mut" style="font-size:12px;margin:10px 0 0">Data is saved in this browser. Export a backup regularly to move it to another device.</p>`)}
+<p class="mut" style="font-size:12px;margin:10px 0 0">Data is saved in this browser. Export a backup regularly to move it to another device.</p></div>`)}
 /* ---------- backlog (zero-backlog streak) ---------- */
 function bzMark(){S.bz=S.bz||{};S.bz[td()]=(S.back||[]).some(x=>!x.x)?0:1}
 function bzStreak(){let n=0;for(let o=0;o<400;o++){if((S.bz||{})[dstr(o)])n++;else if(o>0)break;else continue}return n}
@@ -755,15 +800,17 @@ function vBStats(){const rows=[];for(let o=0;o<14;o++){const d=dstr(o),x=DAYS()[
  <section class="card"><div class="lbl" style="margin-bottom:6px">Syllabus progress</div>${BSUB.map(b=>`<div class="it"><span>${esc(b)}</span><span class="mono mut" style="flex:none">${bDone(b)}/${bN(b)} chapters</span><b class="mono" style="width:48px;text-align:right">${bPct(b)}%</b></div>`).join('')}</section>`}
 const goalH=()=>S.area==='board'?(S.bgoal||6):(S.goal||10),fmh=x=>`${Math.floor(x/3600)}h ${p2(Math.floor(x%3600/60))}m`;
 function heroHTML(){const B=S.area==='board',g=goalH(),h=day(td()).s,tot=g*3600,pc=Math.min(100,Math.round(h/tot*100)),hr=new Date().getHours(),gr=hr<12?'morning':hr<17?'afternoon':'evening',ex=B?S.bexam:S.exam,left=ex?Math.max(0,dd(ex)):0,since=Math.max(0,-dd(S.start||td())),st=pc>=100?['Goal hit','ok']:hr>=12&&pc<25?['Needs attention','bad']:['On track','ok'];
- return `<section class="card hero2" style="margin-bottom:14px"><div class="row"><div><div class="hg">Good ${gr}${S.name?', '+esc(S.name):''} 👋</div><div class="mut">${new Date().toLocaleDateString('en-GB',{weekday:'long'})}, ${dmy(td())}</div></div><span class="pill ${st[1]}">● ${st[0]}</span></div>
+ return `<section class="card hero2" style="margin-bottom:14px"><div class="row" style="align-items:center"><div><div class="hg">${new Date().toLocaleDateString('en-GB',{weekday:'long'})}</div><div class="mut" style="margin-top:2px">${dmy(td())}</div></div><div class="stbar ${st[1]}"><i></i>${st[0]}</div></div>
  <div class="hp"><div class="row"><span><b id="hrL" style="font-size:22px">${fmh(Math.max(0,tot-h))}</b> <span class="mut">left of ${g}h goal today</span></span><b id="hrP" class="mono">${pc}%</b></div><div class="bar" style="height:10px"><i id="hrB" style="width:${pc}%"></i></div><div class="row mut" style="font-size:12.5px"><span id="hrD">Studied today: ${fmh(h)} / ${g}h</span><span>${ex?'Day '+(since+1)+' of '+(since+left):''}</span></div></div></section>`}
 function heroTick(){const e=$('hrL');if(!e)return;const g=goalH(),h=day(td()).s,tot=g*3600,pc=Math.min(100,Math.round(h/tot*100));e.textContent=fmh(Math.max(0,tot-h));$('hrP').textContent=pc+'%';$('hrB').style.width=pc+'%';$('hrD').textContent=`Studied today: ${fmh(h)} / ${g}h`}
-function nextTests(){const T=td();return(S.area==='board'?(S.btests||[]).filter(t=>t.date>=T&&(t.sc===undefined||t.sc==='')):S.tests.filter(t=>t.date>=T&&!t.at)).slice().sort((a,b)=>a.date<b.date?-1:1)}
-function testCdHTML(){const L=nextTests(),n=L[0];
- if(!n)return `<section class="card" style="margin-bottom:14px"><div class="lbl">Next test</div><div class="mut" style="margin-top:6px">${S.area==='board'?'No upcoming board test — create one in the Tests tab.':'No upcoming tests.'}</div></section>`;
- return `<section class="card" style="margin-bottom:14px"><div class="row"><div class="lbl">Next test · ${esc(n.name)}</div><span class="mut mono" style="font-size:12px">${dmy(n.date)} · 9:00 AM</span></div><div class="cdn" style="margin-top:12px">${[['ctD','Days'],['ctH','Hours'],['ctM','Minutes'],['ctS','Seconds']].map(([i,l])=>`<div><b class="mono" id="${i}">--</b><span class="mut" style="font-size:11px">${l}</span></div>`).join('')}</div>
- ${L.length>1?`<div class="f" style="margin:12px 0 0;gap:8px">${L.slice(1,4).map(t=>`<span class="tag mono">${esc(t.name)} · ${dd(t.date)>0?'in '+dd(t.date)+'d':'today'}</span>`).join('')}</div>`:''}</section>`}
-function testTick(){if(!$('ctD'))return;const n=nextTests()[0];if(!n)return;const s=Math.floor(Math.max(0,new Date(n.date+'T09:00:00')-Date.now())/1000);$('ctD').textContent=Math.floor(s/86400);$('ctH').textContent=p2(Math.floor(s%86400/3600));$('ctM').textContent=p2(Math.floor(s%3600/60));$('ctS').textContent=p2(s%60)}
+const tOpen=d=>d>td()||(d===td()&&new Date().getHours()<18);
+function nextTests(){return(S.area==='board'?(S.btests||[]).filter(t=>tOpen(t.date)&&(t.sc===undefined||t.sc==='')):S.tests.filter(t=>tOpen(t.date)&&!t.at)).slice().sort((a,b)=>a.date<b.date?-1:1)}
+function tWin(n){const a=new Date(n.date+'T09:00:00'),b=new Date(n.date+'T18:00:00');return Date.now()<a?{live:false,t:a}:{live:true,t:b}}
+function testStrip(){const n=nextTests()[0];if(!n)return `<div class="tstrip"><span class="lbl">Next test</span><span class="mut">${S.area==='board'?'none upcoming — create one in Tests':'none upcoming'}</span></div>`;
+ const w=tWin(n);return `<div class="tstrip" title="Tests run 9:00 AM – 6:00 PM"><span class="lbl" id="tsL">${w.live?'Live now · ends 6:00 PM':'Next test'}</span><b>${esc(n.name)}</b><span class="mut mono">${dmy(n.date)}</span><span class="mono tsc" id="tsC" data-n="${esc(n.name)}">--</span></div>`}
+function testTick(){const e=$('tsC');if(!e)return;const n=nextTests()[0];if(!n){const t=e.closest('.tstrip');if(t)t.outerHTML=testStrip();return}
+ if(e.dataset.n!==n.name){e.closest('.tstrip').outerHTML=testStrip();return}
+ const w=tWin(n),s=Math.floor(Math.max(0,w.t-Date.now())/1000);$('tsL').textContent=w.live?'Live now · ends 6:00 PM':'Next test';e.textContent=`${Math.floor(s/86400)}d ${p2(Math.floor(s%86400/3600))}:${p2(Math.floor(s%3600/60))}:${p2(s%60)}`}
 function bkBanner(){const act=Object.keys(S.days).length+Object.keys(S.bdays||{}).length,age=S.lastBackup?Math.floor((Date.now()-S.lastBackup)/864e5):null;if(act<3||(age!==null&&age<7))return'';
  return `<section class="card" style="margin-bottom:14px;border-color:var(--warn)"><div class="row"><div><b>Back up your data</b><div class="mut" style="font-size:12.5px">${age===null?'You have never exported a backup.':'Your last backup was '+age+' days ago.'} Everything is stored only in this browser — clearing it would erase your progress.</div></div><button class="btn pri" onclick="exportData();go()">Export backup</button></div></section>`}
 try{navigator.storage&&navigator.storage.persist&&navigator.storage.persist()}catch(e){}
@@ -819,5 +866,5 @@ function enhanceDates(){document.querySelectorAll('input[type=date]:not([data-dp
  b.addEventListener('click',()=>{try{o.showPicker()}catch(e){o.focus()}})})}
 if(typeof MutationObserver!=='undefined')new MutationObserver(()=>requestAnimationFrame(enhanceDates)).observe(document.body,{childList:true,subtree:true});
 let ld=td();setInterval(()=>{if(td()!==ld){ld=td();normalize();go()}},30000);
-normalize();enterAnim();go();enhanceDates();
+normalize();try{if(S.sa&&S.sa!=='last'&&!sessionStorage.getItem('sa')){S.area=S.sa;sessionStorage.setItem('sa','1')}}catch(e){}enterAnim();go();enhanceDates();
 </script></body></html>
