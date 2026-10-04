@@ -139,12 +139,6 @@ dialog::backdrop{background:rgba(0,0,0,.5);backdrop-filter:blur(4px)}
 @keyframes blink{0%,100%{opacity:1}25%{opacity:.15}55%{opacity:1}75%{opacity:.35}}
 @keyframes glow{0%,100%{box-shadow:0 0 0 0 transparent}50%{box-shadow:0 0 14px 1px color-mix(in srgb,var(--ac) 65%,transparent)}}
 @media(prefers-reduced-motion:reduce){.areabtn span,.areabtn.flash span{animation:none!important}}
-/* ---- desktop: section buttons on the right ---- */
-.sidenav{display:none}
-@media(min-width:1100px){body{padding-right:220px}.tabs{display:none}
-.sidenav{display:flex;flex-direction:column;gap:4px;position:fixed;right:0;top:0;bottom:0;width:216px;padding:78px 12px 20px;border-left:1px solid var(--bd);background:color-mix(in srgb,var(--bg) 40%,transparent);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);z-index:4;overflow-y:auto}
-.sidenav button{display:flex;gap:10px;align-items:center;background:none;border:0;color:var(--mut);font:inherit;font-weight:500;padding:11px 14px;border-radius:12px;cursor:pointer;text-align:left}
-.sidenav button:hover{color:var(--tx);background:var(--g)}.sidenav button.on{color:var(--tx);background:var(--g2)}}
 /* ---- very dark, very transparent themes ---- */
 :root[data-theme=slate]{--bg:#02050a;--g:rgba(110,175,255,.02);--g2:rgba(110,175,255,.05);--bd:rgba(140,195,255,.14);--b1:rgba(76,198,255,.10);--b2:rgba(129,140,248,.06)}
 :root[data-theme=forest]{--bg:#000503;--g:rgba(90,230,170,.02);--g2:rgba(90,230,170,.05);--bd:rgba(110,235,185,.14);--b1:rgba(61,235,156,.09);--b2:rgba(250,204,21,.05)}
@@ -154,17 +148,64 @@ dialog::backdrop{background:rgba(0,0,0,.5);backdrop-filter:blur(4px)}
 :root[data-rad=sharp] .card{border-radius:6px}:root[data-rad=sharp] .btn,:root[data-rad=sharp] .chip,:root[data-rad=sharp] .tag,:root[data-rad=sharp] input,:root[data-rad=sharp] select,:root[data-rad=sharp] textarea,:root[data-rad=sharp] .seg,:root[data-rad=sharp] .seg button,:root[data-rad=sharp] .areabtn,:root[data-rad=sharp] .areabtn span{border-radius:4px}
 :root[data-rad=pill] .btn,:root[data-rad=pill] .chip,:root[data-rad=pill] .tag,:root[data-rad=pill] .seg,:root[data-rad=pill] .seg button{border-radius:999px}:root[data-rad=pill] .card{border-radius:26px}
 :root[data-den=compact] .card{padding:10px 12px}:root[data-den=relaxed] .card{padding:24px}
+/* ---- left collapsible sidebar (desktop) ---- */
+.side{display:none}
+@media(min-width:1100px){
+:root{--sw:72px}:root[data-side=open]{--sw:224px}
+body{padding-left:var(--sw);transition:padding .25s}
+.top .brand,.top .tabs,.top #setb{display:none}
+.side{display:flex;flex-direction:column;gap:6px;position:fixed;left:0;top:0;bottom:0;width:var(--sw);padding:16px 12px 18px;border-right:1px solid var(--bd);background:color-mix(in srgb,var(--bg) 55%,transparent);backdrop-filter:blur(24px) saturate(1.3);-webkit-backdrop-filter:blur(24px) saturate(1.3);z-index:7;overflow:hidden;transition:width .28s cubic-bezier(.4,0,.2,1),box-shadow .28s}
+:root:not([data-side=compact]) .side:hover{width:224px;box-shadow:12px 0 40px -18px rgba(0,0,0,.8)}
+.side .lb{opacity:0;max-width:0;overflow:hidden;white-space:nowrap;transition:opacity .2s,max-width .28s}
+:root[data-side=open] .side .lb,:root:not([data-side=compact]) .side:hover .lb{opacity:1;max-width:170px}
+.sb-brand{display:flex;align-items:center;gap:12px;padding:4px 6px;margin-bottom:16px;cursor:pointer;font-weight:700;font-size:15px;white-space:nowrap}
+.sb-brand img{width:36px;height:36px;border-radius:11px;flex:none;transition:transform .4s}.sb-brand:hover img{transform:rotate(-8deg) scale(1.08)}
+.side button.nv{display:flex;align-items:center;gap:14px;background:none;border:0;color:var(--mut);font:inherit;font-weight:500;padding:11px 15px;border-radius:12px;cursor:pointer;text-align:left;white-space:nowrap;transition:background .2s,color .2s,transform .15s}
+.side button.nv svg{flex:none}.side button.nv:hover{color:var(--tx);background:var(--g);transform:translateX(3px)}
+.side button.nv.on{color:var(--tx);background:var(--g2);box-shadow:inset 3px 0 0 var(--ac)}
+.setc{margin:auto 0 0 6px;width:44px;height:44px;flex:none;border-radius:50%;border:1px solid var(--bd);background:var(--g);color:var(--tx);display:grid;place-items:center;cursor:pointer;transition:transform .45s,background .2s}
+.setc:hover{transform:rotate(90deg);background:var(--g2)}}
+/* ---- date fields ---- */
+.dp{display:inline-flex;align-items:center;gap:2px;position:relative}.dp input[type=text]{width:92px}
+.dpb{background:none;border:0;color:var(--mut);cursor:pointer;padding:5px;display:grid;place-items:center;border-radius:8px;transition:color .2s,background .2s}.dpb:hover{color:var(--tx);background:var(--g2)}
+.dp input[type=date]{position:absolute;opacity:0;pointer-events:none;width:1px;height:1px;left:0;bottom:0}
+/* ---- board syllabus: two roomy rows ---- */
+.bgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-bottom:14px}.bgrid .card{padding:20px 22px;min-height:104px}
+@media(max-width:700px){.bgrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.hero2{background:linear-gradient(135deg,color-mix(in srgb,var(--ac) 13%,var(--g)),var(--g))}.hg{font-size:clamp(20px,4vw,28px);font-weight:700;letter-spacing:-.02em}
+.pill{display:inline-block;padding:6px 13px;border-radius:999px;font-weight:700;font-size:12.5px}.pill.bad{background:rgba(251,113,133,.16);color:#fb7185}.pill.ok{background:rgba(74,222,128,.15);color:#4ade80}
+.hp{background:var(--g);border:1px solid var(--bd);border-radius:16px;padding:16px 18px;margin-top:16px;display:grid;gap:10px}
+/* ---- more themes ---- */
+:root[data-theme=ocean]{--bg:#00060a;--g:rgba(60,200,255,.02);--g2:rgba(60,200,255,.05);--bd:rgba(80,210,255,.14);--tx:#effaff;--mut:#9ec3d1;--ac:#22d3ee;--ok:#34d399;--warn:#fde047;--b1:rgba(34,211,238,.10);--b2:rgba(59,130,246,.06)}
+:root[data-theme=violet]{--bg:#040208;--g:rgba(167,139,250,.02);--g2:rgba(167,139,250,.055);--bd:rgba(167,139,250,.16);--tx:#f6f3ff;--mut:#b7aed6;--ac:#a78bfa;--ok:#4ade80;--warn:#fcd34d;--b1:rgba(167,139,250,.11);--b2:rgba(236,72,153,.06)}
+:root[data-theme=sunset]{--bg:#070300;--g:rgba(251,146,60,.02);--g2:rgba(251,146,60,.055);--bd:rgba(251,146,60,.16);--tx:#fff6ee;--mut:#d6b79c;--ac:#fb923c;--ok:#a3e635;--warn:#fde047;--b1:rgba(251,146,60,.11);--b2:rgba(244,63,94,.07)}
+:root[data-theme=graphite]{--bg:#050505;--g:rgba(255,255,255,.02);--g2:rgba(255,255,255,.05);--bd:rgba(255,255,255,.12);--tx:#f5f5f5;--mut:#a3a3a3;--ac:#d4d4d8;--ok:#86efac;--warn:#fde68a;--b1:transparent;--b2:transparent}
+:root[data-fs=s] body{zoom:.92}:root[data-fs=l] body{zoom:1.1}
+/* ---- animations ---- */
+@keyframes rise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+@keyframes pop{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:none}}
+@keyframes fadein{from{opacity:0}to{opacity:1}}
+@keyframes grow{from{transform:scaleY(0)}to{transform:none}}
+#m.enter>*{animation:rise .5s cubic-bezier(.2,.7,.2,1) both}
+#m.enter>*:nth-child(2){animation-delay:.05s}#m.enter>*:nth-child(3){animation-delay:.1s}#m.enter>*:nth-child(4){animation-delay:.15s}#m.enter>*:nth-child(5){animation-delay:.2s}#m.enter>*:nth-child(n+6){animation-delay:.25s}
+.card,.it,.chip,.btn,.seg button,.tag,.icon-btn{transition:transform .2s,box-shadow .25s,background .2s,border-color .2s,color .2s}
+.card:hover{transform:translateY(-2px);box-shadow:0 14px 34px -16px rgba(0,0,0,.7)}
+.btn:active,.chip:active,.seg button:active,.icon-btn:active,.nv:active{transform:scale(.95)}
+.bar i,.hb i,.ring{transition:width .8s cubic-bezier(.2,.7,.2,1),background .3s}
+.slb div{transform-origin:bottom;animation:grow .7s cubic-bezier(.2,.7,.2,1) both}
+dialog[open]{animation:pop .24s ease}dialog::backdrop{animation:fadein .25s}
+.cdn b{transition:color .3s}.pill{animation:pop .4s both}
+:root[data-anim=off] *,:root[data-anim=off] *::before,:root[data-anim=off] *::after{animation:none!important;transition:none!important}
 </style></head><body>
 <header class="top"><div class="hw">
  <div class="brand" onclick="goTab(0)" title="Home" role="link" tabindex="0"><img src="favicon.png" alt="" width="22" height="22"><span id="bt">JEE 2027</span></div>
  <button class="areabtn" id="areasw" onclick="areaClick(event)" aria-label="Switch section: JEE, Board or Overall" title="Click to switch: JEE → Board → Overall"></button>
- <button class="tag mono" id="dtag" onclick="setExam()" title="Change exam date"></button>
  <span class="tag mono hide-sm" id="xtag"></span>
  <nav class="tabs" id="tabs" aria-label="Sections"></nav>
  <button class="icon-btn" onclick="openSettings()" aria-label="Settings" id="setb"></button>
 
 </div></header>
-<nav class="sidenav" id="sidenav" aria-label="Sections"></nav>
+<aside class="side" id="side" aria-label="Main navigation"></aside>
 <main id="m"></main>
 <nav class="tabbar" id="tabbar" aria-label="Sections"></nav>
 <dialog id="dlg"></dialog>
@@ -255,7 +296,7 @@ const OLDCH={
 Physics:['Units & Measurements','Kinematics','Laws of Motion','Work, Energy & Power','Centre of Mass & Collisions','Rotational Motion','Gravitation','Mechanical Properties of Solids','Fluid Mechanics','Thermal Properties of Matter','Thermodynamics','Kinetic Theory of Gases','Oscillations (SHM)','Waves & Sound','Electrostatics','Capacitance','Current Electricity','Moving Charges & Magnetism','Magnetism & Matter','Electromagnetic Induction','Alternating Current','EM Waves','Ray Optics','Wave Optics','Dual Nature of Matter','Atoms','Nuclei','Semiconductors','Experimental Physics'],
 Chemistry:['Mole Concept','Atomic Structure','Periodic Table','Chemical Bonding','Thermodynamics','Chemical Equilibrium','Ionic Equilibrium','Redox Reactions','Solutions','Electrochemistry','Chemical Kinetics','p-Block (13-14)','p-Block (15-18)','d & f Block','Coordination Compounds','GOC','Isomerism','Hydrocarbons','Haloalkanes & Haloarenes','Alcohols, Phenols & Ethers','Aldehydes & Ketones','Carboxylic Acids','Amines','Biomolecules','Practical Chemistry'],
 Mathematics:['Sets & Relations','Functions','Complex Numbers','Quadratic Equations','Sequences & Series','Permutations & Combinations','Binomial Theorem','Matrices','Determinants','Trigonometric Ratios & Equations','Inverse Trigonometry','Straight Lines','Circles','Parabola','Ellipse','Hyperbola','Limits','Continuity & Differentiability','Differentiation','Application of Derivatives','Indefinite Integration','Definite Integration','Area Under Curves','Differential Equations','Vectors','3D Geometry','Probability','Statistics']};
-let tab=Math.min(S.tab||0,8);
+let tab=0;
 
 /* ---------- XP + toast ---------- */
 const lv=()=>Math.floor(Math.sqrt((S.xp||0)/60))+1;
@@ -289,7 +330,7 @@ function beep(){try{const a=new (window.AudioContext||window.webkitAudioContext)
 setInterval(()=>{if(!run)return;const n=Date.now(),e=Math.floor((n-last)/1000);if(e<1)return;last+=e*1000;credit(CUR(),e);sessSec+=e;fx(e);
  const m=MODES[S.mode||0][1];if(m&&sessSec>=m*60){beep();toast(`Focus block done · ${m} min`);stop();return}save();tick()},250);
 addEventListener('pagehide',()=>{if(run){logSess();save()}});
-function tick(){const d=day(td()),m=MODES[S.mode||0][1];document.title=run?`${hms(m?Math.max(0,m*60-sessSec):d.s)} · ${CUR()}`:'JEE 2027 · Study Tracker';
+function tick(){heroTick();const d=day(td()),m=MODES[S.mode||0][1];document.title=run?`${hms(m?Math.max(0,m*60-sessSec):d.s)} · ${CUR()}`:'JEE 2027 · Study Tracker';
  const c=$('clk');if(!c)return;
  c.textContent=m?hms(Math.max(0,m*60-sessSec)):hms(d.s);
  $('sub2').textContent=m?`Today ${hms(d.s)}`:(run?`Session ${hms(sessSec)}`:'Paused · press play to start');
@@ -321,16 +362,20 @@ function normalize(){S.goal=S.goal||10;S.subs=['Physics','Chemistry','Mathematic
 const ring=(p,c,label)=>`<div class="ring" style="--p:${p};--c:${c}"><span class="mono">${label??p+'%'}</span></div>`;
 
 /* ---------- shell ---------- */
-function hdr(){const B=S.area==='board',ex=B?S.bexam:S.exam,n=ex?dd(ex):0;$('dtag').textContent=ex?`D-${n>0?n:0}`:'Set date';$('bt').textContent=B?'II PUC Board':S.area==='all'?'JEE + Board':'JEE 2027';$('xtag').textContent=`Lv ${lv()} · ${Math.round(S.xp||0)} XP`;
+const areaTitle=()=>S.area==='board'?'II PUC Board':S.area==='all'?'JEE + Board':'JEE 2027';
+function hdr(){$('bt').textContent=areaTitle();$('xtag').textContent=`Lv ${lv()} · ${Math.round(S.xp||0)} XP`;
  $('setb').innerHTML=ic('gear',16)}
 const TA=[['Overall','stats']],TJ=[['Today','clock'],['Syllabus','book'],['Tests','test'],['Practice','target'],['To Do','todo'],['Backlog','alert'],['Stats','stats'],['Sleep','moon']],TB=[['Today','clock'],['Syllabus','book'],['Tests','test'],['To Do','todo'],['Stats','stats']],tabsOf=()=>S.area==='board'?TB:S.area==='all'?TA:TJ;
-function setArea(a){if(S.area===a)return;if(run){if(!confirm('Stop the running timer and switch?'))return;stop()}S.area=a;tab=0;S.tab=0;save();go();scrollTo(0,0)}
+function setArea(a){if(S.area===a)return;if(run){if(!confirm('Stop the running timer and switch?'))return;stop()}S.area=a;tab=(S.tabs&&S.tabs[a])||0;S.tab=tab;save();enterAnim();go();scrollTo(0,0)}
 function nav(){const TABS=tabsOf(),b=(t,i)=>`<button class="${i==tab?'on':''}" onclick="goTab(${i})" ${i==tab?'aria-current="page"':''}>${ic(t[1],16)}<span>${t[0]}</span></button>`;
  $('tabs').innerHTML=TABS.map(b).join('');$('tabbar').innerHTML=TABS.map(b).join('');
- $('areasw').innerHTML=[['jee','JEE'],['board','Board'],['all','Overall']].map(([k,l])=>`<span data-a="${k}" class="${(S.area||'jee')===k?'on':''}">${l}</span>`).join('');$('sidenav').innerHTML=TABS.map(b).join('')}
+ $('areasw').innerHTML=[['jee','JEE'],['board','Board'],['all','Overall']].map(([k,l])=>`<span data-a="${k}" class="${(S.area||'jee')===k?'on':''}">${l}</span>`).join('')
+ const sb=(t,i)=>`<button class="nv ${i==tab?'on':''}" onclick="goTab(${i})" title="${t[0]}" ${i==tab?'aria-current="page"':''}>${ic(t[1],20)}<span class="lb">${t[0]}</span></button>`;
+ $('side').innerHTML=`<div class="sb-brand" onclick="goTab(0)" role="link" tabindex="0" title="Home"><img src="favicon.png" alt=""><span class="lb">${areaTitle()}</span></div>${TABS.map(sb).join('')}<button class="setc" onclick="openSettings()" aria-label="Settings" title="Settings">${ic('gear',20)}</button>`}
 function areaClick(e){const o=['jee','board','all'],t=e.target.closest('[data-a]'),n=t?t.dataset.a:o[(o.indexOf(S.area||'jee')+1)%3],b=$('areasw');b.classList.remove('flash');void b.offsetWidth;b.classList.add('flash');setArea(n)}
-function go(){applyLook();nav();hdr();const V=S.area==='board'?[vToday,vBSyl,vBTests,vTodo,vBStats]:S.area==='all'?[vOverall]:[vToday,vSyl,vTests,vPrac,vTodo,vBack,vStats,vSleep];if(tab>=V.length)tab=0;$('m').innerHTML=V[tab]();tick();cdTick()}
-function goTab(i){tab=i;S.tab=i;save();go();scrollTo(0,0)}
+function go(){tab=(S.tabs&&S.tabs[S.area||'jee'])||0;applyLook();nav();hdr();const V=S.area==='board'?[vToday,vBSyl,vBTests,vTodo,vBStats]:S.area==='all'?[vOverall]:[vToday,vSyl,vTests,vPrac,vTodo,vBack,vStats,vSleep];if(tab>=V.length)tab=0;$('m').innerHTML=V[tab]();tick();cdTick()}
+function enterAnim(){const m=$('m');m.classList.add('enter');clearTimeout(enterAnim.t);enterAnim.t=setTimeout(()=>m.classList.remove('enter'),900)}
+function goTab(i){S.tabs=S.tabs||{};S.tabs[S.area||'jee']=i;tab=i;S.tab=i;save();enterAnim();go();scrollTo(0,0)}
 function theme(){const r=document.documentElement,l=r.dataset.theme!=='light';r.dataset.theme=l?'light':'dark';S.theme=r.dataset.theme;save();hdr()}
 function setExam(){const B=S.area==='board',v=prompt((B?'Board exam':'JEE Main')+' date (YYYY-MM-DD)',(B?S.bexam:S.exam)||'');if(v&&!isNaN(new Date(v))){if(B)S.bexam=v;else S.exam=v;save();go()}}
 function addSub(){const v=prompt('New subject name');if(v&&v.trim()&&!S.subs.includes(v.trim())){S.subs.push(v.trim());save();go()}}
@@ -356,7 +401,7 @@ function delSess(i){const x=S.sess[i];if(!x||!confirm('Delete this session? Its 
 function vToday(){const T=td(),t=qstat(null,T),d=day(T),now=new Date();
  const ss=S.sess.map((x,i)=>({...x,i})).filter(x=>x.d===T&&(x.a||'jee')===(S.area||'jee')).reverse();
  const tq=TODOS().filter(x=>!x.due||x.due<=T),tdn=tq.filter(x=>x.x).length;
- return bkBanner()+cdHTML()+`<div class="two">
+ return bkBanner()+heroHTML()+testCdHTML()+cdHTML()+`<div class="two">
 <section class="card" aria-label="Study clock">
  <div class="row"><div class="lbl">${now.toLocaleDateString('en-IN',{weekday:'long',day:'numeric',month:'short'})}</div>
  <div class="seg" role="group" aria-label="Timer mode">${MODES.map((m,i)=>`<button class="${(S.mode||0)==i?'on':''}" onclick="setMode(${i})">${m[0]}</button>`).join('')}</div></div>
@@ -374,7 +419,7 @@ ${S.area==='board'?bStack():`<div class="stack">
   <div class="card stat"><div class="lbl">Streak</div><b class="mono">${streak()}<small> days</small></b></div>
   <div class="card stat"><div class="lbl">Avg / day</div><b class="mono">${avg().toFixed(1)}<small> h</small></b></div>
   <div class="card stat"><div class="lbl">Questions today</div><b class="mono">${t.d}</b><small>${t.d?t.a+'% accuracy':'none logged yet'}</small></div>
-  <div class="card stat" style="cursor:pointer" onclick="tab=4;go()"><div class="lbl">Tasks today</div><b class="mono">${tdn}/${tq.length}</b><small>open To Do &rarr;</small></div>
+  <div class="card stat" style="cursor:pointer" onclick="goTab(4)"><div class="lbl">Tasks today</div><b class="mono">${tdn}/${tq.length}</b><small>open To Do &rarr;</small></div>
  </div>
  <section class="card"><div class="lbl" style="margin-bottom:10px">Log questions solved</div>${logForm()}${chList('chl-all')}</section>
  <section class="card"><div class="lbl" style="margin-bottom:10px">Studied offline? Add time</div>
@@ -595,20 +640,23 @@ function importData(f){if(!f)return;const r=new FileReader();r.onload=()=>{try{c
 /* ---------- countdown ---------- */
 function cdHTML(){return `<section class="card" style="margin-bottom:14px"><div class="row"><div class="lbl">${S.area==='board'?'Board exam':'JEE Main'} countdown</div><span class="mut mono" style="font-size:12px">${cdTarget()?fdate(cdTarget().toISOString().slice(0,10)):'Set the date in Settings'}</span></div><div class="cdn" style="margin-top:12px">${[['cdD','Days'],['cdH','Hours'],['cdM','Minutes'],['cdS','Seconds']].map(([i,l])=>`<div><b class="mono" id="${i}">--</b><span class="mut" style="font-size:11px">${l}</span></div>`).join('')}</div></section>`}
 const cdTarget=()=>S.area==='board'?(S.bexam?new Date(S.bexam+'T10:15:00'):null):new Date(S.exam+'T09:00:00');
-function cdTick(){if(!$('cdD'))return;const T=cdTarget();if(!T){['cdD','cdH','cdM','cdS'].forEach(i=>$(i).textContent='--');return}const s=Math.floor(Math.max(0,T-Date.now())/1000);$('cdD').textContent=Math.floor(s/86400);$('cdH').textContent=p2(Math.floor(s%86400/3600));$('cdM').textContent=p2(Math.floor(s%3600/60));$('cdS').textContent=p2(s%60)}
+function cdTick(){testTick();if(!$('cdD'))return;const T=cdTarget();if(!T){['cdD','cdH','cdM','cdS'].forEach(i=>$(i).textContent='--');return}const s=Math.floor(Math.max(0,T-Date.now())/1000);$('cdD').textContent=Math.floor(s/86400);$('cdH').textContent=p2(Math.floor(s%86400/3600));$('cdM').textContent=p2(Math.floor(s%3600/60));$('cdS').textContent=p2(s%60)}
 setInterval(cdTick,1000);
 /* ---------- settings dialog ---------- */
-function applyLook(){const r=document.documentElement;r.dataset.rad=S.rad||'rounded';r.dataset.den=S.den||'normal'}
+function applyLook(){const r=document.documentElement;r.dataset.rad=S.rad||'rounded';r.dataset.den=S.den||'normal';r.dataset.fs=S.fs||'m';r.dataset.anim=S.anim||'on';r.dataset.side=S.side||'auto'}
 function setLook(k,v){S[k]=v;save();applyLook();openSettings()}
 function setTheme(k){S.theme=k;document.documentElement.dataset.theme=k;save();hdr();openSettings()}
 function resetAll(){if(prompt('Type DELETE to erase ALL data')==='DELETE'){localStorage.removeItem(K);location.reload()}}
-function openSettings(){const th=S.theme||'dark',T=[['dark','Midnight'],['amoled','AMOLED'],['slate','Slate'],['forest','Forest'],['rose','Rose'],['light','Light']];
+function openSettings(){const th=S.theme||'dark',T=[['dark','Midnight'],['amoled','AMOLED'],['slate','Slate'],['forest','Forest'],['rose','Rose'],['ocean','Ocean'],['violet','Violet'],['sunset','Sunset'],['graphite','Graphite'],['light','Light']];
 dlg(`<div class="row"><h3>Settings</h3><button class="icon-btn" onclick="closeDlg()" aria-label="Close">${ic('x',16)}</button></div>
 <div class="lbl" style="margin:16px 0 8px">Profile &amp; goals</div>
-<div class="f"><label class="fl">Name<input value="${esc(S.name||'')}" placeholder="Your name" onchange="S.name=this.value.trim();save()"></label><label class="fl">JEE Main date<input type="date" value="${S.exam}" onchange="if(this.value){S.exam=this.value;save();go()}"></label><label class="fl">Daily goal (h)<input type="number" min="1" max="18" value="${S.goal||10}" onchange="S.goal=+this.value||10;save();go()"></label><label class="fl">Target score /300<input type="number" min="0" max="300" value="${S.goalMain||''}" onchange="S.goalMain=+this.value||0;save()"></label><label class="fl">Sleep goal (h)<input type="number" min="4" max="12" step=".5" value="${S.sleepGoal||8}" onchange="S.sleepGoal=+this.value||8;save();go()"></label><label class="fl">Board exam date<input type="date" value="${S.bexam||''}" onchange="S.bexam=this.value;save();go()"></label></div>
+<div class="f"><label class="fl">Name<input value="${esc(S.name||'')}" placeholder="Your name" onchange="S.name=this.value.trim();save()"></label><label class="fl">JEE Main date<input type="date" value="${S.exam}" onchange="if(this.value){S.exam=this.value;save();go()}"></label><label class="fl">Daily goal (h)<input type="number" min="1" max="18" value="${S.goal||10}" onchange="S.goal=+this.value||10;save();go()"></label><label class="fl">Target score /300<input type="number" min="0" max="300" value="${S.goalMain||''}" onchange="S.goalMain=+this.value||0;save()"></label><label class="fl">Board daily goal (h)<input type="number" min="1" max="18" value="${S.bgoal||6}" onchange="S.bgoal=+this.value||6;save();go()"></label><label class="fl">Sleep goal (h)<input type="number" min="4" max="12" step=".5" value="${S.sleepGoal||8}" onchange="S.sleepGoal=+this.value||8;save();go()"></label><label class="fl">Board exam date<input type="date" value="${S.bexam||''}" onchange="S.bexam=this.value;save();go()"></label></div>
 <div class="lbl" style="margin:18px 0 8px">Theme</div><div class="chips">${T.map(([k,l])=>`<button class="chip ${th==k?'on':''}" onclick="setTheme('${k}')">${l}</button>`).join('')}</div>
 <div class="lbl" style="margin:18px 0 8px">Corner style</div><div class="chips">${[['sharp','Sharp'],['rounded','Rounded'],['pill','Pill']].map(([k,l])=>`<button class="chip ${(S.rad||'rounded')==k?'on':''}" onclick="setLook('rad','${k}')">${l}</button>`).join('')}</div>
 <div class="lbl" style="margin:18px 0 8px">Layout density</div><div class="chips">${[['compact','Compact'],['normal','Normal'],['relaxed','Relaxed']].map(([k,l])=>`<button class="chip ${(S.den||'normal')==k?'on':''}" onclick="setLook('den','${k}')">${l}</button>`).join('')}</div>
+<div class="lbl" style="margin:18px 0 8px">Font size</div><div class="chips">${[['s','Small'],['m','Medium'],['l','Large']].map(([k,l])=>`<button class="chip ${(S.fs||'m')==k?'on':''}" onclick="setLook('fs','${k}')">${l}</button>`).join('')}</div>
+<div class="lbl" style="margin:18px 0 8px">Animations</div><div class="chips">${[['on','On'],['off','Off']].map(([k,l])=>`<button class="chip ${(S.anim||'on')==k?'on':''}" onclick="setLook('anim','${k}')">${l}</button>`).join('')}</div>
+<div class="lbl" style="margin:18px 0 8px">Sidebar (desktop)</div><div class="chips">${[['auto','Expand on hover'],['open','Always open'],['compact','Always compact']].map(([k,l])=>`<button class="chip ${(S.side||'auto')==k?'on':''}" onclick="setLook('side','${k}')">${l}</button>`).join('')}</div>
 <div class="lbl" style="margin:18px 0 8px">Data</div>
 <div class="f"><button class="btn" onclick="exportData()">Export backup</button><label class="btn" style="cursor:pointer">Import backup<input type="file" accept="application/json" class="sr-only" onchange="importData(this.files[0])"></label><button class="x bad" onclick="if(confirm('Reset the study time logged today?')){DAYS()[td()]={s:0,sub:{}};S.sess=S.sess.filter(x=>x.d!==td()||(x.a||'jee')!==(S.area||'jee'));save();go();closeDlg()}">Reset today</button><button class="x bad" onclick="resetAll()">Reset everything</button></div>
 <p class="mut" style="font-size:12px;margin:10px 0 0">Data is saved in this browser. Export a backup regularly to move it to another device.</p>`)}
@@ -651,7 +699,7 @@ function vBSyl(){const st=BSTEP[bsel],L=bList(),tm=L.reduce((a,x)=>a+(x.c.m||0),
  let n=0;
  return `<div class="row" style="margin-bottom:14px"><div><h3>Board syllabus</h3><div class="mut" style="font-size:12.5px">II PUC 2026-27 blue print · tick each stage as you finish it · weightage = marks allotted</div></div></div>
 ${bOverall()}
-<div class="grid" style="margin-bottom:14px">${BSUB.map(b=>`<button class="card row sylc" style="flex-wrap:nowrap;cursor:pointer;text-align:left;font:inherit;color:inherit;${b==bsel?'border-color:var(--ac)':''}" onclick="bsel='${b}';go()">${ring(bPct(b),col(b))}<div style="flex:1"><div class="lbl">${esc(b)}</div><div class="mut" style="font-size:12.5px;margin-top:4px">${bDone(b)}/${bN(b)} chapters · ${BMAX[b]} marks</div></div></button>`).join('')}</div>
+<div class="bgrid">${BSUB.map(b=>`<button class="card row sylc" style="flex-wrap:nowrap;cursor:pointer;text-align:left;font:inherit;color:inherit;${b==bsel?'border-color:var(--ac)':''}" onclick="bsel='${b}';go()">${ring(bPct(b),col(b))}<div style="flex:1"><div class="lbl">${esc(b)}</div><div class="mut" style="font-size:12.5px;margin-top:4px">${bDone(b)}/${bN(b)} chapters · ${BMAX[b]} marks</div></div></button>`).join('')}</div>
 <section class="card"><div class="row" style="margin-bottom:6px"><div><h3>${esc(bsel)}</h3><div class="mut" style="font-size:12.5px">Paper: ${BMAX[bsel]} marks · allotted weightage ${tm} · stages: ${st.join(' → ')}</div></div>
 <div class="seg" role="group" aria-label="Sort chapters">${['Syllabus order','Highest weightage'].map((l,k)=>`<button class="${bsort==k?'on':''}" onclick="bsort=${k};go()">${l}</button>`).join('')}</div></div>
 ${rows.map(({c,i})=>{if(c.g)return `<div class="lbl" style="margin:16px 0 4px">${esc(c.g)}</div>`;n++;const v=bv(bsel,c.n),dn=st.filter((_,b)=>v&(1<<b)).length,q=bqs(c.q);
@@ -705,6 +753,17 @@ function vBStats(){const rows=[];for(let o=0;o<14;o++){const d=dstr(o),x=DAYS()[
  <section class="card" style="margin-bottom:14px"><div class="lbl" style="margin-bottom:10px">Last 14 days</div><div class="slb">${[...rows].reverse().map(r=>`<div title="${r.d}: ${r.h.toFixed(1)}h" style="height:${Math.max(4,r.h/mx*100)}%;opacity:${r.h?1:.15}"></div>`).join('')}</div></section>
  <section class="card" style="margin-bottom:14px"><div class="lbl" style="margin-bottom:6px">Time by subject · 7 days</div>${BSUB.map(b=>{const v=sp[b]||0;return `<div class="it"><span class="dot" style="background:${col(b)}"></span><span>${esc(b)}</span><span class="mono mut" style="flex:none">${(v/3600).toFixed(1)}h · ${Math.round(v/st*100)}%</span></div>`}).join('')}</section>
  <section class="card"><div class="lbl" style="margin-bottom:6px">Syllabus progress</div>${BSUB.map(b=>`<div class="it"><span>${esc(b)}</span><span class="mono mut" style="flex:none">${bDone(b)}/${bN(b)} chapters</span><b class="mono" style="width:48px;text-align:right">${bPct(b)}%</b></div>`).join('')}</section>`}
+const goalH=()=>S.area==='board'?(S.bgoal||6):(S.goal||10),fmh=x=>`${Math.floor(x/3600)}h ${p2(Math.floor(x%3600/60))}m`;
+function heroHTML(){const B=S.area==='board',g=goalH(),h=day(td()).s,tot=g*3600,pc=Math.min(100,Math.round(h/tot*100)),hr=new Date().getHours(),gr=hr<12?'morning':hr<17?'afternoon':'evening',ex=B?S.bexam:S.exam,left=ex?Math.max(0,dd(ex)):0,since=Math.max(0,-dd(S.start||td())),st=pc>=100?['Goal hit','ok']:hr>=12&&pc<25?['Needs attention','bad']:['On track','ok'];
+ return `<section class="card hero2" style="margin-bottom:14px"><div class="row"><div><div class="hg">Good ${gr}${S.name?', '+esc(S.name):''} 👋</div><div class="mut">${new Date().toLocaleDateString('en-GB',{weekday:'long'})}, ${dmy(td())}</div></div><span class="pill ${st[1]}">● ${st[0]}</span></div>
+ <div class="hp"><div class="row"><span><b id="hrL" style="font-size:22px">${fmh(Math.max(0,tot-h))}</b> <span class="mut">left of ${g}h goal today</span></span><b id="hrP" class="mono">${pc}%</b></div><div class="bar" style="height:10px"><i id="hrB" style="width:${pc}%"></i></div><div class="row mut" style="font-size:12.5px"><span id="hrD">Studied today: ${fmh(h)} / ${g}h</span><span>${ex?'Day '+(since+1)+' of '+(since+left):''}</span></div></div></section>`}
+function heroTick(){const e=$('hrL');if(!e)return;const g=goalH(),h=day(td()).s,tot=g*3600,pc=Math.min(100,Math.round(h/tot*100));e.textContent=fmh(Math.max(0,tot-h));$('hrP').textContent=pc+'%';$('hrB').style.width=pc+'%';$('hrD').textContent=`Studied today: ${fmh(h)} / ${g}h`}
+function nextTests(){const T=td();return(S.area==='board'?(S.btests||[]).filter(t=>t.date>=T&&(t.sc===undefined||t.sc==='')):S.tests.filter(t=>t.date>=T&&!t.at)).slice().sort((a,b)=>a.date<b.date?-1:1)}
+function testCdHTML(){const L=nextTests(),n=L[0];
+ if(!n)return `<section class="card" style="margin-bottom:14px"><div class="lbl">Next test</div><div class="mut" style="margin-top:6px">${S.area==='board'?'No upcoming board test — create one in the Tests tab.':'No upcoming tests.'}</div></section>`;
+ return `<section class="card" style="margin-bottom:14px"><div class="row"><div class="lbl">Next test · ${esc(n.name)}</div><span class="mut mono" style="font-size:12px">${dmy(n.date)} · 9:00 AM</span></div><div class="cdn" style="margin-top:12px">${[['ctD','Days'],['ctH','Hours'],['ctM','Minutes'],['ctS','Seconds']].map(([i,l])=>`<div><b class="mono" id="${i}">--</b><span class="mut" style="font-size:11px">${l}</span></div>`).join('')}</div>
+ ${L.length>1?`<div class="f" style="margin:12px 0 0;gap:8px">${L.slice(1,4).map(t=>`<span class="tag mono">${esc(t.name)} · ${dd(t.date)>0?'in '+dd(t.date)+'d':'today'}</span>`).join('')}</div>`:''}</section>`}
+function testTick(){if(!$('ctD'))return;const n=nextTests()[0];if(!n)return;const s=Math.floor(Math.max(0,new Date(n.date+'T09:00:00')-Date.now())/1000);$('ctD').textContent=Math.floor(s/86400);$('ctH').textContent=p2(Math.floor(s%86400/3600));$('ctM').textContent=p2(Math.floor(s%3600/60));$('ctS').textContent=p2(s%60)}
 function bkBanner(){const act=Object.keys(S.days).length+Object.keys(S.bdays||{}).length,age=S.lastBackup?Math.floor((Date.now()-S.lastBackup)/864e5):null;if(act<3||(age!==null&&age<7))return'';
  return `<section class="card" style="margin-bottom:14px;border-color:var(--warn)"><div class="row"><div><b>Back up your data</b><div class="mut" style="font-size:12.5px">${age===null?'You have never exported a backup.':'Your last backup was '+age+' days ago.'} Everything is stored only in this browser — clearing it would erase your progress.</div></div><button class="btn pri" onclick="exportData();go()">Export backup</button></div></section>`}
 try{navigator.storage&&navigator.storage.persist&&navigator.storage.persist()}catch(e){}
@@ -749,6 +808,16 @@ return `<section class="card" style="margin-bottom:14px"><div class="lbl" style=
 
 /* ---------- boot ---------- */
 if(S.theme)document.documentElement.dataset.theme=S.theme;else if(matchMedia('(prefers-color-scheme: light)').matches)document.documentElement.dataset.theme='light';
+const dmy=iso=>{if(!iso)return'';const[a,b,c]=String(iso).split('-');return `${c}/${b}/${(a||'').slice(2)}`};
+function pdmy(v){const m=String(v).trim().match(/^(\d{1,2})[\/\-.](\d{1,2})[\/\-.](\d{2}|\d{4})$/);if(!m)return null;let d=+m[1],mo=+m[2],y=m[3].length==2?2000+ +m[3]:+m[3];const dt=new Date(y,mo-1,d);if(dt.getFullYear()!==y||dt.getMonth()!==mo-1||dt.getDate()!==d)return null;return `${y}-${p2(mo)}-${p2(d)}`}
+function enhanceDates(){document.querySelectorAll('input[type=date]:not([data-dp])').forEach(o=>{o.dataset.dp=1;const w=document.createElement('span');w.className='dp',t=document.createElement('input'),b=document.createElement('button');
+ t.type='text';t.className=o.className;t.placeholder='dd/mm/yy';t.inputMode='numeric';t.value=dmy(o.value);t.setAttribute('aria-label','Date (dd/mm/yy)');t.style.cssText=o.getAttribute('style')||'';
+ b.type='button';b.className='dpb';b.setAttribute('aria-label','Pick a date');b.innerHTML='<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>';
+ o.parentNode.insertBefore(w,o);w.append(t,b,o);
+ t.addEventListener('change',()=>{const v=t.value.trim(),iso=v?pdmy(v):'';if(v&&!iso){toast('Use the format dd/mm/yy');t.value=dmy(o.value);return}o.value=iso||'';o.dispatchEvent(new Event('change',{bubbles:true}))});
+ o.addEventListener('change',()=>{t.value=dmy(o.value)});
+ b.addEventListener('click',()=>{try{o.showPicker()}catch(e){o.focus()}})})}
+if(typeof MutationObserver!=='undefined')new MutationObserver(()=>requestAnimationFrame(enhanceDates)).observe(document.body,{childList:true,subtree:true});
 let ld=td();setInterval(()=>{if(td()!==ld){ld=td();normalize();go()}},30000);
-normalize();go();
+normalize();enterAnim();go();enhanceDates();
 </script></body></html>
