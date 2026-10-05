@@ -3,7 +3,6 @@
 <title>JEE 2027 · Study Tracker</title>
 <meta name="description" content="Minimal JEE study tracker: study clock, syllabus tracker, mock test analysis, practice log and daily stats.">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <meta name="theme-color" content="#070a12">
 <link rel="icon" type="image/png" href="favicon.png">
 <link rel="apple-touch-icon" href="favicon.png">
@@ -308,32 +307,7 @@ h3{font-size:19px;font-weight:650;letter-spacing:-.01em}
 .tour[hidden]{display:none}.tour .tstep{color:#818cf8;font-weight:700;font-size:12.5px;letter-spacing:.06em}.tour h4{margin:6px 0 8px;font-size:20px;color:#fff}.tour p{margin:0 0 18px;line-height:1.55;color:#cbd5e1}
 .tour .tx{position:absolute;top:16px;right:16px;background:none;border:0;color:#94a3b8;cursor:pointer}.tfoot{display:flex;align-items:center;gap:12px}.tdots{display:flex;gap:5px;flex:1}.tdots i{height:5px;flex:1;border-radius:3px;background:#334155}.tdots i.on{background:#818cf8}
 .tback{background:none;border:0;color:#94a3b8;font:inherit;cursor:pointer}.tback:disabled{opacity:.4;cursor:default}
-
-/* ===== Supabase authentication overlay ===== */
-#jee-auth-overlay{position:fixed;inset:0;z-index:99999;display:flex;align-items:center;justify-content:center;background:rgba(4,6,12,.94);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);padding:20px}
-.jee-auth-card{width:min(410px,100%);padding:30px;border:1px solid rgba(255,255,255,.12);border-radius:22px;background:rgba(16,20,32,.94);box-shadow:0 30px 80px rgba(0,0,0,.55);font-family:Inter,system-ui,sans-serif}
-.jee-auth-brand{display:flex;align-items:center;gap:10px;margin-bottom:22px;font-weight:700;font-size:20px}.jee-auth-brand i{width:10px;height:10px;border-radius:50%;background:#5b9dff;box-shadow:0 0 16px #5b9dff}
-.jee-auth-card h2{margin:0 0 6px;font-size:24px}.jee-auth-card .sub{margin:0 0 20px;color:#8b95a7;font-size:13px}
-.jee-auth-card label{display:block;color:#8b95a7;font-size:12px;margin:12px 0 6px}.jee-auth-card input{width:100%;padding:11px 12px;border-radius:11px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.055);color:#eef2f8;font:inherit;outline:none}.jee-auth-card input:focus{border-color:#5b9dff}
-.jee-auth-card button.primary{width:100%;margin-top:16px;padding:11px;border:0;border-radius:11px;background:#5b9dff;color:#fff;font:600 14px Inter;cursor:pointer}.jee-auth-card button.primary:disabled{opacity:.55;cursor:wait}
-.jee-auth-toggle{text-align:center;color:#8b95a7;font-size:12.5px;margin-top:16px}.jee-auth-toggle button{background:none;border:0;color:#5b9dff;font:600 12.5px Inter;cursor:pointer;padding:0}.jee-auth-msg{min-height:18px;margin-top:12px;font-size:12px;color:#f87171}.jee-auth-msg.ok{color:#34d399}
-#jee-user-menu{display:flex;align-items:center;gap:8px}.jee-logout{font-size:11px!important;padding:4px 9px!important}
 </style></head><body>
-<!-- ===== Supabase authentication ===== -->
-<div id="jee-auth-overlay" hidden>
-  <div class="jee-auth-card">
-    <div class="jee-auth-brand"><i></i><span>JEE 2027</span></div>
-    <h2 id="jee-auth-title">Welcome back</h2>
-    <p class="sub" id="jee-auth-sub">Log in to continue to your study tracker.</p>
-    <label for="jee-email">Email</label>
-    <input id="jee-email" type="email" autocomplete="email" placeholder="you@example.com">
-    <label for="jee-password">Password</label>
-    <input id="jee-password" type="password" autocomplete="current-password" placeholder="••••••••">
-    <button class="primary" id="jee-auth-btn" type="button" onclick="handleAuth()">Log In</button>
-    <div class="jee-auth-msg" id="jee-auth-msg"></div>
-    <div class="jee-auth-toggle"><span id="jee-toggle-text">First time here?</span> <button type="button" onclick="toggleAuthMode()" id="jee-toggle-link">Create an account</button></div>
-  </div>
-</div>
 <header class="top"><div class="hw">
  <div class="brand" onclick="goTab(0)" title="Home" role="link" tabindex="0"><img src="favicon.png" alt="" width="22" height="22"><span id="bt">JEE 2027</span></div>
  <div class="areawrap"><button class="areabtn" id="areasw" onclick="toggleAreaMenu(event)" aria-haspopup="menu" aria-expanded="false" aria-label="Switch section" title="Switch between JEE, Board and Overall"></button><div class="areamenu" id="areamenu" role="menu" hidden></div></div>
@@ -349,13 +323,10 @@ h3{font-size:19px;font-weight:650;letter-spacing:-.01em}
 <dialog id="dlg"></dialog>
 <div id="toast" role="status" aria-live="polite"></div>
 <script>
-const K='jee27'; let AUTH_USER_ID=null;
-const DEFAULT_STATE={exam:'2027-01-21',subs:['Physics','Chemistry','Mathematics'],cur:'Physics',days:{},qlog:[],todos:[],tests:[],notes:{},syl:{},sess:[],topic:'',mode:0};
-let S=Object.assign({},DEFAULT_STATE);
-const storageKey=()=>AUTH_USER_ID?`${K}:${AUTH_USER_ID}`:K;
+const K='jee27';
+let S={exam:'2027-01-21',subs:['Physics','Chemistry','Mathematics'],cur:'Physics',days:{},qlog:[],todos:[],tests:[],notes:{},syl:{},sess:[],topic:'',mode:0};
 try{const r=localStorage.getItem(K);if(r)S=Object.assign(S,JSON.parse(r))}catch(e){}
-let cloudSaveTimer=null;
-const save=()=>{try{localStorage.setItem(storageKey(),JSON.stringify(S));if(AUTH_USER_ID){clearTimeout(cloudSaveTimer);cloudSaveTimer=setTimeout(()=>cloudSave(),900)}}catch(e){}};
+const save=()=>{try{localStorage.setItem(K,JSON.stringify(S))}catch(e){}};
 const $=id=>document.getElementById(id);
 const td=()=>new Date().toLocaleDateString('en-CA');
 const TODOS=()=>S.area==='board'?(S.btodos=S.btodos||[]):S.todos,setTodos=a=>{if(S.area==='board')S.btodos=a;else S.todos=a},TSUBS=()=>S.area==='board'?BSUB:SUBS();
@@ -1130,109 +1101,4 @@ function enhanceDates(){document.querySelectorAll('input[type=date]:not([data-dp
 if(typeof MutationObserver!=='undefined')new MutationObserver(()=>requestAnimationFrame(enhanceDates)).observe(document.body,{childList:true,subtree:true});
 let ld=td();setInterval(()=>{if(td()!==ld){ld=td();normalize();autoTestTasks();save();go()}},30000);
 normalize();autoTestTasks();save();enterAnim();go();enhanceDates();
-</script>
-<script>
-/* ===== Supabase auth + per-user cloud backup =====
-   Create a public table named tracker_data with columns:
-   user_id uuid primary key references auth.users(id) on delete cascade,
-   data jsonb not null default '{}'::jsonb,
-   updated_at timestamptz not null default now()
-   Enable RLS and add policies for authenticated users where auth.uid() = user_id.
-*/
-const SUPABASE_URL = https://gwynbhrhjjqonnupcvjb.supabase.co;
-const SUPABASE_ANON_KEY = sb_publishable_LpXT5B7Yf2DeT5gu68aF_Q_CYHaWoc6;
-const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-let isSignUpMode=false;
-let authReady=false;
-let cloudHydrated=false;
-
-const authOverlay=()=>document.getElementById('jee-auth-overlay');
-const authMsg=(msg,ok=false)=>{const e=document.getElementById('jee-auth-msg');e.textContent=msg||'';e.className='jee-auth-msg'+(ok?' ok':'')};
-function setAuthMode(){
-  $('jee-auth-title').textContent=isSignUpMode?'Create your account':'Welcome back';
-  $('jee-auth-sub').textContent=isSignUpMode?'Create an account to keep your JEE progress tied to your login.':'Log in to continue to your study tracker.';
-  $('jee-auth-btn').textContent=isSignUpMode?'Sign Up':'Log In';
-  $('jee-toggle-text').textContent=isSignUpMode?'Already have an account?':'First time here?';
-  $('jee-toggle-link').textContent=isSignUpMode?'Log In':'Create an account';
-  $('jee-password').autocomplete=isSignUpMode?'new-password':'current-password';
-  authMsg('');
-}
-function toggleAuthMode(){isSignUpMode=!isSignUpMode;setAuthMode()}
-async function handleAuth(){
-  const email=$('jee-email').value.trim(),password=$('jee-password').value;
-  if(!email||!password){authMsg('Please enter both email and password.');return}
-  if(password.length<6){authMsg('Password must be at least 6 characters.');return}
-  const btn=$('jee-auth-btn');btn.disabled=true;authMsg('Please wait…',true);
-  try{
-    if(isSignUpMode){
-      const {data,error}=await supabaseClient.auth.signUp({email,password});
-      if(error)throw error;
-      if(!data.session){authMsg('Account created. Check your email to verify it.',true)}
-      else authMsg('Account created. Loading your tracker…',true);
-    }else{
-      const {error}=await supabaseClient.auth.signInWithPassword({email,password});
-      if(error)throw error;
-    }
-  }catch(e){authMsg(e.message||'Authentication failed.');}
-  finally{btn.disabled=false}
-}
-async function cloudLoad(){
-  if(!AUTH_USER_ID)return false;
-  try{
-    const {data,error}=await supabaseClient.from('tracker_data').select('data').eq('user_id',AUTH_USER_ID).maybeSingle();
-    if(error)throw error;
-    if(data&&data.data){S=Object.assign({},DEFAULT_STATE,data.data);localStorage.setItem(storageKey(),JSON.stringify(S));cloudHydrated=true;return true}
-    // First login: migrate this browser's existing anonymous tracker into the account.
-    const old=localStorage.getItem(K);
-    if(old){try{S=Object.assign({},DEFAULT_STATE,JSON.parse(old));}catch(e){}}
-    await cloudSave(true);
-    cloudHydrated=true;return true;
-  }catch(e){console.warn('Cloud tracker load failed:',e.message);authMsg('Signed in, but cloud sync is unavailable. Your progress is still saved in this browser.');return false}
-}
-async function cloudSave(force=false){
-  if(!AUTH_USER_ID||(!cloudHydrated&&!force))return;
-  try{
-    const {error}=await supabaseClient.from('tracker_data').upsert({user_id:AUTH_USER_ID,data:S,updated_at:new Date().toISOString()},{onConflict:'user_id'});
-    if(error)throw error;
-  }catch(e){console.warn('Cloud tracker save failed:',e.message)}
-}
-function showTracker(user){
-  AUTH_USER_ID=user.id;
-  $('jee-auth-overlay').hidden=true;
-  cloudLoad().then(()=>{save();normalize();autoTestTasks();enterAnim();go();enhanceDates();updateAuthAvatar(user);});
-}
-function updateAuthAvatar(user){
-  const el=$('avt');
-  if(!el)return;
-  const email=user.email||'';
-  const initial=(email[0]||'J').toUpperCase();
-  el.innerHTML=`<i>${esc(initial)}</i><span class="hide-sm">${esc(email)}</span>`;
-  el.title=email;
-  el.onclick=openSettings;
-  let out=$('jee-logout');
-  if(!out){
-    out=document.createElement('button');out.id='jee-logout';out.className='btn jee-logout';out.type='button';out.textContent='Log out';
-    out.onclick=async()=>{if(confirm('Log out of this JEE tracker?'))await supabaseClient.auth.signOut()};
-    el.parentElement.insertBefore(out,$('setb'));
-  }
-}
-
-supabaseClient.auth.onAuthStateChange(async(event,session)=>{
-  if(session){
-    // Avoid doing the initial hydration twice when getSession() and this callback both fire.
-    if(AUTH_USER_ID!==session.user.id)showTracker(session.user);
-  }else if(authReady){
-    AUTH_USER_ID=null;cloudHydrated=false;authOverlay().hidden=false;S=Object.assign({},DEFAULT_STATE);go();
-    const out=$('jee-logout');if(out)out.remove();
-  }
-  authReady=true;
-});
-
-(async()=>{
-  setAuthMode();
-  const {data}=await supabaseClient.auth.getSession();
-  if(data.session)showTracker(data.session.user);
-  else authOverlay().hidden=false;
-  authReady=true;
-})();
 </script></body></html>
