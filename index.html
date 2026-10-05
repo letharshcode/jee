@@ -229,6 +229,23 @@ h3{font-size:19px;font-weight:650;letter-spacing:-.01em}
 .stbar{display:inline-flex;align-items:center;gap:8px;padding:5px 13px;border-radius:999px;font-size:12.5px;font-weight:650;border:1px solid currentColor;white-space:nowrap;flex:none}
 .stbar i{width:8px;height:8px;border-radius:50%;background:currentColor;display:block}
 .stbar.bad{color:#fb7185;background:rgba(251,113,133,.12)}.stbar.ok{color:#4ade80;background:rgba(74,222,128,.12)}
+/* ---- Tracker 360 inspired theme (light, indigo) ---- */
+:root[data-theme=tracker]{--bg:#f4f5fa;--g:#ffffff;--g2:#eef0f8;--bd:#e3e6f0;--tx:#0f172a;--mut:#64748b;--ac:#4f46e5;--ok:#16a34a;--bad:#e11d48;--warn:#d97706;--b1:transparent;--b2:transparent}
+:root[data-theme=tracker] .card{box-shadow:0 1px 2px rgba(15,23,42,.05),0 10px 28px -14px rgba(15,23,42,.14);backdrop-filter:none;-webkit-backdrop-filter:none;border-color:var(--bd)}
+:root[data-theme=tracker] .bar,:root[data-theme=tracker] .hb{background:#e2e8f0;height:10px}
+:root[data-theme=tracker] .btn.pri,:root[data-theme=tracker] .areabtn{background:var(--ac);color:#fff;border-color:var(--ac)}
+:root[data-theme=tracker] .areabtn{animation:none}:root[data-theme=tracker] body::before{display:none}
+:root[data-theme=tracker] .side,:root[data-theme=tracker] .top{background:rgba(255,255,255,.8)}
+:root[data-theme=tracker] .stbar.bad{background:#ffe4e6;color:#be123c}:root[data-theme=tracker] .stbar.ok{background:#dcfce7;color:#15803d}
+.trk{display:block;margin-top:6px;font-size:12.5px;font-weight:600;color:var(--ac);text-decoration:underline;text-underline-offset:3px}
+/* ---- calendar & button polish (all themes) ---- */
+.cd{border-radius:14px;transition:transform .15s,box-shadow .2s,background .2s}.cd:hover{transform:translateY(-2px)}
+.cd.now{box-shadow:inset 0 0 0 2px var(--ac)}.cd.sel{box-shadow:inset 0 0 0 2px var(--ac),0 6px 18px -8px var(--ac)}
+.cd.sel span{font-weight:700}
+.clegend{display:flex;align-items:center;gap:6px;margin:10px 0 2px;font-size:11.5px}.clegend i{width:14px;height:14px;border-radius:4px;display:inline-block;border:1px solid var(--bd)}
+.btn,.chip,.seg button{border-radius:999px}
+/* ---- no pulsing / flashing on the JEE-Board switch ---- */
+.areabtn{animation:none!important}.areamenu.flash button{animation:none!important}
 </style></head><body>
 <header class="top"><div class="hw">
  <div class="brand" onclick="goTab(0)" title="Home" role="link" tabindex="0"><img src="favicon.png" alt="" width="22" height="22"><span id="bt">JEE 2027</span></div>
@@ -251,6 +268,7 @@ const save=()=>{try{localStorage.setItem(K,JSON.stringify(S))}catch(e){}};
 const $=id=>document.getElementById(id);
 const td=()=>new Date().toLocaleDateString('en-CA');
 const TODOS=()=>S.area==='board'?(S.btodos=S.btodos||[]):S.todos,setTodos=a=>{if(S.area==='board')S.btodos=a;else S.todos=a},TSUBS=()=>S.area==='board'?BSUB:SUBS();
+const NOTES=()=>S.area==='board'?(S.bnotes=S.bnotes||{}):(S.notes=S.notes||{}),TOPIC=()=>S.area==='board'?(S.btopic||''):(S.topic||''),setTopic=v=>{if(S.area==='board')S.btopic=v;else S.topic=v};
 const DAYS=()=>S.area==='board'?(S.bdays=S.bdays||{}):S.days;
 const CUR=()=>S.area==='board'?(S.bcur||'Kannada'):S.cur;
 const subOf=k=>String(k||'').includes(' · ')?k.split(' · ')[1]:k;
@@ -346,7 +364,7 @@ const MODES=[['Stopwatch',0],['25m',25],['50m',50],['90m',90]];
 let run=false,last=0,sessSec=0,sessStart=0;
 function credit(sub,e,d=td()){const x=day(d);x.s+=e;x.sub[sub]=(x.sub[sub]||0)+e}
 function start(){run=true;last=Date.now();sessSec=0;sessStart=Date.now();fs=0;fi=0;go()}
-function logSess(){if(sessSec>=30)S.sess.push({d:td(),sub:CUR(),a:S.area||'jee',ch:(S.topic||'').trim(),sec:sessSec,at:sessStart})}
+function logSess(){if(sessSec>=30)S.sess.push({d:td(),sub:CUR(),a:S.area||'jee',ch:TOPIC().trim(),sec:sessSec,at:sessStart})}
 function stop(){logSess();run=false;sessSec=0;save();go()}
 function toggle(){run?stop():start()}
 const CATS=['Study','Practice','PYQs','Test'],TSUB=['Mock test','Analysis','Solutions'],jkey=(c,x)=>c==='Study'?x:c+' · '+x;
@@ -399,7 +417,7 @@ const areaTitle=()=>S.area==='board'?'II PUC Board':S.area==='all'?'JEE + Board'
 function hdr(){$('bt').textContent=areaTitle();$('xtag').textContent=`Lv ${lv()} · ${Math.round(S.xp||0)} XP`;
  $('setb').innerHTML=ic('gear',16)}
 const TA=[['Overall','stats']],TJ=[['Today','clock'],['Syllabus','book'],['Tests','test'],['Practice','target'],['To Do','todo'],['Backlog','alert'],['Stats','stats'],['Sleep','moon']],TB=[['Today','clock'],['Syllabus','book'],['Tests','test'],['To Do','todo'],['Stats','stats']],tabsOf=()=>S.area==='board'?TB:S.area==='all'?TA:TJ;
-function setArea(a){if(S.area===a)return;if(run){if(!confirm('Stop the running timer and switch?'))return;stop()}S.area=a;tab=(S.tabs&&S.tabs[a])||0;S.tab=tab;save();enterAnim();go();scrollTo(0,0)}
+function setArea(a){if(S.area===a)return;if(run){if(!confirm('Stop the running timer and switch?'))return;stop()}S.area=a;tab=(S.tabs&&S.tabs[a])||0;S.tab=tab;save();go();scrollTo(0,0)}
 function nav(){const TABS=tabsOf(),b=(t,i)=>`<button class="${i==tab?'on':''}" onclick="goTab(${i})" ${i==tab?'aria-current="page"':''}>${ic(t[1],16)}<span>${t[0]}</span></button>`;
  $('tabs').innerHTML=TABS.map(b).join('');$('tabbar').innerHTML=TABS.map(b).join('');
  renderAreaSw()
@@ -407,7 +425,7 @@ function nav(){const TABS=tabsOf(),b=(t,i)=>`<button class="${i==tab?'on':''}" o
  $('side').innerHTML=`<div class="sb-brand" onclick="goTab(0)" role="link" tabindex="0" title="Home"><img src="favicon.png" alt=""><span class="lb">${areaTitle()}</span></div>${TABS.map(sb).join('')}<button class="setc" onclick="openSettings()" aria-label="Settings" title="Settings">${ic('gear',20)}</button>`}
 const AREAS=[['jee','JEE'],['board','Board'],['all','Overall']];
 function renderAreaSw(){const cur=S.area||'jee';$('areasw').innerHTML=`<span>${AREAS.find(a=>a[0]===cur)[1]}</span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m6 9 6 6 6-6"/></svg>`;$('areamenu').innerHTML=AREAS.map(([k,l])=>`<button role="menuitem" class="${cur===k?'on':''}" onclick="pickArea('${k}')">${l}</button>`).join('')}
-function toggleAreaMenu(e){e.stopPropagation();const m=$('areamenu'),open=m.hidden;m.hidden=!open;$('areasw').setAttribute('aria-expanded',String(open));if(open){m.classList.remove('flash');void m.offsetWidth;m.classList.add('flash')}}
+function toggleAreaMenu(e){e.stopPropagation();const m=$('areamenu'),open=m.hidden;m.hidden=!open;$('areasw').setAttribute('aria-expanded',String(open));}
 function pickArea(k){$('areamenu').hidden=true;$('areasw').setAttribute('aria-expanded','false');setArea(k)}
 document.addEventListener('click',()=>{const m=$('areamenu');if(m&&!m.hidden){m.hidden=true;$('areasw').setAttribute('aria-expanded','false')}});
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){const m=$('areamenu');if(m)m.hidden=true}});
@@ -425,11 +443,17 @@ const nv=id=>{const e=$(id);if(!e)return'';const v=e.value.trim();return v===''?
 /* ---------- TODAY ---------- */
 const isT=()=>S.area!=='board'&&S.cat==='Test';
 function tList(){return `<datalist id="chl-cur">${S.tests.slice().sort((a,b)=>a.date<b.date?-1:1).map(t=>`<option value="${esc(t.name)}" label="${fdate(t.date)}">`).join('')}</datalist>`}
-function tinfo(){if(!isT())return'';const q=(S.topic||'').trim().toLowerCase(),t=q&&S.tests.find(x=>x.name.toLowerCase()===q);if(!t)return'';
+function tinfo(){if(!isT())return'';const q=TOPIC().trim().toLowerCase(),t=q&&S.tests.find(x=>x.name.toLowerCase()===q);if(!t)return'';
  const sy=typeof t.syl==='string'?t.syl:t.syl?`Physics: ${t.syl.p} · Chemistry: ${t.syl.c} · Maths: ${t.syl.m}`:'',n=dd(t.date);
  return `<b style="color:var(--tx)">${esc(t.name)}</b> · ${fdate(t.date)} (${n>0?'in '+n+' days':n==0?'today':Math.abs(n)+' days ago'}) · ${t.mx} marks${sy?'<br>'+esc(sy):''}`}
 function tinfo2(){const e=$('tinfo');if(e)e.innerHTML=tinfo()}
-function logForm(){return `<div class="f"><select id="qs" aria-label="Subject">${SUBS().map(s=>`<option ${s==subOf(S.cur)?'selected':''}>${esc(s)}</option>`).join('')}</select><input id="qch" list="chl-all" placeholder="Chapter" style="flex:1 1 140px"><input type="number" id="qd" placeholder="Done" min="0" aria-label="Questions done"><input type="number" id="qc" placeholder="Correct" min="0" aria-label="Correct"><button class="btn pri" onclick="addQ()">${ic('plus',15)}Log</button></div>`}
+function logForm(){return `<div class="f"><select id="qs" aria-label="Subject" onchange="fillCh('qs','chl-q')">${SUBS().map(s=>`<option ${s==subOf(S.cur)?'selected':''}>${esc(s)}</option>`).join('')}</select><input id="qch" list="chl-q" placeholder="Chapter" style="flex:1 1 140px"><datalist id="chl-q">${dlOpts(SUBS().includes(subOf(S.cur))?subOf(S.cur):SUBS()[0])}</datalist><input type="number" id="qd" placeholder="Done" min="0" aria-label="Questions done"><input type="number" id="qc" placeholder="Correct" min="0" aria-label="Correct"><button class="btn pri" onclick="addQ()">${ic('plus',15)}Log</button></div>`}
+const TL=()=>S.area==='board'?(S.btests||[]):S.tests;
+function chOptsFor(k){const sub=subOf(k);if(S.area==='board'){const a=BCH[sub];return(a?a:Object.values(BCH).flat()).filter(c=>c.n).map(c=>c.n)}
+ if(TSUB.includes(sub))return S.tests.slice().sort((a,b)=>a.date<b.date?-1:1).map(t=>t.name);
+ return CH[sub]||Object.values(CH).flat()}
+const dlOpts=k=>chOptsFor(k).map(c=>`<option value="${esc(c)}">`).join('');
+function fillCh(selId,dlId){const e=$(selId),d=$(dlId);if(e&&d)d.innerHTML=dlOpts(e.value)}
 function chList(id,sub){const L=sub?(CH[sub]||[]):Object.values(CH).flat();return `<datalist id="${id}">${L.map(c=>`<option value="${esc(c)}">`).join('')}</datalist>`}
 function addQ(){const d=nv('qd'),c=nv('qc');if(!(d>0)||c===''||c<0||c>d){toast('Enter done > 0 and 0 ≤ correct ≤ done');return}
  S.qlog.push({d:td(),sub:$('qs').value,ch:$('qch').value.trim(),done:d,ok:c});delete S.pend;addXP(Math.round(c+(d-c)*.5),true);save();go()}
@@ -447,7 +471,7 @@ function vToday(){const T=td(),t=qstat(null,T),d=day(T),now=new Date();
  <div class="row" style="margin:18px 0 6px;flex-wrap:nowrap"><div class="bar" style="flex:1"><i id="gb"></i></div><span class="mut mono" id="gt" style="font-size:12px"></span></div>
  <div class="f" style="margin:18px 0;flex-wrap:nowrap">
   <button class="play ${run?'on':''}" onclick="toggle()" aria-label="${run?'Pause':'Start'} timer">${ic(run?'pause':'play',22)}</button>
-  <input id="topic" list="chl-cur" placeholder="${S.area==='board'?'Which chapter? e.g. Current electricity':isT()?'Which test? e.g. QPT - 03':'What are you studying? e.g. Rotational Motion'}" value="${esc(S.topic||'')}" oninput="S.topic=this.value;save();tinfo2()" style="flex:1" aria-label="Current topic">${topicList()}
+  <input id="topic" list="chl-cur" placeholder="${S.area==='board'?'Which chapter? e.g. Current electricity':isT()?'Which test? e.g. QPT - 03':'What are you studying? e.g. Rotational Motion'}" value="${esc(TOPIC())}" oninput="setTopic(this.value);save();tinfo2()" style="flex:1" aria-label="Current topic">${topicList()}
  </div>
  ${isT()?`<div id="tinfo" class="mut" style="font-size:12.5px;margin:-8px 0 14px">${tinfo()}</div>`:''}
  ${chipsHTML()}
@@ -461,14 +485,14 @@ ${S.area==='board'?bStack():`<div class="stack">
  </div>
  <section class="card"><div class="lbl" style="margin-bottom:10px">Log questions solved</div>${logForm()}${chList('chl-all')}</section>
  <section class="card"><div class="lbl" style="margin-bottom:10px">Studied offline? Add time</div>
-  <div class="f"><select id="ms" aria-label="Subject">${keyOpts()}</select><input id="mch" list="chl-all" placeholder="Chapter / topic" style="flex:1 1 140px"><input type="number" id="mm" placeholder="Minutes" min="1" aria-label="Minutes"><button class="btn" onclick="addManual()">${ic('plus',15)}Add</button></div></section>
+  <div class="f"><select id="ms" aria-label="Subject" onchange="fillCh('ms','chl-m')">${keyOpts()}</select><input id="mch" list="chl-m" placeholder="Chapter / topic" style="flex:1 1 140px"><datalist id="chl-m">${dlOpts(CUR())}</datalist><input type="number" id="mm" placeholder="Minutes" min="1" aria-label="Minutes"><button class="btn" onclick="addManual()">${ic('plus',15)}Add</button></div></section>
 </div>`}</div>
 <div class="two" style="margin-top:14px">
 <section class="card"><div class="row"><div class="lbl">Studied today</div><span class="mut mono" style="font-size:12px">${ss.length} sessions · ${hm(d.s)}</span></div>
  ${ss.map(x=>`<div class="it"><span class="dot" style="background:${col(x.sub)}"></span><span><b style="font-weight:500">${esc(x.ch||x.sub)}</b><br><small class="mut">${esc(x.sub)} · ${x.man?'manual':new Date(x.at).toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'})}</small></span><span class="mono" style="flex:none">${hm(x.sec)}</span><button class="x" onclick="delSess(${x.i})" aria-label="Delete session">${ic('x',15)}</button></div>`).join('')||'<div class="empty">Start the clock or add time — every session shows up here.</div>'}
 </section>
 <section class="card"><div class="lbl" style="margin-bottom:10px">Today&apos;s note</div>
- <textarea id="nt" rows="6" style="width:100%;resize:vertical" placeholder="What did you finish? What to fix tomorrow?" oninput="S.notes[td()]=this.value;save()">${esc(S.notes[T]||'')}</textarea></section>
+ <textarea id="nt" rows="6" style="width:100%;resize:vertical" placeholder="What did you finish? What to fix tomorrow?" oninput="NOTES()[td()]=this.value;save()">${esc(NOTES()[T]||'')}</textarea></section>
 </div>`}
 
 /* ---------- SYLLABUS ---------- */
@@ -600,31 +624,54 @@ function vPrac(){const a=qstat(),w=weakCh().slice(0,6),wk=qstat(null,dstr(6));
 
 /* ---------- TODO ---------- */
 let tf='Today';
-function vTodo(){const T=td(),L=TODOS().map((t,i)=>({...t,i}));
- const fl=L.filter(t=>tf=='All'||(tf=='Today'&&(!t.due||t.due<=T))||(tf=='Overdue'&&t.due&&t.due<T&&!t.x)||t.sub==tf);
- const tt=L.filter(t=>!t.due||t.due<=T),dn=tt.filter(t=>t.x).length,rem=tt.filter(t=>!t.x).reduce((a,t)=>a+(+t.min||0),0);
- return `<div class="row" style="margin-bottom:14px"><h3>To Do</h3><div class="f" style="margin:0"><button class="btn" onclick="sortT()" title="Sort by priority then due date">Sort by priority</button><button class="btn pri" onclick="planToday()">${S.area==='board'?'Plan from weightage':'Plan my day'}</button></div></div>
+let tq='',tst2='All',tgrp='None';
+function matchT(t){const T=td(),q=tq.trim().toLowerCase();
+ const d=tf=='All'||(tf=='Today'&&(!t.due||t.due<=T))||(tf=='Tomorrow'&&t.due===dstr(-1))||(tf=='Week'&&t.due&&t.due>=T&&t.due<=dstr(-7))||(tf=='Overdue'&&t.due&&t.due<T&&!t.x)||t.sub==tf;
+ return d&&(tst2=='All'||(tst2=='Active'?!t.x:!!t.x))&&(!q||[t.t,t.sub,t.ch,t.note].join(' ').toLowerCase().includes(q))}
+function parseQuick(v){const o={t:v,pri:null,min:0,due:null,sub:null};let x=' '+v+' ';
+ x=x.replace(/\s!(high|h|med|m|low|l)\b/i,(_,k)=>{o.pri={h:'H',high:'H',m:'M',med:'M',l:'L',low:'L'}[k.toLowerCase()];return' '});
+ x=x.replace(/\s(\d+(?:\.\d+)?)\s?(h|hr|hrs|m|min|mins)\b/i,(_,n,u)=>{o.min=Math.round(+n*(/^h/i.test(u)?60:1));return' '});
+ x=x.replace(/\s(today|tomorrow|tmr)\b/i,(_,k)=>{o.due=/^today$/i.test(k)?td():dstr(-1);return' '});
+ x=x.replace(/\s(\d{1,2})[\/\-](\d{1,2})(?:[\/\-](\d{2,4}))?(?=\s)/,(_,d,m,y)=>{const iso=pdmy(`${d}/${m}/${y||new Date().getFullYear()}`);if(iso)o.due=iso;return' '});
+ const al={maths:S.area==='board'?'Maths':'Mathematics',math:S.area==='board'?'Maths':'Mathematics',phy:'Physics',chem:'Chemistry',cs:'Computer Science'},m=x.trim().match(/^@?([A-Za-z ]+?)\s*:\s*(.+)$/);
+ if(m){const k=m[1].trim().toLowerCase(),hit=TSUBS().find(z=>z.toLowerCase()===k)||al[k];if(hit){o.sub=hit;x=' '+m[2]+' '}}
+ o.t=x.replace(/\s+/g,' ').trim()||v;return o}
+function focusT(i){const t=TODOS()[i];if(S.area==='board'){if(BSUB.includes(t.sub))S.bcur=t.sub}else if(S.subs.includes(t.sub)){S.cat='Study';S.cur=t.sub;S.sc=t.sub}
+ setTopic(t.ch||t.t);save();goTab(0)}
+function postT(i){const t=TODOS()[i];t.due=dstr(-1);save();go();toast('Moved to tomorrow')}
+function carryT(){const T=td();let n=0;TODOS().forEach(t=>{if(t.due&&t.due<T&&!t.x){t.due=T;n++}});save();go();toast(n?n+' overdue task'+(n>1?'s':'')+' moved to today':'Nothing overdue')}
+function setFlt(k,v){if(k==='f')tf=v;else if(k==='s')tst2=v;else tgrp=v;go()}
+function rowT(t,T){return `<div class="it ${t.x?'done':''}" draggable="true" ondragstart="dgs(${t.i},event)" ondragover="event.preventDefault();this.classList.add('dragover')" ondragleave="this.classList.remove('dragover')" ondrop="dgd(${t.i},event)"><span class="grip" title="Drag to reorder" aria-hidden="true" style="flex:none">${ic('grip',16)}</span><input type="checkbox" ${t.x?'checked':''} onchange="chk(${t.i},this.checked)" aria-label="Done" style="width:18px;height:18px;accent-color:var(--ok)"><span style="min-width:0">${esc(t.t)}<br><small class="mut">${[t.sub,t.ch,t.min?t.min+'m':'',t.rep?'daily':''].filter(Boolean).map(esc).join(' · ')}</small>${t.note?`<br><small class="mut" style="font-style:italic">${esc(t.note)}</small>`:''}</span><span class="tag" style="cursor:default;${t.pri=='H'?'color:var(--bad)':''}">${t.pri=='H'?'High':t.pri=='L'?'Low':'Med'}</span><small class="${t.due&&t.due<T&&!t.x?'bad':'mut'}">${t.due?(t.due==T?'today':fdate(t.due)):''}</small>${t.x?'':`<button class="x mini" onclick="focusT(${t.i})" title="Start studying this" aria-label="Focus on this task">${ic('clock',15)}</button><button class="x mini" onclick="postT(${t.i})" title="Move to tomorrow" aria-label="Move to tomorrow" style="font-size:11px">+1d</button>`}<button class="x mini" onclick="editT(${t.i})" aria-label="Edit task" title="Edit">${ic('edit',15)}</button><button class="x" onclick="TODOS().splice(${t.i},1);save();go()" aria-label="Delete">${ic('x',15)}</button></div>`}
+function vTodo(){const T=td(),L=TODOS().map((t,i)=>({...t,i})),fl=L.filter(matchT);
+ const tt=L.filter(t=>!t.due||t.due<=T),dn=tt.filter(t=>t.x).length,rem=tt.filter(t=>!t.x).reduce((a,t)=>a+(+t.min||0),0),od=L.filter(t=>t.due&&t.due<T&&!t.x).length;
+ let body;if(tgrp==='None')body=fl.map(t=>rowT(t,T)).join('');else{const g={};fl.forEach(t=>{const k=tgrp==='Subject'?(t.sub||'General'):(t.due?(t.due<T?'Overdue':t.due===T?'Today':t.due===dstr(-1)?'Tomorrow':fdate(t.due)):'No date');(g[k]=g[k]||[]).push(t)});
+  body=Object.entries(g).map(([k,a])=>`<div class="lbl" style="margin:14px 0 2px">${esc(k)} · ${a.filter(t=>t.x).length}/${a.length}</div>${a.map(t=>rowT(t,T)).join('')}`).join('')}
+ const FL=[['Today','Today'],['Tomorrow','Tomorrow'],['Week','This week'],['Overdue','Overdue'],['All','All'],...TSUBS().map(x=>[x,x])];
+ return `<div class="row" style="margin-bottom:14px"><h3>To Do</h3><div class="f" style="margin:0"><button class="btn" onclick="sortT()" title="Sort by priority then due date">Sort by priority</button>${od?`<button class="btn" onclick="carryT()" title="Move every overdue task to today">Move overdue to today (${od})</button>`:''}<button class="btn pri" onclick="planToday()">${S.area==='board'?'Plan from weightage':'Plan my day'}</button></div></div>
  <section class="card" style="margin-bottom:14px"><div class="row" style="margin-bottom:10px"><div class="lbl">${dn}/${tt.length} done today</div><span class="mut mono" style="font-size:12px">${rem} min left</span></div><div class="bar"><i style="width:${tt.length?dn/tt.length*100:0}%;background:var(--ok)"></i></div>
- <div class="f" style="margin-top:14px"><input id="ti" placeholder="Task, e.g. Solve 30 PYQs" style="flex:1 1 220px" onkeydown="if(event.key==='Enter'&&!event.isComposing&&event.keyCode!==229)addT()"><select id="ts" aria-label="Subject"><option value="">General</option>${TSUBS().map(s=>`<option>${esc(s)}</option>`).join('')}</select><select id="tp" aria-label="Priority"><option value="H">High</option><option value="M" selected>Med</option><option value="L">Low</option></select><input type="date" id="tdue" value="${T}" aria-label="Due"><input type="number" id="tm" placeholder="min" aria-label="Minutes"><label class="f mut" style="gap:5px;font-size:13px"><input type="checkbox" id="tr"> daily</label><button class="btn" onclick="addT()">${ic('plus',15)}Add</button></div></section>
- <div class="chips" style="margin-bottom:10px">${['Today','All','Overdue',...TSUBS()].map(c=>`<button class="chip ${c==tf?'on':''}" onclick="tf=this.textContent;go()" style="padding:6px 12px">${esc(c)}</button>`).join('')}</div>
- <section class="card">${fl.map(t=>`<div class="it ${t.x?'done':''}" draggable="true" ondragstart="dgs(${t.i},event)" ondragover="event.preventDefault();this.classList.add('dragover')" ondragleave="this.classList.remove('dragover')" ondrop="dgd(${t.i},event)"><span class="grip" title="Drag to reorder" aria-hidden="true" style="flex:none">${ic('grip',16)}</span><input type="checkbox" ${t.x?'checked':''} onchange="chk(${t.i},this.checked)" aria-label="Done" style="width:18px;height:18px;accent-color:var(--ok)"><span>${esc(t.t)}<br><small class="mut">${[t.sub,t.ch,t.min?t.min+'m':'',t.rep?'daily':''].filter(Boolean).map(esc).join(' · ')}</small></span><span class="tag" style="cursor:default;${t.pri=='H'?'color:var(--bad)':''}">${t.pri=='H'?'High':t.pri=='L'?'Low':'Med'}</span><small class="${t.due&&t.due<T&&!t.x?'bad':'mut'}">${t.due?(t.due==T?'today':fdate(t.due)):''}</small><button class="x mini" onclick="editT(${t.i})" aria-label="Edit task" title="Edit">${ic('edit',15)}</button><button class="x" onclick="TODOS().splice(${t.i},1);save();go()" aria-label="Delete">${ic('x',15)}</button></div>`).join('')||'<div class="empty">Nothing here. Try &quot;Plan my day&quot;.</div>'}
+ <div class="f" style="margin-top:14px"><input id="ti" placeholder='Add a task — try: Physics: Rotation DPP tomorrow !high 45m' style="flex:1 1 280px" onkeydown="if(event.key==='Enter'&&!event.isComposing&&event.keyCode!==229)addT()" aria-label="Task"><button class="btn pri" onclick="addT()">${ic('plus',15)}Add</button></div>
+ <div class="f" style="margin-top:8px"><select id="ts" aria-label="Subject" onchange="fillCh('ts','chl-t')"><option value="">General</option>${TSUBS().map(s=>`<option>${esc(s)}</option>`).join('')}</select><input id="tch" list="chl-t" placeholder="Chapter" style="flex:1 1 150px"><datalist id="chl-t">${dlOpts('')}</datalist><select id="tp" aria-label="Priority"><option value="H">High</option><option value="M" selected>Med</option><option value="L">Low</option></select><input type="date" id="tdue" value="${T}" aria-label="Due"><input type="number" id="tm" placeholder="min" aria-label="Minutes"><label class="f mut" style="gap:5px;font-size:13px"><input type="checkbox" id="tr"> daily</label></div>
+ <div class="mut" style="font-size:11.5px;margin-top:8px">Shortcuts in the task text: <b>Subject:</b> prefix · <b>today / tomorrow / 12/10</b> · <b>!high !med !low</b> · <b>45m / 1h</b></div></section>
+ <div class="f" style="margin-bottom:10px"><input id="tsrch" type="search" placeholder="Search tasks, subjects, chapters…" value="${esc(tq)}" oninput="tq=this.value;go();const e=$('tsrch');e.focus();e.setSelectionRange(e.value.length,e.value.length)" style="flex:1 1 220px" aria-label="Search tasks"><div class="seg" role="group" aria-label="Status">${['All','Active','Done'].map(k=>`<button class="${k===tst2?'on':''}" onclick="setFlt('s','${k}')">${k}</button>`).join('')}</div><div class="seg" role="group" aria-label="Group by">${['None','Subject','Due'].map(k=>`<button class="${k===tgrp?'on':''}" onclick="setFlt('g','${k}')">${k==='None'?'No grouping':'By '+k.toLowerCase()}</button>`).join('')}</div></div>
+ <div class="chips" style="margin-bottom:10px">${FL.map(([k,l])=>`<button class="chip ${k==tf?'on':''}" onclick="setFlt('f','${esc(k)}')" style="padding:6px 12px">${esc(l)}</button>`).join('')}</div>
+ <section class="card">${body||'<div class="empty">Nothing here. Try &quot;Plan my day&quot; or change the filters.</div>'}
  ${TODOS().some(t=>t.x&&!t.rep)?'<div class="f" style="margin-top:10px"><button class="x" onclick="setTodos(TODOS().filter(t=>!t.x||t.rep));save();go()">Clear completed</button></div>':''}</section>`}
 let dragI=null;
 function dgs(i,e){dragI=i;try{e.dataTransfer.effectAllowed='move';e.dataTransfer.setData('text/plain',String(i))}catch(x){}}
 function dgd(i,e){e.preventDefault();if(dragI===null||dragI===i){dragI=null;go();return}const [m]=TODOS().splice(dragI,1);TODOS().splice(i,0,m);dragI=null;save();go()}
-function visT(){const T=td();return TODOS().map((t,i)=>({...t,i})).filter(t=>tf=='All'||(tf=='Today'&&(!t.due||t.due<=T))||(tf=='Overdue'&&t.due&&t.due<T&&!t.x)||t.sub==tf).map(t=>t.i)}
+function visT(){return TODOS().map((t,i)=>({...t,i})).filter(matchT).map(t=>t.i)}
 function mvT(i,d){const v=visT(),k=v.indexOf(i),n=v[k+d];if(n===undefined)return;[TODOS()[i],TODOS()[n]]=[TODOS()[n],TODOS()[i]];save();go()}
 function sortT(){setTodos(TODOS().map((t,i)=>({t,i})).sort((a,b)=>(a.t.x-b.t.x)||((a.t.due||'9')>(b.t.due||'9')?1:(a.t.due||'9')<(b.t.due||'9')?-1:0)||PRI[a.t.pri]-PRI[b.t.pri]||a.i-b.i).map(o=>o.t));save();go();toast('Sorted by priority')}
 function editT(i){const t=TODOS()[i];dlg(`<div class="row"><h3>Edit task</h3><button class="icon-btn" onclick="closeDlg()" aria-label="Close">${ic('x',16)}</button></div>
 <div class="f" style="margin-top:14px"><label class="fl" style="flex:1 1 100%">Task<input id="et" value="${esc(t.t)}" style="width:100%"></label>
-<label class="fl">Subject<select id="es"><option value="">General</option>${TSUBS().map(s=>`<option ${s==t.sub?'selected':''}>${esc(s)}</option>`).join('')}</select></label>
-<label class="fl">Chapter<input id="ec" value="${esc(t.ch||'')}"></label>
+<label class="fl">Subject<select id="es" onchange="fillCh('es','chl-e')"><option value="">General</option>${TSUBS().map(s=>`<option ${s==t.sub?'selected':''}>${esc(s)}</option>`).join('')}</select></label>
+<label class="fl">Chapter<input id="ec" list="chl-e" value="${esc(t.ch||'')}"><datalist id="chl-e">${dlOpts(t.sub||'')}</datalist></label>
 <label class="fl">Priority<select id="ep">${[['H','High'],['M','Med'],['L','Low']].map(([k,l])=>`<option value="${k}" ${t.pri==k?'selected':''}>${l}</option>`).join('')}</select></label>
-<label class="fl">Due<input type="date" id="ed" value="${t.due||''}"></label><label class="fl">Minutes<input type="number" id="em" value="${t.min||''}"></label></div>
+<label class="fl">Due<input type="date" id="ed" value="${t.due||''}"></label><label class="fl">Minutes<input type="number" id="em" value="${t.min||''}"></label><label class="fl" style="flex:1 1 100%">Notes<textarea id="en" rows="2" style="width:100%" placeholder="Links, page numbers, what to focus on">${esc(t.note||'')}</textarea></label></div>
 <div class="f" style="margin-top:16px"><button class="btn pri" onclick="saveT(${i})">Save</button><button class="btn" onclick="closeDlg()">Cancel</button></div>`);setTimeout(()=>$('et')&&$('et').focus(),50)}
-function saveT(i){const t=TODOS()[i],v=$('et').value.trim();if(!v){toast('Task cannot be empty');return}Object.assign(t,{t:v,sub:$('es').value,ch:$('ec').value.trim(),pri:$('ep').value,due:$('ed').value,min:+$('em').value||0});save();closeDlg();go()}
+function saveT(i){const t=TODOS()[i],v=$('et').value.trim();if(!v){toast('Task cannot be empty');return}Object.assign(t,{t:v,sub:$('es').value,ch:$('ec').value.trim(),pri:$('ep').value,due:$('ed').value,min:+$('em').value||0,note:$('en').value.trim()});save();closeDlg();go()}
 function chk(i,v){const t=TODOS()[i];t.x=v;t.doneOn=v?td():undefined;if(v&&t.rw!==td()){t.rw=td();addXP(10+(t.pri=='H'?10:0),true)}else if(!v&&t.rw){subXP(10+(t.pri=='H'?10:0));t.rw=undefined}save();go()}
-function addT(){const v=$('ti').value.trim();if(!v)return;TODOS().push({t:v,sub:$('ts').value,ch:'',pri:$('tp').value,due:$('tdue').value,min:+$('tm').value||0,rep:$('tr').checked,x:false});save();go();$('ti').focus()}
+function addT(){const v=$('ti').value.trim();if(!v)return;const q=parseQuick(v);TODOS().push({t:q.t,sub:$('ts').value||q.sub||'',ch:$('tch').value.trim(),pri:q.pri||$('tp').value,due:q.due||$('tdue').value,min:q.min||+$('tm').value||0,rep:$('tr').checked,x:false});save();go();$('ti').focus()}
 function planB(){const T=td();let n=0;BSUB.forEach(b=>{const st=BSTEP[b].length,c=BCH[b].filter(x=>!x.g&&x.m>0&&!(BSTEP[b].every((_,k)=>bv(b,x.n)&(1<<k)))).sort((x,y)=>y.m-x.m)[0];if(!c)return;const t=`${c.n} (${c.m} marks)`;if(!TODOS().some(x=>x.t==t&&x.due==T)){TODOS().push({t,sub:b,ch:c.n,pri:c.m>=10?'H':'M',due:T,min:60,x:false});n++}});save();tf='Today';go();toast(n?`Added ${n} board tasks — highest-weightage chapters first`:'Already planned')}
 function planToday(){if(S.area==='board')return planB();const T=td(),w=weak(),wc=weakCh()[0],add=[];
  SUBS().filter(s=>CH[s]).forEach(s=>add.push({t:'Solve 20 PYQs',sub:s,min:60,pri:s==w?'H':'M'}));
@@ -655,23 +702,32 @@ function vStats(){const rows=[];for(let o=0;o<14;o++){const d=dstr(o),x=DAYS()[d
    ${Object.keys(sp).length?`<div class="stk" style="height:12px;margin-bottom:14px">${Object.entries(sp).map(([k,v])=>`<i style="width:${v/st*100}%;background:${col(k)}"></i>`).join('')}</div>${Object.entries(sp).sort((a,b)=>b[1]-a[1]).map(([k,v])=>`<div class="row" style="font-size:13px;margin:8px 0"><span class="f" style="gap:6px"><span class="dot" style="background:${col(k)}"></span>${esc(k)}</span><span class="mono">${(v/3600).toFixed(1)}h · ${Math.round(v/st*100)}%</span></div>`).join('')}`:'<div class="empty">Run the study clock to see this.</div>'}</section>
  </div>
  ${insight()}${calendar(g)}
- <section class="card" style="margin-bottom:14px"><div class="lbl" style="margin-bottom:4px">Daily log</div><div class="tblw"><table><tr><th>Date</th><th>Hours</th><th>Questions</th><th>Accuracy</th><th>Note</th></tr>${rows.map(r=>`<tr><td>${fdate(r.d)}</td><td class="mono ${r.h>=g?'ok':''}">${r.h.toFixed(1)}</td><td class="mono">${r.dn||'—'}</td><td class="mono">${r.a===null?'—':r.a+'%'}</td><td class="mut" style="max-width:260px;overflow:hidden;text-overflow:ellipsis">${esc((S.notes[r.d]||'').slice(0,60))}</td></tr>`).join('')}</table></div></section>
+ <section class="card" style="margin-bottom:14px"><div class="lbl" style="margin-bottom:4px">Daily log</div><div class="tblw"><table><tr><th>Date</th><th>Hours</th><th>Questions</th><th>Accuracy</th><th>Note</th></tr>${rows.map(r=>`<tr><td>${fdate(r.d)}</td><td class="mono ${r.h>=g?'ok':''}">${r.h.toFixed(1)}</td><td class="mono">${r.dn||'—'}</td><td class="mono">${r.a===null?'—':r.a+'%'}</td><td class="mut" style="max-width:260px;overflow:hidden;text-overflow:ellipsis">${esc((NOTES()[r.d]||'').slice(0,60))}</td></tr>`).join('')}</table></div></section>
  `}
 let cm='',csel='';
 function calMove(n){const[y,m]=(cm||td().slice(0,7)).split('-').map(Number),d=new Date(y,m-1+n,1);cm=d.getFullYear()+'-'+p2(d.getMonth()+1);go()}
+function dayTodos(sel){const T=td(),L=TODOS(),planned=L.filter(t=>t.due===sel||(t.rep&&t.due&&t.due<=sel)),fin=t=>t.rep?t.doneOn===sel:!!t.x,done=planned.filter(fin),open=planned.filter(t=>!fin(t)),extra=L.filter(t=>t.doneOn===sel&&!planned.includes(t)&&!t.rep);
+ if(!planned.length&&!extra.length)return `<div class="lbl" style="margin-top:6px">To Do</div><div class="mut">No tasks for this day.</div>`;
+ const r=(t,ok)=>`<div class="f" style="gap:8px;margin:2px 0;flex-wrap:nowrap"><span style="width:18px;height:18px;border-radius:50%;flex:none;display:grid;place-items:center;font-size:11px;font-weight:700;${ok?'background:var(--ok);color:#04130a':sel<T?'border:1.5px solid var(--bad);color:var(--bad)':'border:1.5px solid var(--bd);color:var(--mut)'}">${ok?'✓':sel<T?'✕':''}</span><span style="min-width:0;${ok?'':'opacity:.9'}">${esc(t.t)} <small class="mut">${[t.sub,t.ch].filter(Boolean).map(esc).join(' · ')}</small></span></div>`;
+ return `<div class="row" style="margin-top:8px"><div class="lbl">To Do · ${done.length}/${planned.length} done</div>${planned.length?`<span class="mono mut" style="font-size:12px">${Math.round(done.length/planned.length*100)}%</span>`:''}</div>
+ ${done.length?`<div class="mut" style="font-size:11.5px;margin-top:4px">Done</div>${done.map(t=>r(t,true)).join('')}`:''}
+ ${open.length?`<div class="mut" style="font-size:11.5px;margin-top:6px">${sel<T?'Not done':'Pending'}</div>${open.map(t=>r(t,false)).join('')}`:''}
+ ${extra.length?`<div class="mut" style="font-size:11.5px;margin-top:6px">Finished this day (planned for another date)</div>${extra.map(t=>r(t,true)).join('')}`:''}`}
 function calendar(g){const T=td(),ym=cm||T.slice(0,7),[y,m]=ym.split('-').map(Number),nd=new Date(y,m,0).getDate(),off=(new Date(y,m-1,1).getDay()+6)%7,sel=csel||T,cells=[];let mh=0,md=0;
  for(let i=0;i<off;i++)cells.push('<span></span>');
- for(let dn=1;dn<=nd;dn++){const ds=`${ym}-${p2(dn)}`,h=(DAYS()[ds]?.s||0)/3600,ts=S.tests.filter(t=>t.date===ds),fut=ds>T;mh+=h;if(h>=1/60)md++;
+ for(let dn=1;dn<=nd;dn++){const ds=`${ym}-${p2(dn)}`,h=(DAYS()[ds]?.s||0)/3600,ts=TL().filter(t=>t.date===ds),fut=ds>T;mh+=h;if(h>=1/60)md++;
   cells.push(`<button class="cd${ds===T?' now':''}${ds===sel?' sel':''}${fut?' fut':''}" style="${h?`background:color-mix(in srgb,var(--ac) ${Math.round(12+Math.min(1,h/g)*50)}%,transparent)`:''}" onclick="csel='${ds}';go()" aria-label="${fdate(ds)}: ${h.toFixed(1)} hours${ts.length?', '+esc(ts.map(t=>t.name).join(', ')):''}"><span>${dn}</span><small class="mono">${h?h.toFixed(1)+'h':''}</small>${ts.length?'<i class="tdot"></i>':''}</button>`)}
- const sd=DAYS()[sel]||{s:0,sub:{}},ql=S.qlog.filter(l=>l.d===sel),qd=ql.reduce((a,l)=>a+l.done,0),qc=ql.reduce((a,l)=>a+l.ok,0),st=S.tests.filter(t=>t.date===sel),subs=Object.entries(sd.sub||{}).filter(([,v])=>v>0);
+ const sd=DAYS()[sel]||{s:0,sub:{}},ql=S.area==='board'?[]:S.qlog.filter(l=>l.d===sel),qd=ql.reduce((a,l)=>a+l.done,0),qc=ql.reduce((a,l)=>a+l.ok,0),st=TL().filter(t=>t.date===sel),subs=Object.entries(sd.sub||{}).filter(([,v])=>v>0);
  return `<section class="card" style="margin-bottom:14px"><div class="row" style="margin-bottom:12px"><div><div class="lbl">Calendar</div><div class="mut" style="font-size:12px;margin-top:2px">${mh.toFixed(1)}h · ${md} study days this month</div></div>
   <div class="f" style="gap:6px;flex-wrap:nowrap">${ym!==T.slice(0,7)?`<button class="btn sm" onclick="cm='';csel='';go()">Today</button>`:''}<button class="icon-btn" onclick="calMove(-1)" aria-label="Previous month">${ic('left',16)}</button><b style="min-width:120px;text-align:center;font-weight:600">${new Date(y,m-1,1).toLocaleDateString('en-IN',{month:'long',year:'numeric'})}</b><button class="icon-btn" onclick="calMove(1)" aria-label="Next month">${ic('right',16)}</button></div></div>
  <div class="cal">${['Mon','Tue','Wed','Thu','Fri','Sat','Sun'].map(d=>`<span class="cw">${d}</span>`).join('')}${cells.join('')}</div>
+ <div class="clegend mut">Less ${[12,26,40,54,62].map(a=>`<i style="background:color-mix(in srgb,var(--ac) ${a}%,transparent)"></i>`).join('')} More <span style="margin-left:auto" class="f"><i class="tdot" style="position:static"></i> test</span></div>
  <div class="cdet"><div class="row"><b style="font-weight:600">${new Date(sel+'T00:00:00').toLocaleDateString('en-IN',{weekday:'long',day:'numeric',month:'short'})}</b><span class="mono">${hm(sd.s)}</span></div>
   ${subs.length?`<div class="f" style="gap:12px">${subs.map(([k,v])=>`<span class="f" style="gap:6px"><span class="dot" style="background:${col(k)}"></span>${esc(k)} <span class="mono mut">${hm(v)}</span></span>`).join('')}</div>`:''}
   <div class="mut">${qd?`${qd} questions · ${Math.round(qc/qd*100)}% accuracy`:'No questions logged'}</div>
-  ${st.map(t=>`<div class="f" style="gap:6px"><span class="dot" style="background:var(--warn)"></span><a class="tl" ${QL}>${esc(t.name)}</a><span class="mut">${tot(t)!==null?tot(t)+'/'+t.mx:''}</span></div>`).join('')}
-  ${S.notes[sel]?`<div class="mut">${esc(S.notes[sel])}</div>`:''}</div></section>`}
+  ${st.map(t=>`<div class="f" style="gap:6px"><span class="dot" style="background:var(--warn)"></span>${S.area==='board'?`<span>${esc(t.name)}</span>`:`<a class="tl" ${QL}>${esc(t.name)}</a>`}<span class="mut">${S.area==='board'?(t.sc!==undefined&&t.sc!==''?t.sc+'/'+t.mx:''):(tot(t)!==null?tot(t)+'/'+t.mx:'')}</span></div>`).join('')}
+  ${dayTodos(sel)}
+  ${NOTES()[sel]?`<div class="mut">${esc(NOTES()[sel])}</div>`:''}</div></section>`}
 function exportData(){S.lastBackup=Date.now();save();const b=new Blob([JSON.stringify(S,null,1)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=`jee-tracker-${td()}.json`;a.click();URL.revokeObjectURL(a.href)}
 function importData(f){if(!f)return;const r=new FileReader();r.onload=()=>{try{const d=JSON.parse(r.result);if(!d||typeof d!=='object'||!d.days)throw 0;if(!confirm('Replace current data with this backup?'))return;S=Object.assign(S,d);normalize();toast('Backup imported');go()}catch(e){toast('Invalid backup file')}};r.readAsText(f)}
 
@@ -687,7 +743,7 @@ function setLook(k,v){S[k]=v;save();applyLook();window._fk=k+':'+v;openSettings(
 function resetLook(){['rad','den','fs','anim','side','bg','blur','showxp','sa'].forEach(k=>delete S[k]);S.theme='dark';document.documentElement.dataset.theme='dark';save();applyLook();window._fk='th:dark';openSettings();toast('Appearance reset')}
 function setTheme(k){window._fk='th:'+k;S.theme=k;document.documentElement.dataset.theme=k;save();hdr();openSettings()}
 function resetAll(){if(prompt('Type DELETE to erase ALL data')==='DELETE'){localStorage.removeItem(K);location.reload()}}
-function openSettings(){const th=S.theme||'dark',T=[['dark','Midnight'],['amoled','AMOLED'],['slate','Slate'],['forest','Forest'],['rose','Rose'],['ocean','Ocean'],['violet','Violet'],['sunset','Sunset'],['graphite','Graphite'],['light','Light']];
+function openSettings(){const th=S.theme||'dark',T=[['dark','Midnight'],['amoled','AMOLED'],['slate','Slate'],['forest','Forest'],['rose','Rose'],['tracker','Tracker'],['ocean','Ocean'],['violet','Violet'],['sunset','Sunset'],['graphite','Graphite'],['light','Light']];
 dlg(`<div class="set"><div class="row"><h3>Settings</h3><button class="icon-btn" onclick="closeDlg()" aria-label="Close">${ic('x',16)}</button></div>
 <div class="lbl" style="margin:16px 0 8px">Profile &amp; goals</div>
 <div class="f"><label class="fl">Name<input value="${esc(S.name||'')}" placeholder="Your name" onchange="S.name=this.value.trim();save()"></label><label class="fl">JEE Main date<input type="date" value="${S.exam}" onchange="if(this.value){S.exam=this.value;save();go()}"></label><label class="fl">Daily goal (h)<input type="number" min="1" max="18" value="${S.goal||10}" onchange="S.goal=+this.value||10;save();go()"></label><label class="fl">Target score /300<input type="number" min="0" max="300" value="${S.goalMain||''}" onchange="S.goalMain=+this.value||0;save()"></label><label class="fl">Board daily goal (h)<input type="number" min="1" max="18" value="${S.bgoal||6}" onchange="S.bgoal=+this.value||6;save();go()"></label><label class="fl">Sleep goal (h)<input type="number" min="4" max="12" step=".5" value="${S.sleepGoal||8}" onchange="S.sleepGoal=+this.value||8;save();go()"></label><label class="fl">Board exam date<input type="date" value="${S.bexam||''}" onchange="S.bexam=this.value;save();go()"></label></div>
@@ -791,16 +847,16 @@ function bStack(){const d=day(td());return `<div class="stack"><div class="g2">
  <div class="card stat"><div class="lbl">Avg / day</div><b class="mono">${avg().toFixed(1)}<small> h</small></b></div>
  <div class="card stat"><div class="lbl">Today</div><b class="mono">${(d.s/3600).toFixed(1)}<small> h</small></b></div>
  <div class="card stat" style="cursor:pointer" onclick="goTab(1)"><div class="lbl">Board syllabus</div><b class="mono">${bAll()}<small>%</small></b><small>open syllabus &rarr;</small></div></div>
- <section class="card"><div class="lbl" style="margin-bottom:10px">Studied offline? Add time</div><div class="f"><select id="ms" aria-label="Subject">${keyOpts()}</select><input id="mch" list="chl-cur" placeholder="Chapter / topic" style="flex:1 1 140px"><input type="number" id="mm" placeholder="Minutes" min="1" aria-label="Minutes"><button class="btn" onclick="addManual()">${ic('plus',15)}Add</button></div></section></div>`}
-function vBStats(){const rows=[];for(let o=0;o<14;o++){const d=dstr(o),x=DAYS()[d]||{s:0,sub:{}};rows.push({d,h:x.s/3600,sub:x.sub||{}})}
+ <section class="card"><div class="lbl" style="margin-bottom:10px">Studied offline? Add time</div><div class="f"><select id="ms" aria-label="Subject" onchange="fillCh('ms','chl-m')">${keyOpts()}</select><input id="mch" list="chl-m" placeholder="Chapter / topic" style="flex:1 1 140px"><datalist id="chl-m">${dlOpts(CUR())}</datalist><input type="number" id="mm" placeholder="Minutes" min="1" aria-label="Minutes"><button class="btn" onclick="addManual()">${ic('plus',15)}Add</button></div></section></div>`}
+function vBStats(){const CAL=calendar(S.bgoal||6);const rows=[];for(let o=0;o<14;o++){const d=dstr(o),x=DAYS()[d]||{s:0,sub:{}};rows.push({d,h:x.s/3600,sub:x.sub||{}})}
  const g=S.goal||10,w=rows.slice(0,7),wh=w.reduce((a,r)=>a+r.h,0),mx=Math.max(g,...rows.map(r=>r.h)),sp={};w.forEach(r=>Object.entries(r.sub).forEach(([k,v])=>sp[k]=(sp[k]||0)+v));const st=Object.values(sp).reduce((a,b)=>a+b,0)||1,tl=Object.values(DAYS()).reduce((a,d)=>a+d.s,0)/3600;
- return `<h3 style="margin-bottom:14px">Board stats</h3><div class="g2" style="margin-bottom:14px"><div class="card stat"><div class="lbl">This week</div><b class="mono">${wh.toFixed(1)}<small> h</small></b></div><div class="card stat"><div class="lbl">All time</div><b class="mono">${tl.toFixed(0)}<small> h</small></b></div><div class="card stat"><div class="lbl">Streak</div><b class="mono">${streak()}<small> days</small></b></div><div class="card stat"><div class="lbl">Syllabus</div><b class="mono">${bAll()}<small>%</small></b></div></div>
+ return `<h3 style="margin-bottom:14px">Board stats</h3>${CAL}<div class="g2" style="margin-bottom:14px"><div class="card stat"><div class="lbl">This week</div><b class="mono">${wh.toFixed(1)}<small> h</small></b></div><div class="card stat"><div class="lbl">All time</div><b class="mono">${tl.toFixed(0)}<small> h</small></b></div><div class="card stat"><div class="lbl">Streak</div><b class="mono">${streak()}<small> days</small></b></div><div class="card stat"><div class="lbl">Syllabus</div><b class="mono">${bAll()}<small>%</small></b></div></div>
  <section class="card" style="margin-bottom:14px"><div class="lbl" style="margin-bottom:10px">Last 14 days</div><div class="slb">${[...rows].reverse().map(r=>`<div title="${r.d}: ${r.h.toFixed(1)}h" style="height:${Math.max(4,r.h/mx*100)}%;opacity:${r.h?1:.15}"></div>`).join('')}</div></section>
  <section class="card" style="margin-bottom:14px"><div class="lbl" style="margin-bottom:6px">Time by subject · 7 days</div>${BSUB.map(b=>{const v=sp[b]||0;return `<div class="it"><span class="dot" style="background:${col(b)}"></span><span>${esc(b)}</span><span class="mono mut" style="flex:none">${(v/3600).toFixed(1)}h · ${Math.round(v/st*100)}%</span></div>`}).join('')}</section>
  <section class="card"><div class="lbl" style="margin-bottom:6px">Syllabus progress</div>${BSUB.map(b=>`<div class="it"><span>${esc(b)}</span><span class="mono mut" style="flex:none">${bDone(b)}/${bN(b)} chapters</span><b class="mono" style="width:48px;text-align:right">${bPct(b)}%</b></div>`).join('')}</section>`}
 const goalH=()=>S.area==='board'?(S.bgoal||6):(S.goal||10),fmh=x=>`${Math.floor(x/3600)}h ${p2(Math.floor(x%3600/60))}m`;
 function heroHTML(){const B=S.area==='board',g=goalH(),h=day(td()).s,tot=g*3600,pc=Math.min(100,Math.round(h/tot*100)),hr=new Date().getHours(),gr=hr<12?'morning':hr<17?'afternoon':'evening',ex=B?S.bexam:S.exam,left=ex?Math.max(0,dd(ex)):0,since=Math.max(0,-dd(S.start||td())),st=pc>=100?['Goal hit','ok']:hr>=12&&pc<25?['Needs attention','bad']:['On track','ok'];
- return `<section class="card hero2" style="margin-bottom:14px"><div class="row" style="align-items:center"><div><div class="hg">${new Date().toLocaleDateString('en-GB',{weekday:'long'})}</div><div class="mut" style="margin-top:2px">${dmy(td())}</div></div><div class="stbar ${st[1]}"><i></i>${st[0]}</div></div>
+ return `<section class="card hero2" style="margin-bottom:14px"><div class="row" style="align-items:center"><div><div class="hg">${new Date().toLocaleDateString('en-GB',{weekday:'long'})}</div><div class="mut" style="margin-top:2px">${dmy(td())}</div></div><div style="text-align:right"><div class="stbar ${st[1]}"><i></i>${st[0]}</div>${st[1]==='bad'?`<a href="#" class="trk" onclick="goTab(0);const c=$('clk');if(c)c.scrollIntoView({behavior:'smooth',block:'center'});return false">Get back on track</a>`:''}</div></div>
  <div class="hp"><div class="row"><span><b id="hrL" style="font-size:22px">${fmh(Math.max(0,tot-h))}</b> <span class="mut">left of ${g}h goal today</span></span><b id="hrP" class="mono">${pc}%</b></div><div class="bar" style="height:10px"><i id="hrB" style="width:${pc}%"></i></div><div class="row mut" style="font-size:12.5px"><span id="hrD">Studied today: ${fmh(h)} / ${g}h</span><span>${ex?'Day '+(since+1)+' of '+(since+left):''}</span></div></div></section>`}
 function heroTick(){const e=$('hrL');if(!e)return;const g=goalH(),h=day(td()).s,tot=g*3600,pc=Math.min(100,Math.round(h/tot*100));e.textContent=fmh(Math.max(0,tot-h));$('hrP').textContent=pc+'%';$('hrB').style.width=pc+'%';$('hrD').textContent=`Studied today: ${fmh(h)} / ${g}h`}
 const tOpen=d=>d>td()||(d===td()&&new Date().getHours()<18);
@@ -809,7 +865,7 @@ function tWin(n){const a=new Date(n.date+'T09:00:00'),b=new Date(n.date+'T18:00:
 function testStrip(){const n=nextTests()[0];if(!n)return `<div class="tstrip"><span class="lbl">Next test</span><span class="mut">${S.area==='board'?'none upcoming — create one in Tests':'none upcoming'}</span></div>`;
  const w=tWin(n);return `<div class="tstrip" title="Tests run 9:00 AM – 6:00 PM"><span class="lbl" id="tsL">${w.live?'Live now · ends 6:00 PM':'Next test'}</span><b>${esc(n.name)}</b><span class="mut mono">${dmy(n.date)}</span><span class="mono tsc" id="tsC" data-n="${esc(n.name)}">--</span></div>`}
 function testTick(){const e=$('tsC');if(!e)return;const n=nextTests()[0];if(!n){const t=e.closest('.tstrip');if(t)t.outerHTML=testStrip();return}
- if(e.dataset.n!==n.name){e.closest('.tstrip').outerHTML=testStrip();return}
+ if(e.dataset.n!==n.name){const t=e.closest('.tstrip');if(t)t.outerHTML=testStrip();return}
  const w=tWin(n),s=Math.floor(Math.max(0,w.t-Date.now())/1000);$('tsL').textContent=w.live?'Live now · ends 6:00 PM':'Next test';e.textContent=`${Math.floor(s/86400)}d ${p2(Math.floor(s%86400/3600))}:${p2(Math.floor(s%3600/60))}:${p2(s%60)}`}
 function bkBanner(){const act=Object.keys(S.days).length+Object.keys(S.bdays||{}).length,age=S.lastBackup?Math.floor((Date.now()-S.lastBackup)/864e5):null;if(act<3||(age!==null&&age<7))return'';
  return `<section class="card" style="margin-bottom:14px;border-color:var(--warn)"><div class="row"><div><b>Back up your data</b><div class="mut" style="font-size:12.5px">${age===null?'You have never exported a backup.':'Your last backup was '+age+' days ago.'} Everything is stored only in this browser — clearing it would erase your progress.</div></div><button class="btn pri" onclick="exportData();go()">Export backup</button></div></section>`}
