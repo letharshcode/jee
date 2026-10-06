@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8">
 <title>JEE 2027 · Study Tracker</title>
-<meta name="description" content="Free, offline-first JEE study tracker: study clock, syllabus and QCT tracker, mock test analysis, planner, spaced revision, Harsh AI and daily stats.">
+<meta name="description" content="Free, offline-first JEE study tracker: study clock, syllabus and QCT tracker, mock test analysis, planner, spaced revision, Harsh AI, Harsh AI summaries, a lecture library and daily stats.">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#070a12"><meta property="og:title" content="JEE 2027 Study Tracker"><meta property="og:description" content="Finally, a planner that gets it. Offline-first JEE tracker."><meta property="og:type" content="website">
 <link rel="icon" type="image/png" href="favicon.png">
@@ -434,6 +434,29 @@ html{scrollbar-gutter:stable}
 #m.enter>*{animation-name:pgin!important;animation-duration:.34s!important}
 .rp{display:none!important}
 details.fq summary{padding:4px 0}
+#aib{position:fixed;right:16px;bottom:calc(136px + env(safe-area-inset-bottom,0px));z-index:6;border-radius:999px;padding:10px 16px;border-color:color-mix(in srgb,var(--ac) 55%,var(--bd));box-shadow:0 8px 28px rgba(0,0,0,.3);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+@media(min-width:720px){#aib{bottom:76px}}
+.opt{display:block;width:100%;text-align:left;margin-top:6px;white-space:normal}
+.opt.ok{border-color:var(--ok);background:color-mix(in srgb,var(--ok) 16%,transparent)}
+.opt.bad{border-color:var(--bad);background:color-mix(in srgb,var(--bad) 16%,transparent)}
+#ytp{aspect-ratio:16/9;width:100%;border-radius:12px;overflow:hidden;background:#000}
+.lcv{display:flex;gap:12px;align-items:center}.lcv img{width:112px;aspect-ratio:16/9;object-fit:cover;border-radius:10px;background:var(--g2);flex:none}
+@media(max-width:480px){.lcv img{width:84px}}
+details.msg summary{cursor:pointer;font-weight:500}
+@media print{#aib{display:none!important}}
+.tgd{grid-template-columns:repeat(auto-fill,minmax(200px,1fr))}
+.tl{display:block;text-align:left;background:var(--g);border:1px solid var(--bd);border-radius:14px;padding:13px 14px;color:var(--tx);text-decoration:none;font:inherit;cursor:pointer;transition:border-color .15s,transform .15s}
+.tl:hover{border-color:var(--ac);transform:translateY(-1px)}.tl b{display:block;font-weight:600}.tl small{display:block;color:var(--mut);font-size:12px;margin-top:2px}
+#hx{position:fixed;inset:0;z-index:30;background:var(--bg);display:flex;overflow:hidden}#hx[hidden]{display:none}
+#hx aside{width:220px;flex:none;border-right:1px solid var(--bd);padding:calc(14px + env(safe-area-inset-top,0px)) 10px 14px;display:flex;flex-direction:column;gap:2px;overflow:auto}
+#hx aside button:not(.icon-btn){background:none;border:0;color:var(--mut);font:inherit;font-weight:500;padding:9px 12px;border-radius:10px;cursor:pointer;display:flex;gap:10px;align-items:center;text-align:left}
+#hx aside button:not(.icon-btn):hover{color:var(--tx);background:var(--g)}#hx aside button.on{color:var(--tx);background:var(--g2)}#hx .mb{display:none!important}
+#hxm{flex:1;min-width:0;overflow:auto;padding:calc(24px + env(safe-area-inset-top,0px)) max(16px,3vw) 90px}#hxm>*{max-width:900px}
+.srow{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:13px 0;border-top:1px solid var(--bd)}.srow:first-child{border-top:0}
+.sw{width:42px;height:24px;border-radius:999px;border:0;background:var(--g2);position:relative;cursor:pointer;flex:none}.sw i{position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:var(--mut);transition:left .15s}.sw.on{background:var(--ac)}.sw.on i{left:21px;background:#fff}
+.rm *,.rm *::before{animation:none!important;transition:none!important}
+@media(max-width:720px){#hx{flex-direction:column-reverse}#hx aside{width:auto;flex-direction:row;border-right:0;border-top:1px solid var(--bd);padding:6px 6px calc(6px + env(safe-area-inset-bottom,0px));overflow-x:auto}#hx aside .bt{display:none}#hx aside button:not(.icon-btn){flex-direction:column;gap:2px;font-size:10.5px;padding:6px 10px;min-width:62px;align-items:center}#hx .mb{display:flex!important}#hxm{padding-bottom:30px}}
+@media print{#hx{display:none!important}}
 </style></head><body><div id="boot" role="dialog" aria-label="Welcome"><div class="bw"><div class="ld"><div class="lg"><img src="favicon.png" alt="JEE 2027 Study Tracker logo" onerror="this.replaceWith(document.createTextNode('JE'))"></div><h1>JEE 2027 Study Tracker</h1><p>Structured preparation, measured progress.</p><div class="pb"><i></i></div><div class="mut" id="bootpct" style="font-size:12px">Preparing dashboard 0%</div></div>
 <div class="ob"><div class="sl on"><div class="lg"><img src="favicon.png" alt="JEE 2027 Study Tracker logo" onerror="this.replaceWith(document.createTextNode('JE'))"></div><h1>Welcome to JEE 2027</h1><p>A structured workspace for your preparation: plan, study, practise and review in one place.</p></div><div class="sl"><div class="lg">&#9201;</div><h1>Study clock</h1><p>Run focus blocks, set a daily goal and keep a floating timer visible while you work in other tabs.</p></div><div class="sl"><div class="lg">&#128218;</div><h1>Syllabus and QCT tracker</h1><p>Record theory, questions and QCTs for every chapter and see exactly how much of each test you have covered.</p></div><div class="sl"><div class="lg">&#128200;</div><h1>Tests and analysis</h1><p>Review upcoming tests, enter results when the test is live and study score trends and weak chapters.</p></div><div class="sl"><div class="lg">&#127769;</div><h1>Planner, sleep and backup</h1><p>Organise tasks by day, keep a weekly sleep balance and export your data whenever you wish.</p></div><div class="dots"><i></i><i></i><i></i><i></i><i></i></div><div class="obn"><button class="btn" id="obS" onclick="bootHide()">Skip</button><span><button class="btn" id="obB" onclick="obGo(-1)">Back</button> <button class="btn pri" id="obN" onclick="obGo(1)">Next</button></span></div></div></div></div>
 <header class="top"><div class="hw">
@@ -1380,7 +1403,7 @@ st=(l,v,c)=>`<div class="card stat"><span class="lbl">${l}</span><b class="${c||
 done=()=>S.tests.filter(t=>tot(t)!==null&&t.mx).sort((a,b)=>a.date<b.date?-1:1);
 
 /* 1. OJEET-style start interface */
-const FE=[['book','Syllabus tracker','Chapter-wise Theory, Analysis, PYQs and Revision, plus QCT coverage for every chapter.'],['clock','Study clock engine','Stopwatch and 25/50/90 minute focus blocks, floating timer, day rollover and streaks.'],['todo','Weekly study tasks','Plan the day, carry over missed tasks, spaced revision and a calendar view.'],['test','Mock test scores','Quizrr schedule, score trends, weak chapters and Mains vs Advanced comparison.'],['target','Harsh AI','Offline coaching built from your own scores, hours, syllabus gaps and tasks.'],['stats','Offline-first','Everything stays in your browser. Export a JSON backup whenever you like.']];
+const FE=[['book','Syllabus tracker','Chapter-wise Theory, Analysis, PYQs and Revision, plus QCT coverage for every chapter.'],['clock','Study clock engine','Stopwatch and 25/50/90 minute focus blocks, floating timer, day rollover and streaks.'],['todo','Weekly study tasks','Plan the day, carry over missed tasks, spaced revision and a calendar view.'],['test','Mock test scores','Quizrr schedule, score trends, weak chapters and Mains vs Advanced comparison.'],['target','Harsh insights','Offline coaching built from your own scores, hours, syllabus gaps and tasks.'],['stats','Offline-first','Everything stays in your browser. Export a JSON backup whenever you like.']];
 window.showLanding=function(){let l=$('lnd');if(!l){l=document.createElement('div');l.id='lnd';document.body.appendChild(l)}
 const n=S.exam?Math.max(0,dd(S.exam)):0,sp=Math.round(av(SUBS().map(sylPct)));
 l.innerHTML=`<div class="lw"><div class="ln"><div class="brand"><img src="favicon.png" alt="" width="22" height="22"><span>JEE 2027 Tracker</span></div><div class="f"><span class="pill hide-sm">Free &middot; Offline-first</span><button class="btn pri sm" onclick="hideLanding()">Open tracker ${ic('right',14)}</button></div></div>
@@ -1395,7 +1418,7 @@ let sk=0;try{sk=sessionStorage.getItem('jt_lnd')}catch(e){}
 if(!first&&!sk&&!S.nolnd){const iv=setInterval(()=>{if(!$('boot')){clearInterval(iv);showLanding()}},150)}
 
 /* 2. Toolkit hub (all original tools kept) */
-const TK=[['Plan and coach',[['Harsh AI','Weekly insights from your real data','openMentor()'],['Finish-on-time planner','Hours per day to complete the syllabus','openFinish()'],['Spaced revision targets','Standard, Fibonacci or SuperMemo','openSR()'],['Goals, streaks and badges','Weekly targets, milestones, distractions','openGoals()']]],
+const TK=[['Plan and coach',[['Harsh insights','Weekly insights from your real data','openMentor()'],['Finish-on-time planner','Hours per day to complete the syllabus','openFinish()'],['Spaced revision targets','Standard, Fibonacci or SuperMemo','openSR()'],['Goals, streaks and badges','Weekly targets, milestones, distractions','openGoals()']]],
 ['Analyse',[['Rank and percentile estimator','Marks to indicative percentile','openPredict()'],['Mains vs Advanced','Averages, subject strength, distribution','openCmp()'],['Focus insights','Peak hour, consistency, weekday pattern','openFocus()'],['Mistake notebook and flashcards','Log and revise errors','openMist()']]],
 ['JEE resources',[['Chapter resources','Save links, notes and DPPs per chapter','openLinks()'],['JEE guide and exam-day checklist','Pattern, high-yield chapters, checklist','openRef()'],['Help and FAQ','Offline use, backup, install as an app','openFaq()'],['Welcome page','Show the start screen again','closeDlg();showLanding()']]],
 ['Focus and utilities',[['Command palette (Ctrl + K)','','openPalette()'],['Reality check','','openReality()'],['Daily summary','','openSummary()'],['Zen mode (full screen)','','zen()'],['NOISE','','noise()'],['Export tests to calendar (.ics)','','exportICS()'],['Print or save report as PDF','','closeDlg();print()']]]];
@@ -1411,7 +1434,7 @@ const h7=[...Array(7)].reduce((a,_,i)=>a+(((S.days[dstr(i)]||{}).s)||0),0)/3600,
 const od=S.todos.filter(t=>!t.x&&t.due&&t.due<td()).length;if(od)M.push(['y',`${od} task(s) are overdue. Clear or reschedule them before adding new work.`]);
 if(S.exam)M.push(['',`${Math.max(0,dd(S.exam))} days to JEE Main. Streak: ${streak()} day(s).`]);
 M.push(['','Next 3 days: (1) a focused block on '+(w||sp[0][0])+', (2) 20 questions on your weakest chapter, (3) one timed test and a full error review.']);
-H('Harsh AI',M.map(([c,t])=>`<div class="msg ${c}">${esc(t)}</div>`).join('')+'<div class="mut" style="font-size:12px;margin-top:10px">Rule-based coaching computed on your device from your own data. Nothing is sent anywhere.</div>')};
+H('Harsh insights',M.map(([c,t])=>`<div class="msg ${c}">${esc(t)}</div>`).join('')+'<div class="mut" style="font-size:12px;margin-top:10px">Rule-based coaching computed on your device from your own data. Nothing is sent anywhere.</div>')};
 
 /* 4. Finish-on-time planner (Tracker 360 style) */
 window.openFinish=function(){const all=SUBS().reduce((a,s)=>a+CH[s].length,0),rem=SUBS().reduce((a,s)=>a+CH[s].length-sylDone(s),0),dl=S.exam?Math.max(1,dd(S.exam)):180;window._rem=rem;
@@ -1469,7 +1492,7 @@ window.openFaq=function(){const Q=[['Does it work offline?','Yes. After the firs
 H('Help and FAQ',Q.map(([q,a])=>`<details class="fq"><summary>${q}</summary><p>${a}</p></details>`).join(''))};
 
 /* 13. Palette entries */
-const _op=openPalette;openPalette=function(){_op();window._pal.push(['Harsh AI','openMentor()'],['Finish-on-time planner','openFinish()'],['Spaced revision','openSR()'],['Goals, streaks and badges','openGoals()'],['Rank and percentile estimator','openPredict()'],['Mains vs Advanced','openCmp()'],['Focus insights','openFocus()'],['Chapter resources','openLinks()'],['JEE guide and checklist','openRef()'],['Help and FAQ','openFaq()'],['Welcome page','closeDlg();showLanding()']);palF()};
+const _op=openPalette;openPalette=function(){_op();window._pal.push(['Harsh insights','openMentor()'],['Finish-on-time planner','openFinish()'],['Spaced revision','openSR()'],['Goals, streaks and badges','openGoals()'],['Rank and percentile estimator','openPredict()'],['Mains vs Advanced','openCmp()'],['Focus insights','openFocus()'],['Chapter resources','openLinks()'],['JEE guide and checklist','openRef()'],['Help and FAQ','openFaq()'],['Welcome page','closeDlg();showLanding()']);palF()};
 }catch(e){console.error('v3 additions failed',e)}})();
 </script>
 <script id="v4">
@@ -1490,7 +1513,7 @@ scrollTo(0,pg?0:y);requestAnimationFrame(()=>{m.style.minHeight=''})};
 
 /* D. Tools hub: everything visible */
 const P=(t,d,f)=>`<button class="btn" onclick="${f}">${t==='NOISE'?'Ambient brown noise: '+(nz?'on':'off'):t}${d?`<small>${d}</small>`:''}</button>`,
-GR=[['Plan and coach',[['Harsh AI','Insights from your data','openMentor()'],['Study next','High-yield chapters first','openNext()'],['Daily challenge','Questions target and picks','openDaily()'],['Finish-on-time planner','Hours per day needed','openFinish()'],['Spaced revision','Revise on a schedule','openSR()'],['Goals, streaks and badges','Weekly targets','openGoals()'],['Custom practice set','Weak and high-yield chapters','openSet()']]],
+GR=[['Plan and coach',[['Harsh insights','Insights from your data','openMentor()'],['Study next','High-yield chapters first','openNext()'],['Daily challenge','Questions target and picks','openDaily()'],['Finish-on-time planner','Hours per day needed','openFinish()'],['Spaced revision','Revise on a schedule','openSR()'],['Goals, streaks and badges','Weekly targets','openGoals()'],['Custom practice set','Weak and high-yield chapters','openSet()']]],
 ['Analyse',[['Post-test analysis','Accuracy, time and negatives','openPTA()'],['Rank and percentile estimator','Marks to percentile and rough rank','openPredict()'],['Mains vs Advanced','Averages and distribution','openCmp()'],['Focus insights','Peak hour and consistency','openFocus()'],['Mistake notebook and flashcards','Log and revise errors','openMist()']]],
 ['Practice and notes',[['Practice hub','MARKS, Quizrr, MathonGo, NTA','openHub()'],['Notebook','Bookmarks, formulas, notes','openNB()'],['Chapter resources','Links and DPPs per chapter','openLinks()']]],
 ['Reference and utilities',[['JEE guide and checklist','Pattern and exam-day list','openRef()'],['Help and FAQ','','openFaq()'],['Welcome page','','closeDlg();showLanding()'],['Command palette (Ctrl + K)','','openPalette()'],['Reality check','','openReality()'],['Daily summary','','openSummary()'],['Zen mode (full screen)','','zen()'],['NOISE','','noise()'],['Export tests to calendar (.ics)','','exportICS()'],['Print or save report as PDF','','closeDlg();print()']]]];
@@ -1520,4 +1543,249 @@ H('Practice hub','<div class="tg">'+A.map(a=>`<a class="btn" ${a[1]}>${a[0]}<sma
 const _cp=calcPred;calcPred=function(){_cp();const b=$('po')&&$('po').querySelector('.stat b');if(!b)return;const p=parseFloat(b.textContent);$('po').querySelector('.grid').insertAdjacentHTML('beforeend',st('Rough rank (13 lakh candidates)','~'+Math.max(1,Math.round((100-p)/100*1.3e6)).toLocaleString('en-IN')))};
 const _op=openPalette;openPalette=function(){_op();window._pal.push(['Study next','openNext()'],['Daily challenge','openDaily()'],['Post-test analysis','openPTA()'],['Custom practice set','openSet()'],['Notebook','openNB()'],['Practice hub','openHub()']);palF()};
 }catch(e){console.error('v4 additions failed',e)}})();
+</script>
+<script>
+/* ===== Harsh AI + Lecture library (isolated module) ===== */
+(function(){try{
+const AIK='jee27ai',AC=Object.assign({p:'off',k:'',m:''},(()=>{try{return JSON.parse(localStorage.getItem(AIK)||'{}')}catch(e){return{}}})());
+const DM={gem:'gemini-2.5-flash',cl:'claude-haiku-4-5-20251001',oa:'gpt-4o-mini'};
+S.lec=S.lec||[];S.ainotes=S.ainotes||[];
+const AI=window.AI={cur:null,PL:null,li:-1,m:'sum',sc:0,dn:0,lf:'All'};
+const XB2='<button class="icon-btn" onclick="closeDlg()" aria-label="Close">&times;</button>';
+const tst=m=>typeof toast==='function'?toast(m):alert(m);
+const live=()=>AC.p!=='off'&&AC.k;
+const subs=()=>{try{return SUBS()}catch(e){return['Physics','Chemistry','Mathematics']}};
+const subOpts=()=>subs().map(s=>`<option>${esc(s)}</option>`).join('');
+AI.llm=llm;AI.AC=AC;const MN={sum:'Summary',cards:'Flashcards',quiz:'Quiz',ask:'Doubt'};
+
+/* ---- cloud engine (bring your own key) ---- */
+async function llm(prompt,url){
+ if(AC.p==='gem'){const parts=[{text:prompt}];if(url)parts.unshift({file_data:{file_uri:url}});
+  const r=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${AC.m||DM.gem}:generateContent`,{method:'POST',headers:{'Content-Type':'application/json','x-goog-api-key':AC.k},body:JSON.stringify({contents:[{parts}]})});
+  const j=await r.json();if(!r.ok)throw new Error((j.error&&j.error.message)||'Request failed ('+r.status+')');
+  return j.candidates[0].content.parts.map(p=>p.text||'').join('')}
+ if(AC.p==='oa'){const r=await fetch('https://api.openai.com/v1/chat/completions',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+AC.k},body:JSON.stringify({model:AC.m||DM.oa,messages:[{role:'user',content:prompt}]})});const j=await r.json();if(!r.ok)throw new Error((j.error&&j.error.message)||'Request failed ('+r.status+')');return j.choices[0].message.content}
+ const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'content-type':'application/json','x-api-key':AC.k,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},body:JSON.stringify({model:AC.m||DM.cl,max_tokens:3000,messages:[{role:'user',content:prompt}]})});
+ const j=await r.json();if(!r.ok)throw new Error((j.error&&j.error.message)||'Request failed ('+r.status+')');
+ return j.content.map(c=>c.text||'').join('')}
+const PR={
+ sum:'Return ONLY JSON: {"summary":"5-7 sentence overview","points":["8-12 key points"],"formulas":["formulas and laws, each with meaning"],"traps":["common JEE mistakes"]}',
+ cards:'Return ONLY a JSON array of 10 flashcards: [{"q":"","a":""}]',
+ quiz:'Return ONLY a JSON array of 5 JEE-style MCQs: [{"q":"","o":["","","",""],"a":0,"e":"short explanation"}] where a is the index of the correct option.',
+ ask:'Answer the student\'s doubt step by step and concisely, in plain text with no markdown.'};
+const pj=t=>{const a=t.search(/[\[{]/),b=Math.max(t.lastIndexOf('}'),t.lastIndexOf(']'));return JSON.parse(t.slice(a,b+1))};
+
+/* ---- offline engine (extractive, no key) ---- */
+const STOP=new Set('the a an and or of to in is are was were be it this that for on with as by at from which can has have not but if then so such these those their its into than also more most other will when what where'.split(' '));
+const sents=t=>(t.replace(/\s+/g,' ').match(/[^.!?\n]+[.!?]?/g)||[]).map(s=>s.trim()).filter(s=>s.length>25);
+const words=s=>(s.toLowerCase().match(/[a-z][a-z\-']{2,}/g)||[]).filter(w=>!STOP.has(w));
+function rank(t){const ss=sents(t),f={};ss.forEach(s=>words(s).forEach(w=>f[w]=(f[w]||0)+1));
+ return ss.map((s,i)=>{const w=words(s);let sc=w.reduce((a,x)=>a+f[x],0)/(w.length+3);if(/=|\d/.test(s))sc*=1.15;if(/defin|law|formula|therefore|hence|means|called|principle|theorem|always|never/i.test(s))sc*=1.4;return{s,i,sc}})}
+const top=(t,n)=>rank(t).sort((a,b)=>b.sc-a.sc).slice(0,n).sort((a,b)=>a.i-b.i).map(x=>x.s);
+const shuf=a=>a.slice().sort(()=>Math.random()-.5);
+function cloze(t,n){const f={};words(t).forEach(w=>f[w]=(f[w]||0)+1);const kw=Object.keys(f).filter(w=>w.length>4).sort((a,b)=>f[b]-f[a]);
+ return top(t,n*2).map(s=>{const k=words(s).filter(w=>w.length>4).sort((a,b)=>f[b]-f[a])[0];return k?{q:s.replace(new RegExp('\\b'+k+'\\b','i'),'_____'),k}:null}).filter(Boolean).slice(0,n)
+ .map(c=>{const o=shuf([c.k,...shuf(kw.filter(w=>w!==c.k)).slice(0,3)]);return{q:c.q,o,a:o.indexOf(c.k),e:'Answer: '+c.k,card:{q:c.q,a:c.k}}})}
+function off(m,t,q){
+ if(m==='ask'){const qw=new Set(words(q)),h=t?rank(t).map(x=>({s:x.s,h:words(x.s).filter(w=>qw.has(w)).length})).filter(x=>x.h).sort((a,b)=>b.h-a.h).slice(0,3).map(x=>x.s):[];
+  return h.length?'Closest matches in your material:\n\n- '+h.join('\n- ')+'\n\nFor step-by-step solutions to new problems, connect Gemini or Claude in AI settings.':'Offline mode can only search the text you pasted. Connect Gemini or Claude in AI settings for a tutor that solves doubts step by step.'}
+ if(m==='sum')return{summary:top(t,4).join(' '),points:top(t,10),formulas:t.split(/\n/).map(x=>x.trim()).filter(x=>/[=≈∝]/.test(x)&&x.length<120).slice(0,8),traps:sents(t).filter(s=>/\b(not|never|only if|except|careful|mistake|note|remember)\b/i.test(s)).slice(0,4)};
+ const c=cloze(t,m==='quiz'?5:10);return m==='quiz'?c:c.map(x=>x.card)}
+
+/* ---- renderers ---- */
+const ul=a=>a&&a.length?'<ul style="margin:6px 0 0;padding-left:18px">'+a.map(x=>`<li>${esc(x)}</li>`).join('')+'</ul>':'';
+const R={
+ sum:d=>`<div class="card" style="margin-top:12px"><div class="lbl">Summary</div><p style="margin:6px 0 12px">${esc(d.summary)}</p>${[['Key points',d.points],['Formulas and laws',d.formulas],['Common traps',d.traps]].filter(x=>x[1]&&x[1].length).map(([h,a])=>`<div class="lbl" style="margin-top:12px">${h}</div>${ul(a)}`).join('')}</div>`,
+ cards:d=>d.length?d.map(c=>`<details class="msg"><summary>${esc(c.q)}</summary><div style="margin-top:6px"><b>${esc(c.a)}</b></div></details>`).join(''):'<div class="msg y">Not enough text to build cards.</div>',
+ quiz:d=>d.length?d.map((x,i)=>`<div class="card" style="margin-top:10px"><div style="font-weight:500">${i+1}. ${esc(x.q)}</div>${x.o.map((o,j)=>`<button class="btn opt" onclick="AI.pick(this,${i},${j})">${esc(o)}</button>`).join('')}<div class="mut" style="font-size:12.5px;margin-top:8px;display:none"></div></div>`).join('')+'<div id="aiSc" class="mut" style="margin-top:8px"></div>':'<div class="msg y">Not enough text to build a quiz.</div>',
+ ask:d=>`<div class="msg" style="white-space:pre-wrap">${esc(d)}</div>`};
+AI.pick=(b,i,j)=>{const c=b.parentNode;if(c.dataset.d)return;c.dataset.d=1;const x=AI.cur.d[i],a=+x.a;c.querySelectorAll('.opt')[a].classList.add('ok');
+ if(j!==a)b.classList.add('bad');else{AI.sc++;try{addXP(2,true)}catch(e){}}
+ const e=c.lastElementChild;e.style.display='block';e.textContent=x.e||'';if(++AI.dn===AI.cur.d.length)$('aiSc').textContent=`Score: ${AI.sc}/${AI.cur.d.length}`};
+
+/* ---- Harsh AI dialog ---- */
+AI.stop=()=>{AI.pos();try{AI.PL&&AI.PL.destroy()}catch(e){}AI.PL=null;AI.li=-1};
+AI.open=(m,pre)=>{pre=pre||{};AI.stop();AI.m=m||'sum';AI.cur=null;
+ dlg(`<div class="row"><h3>Harsh AI</h3>${XB2}</div>
+ <div class="mut" style="font-size:12.5px;margin:4px 0 12px">${live()?'Connected: '+({gem:'Gemini',cl:'Claude',oa:'OpenAI'}[AC.p]):'Offline mode (extractive summaries). Connect Gemini or Claude for the full AI.'} · <button class="x" onclick="AI.cfg()">AI settings</button></div>
+ <div class="f"><select id="aiS" aria-label="Subject">${subOpts()}</select><input id="aiU" aria-label="YouTube link" placeholder="YouTube link (optional, Gemini reads it directly)" value="${esc(pre.u||'')}" style="flex:1 1 200px"></div>
+ <textarea id="aiT" rows="6" aria-label="Material" style="width:100%;margin-top:8px;resize:vertical" placeholder="Paste a lecture transcript, class notes or chapter text">${esc(pre.t||'')}</textarea>
+ <div class="seg" id="aiM" style="margin-top:10px">${Object.keys(MN).map(k=>`<button class="${k===AI.m?'on':''}" onclick="AI.mode('${k}')">${k==='ask'?'Ask a doubt':MN[k]}</button>`).join('')}</div>
+ <div class="f" id="aiQw" style="margin-top:8px;display:${AI.m==='ask'?'flex':'none'}"><input id="aiQ" aria-label="Your doubt" placeholder="Type your doubt" style="flex:1 1 200px"></div>
+ <div class="f" style="margin-top:10px"><button class="btn pri" onclick="AI.run()">Generate</button><button class="btn" onclick="AI.save()">Save to My AI notes</button><button class="btn" onclick="AI.lib()">My AI notes</button></div><div id="aiO"></div>`)};
+AI.mode=m=>{AI.m=m;[...$('aiM').children].forEach((b,i)=>b.classList.toggle('on',Object.keys(MN)[i]===m));$('aiQw').style.display=m==='ask'?'flex':'none'};
+AI.run=async()=>{const m=AI.m,t=$('aiT').value.trim(),u=$('aiU').value.trim(),q=m==='ask'?$('aiQ').value.trim():'',o=$('aiO'),yt=live()&&AC.p==='gem'&&yid(u)?'https://www.youtube.com/watch?v='+yid(u):'';
+ if(m==='ask'&&!q){o.innerHTML='<div class="msg y">Type your doubt first.</div>';return}
+ if(m!=='ask'&&!t&&!yt){o.innerHTML='<div class="msg y">Paste some text first. With a Gemini key you can paste just a YouTube link.</div>';return}
+ o.innerHTML='<div class="msg">Working on it…</div>';AI.sc=0;AI.dn=0;
+ try{let d;
+  if(live()){const raw=await llm(`You are an expert JEE tutor. Subject: ${$('aiS').value}.\n${PR[m]}\n${m==='ask'?'Doubt: '+q+'\n':''}${t?'Material:\n'+t.slice(0,60000):'Use the attached video as the material.'}`,yt);d=m==='ask'?raw.trim():pj(raw)}
+  else d=off(m,t,q);
+  AI.cur={m,d};o.innerHTML=R[m](d)}
+ catch(e){o.innerHTML=`<div class="msg r">${esc(e.message||'Something went wrong')}. Check your key and model in AI settings.</div>`}};
+AI.save=()=>{if(!AI.cur){tst('Generate something first');return}const u=$('aiU').value.trim(),t=$('aiT').value.trim();
+ S.ainotes.unshift({t:u||t.slice(0,45)||'Doubt',sub:$('aiS').value,m:AI.cur.m,d:AI.cur.d,at:td()});save();tst('Saved to My AI notes')};
+AI.lib=()=>{AI.stop();const L=S.ainotes;dlg(`<div class="row"><h3>My AI notes</h3>${XB2}</div>`+(L.length?L.map((n,i)=>`<div class="card" style="margin-top:10px"><div class="row"><div style="min-width:0"><b>${esc(n.t)}</b><div class="mut" style="font-size:12px">${esc(n.sub||'')} · ${MN[n.m]} · ${n.at}</div></div><div class="f"><button class="btn sm" onclick="AI.view(${i})">Open</button><button class="x" onclick="AI.del(${i})" aria-label="Delete">&times;</button></div></div></div>`).join(''):'<div class="msg" style="margin-top:12px">Nothing saved yet. Generate a summary and tap Save.</div>')+'<div class="f" style="margin-top:12px"><button class="btn pri" onclick="AI.open(\'sum\')">New</button></div>')};
+AI.view=i=>{const n=S.ainotes[i];AI.cur={m:n.m,d:n.d};AI.sc=0;AI.dn=0;dlg(`<div class="row"><h3 style="min-width:0">${esc(n.t)}</h3>${XB2}</div>${R[n.m](n.d)}<div class="f" style="margin-top:12px"><button class="btn" onclick="AI.lib()">Back</button></div>`)};
+AI.del=i=>{if(confirm('Delete this note?')){S.ainotes.splice(i,1);save();AI.lib()}};
+AI.cfg=()=>dlg(`<div class="row"><h3>AI settings</h3>${XB2}</div><div class="stack" style="margin-top:12px">
+ <label class="fl">Engine<select id="cp">${[['off','Offline (no key, basic)'],['gem','Google Gemini (free tier, reads YouTube links)'],['cl','Claude (Anthropic)'],['oa','ChatGPT (OpenAI API)']].map(([v,n])=>`<option value="${v}" ${AC.p===v?'selected':''}>${n}</option>`).join('')}</select></label>
+ <label class="fl">API key<input id="ck" type="password" value="${esc(AC.k)}" placeholder="Paste your key" autocomplete="off"></label>
+ <label class="fl">Model (optional)<input id="cm" value="${esc(AC.m)}" placeholder="${DM.gem}, ${DM.cl} or ${DM.oa}"></label>
+ <div class="mut" style="font-size:12px">Your key stays in this browser and goes only to the provider you pick. It is not part of your data backup. You need an API key, not a chat login: a ChatGPT Plus subscription does not include API access (create one at platform.openai.com). Gemini keys have a free tier at aistudio.google.com.</div>
+ <div class="f"><button class="btn pri" onclick="AI.cfgSave()">Save</button></div></div>`);
+AI.cfgSave=()=>{AC.p=$('cp').value;AC.k=$('ck').value.trim();AC.m=$('cm').value.trim();try{localStorage.setItem(AIK,JSON.stringify(AC))}catch(e){}tst('AI settings saved');AI.open('sum')};
+
+/* ---- Lecture library (YouTube player, speed, timestamp notes, resume) ---- */
+const yid=u=>(String(u).match(/(?:v=|youtu\.be\/|embed\/|shorts\/|live\/)([\w-]{11})/)||[])[1]||'';
+const mmss=s=>`${Math.floor(s/60)}:${p2(Math.floor(s%60))}`;
+AI.lec=f=>{AI.stop();AI.lf=f||AI.lf;const L=S.lec.map((x,i)=>({...x,i})).filter(x=>AI.lf==='All'||x.sub===AI.lf).sort((a,b)=>(b.at||0)-(a.at||0));
+ dlg(`<div class="row"><h3>Lecture library</h3>${XB2}</div>
+ <div class="f" style="margin-top:12px"><input id="lu" aria-label="YouTube link" placeholder="Paste YouTube link" style="flex:2 1 220px"><input id="lt" aria-label="Title" placeholder="Title (optional)" style="flex:1 1 140px"><select id="ls2" aria-label="Subject">${subOpts()}</select><input id="lc2" aria-label="Chapter" placeholder="Chapter" style="flex:1 1 120px"><button class="btn pri" onclick="AI.addLec()">Add</button></div>
+ <div class="seg" style="margin:12px 0">${['All',...subs()].map(s=>`<button class="${s===AI.lf?'on':''}" onclick="AI.lec('${s}')">${esc(s)}</button>`).join('')}</div>`+
+ (L.length?L.map(x=>`<div class="card lcv" style="margin-bottom:8px"><img src="https://i.ytimg.com/vi/${x.v}/mqdefault.jpg" alt="" loading="lazy" onerror="this.style.visibility='hidden'"><div style="flex:1;min-width:0"><b>${esc(x.t)}</b><div class="mut" style="font-size:12px">${esc(x.sub)}${x.ch?' · '+esc(x.ch):''} · ${x.done?'<span class="ok">Watched</span>':x.pos>5?'Resume at '+mmss(x.pos):'New'}${(x.n||[]).length?' · '+x.n.length+' notes':''}</div><div class="f" style="margin-top:6px"><button class="btn sm pri" onclick="AI.play(${x.i})">Watch</button><button class="btn sm" onclick="AI.tog(${x.i})">${x.done?'Unmark':'Mark watched'}</button><button class="x" onclick="AI.dl(${x.i})" aria-label="Remove">&times;</button></div></div></div>`).join(''):'<div class="msg">Add a lecture link to build your playlist: timestamp notes, speed control and resume where you stopped.</div>'))};
+AI.addLec=()=>{const v=yid($('lu').value);if(!v){tst('Paste a valid YouTube link');return}
+ S.lec.push({v,u:'https://www.youtube.com/watch?v='+v,t:$('lt').value.trim()||'Lecture '+(S.lec.length+1),sub:$('ls2').value,ch:$('lc2').value.trim(),n:[],pos:0,at:Date.now()});save();AI.lec()};
+AI.tog=i=>{S.lec[i].done=!S.lec[i].done;save();AI.lec()};
+AI.dl=i=>{if(confirm('Remove this lecture?')){S.lec.splice(i,1);save();AI.lec()}};
+function ytLoad(cb){if(window.YT&&YT.Player)return cb();window.onYouTubeIframeAPIReady=cb;if(!$('yta')){const s=document.createElement('script');s.id='yta';s.src='https://www.youtube.com/iframe_api';s.onerror=()=>tst('Could not load the YouTube player. Check your connection.');document.head.appendChild(s)}}
+AI.play=i=>{AI.stop();const x=S.lec[i];AI.li=i;x.at=Date.now();save();
+ dlg(`<div class="row"><h3 style="min-width:0">${esc(x.t)}</h3>${XB2}</div><div id="ytp" style="margin-top:12px"></div>
+ <div class="f" style="margin-top:10px"><div class="seg">${[.75,1,1.25,1.5,2].map(r=>`<button class="${r===1?'on':''}" onclick="AI.spd(${r},this)">${r}x</button>`).join('')}</div><button class="btn sm" onclick="AI.note()">Note at current time</button><button class="btn sm" onclick="AI.sumLec()">Summarise with AI</button><button class="btn sm" onclick="AI.lec()">Back</button></div><div id="lnl" style="margin-top:8px"></div>`);AI.nl();
+ ytLoad(()=>{if(AI.li!==i)return;AI.PL=new YT.Player('ytp',{videoId:x.v,width:'100%',height:'100%',playerVars:{rel:0,modestbranding:1,playsinline:1,start:x.done?0:Math.floor(x.pos||0)},events:{onStateChange:e=>{if(e.data===0){x.done=true;x.pos=0;save()}if(e.data===2)AI.pos()}}})})};
+AI.pos=()=>{try{if(AI.PL&&AI.li>=0&&AI.PL.getCurrentTime){const x=S.lec[AI.li];if(x&&!x.done){x.pos=Math.floor(AI.PL.getCurrentTime());save()}}}catch(e){}};
+AI.spd=(r,b)=>{try{AI.PL.setPlaybackRate(r)}catch(e){}[...b.parentNode.children].forEach(c=>c.classList.toggle('on',c===b))};
+AI.note=()=>{const x=S.lec[AI.li];let t=0;try{t=Math.floor(AI.PL.getCurrentTime())}catch(e){}const s=prompt('Note at '+mmss(t));if(s&&s.trim()){x.n.push({t,s:s.trim()});x.n.sort((a,b)=>a.t-b.t);save();AI.nl()}};
+AI.nl=()=>{const x=S.lec[AI.li];$('lnl').innerHTML=(x.n||[]).map((n,j)=>`<div class="msg"><button class="x mono" onclick="AI.seek(${n.t})">${mmss(n.t)}</button> ${esc(n.s)} <button class="x" onclick="AI.nd(${j})" aria-label="Delete note">&times;</button></div>`).join('')};
+AI.seek=t=>{try{AI.PL.seekTo(t,true);AI.PL.playVideo()}catch(e){}};
+AI.nd=j=>{S.lec[AI.li].n.splice(j,1);save();AI.nl()};
+AI.sumLec=()=>{const x=S.lec[AI.li],t=(x.n||[]).map(n=>mmss(n.t)+' '+n.s).join('\n');AI.open('sum',{u:x.u,t});if($('aiS'))$('aiS').value=x.sub};
+$('dlg').addEventListener('close',AI.stop);
+
+/* ---- entry points: floating button, Tools hub group, command palette ---- */
+const b=document.createElement('button');b.id='aib';b.className='btn';b.setAttribute('onclick',"AI.open('sum')");
+b.innerHTML='<svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l1.8 5.7 5.7 1.8-5.7 1.8L12 17l-1.8-5.7L4.5 9.5l5.7-1.8z"/></svg>Harsh AI';document.body.appendChild(b);
+const GRP=[['Harsh AI','Summary, flashcards and quiz from any text',"AI.open('sum')"],['Ask a doubt','Step-by-step AI tutor',"AI.open('ask')"],['Lecture library','YouTube playlist, timestamp notes, speed',"AI.lec()"],['My AI notes','Saved summaries and quizzes',"AI.lib()"],['AI settings','Connect Gemini or Claude',"AI.cfg()"]];
+const _ot=window.openTools;window.openTools=function(){_ot();try{const g=$('dlg').querySelector('.gl');if(g)g.insertAdjacentHTML('beforebegin','<div class="gl">Learn with AI</div><div class="tg">'+GRP.map(([t,d,f])=>`<button class="btn" onclick="${f}">${t}<small>${d}</small></button>`).join('')+'</div>')}catch(e){}};
+try{const _op=window.openPalette;window.openPalette=function(){_op();try{window._pal.push(['Harsh AI',"AI.open('sum')"],['Ask a doubt',"AI.open('ask')"],['Lecture library',"AI.lec()"],['My AI notes',"AI.lib()"]);palF()}catch(e){}}}catch(e){}
+}catch(e){console.error('Harsh AI module failed',e)}})();
+</script><script>
+/* ===== Hub, settings, resources, connections (isolated module) ===== */
+(function(){try{
+S.hs=Object.assign({spd:1,rm:0},S.hs||{});S.yth=S.yth||[];S.gpt=S.gpt||[];
+const X=window.HX={pgn:'home',q:''},tst=m=>typeof toast==='function'?toast(m):alert(m);
+const ico=(n,s)=>{try{return ic(n,s||18)}catch(e){return''}};
+const subs=()=>{try{return TSUBS()}catch(e){return['Physics','Chemistry','Mathematics']}};
+const mm=s=>`${Math.floor(s/60)}:${p2(Math.floor(s%60))}`,ago=t=>{const d=Math.floor((Date.now()-t)/864e5);return t?d<1?'today':d+'d ago':''};
+const STUDY=/jee|physics|chemistry|maths?\b|mathematics|neet|iit\b|physics wallah|organic|calculus|kinematics|thermodynamics|electrostat|mechanics|class ?1[12]|ncert|\bpuc\b|board|vedantu|unacademy|mathongo|alakh|lakshya|arjuna|yakeen|pyq/i;
+const yq=q=>'https://www.youtube.com/results?search_query='+encodeURIComponent(q),gq=q=>'https://www.google.com/search?q='+encodeURIComponent(q);
+const RES=[
+['JEE · Official',[['JEE Main (NTA)','Dates, syllabus, papers, results','https://jeemain.nta.nic.in'],['JEE Advanced','Brochure, past papers, results','https://jeeadv.ac.in'],['JoSAA counselling','Seat allotment for IITs, NITs','https://josaa.nic.in'],['NCERT textbooks','Free PDFs, Class 11 and 12','https://ncert.nic.in/textbook.php'],['NCERT Exemplar','Harder practice problems','https://ncert.nic.in/exemplar-problems.php']]],
+['JEE · Practice and tests',[['MARKS','Chapter tests and PYQs','https://web.getmarks.app'],['Quizrr','Test series','https://app.quizrr.in/v3/6a9556b13a2d7a78223d449e/tests'],['MathonGo','Chapter notes and PYQs','https://www.mathongo.com'],['Physics Wallah','Batches and lectures','https://www.pw.live'],['NPTEL','IIT faculty courses','https://nptel.ac.in']]],
+['Visual and calculation tools',[['PhET simulations','Physics and chemistry simulations','https://phet.colorado.edu'],['Desmos graphing','Plot functions','https://www.desmos.com/calculator'],['GeoGebra','Geometry and 3D graphs','https://www.geogebra.org/graphing'],['HyperPhysics','Concept maps for physics','https://hyperphysics.phy-astr.gsu.edu'],['Wolfram Alpha','Check integrals and limits','https://www.wolframalpha.com'],['Periodic table','Properties and trends','https://ptable.com']]],
+['Chemistry and concepts',[['Master Organic Chemistry','Reaction mechanisms explained','https://www.masterorganicchemistry.com'],['LibreTexts Chemistry','Free open textbook','https://chem.libretexts.org'],['Khan Academy','Concept videos, all subjects','https://www.khanacademy.org']]],
+['II PUC and Boards',[['PUC Department, Karnataka','Circulars, timetable, results','https://pue.karnataka.gov.in'],['KSEAB','Karnataka exam authority','https://kseab.karnataka.gov.in'],['NCERT textbooks','Reference for Physics, Chemistry, Maths','https://ncert.nic.in/textbook.php'],['DIKSHA','Government e-content','https://diksha.gov.in'],['SWAYAM','Free online courses','https://swayam.gov.in'],['ePathshala','NCERT e-books and audio','https://epathshala.nic.in']]]];
+const ord=()=>S.area==='board'?[4,0,1,2,3]:[0,1,2,3,4];
+const card=(t,d,f,h)=>`<${h?'a href="'+esc(h)+'" target="_blank" rel="noopener noreferrer"':'button type="button" onclick="'+f+'"'} class="tl"><b>${t}</b><small>${d}</small></${h?'a':'button'}>`;
+
+/* ---- pages ---- */
+const P={
+home(){const hr=new Date().getHours(),nm=((S.name||'').trim().split(' ')[0])||'there',L=S.lec.slice().sort((a,b)=>(b.at||0)-(a.at||0)),c=L.find(x=>!x.done),dl=(()=>{try{return Math.max(0,dd(S.exam))}catch(e){return''}})(),st=(()=>{try{return streak()}catch(e){return 0}})();
+ return `<h1 style="font-size:26px">${hr<12?'Good morning':hr<17?'Good afternoon':'Good evening'}, ${esc(nm)}</h1><div class="mut" style="margin:4px 0 18px">${dl!==''?dl+' days to JEE Main · ':''}${st} day streak</div>
+ ${c?`<div class="card lcv" style="margin-bottom:16px"><img src="https://i.ytimg.com/vi/${c.v}/mqdefault.jpg" alt="" onerror="this.style.visibility='hidden'"><div style="flex:1;min-width:0"><div class="lbl">Continue watching</div><b>${esc(c.t)}</b><div class="mut" style="font-size:12px">${esc(c.sub)}${c.pos>5?' · resume at '+mm(c.pos):''}</div></div><button class="btn pri" onclick="AI.play(${S.lec.indexOf(c)})">Resume</button></div>`:''}
+ <div class="lbl" style="margin-bottom:8px">Subjects</div><div class="grid" style="margin-bottom:18px">${subs().map(s=>{let p=0;try{p=sylPct(s)}catch(e){}return `<div class="card"><b>${esc(s)}</b><div class="mut" style="font-size:12px;margin:2px 0 8px">${p}% of syllabus done</div><div style="height:6px;border-radius:6px;background:var(--g2)"><div style="height:100%;width:${p}%;border-radius:6px;background:var(--ac)"></div></div></div>`}).join('')}</div>
+ <div class="lbl" style="margin-bottom:8px">Jump to</div><div class="grid tgd">${card('Harsh AI','Chat, analysis, tracker updates',"HC.open()")}${card('Ask a doubt','Step-by-step tutor',"AI.open('ask')")}${card('Harsh insights','Your data, read for you','openMentor()')}${[['Lectures','Library, notes, history','watch'],['Resources','JEE and board links, chapter finder','res'],['Connections','YouTube, MARKS, Quizrr, ChatGPT','conn'],['ChatGPT chats','Search and summarise','chats']].map(([t,d,p])=>card(t,d,`HX.pg('${p}')`)).join('')}</div>`},
+watch(){const h=S.yth,w=h.filter(x=>x.at>Date.now()-6048e5),sd=h.filter(x=>STUDY.test(x.t+' '+x.c)),ch={};sd.forEach(x=>{if(x.c)ch[x.c]=(ch[x.c]||0)+1});const tc=Object.entries(ch).sort((a,b)=>b[1]-a[1]).slice(0,5),L=S.lec;
+ return `<div class="row"><h1 style="font-size:24px">Lectures and watch history</h1><button class="btn pri" onclick="AI.lec()">Open lecture library</button></div>
+ <div class="grid" style="margin:16px 0">${[['Saved lectures',L.length],['Watched',L.filter(x=>x.done).length],['Timestamp notes',L.reduce((a,x)=>a+(x.n||[]).length,0)],['YouTube imported',h.length],['Study videos',sd.length],['Last 7 days',w.length]].map(([k,v])=>`<div class="card stat"><small>${k}</small><b>${v}</b></div>`).join('')}</div>
+ ${tc.length?`<div class="card" style="margin-bottom:14px"><div class="lbl" style="margin-bottom:6px">Top study channels</div>${tc.map(([n,v])=>`<div class="row" style="padding:3px 0"><span>${esc(n)}</span><span class="mut mono">${v}</span></div>`).join('')}</div>`:''}
+ <div class="card"><div class="row"><div class="lbl">Recent study videos from YouTube</div><button class="btn sm" onclick="HX.pg('conn')">Import history</button></div>${sd.length?sd.slice(0,15).map(x=>`<div class="row" style="padding:6px 0;border-top:1px solid var(--bd)"><a href="${esc(x.u)}" target="_blank" rel="noopener noreferrer" style="color:var(--tx);text-decoration:none;flex:1;min-width:0">${esc(x.t.slice(0,90))}<div class="mut" style="font-size:12px">${esc(x.c)} · ${ago(x.at)}</div></a></div>`).join(''):'<div class="msg" style="margin-top:10px">No imported history yet. Connections explains the 2-minute YouTube import.</div>'}</div>`},
+res(){const o=ord();let ch='';try{ch=''}catch(e){}
+ return `<h1 style="font-size:24px">Resources</h1><div class="mut" style="margin:4px 0 14px">Curated for JEE and II PUC boards. Links open the official sites.</div>
+ <div class="card" style="margin-bottom:18px"><div class="lbl" style="margin-bottom:8px">Chapter finder</div><div class="f"><select id="fs" aria-label="Subject" onchange="HX.fc()">${subs().map(s=>`<option>${esc(s)}</option>`).join('')}</select><input id="fc" list="fcl" aria-label="Chapter" placeholder="Chapter" style="flex:1 1 180px"><datalist id="fcl"></datalist><button class="btn pri" onclick="HX.find()">Find</button></div><div id="fo" class="grid tgd" style="margin-top:10px"></div></div>
+ ${o.map(i=>`<div class="gl">${RES[i][0]}</div><div class="grid tgd">${RES[i][1].map(([t,d,u])=>card(t,d,'',u)).join('')}</div>`).join('')}`},
+conn(){const T=S.tests.filter(t=>/Imported/.test(t.note||'')).length,cn=(t,d,s,b)=>`<div class="card"><div class="row"><b>${t}</b><span class="tag" style="cursor:default">${s}</span></div><div class="mut" style="font-size:12.5px;margin:6px 0 10px">${d}</div><div class="f">${b}</div></div>`;
+ return `<h1 style="font-size:24px">Connections</h1><div class="mut" style="margin:4px 0 14px;max-width:640px">YouTube, MARKS, Quizrr and ChatGPT do not offer a way for a website like this to log in and read your account. So each one connects by import: you export from the app, drop the file here, and everything is tracked on your device.</div>
+ <div class="stack">${cn('YouTube watch history','Go to takeout.google.com, choose only YouTube and YouTube Music, then History, format JSON. Upload watch-history.json here. Study videos are detected automatically.',S.yth.length?S.yth.length+' videos':'Not connected',`<a class="btn" href="https://takeout.google.com" target="_blank" rel="noopener noreferrer">Open Google Takeout</a><button class="btn pri" onclick="HX.file('yt')">Import watch-history.json</button>`)}
+ ${cn('ChatGPT chats','In ChatGPT: Settings, Data controls, Export data. Unzip the email download and upload conversations.json. Chats become searchable and can be summarised by Harsh AI.',S.gpt.length?S.gpt.length+' chats':'Not connected',`<a class="btn" href="https://chatgpt.com" target="_blank" rel="noopener noreferrer">Open ChatGPT</a><button class="btn pri" onclick="HX.file('gpt')">Import conversations.json</button><button class="btn" onclick="HX.pg('chats')">Browse chats</button>`)}
+ ${cn('MARKS','Open your result, copy the scores, and paste or upload one row per test: name, YYYY-MM-DD, physics, chemistry, maths, max marks.',T?'Results tracked':'Ready',`<a class="btn" href="https://web.getmarks.app" target="_blank" rel="noopener noreferrer">Open MARKS</a><button class="btn pri" onclick="HX.paste('MARKS')">Add results</button>`)}
+ ${cn('Quizrr','Same format as MARKS. Imported tests appear in your Tests tab and feed Harsh insights, trends and weak-subject analysis.',T?'Results tracked':'Ready',`<a class="btn" href="https://app.quizrr.in/v3/6a9556b13a2d7a78223d449e/tests" target="_blank" rel="noopener noreferrer">Open Quizrr</a><button class="btn pri" onclick="HX.paste('Quizrr')">Add results</button><button class="btn" onclick="openMentor()">Analyse with Harsh</button>`)}</div>`},
+chats(){return `<div class="row"><h1 style="font-size:24px">ChatGPT chats</h1><button class="btn" onclick="HX.pg('conn')">Import</button></div><input id="gq" aria-label="Search chats" placeholder="Search your chats" value="${esc(X.q)}" oninput="HX.q=this.value;HX.gl()" style="width:100%;margin:14px 0"><div id="gl"></div>`},
+set(){const r=(t,d,c)=>`<div class="srow"><div><b>${t}</b><div class="mut" style="font-size:12.5px">${d}</div></div><div class="f">${c}</div></div>`,b=(t,f)=>`<button class="btn sm" onclick="${f}">${t}</button>`,sw=(k,f)=>`<button class="sw ${S.hs[k]?'on':''}" role="switch" aria-checked="${!!S.hs[k]}" aria-label="Toggle" onclick="${f}"><i></i></button>`,sec=(t,a)=>`<div class="gl">${t}</div><div class="card" style="padding:4px 16px">${a.join('')}</div>`;
+ return `<h1 style="font-size:24px">Settings</h1>`+sec('General',[r('Exam, goals and profile','Name, exam date, daily goal, backup',b('Open','HX.os()')),r('Appearance','Switch between dark and light',b('Toggle theme','theme();HX.pg(\'set\')')),r('Reduce motion','Turn off animations',sw('rm','HX.tg(\'rm\')'))])
+ +sec('Harsh AI',[r('Engine and API key','Offline, Gemini or Claude',b('Manage','AI.cfg()')),r('My AI notes','Saved summaries, flashcards and quizzes',b('Open','AI.lib()'))])
+ +sec('Playback',[r('Default speed','Applied when a lecture opens',`<select aria-label="Default speed" onchange="HX.spd(this.value)">${[.75,1,1.25,1.5,2].map(v=>`<option value="${v}" ${+S.hs.spd===v?'selected':''}>${v}x</option>`).join('')}</select>`)])
+ +sec('Connections and data',[r('Connections','YouTube, MARKS, Quizrr, ChatGPT',b('Manage','HX.pg(\'conn\')')),r('YouTube history','Imported videos on this device',b('Clear','HX.clr(\'yth\')')),r('ChatGPT chats','Imported chats on this device',b('Clear','HX.clr(\'gpt\')'))])}};
+
+/* ---- shell ---- */
+const NAV=[['home','Home','cap'],['watch','Lectures','clock'],['res','Resources','book'],['conn','Connections','test'],['chats','Chats','stats'],['set','Settings','gear']];
+X.hub=p=>{let h=$('hx');if(!h){h=document.createElement('div');h.id='hx';h.setAttribute('role','dialog');h.setAttribute('aria-label','Learning hub');document.body.appendChild(h)}h.hidden=false;document.body.style.overflow='hidden';X.pg(p||X.pgn)};
+X.close=()=>{$('hx').hidden=true;document.body.style.overflow=''};
+X.pg=p=>{X.pgn=p;$('hx').innerHTML=`<aside><div class="bt row" style="padding:4px 8px 12px"><b>Learning hub</b><button class="icon-btn" onclick="HX.close()" aria-label="Close hub">&times;</button></div>${NAV.map(([k,n,i])=>`<button class="${k===p?'on':''}" onclick="HX.pg('${k}')">${ico(i)}<span>${n}</span></button>`).join('')}<button onclick="HC.open()">${ico('target')}<span>Harsh AI</span></button><button class="mb" onclick="HX.close()">${ico('clock')}<span>Close</span></button></aside><section id="hxm">${P[p]()}</section>`;if(p==='res')X.fc();if(p==='chats')X.gl();$('hxm').scrollTop=0};
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&$('hx')&&!$('hx').hidden&&!$('dlg').open)X.close()});
+X.os=()=>{X.close();if(X._os)X._os()};X._os=window.openSettings;window.openSettings=()=>X.hub('set');
+
+/* ---- features ---- */
+X.tg=k=>{S.hs[k]=S.hs[k]?0:1;save();document.body.classList.toggle('rm',!!S.hs.rm);X.pg('set')};
+X.spd=v=>{S.hs.spd=+v;save()};X.clr=k=>{if(confirm('Remove all imported data of this type from this device?')){S[k]=[];save();X.pg('set')}};
+document.body.classList.toggle('rm',!!S.hs.rm);
+X.fc=()=>{const s=$('fs');if(s&&$('fcl'))try{$('fcl').innerHTML=chOptsFor(s.value).map(c=>`<option value="${esc(c)}">`).join('')}catch(e){}};
+X.find=()=>{const s=$('fs').value,c=$('fc').value.trim()||s,b=S.area==='board'?'II PUC ':'JEE ';$('fo').innerHTML=[['Lectures','YouTube search',yq(`${b}${s} ${c} full chapter lecture`)],['Quick revision','YouTube search',yq(`${b}${s} ${c} revision one shot`)],['Previous year questions','Google search',gq(`${b}${s} ${c} previous year questions`)],['NCERT and notes','Google search',gq(`NCERT ${s} ${c} notes pdf`)]].map(([t,d,u])=>card(t,d,'',u)).join('')};
+X.pick=f=>{const i=document.createElement('input');i.type='file';i.accept='.json,.csv,.txt';i.onchange=async()=>{if(i.files[0])try{f(await i.files[0].text())}catch(e){tst('Could not read that file: '+e.message)}};i.click()};
+X.file=k=>X.pick(t=>k==='yt'?X.impYT(t):X.impGPT(t));
+X.impYT=t=>{const a=JSON.parse(t),seen=new Set(S.yth.map(x=>x.u+x.at));let n=0;a.forEach(e=>{if(!e.titleUrl)return;const at=Date.parse(e.time)||0,k=e.titleUrl+at;if(seen.has(k))return;seen.add(k);S.yth.push({t:String(e.title||'').replace(/^Watched /,''),u:e.titleUrl,at,c:(e.subtitles&&e.subtitles[0]&&e.subtitles[0].name)||''});n++});S.yth.sort((a,b)=>b.at-a.at);S.yth=S.yth.slice(0,4000);save();tst(`Imported ${n} videos`);X.pg('watch')};
+X.impGPT=t=>{const a=JSON.parse(t);S.gpt=a.slice(0,300).map(c=>{const ms=Object.values(c.mapping||{}).map(n=>n.message).filter(m=>m&&m.content&&m.content.parts&&m.author&&(m.author.role==='user'||m.author.role==='assistant')).sort((x,y)=>(x.create_time||0)-(y.create_time||0)).map(m=>(m.author.role==='user'?'You: ':'ChatGPT: ')+m.content.parts.filter(p=>typeof p==='string').join(' ').trim()).filter(s=>s.length>9);return{t:c.title||'Untitled',at:(c.create_time||0)*1000,n:ms.length,x:ms.join('\n\n').slice(0,6000)}}).filter(c=>c.n);S.gpt.sort((a,b)=>b.at-a.at);try{save()}catch(e){}tst(`Imported ${S.gpt.length} chats`);X.pg('chats')};
+X.paste=src=>dlg(`<div class="row"><h3>Add ${src} results</h3><button class="icon-btn" onclick="closeDlg()" aria-label="Close">&times;</button></div><div class="mut" style="font-size:12.5px;margin:8px 0">One test per line: name, YYYY-MM-DD, physics, chemistry, maths, max marks (optional, default 300)</div><textarea id="pt" rows="7" style="width:100%" placeholder="Full Test 1, 2026-10-04, 62, 48, 55, 300"></textarea><div class="f" style="margin-top:10px"><button class="btn pri" onclick="HX.csv('${src}',$('pt').value)">Import</button><button class="btn" onclick="HX.pick(t=>HX.csv('${src}',t))">Upload CSV</button></div>`);
+X.csv=(src,t)=>{let n=0;t.split(/\r?\n/).forEach(l=>{const c=l.split(',').map(s=>s.trim());if(c.length<5||isNaN(+c[2])||isNaN(+c[3])||isNaN(+c[4]))return;if(S.tests.some(x=>x.name===c[0]))return;S.tests.push({name:c[0],date:/^\d{4}-\d\d-\d\d$/.test(c[1])?c[1]:td(),kind:'JEE Main mock',p:+c[2],c:+c[3],m:+c[4],mx:+c[5]||300,syl:'',note:'Imported from '+src,ed:1});n++});save();if(n){tst(`Imported ${n} test(s)`);closeDlg();try{go()}catch(e){}if($('hx')&&!$('hx').hidden)X.pg('conn')}else tst('No valid rows. Use: name, YYYY-MM-DD, physics, chemistry, maths, max')};
+X.gl=()=>{const q=X.q.toLowerCase(),L=S.gpt.map((c,i)=>({...c,i})).filter(c=>!q||(c.t+' '+c.x).toLowerCase().includes(q));$('gl').innerHTML=L.length?L.slice(0,60).map(c=>`<button type="button" class="tl" style="width:100%;margin-bottom:8px" onclick="HX.chat(${c.i})"><b>${esc(c.t)}</b><small>${c.n} messages${c.at?' · '+ago(c.at):''}</small></button>`).join(''):'<div class="msg">No chats yet. Import conversations.json from Connections.</div>'};
+X.chat=i=>{const c=S.gpt[i];dlg(`<div class="row"><h3 style="min-width:0">${esc(c.t)}</h3><button class="icon-btn" onclick="closeDlg()" aria-label="Close">&times;</button></div><div class="msg" style="white-space:pre-wrap;max-height:55vh;overflow:auto">${esc(c.x)}</div><div class="f" style="margin-top:10px"><button class="btn pri" onclick="AI.open('sum',{t:S.gpt[${i}].x})">Summarise with Harsh AI</button></div>`)};
+/* default playback speed */
+const _pl=AI.play;AI.play=i=>{_pl(i);let n=0;const iv=setInterval(()=>{try{if(AI.PL&&AI.PL.setPlaybackRate){AI.PL.setPlaybackRate(+S.hs.spd||1);clearInterval(iv)}}catch(e){}if(++n>24)clearInterval(iv)},500)};
+/* entry points */
+const t=$('tabs');if(t)t.insertAdjacentHTML('beforebegin','<button class="tag" onclick="HX.hub(\'home\')" aria-label="Open learning hub">Explore</button>');
+const _ot=window.openTools;window.openTools=function(){_ot();try{const g=$('dlg').querySelector('.gl');if(g)g.insertAdjacentHTML('beforebegin','<div class="gl">Explore</div><div class="tg">'+[['Learning hub','Home, lectures, resources',"HX.hub('home')"],['Resources','JEE and board links, chapter finder',"HX.hub('res')"],['Connections','YouTube, MARKS, Quizrr, ChatGPT',"HX.hub('conn')"]].map(([a,d,f])=>`<button class="btn" onclick="closeDlg();${f}">${a}<small>${d}</small></button>`).join('')+'</div>')}catch(e){}};
+}catch(e){console.error('Hub module failed',e)}})();
+</script><script>
+/* ===== Harsh AI chat: live analysis + tracker updates ===== */
+(function(){try{
+S.hchat=S.hchat||[];
+const HC=window.HC={busy:0},AI=window.AI,tst=m=>typeof toast==='function'?toast(m):alert(m);
+const live=()=>AI.AC.p!=='off'&&AI.AC.k,T=(f,d)=>{try{return f()}catch(e){return d}};
+const subs=()=>T(()=>SUBS(),['Physics','Chemistry','Mathematics']);
+const pj=t=>{const a=t.search(/[\[{]/),b=Math.max(t.lastIndexOf('}'),t.lastIndexOf(']'));return JSON.parse(t.slice(a,b+1))};
+const vs=a=>subs().includes(a.sub);
+const A={
+ add_todo:a=>{if(!a.t)throw 0;TODOS().unshift({id:Math.random().toString(36).slice(2,9),t:a.t,sub:a.sub||'',ch:a.ch||'',min:+a.min||'',pri:['H','M','L'].includes(a.pri)?a.pri:'M',due:a.due||'',x:false})},
+ complete_todo:a=>{const k=String(a.t||'').toLowerCase(),t=TODOS().find(x=>!x.x&&String(x.t).toLowerCase().includes(k));if(!k||!t)throw 0;t.x=true;t.doneOn=td()},
+ log_questions:a=>{const d=+a.done,c=+a.ok;if(!vs(a)||!(d>0&&c>=0&&c<=d))throw 0;S.qlog.push({d:td(),sub:a.sub,ch:a.ch||'',done:d,ok:c});T(()=>addXP(Math.round(c+(d-c)*.5),true))},
+ log_study:a=>{const s=Math.round(+a.min*60);if(!vs(a)||!(s>0))throw 0;const d=day(td());d.s+=s;d.sub[a.sub]=(d.sub[a.sub]||0)+s;S.sess.push({d:td(),sub:a.sub,ch:a.ch||'',sec:s,at:Date.now(),man:1,a:S.area||'jee'})},
+ add_test:a=>{if(!a.name||S.tests.some(x=>x.name===a.name))throw 0;S.tests.push({name:a.name,date:a.date||td(),kind:'JEE Main mock',p:+a.p,c:+a.c,m:+a.m,mx:+a.mx||300,syl:'',note:'Added by Harsh AI',ed:1})},
+ add_note:a=>{if(!a.text)throw 0;const n=NOTES();n[td()]=((n[td()]||'')+'\n'+a.text).trim()}};
+const LB={add_todo:a=>`Add task: ${a.t}${a.due?' (due '+a.due+')':''}`,complete_todo:a=>`Complete task: ${a.t}`,log_questions:a=>`Log ${a.ok}/${a.done} correct · ${a.sub}${a.ch?' · '+a.ch:''}`,log_study:a=>`Log ${a.min} min of ${a.sub}${a.ch?' · '+a.ch:''}`,add_test:a=>`Add test ${a.name}: ${a.p}/${a.c}/${a.m} of ${a.mx||300}`,add_note:a=>`Add to today's note`};
+HC.ctx=()=>{const h=[...Array(7)].map((_,i)=>{const d=new Date(Date.now()-i*864e5).toLocaleDateString('en-CA');return[d,+((((S.days||{})[d]||{}).s||0)/3600).toFixed(1)]});
+ return{today:td(),area:S.area||'jee',examInDays:T(()=>dd(S.exam)),streak:T(()=>streak()),dailyGoalHours:S.goal,
+ syllabusPercent:T(()=>Object.fromEntries(subs().map(s=>[s,sylPct(s)]))),hoursLast7Days:h,
+ tests:S.tests.filter(t=>t.p!==''&&t.p!==undefined).slice(-8).map(t=>({name:t.name,date:t.date,phy:t.p,chem:t.c,math:t.m,max:t.mx})),
+ weakChapters:T(()=>weakCh().slice(0,5).map(c=>({ch:c.ch,sub:c.sub,accuracy:c.a,questions:c.d})),[]),
+ openTasks:T(()=>TODOS().filter(t=>!t.x).slice(0,15).map(t=>({t:t.t,sub:t.sub,due:t.due})),[]),
+ recentQuestionLogs:S.qlog.slice(-10),lectures:S.lec.slice(0,6).map(x=>({t:x.t,sub:x.sub,watched:!!x.done})),
+ youtubeRecent:(S.yth||[]).slice(0,8).map(x=>x.t),chatgptTopics:(S.gpt||[]).slice(0,8).map(c=>c.t)}};
+HC.prompt=m=>`You are Harsh AI, a strict but caring JEE mentor inside the student's own study tracker. Be specific, use their data, keep replies short. Reply ONLY with JSON: {"reply":"text","actions":[]}. Add actions only when the student asks to log or change something, or agrees to your plan. Action types: {"type":"add_todo","t":"","sub":"","ch":"","min":30,"pri":"H|M|L","due":"YYYY-MM-DD"}, {"type":"complete_todo","t":"part of task text"}, {"type":"log_questions","sub":"","ch":"","done":0,"ok":0}, {"type":"log_study","sub":"","ch":"","min":0}, {"type":"add_test","name":"","date":"YYYY-MM-DD","p":0,"c":0,"m":0,"mx":300}, {"type":"add_note","text":""}. sub must be one of: ${subs().join(', ')}.\nStudent data: ${JSON.stringify(HC.ctx())}\nConversation so far:\n${S.hchat.slice(-8).map(x=>(x.r==='u'?'Student: ':'Harsh AI: ')+x.t).join('\n')}\nStudent: ${m}`;
+const QS=['Analyse my performance','Plan tomorrow and add the tasks','What should I revise this week?','Daily check-in: ask what I studied and log it'];
+HC.open=()=>{try{AI.stop()}catch(e){}dlg(`<div class="row"><h3>Harsh AI</h3><div class="f"><button class="btn sm" onclick="AI.open('sum')">Summary and quiz</button><button class="btn sm" onclick="HC.clear()">Clear</button><button class="icon-btn" onclick="closeDlg()" aria-label="Close">&times;</button></div></div>
+ ${live()?'':'<div class="msg y">Connect an AI first: Gemini, ChatGPT (OpenAI) or Claude. <button class="x acc" onclick="AI.cfg()">Connect</button></div>'}
+ <div id="hcm" style="max-height:50vh;overflow:auto;margin:10px 0"></div><div class="chips" style="margin-bottom:8px">${QS.map((q,i)=>`<button class="chip" onclick="HC.send(HC.qs[${i}])">${q}</button>`).join('')}</div>
+ <div class="f"><input id="hci" aria-label="Message Harsh AI" placeholder="Ask, analyse, or tell me what to log" style="flex:1 1 200px" onkeydown="if(event.key==='Enter')HC.send()"><button class="btn pri" onclick="HC.send()">Send</button></div>`);HC.qs=QS;HC.draw()};
+HC.draw=think=>{const e=$('hcm');if(!e)return;e.innerHTML=(S.hchat.length?'':'<div class="mut" style="padding:8px 0">I can see your tests, syllabus, streak and tasks. Ask for analysis, or tell me what you studied and I will update your tracker after you confirm.</div>')+S.hchat.map((x,i)=>x.r==='u'?`<div class="msg" style="border-color:var(--mut)"><b>You</b><div style="white-space:pre-wrap">${esc(x.t)}</div></div>`:`<div class="msg"><b>Harsh AI</b><div style="white-space:pre-wrap">${esc(x.t)}</div>${(x.a||[]).length?`<div style="margin-top:8px;padding-top:8px;border-top:1px solid var(--bd)"><div class="lbl" style="margin-bottom:4px">${x.ap?'Applied to your tracker':'Proposed tracker updates'}</div>${x.a.map(a=>`<div style="font-size:12.5px">${x.ap?'<span class="ok">&#10003;</span> ':'&bull; '}${esc(LB[a.type](a))}</div>`).join('')}${x.ap?'':`<button class="btn sm pri" style="margin-top:8px" onclick="HC.apply(${i})">Apply ${x.a.length}</button>`}</div>`:''}</div>`).join('')+(think?'<div class="msg mut">Thinking…</div>':'');e.scrollTop=e.scrollHeight};
+HC.send=async q=>{const i=$('hci'),m=(q||(i&&i.value)||'').trim();if(!m||HC.busy)return;if(!live()){tst('Connect an AI first');AI.cfg();return}
+ const p=HC.prompt(m);if(i)i.value='';S.hchat.push({r:'u',t:m});HC.busy=1;HC.draw(1);
+ try{const raw=await AI.llm(p);let o;try{o=pj(raw)}catch(e){o={reply:raw,actions:[]}}S.hchat.push({r:'a',t:String(o.reply||'').trim()||'Done.',a:(Array.isArray(o.actions)?o.actions:[]).filter(x=>x&&A[x.type]).slice(0,8),ap:0})}
+ catch(e){S.hchat.push({r:'a',t:'Error: '+(e.message||e)+'. Check your key and model in AI settings.',a:[]})}
+ S.hchat=S.hchat.slice(-40);save();HC.busy=0;HC.draw()};
+HC.apply=i=>{const x=S.hchat[i];let ok=0;x.a=x.a.filter(a=>{try{A[a.type](a);ok++;return true}catch(e){return false}});x.ap=1;save();tst(ok?`Tracker updated (${ok})`:'Nothing could be applied');try{go()}catch(e){}HC.draw()};
+HC.clear=()=>{S.hchat=[];save();HC.draw()};
+const b=$('aib');if(b)b.setAttribute('onclick','HC.open()');
+const _ot=window.openTools;window.openTools=function(){_ot();try{const g=$('dlg').querySelector('.gl');if(g)g.insertAdjacentHTML('beforebegin','<div class="gl">Harsh AI</div><div class="tg"><button class="btn" onclick="HC.open()">Chat and analysis<small>Reads your data, updates your tracker</small></button></div>')}catch(e){}};
+try{const _op=window.openPalette;window.openPalette=function(){_op();try{window._pal.push(['Harsh AI chat','HC.open()']);palF()}catch(e){}}}catch(e){}
+}catch(e){console.error('Harsh chat failed',e)}})();
 </script></body></html>
