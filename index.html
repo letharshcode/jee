@@ -5,13 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#070a12"><meta property="og:title" content="JEE 2027 Study Tracker"><meta property="og:description" content="Finally, a planner that gets it. Offline-first JEE tracker."><meta property="og:type" content="website">
 <link rel="icon" type="image/png" href="favicon.png">
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script>
-window.SUPABASE_CONFIG = {
-  url: "https://gwynbhrhjjqonnupcvjb.supabase.co",
-  anonKey: "sb_publishable_LpXT5B7Yf2DeT5gu68aF_Q_CYHaWoc6"
-};
-</script>
 <link rel="apple-touch-icon" href="favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
@@ -507,29 +500,13 @@ details.sd>.card{border-top:0;border-top-left-radius:0;border-top-right-radius:0
 .cbn{position:absolute;left:50%;top:22%;padding:16px 28px;border-radius:20px;background:var(--bg);color:var(--tx);border:2px solid var(--ac);font:700 20px Inter,system-ui,sans-serif;box-shadow:0 18px 50px -12px rgba(0,0,0,.6);white-space:nowrap;animation:cbi 2.6s ease forwards}
 .cbn.goal{border-color:#fbbf24;box-shadow:0 0 40px rgba(251,191,36,.45)}.cbn.all{border-color:var(--ok)}
 @keyframes cbi{0%{opacity:0;transform:translate(-50%,24px) scale(.7)}12%{opacity:1;transform:translate(-50%,0) scale(1.1)}22%{transform:translate(-50%,0) scale(1)}85%{opacity:1}100%{opacity:0;transform:translate(-50%,-12px) scale(.96)}}
-
-
-/* ===== account authentication ===== */
-#jee-auth{position:fixed;inset:0;z-index:99999;display:grid;place-items:center;padding:20px;background:var(--bg,#070a12);overflow:auto}
-#jee-auth[hidden]{display:none}
-#jee-auth .auth-card{width:min(420px,100%);padding:26px;border:1px solid var(--bd,rgba(255,255,255,.09));border-radius:20px;background:var(--g2,rgba(255,255,255,.085));box-shadow:0 20px 80px rgba(0,0,0,.35)}
-#jee-auth .auth-brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:20px;margin-bottom:6px}
-#jee-auth .auth-dot{width:9px;height:9px;border-radius:50%;background:var(--ac,#5b9dff);box-shadow:0 0 16px var(--ac,#5b9dff)}
-#jee-auth .auth-sub{color:var(--mut,#8b95a7);font-size:13px;margin-bottom:20px}
-#jee-auth label{display:block;color:var(--mut,#8b95a7);font-size:12px;margin:12px 0 6px}
-#jee-auth input{width:100%;padding:11px 12px}
-#jee-auth .auth-btn{width:100%;justify-content:center;margin-top:16px}
-#jee-auth .auth-msg{min-height:20px;color:var(--bad,#f87171);font-size:12px;margin-top:10px}
-#jee-account-menu{position:fixed;right:16px;top:58px;z-index:10000;min-width:240px;padding:14px;border:1px solid var(--bd);border-radius:14px;background:var(--bg);box-shadow:0 16px 50px rgba(0,0,0,.35)}
-#jee-account-menu[hidden]{display:none}
-@media(max-width:560px){#jee-account-menu{right:10px;top:54px;min-width:220px}}
 </style></head><body><div id="boot" role="dialog" aria-label="Welcome"><div class="bw"><div class="ld"><div class="lg"><img src="favicon.png" alt="JEE 2027 Study Tracker logo" onerror="this.replaceWith(document.createTextNode('JE'))"></div><h1>JEE 2027 Study Tracker</h1><p>Structured preparation, measured progress.</p><div class="pb"><i></i></div><div class="mut" id="bootpct" style="font-size:12px">Preparing dashboard 0%</div></div>
 <div class="ob"><div class="sl on"><div class="lg"><img src="favicon.png" alt="JEE 2027 Study Tracker logo" onerror="this.replaceWith(document.createTextNode('JE'))"></div><h1>Welcome to JEE 2027</h1><p>A structured workspace for your preparation: plan, study, practise and review in one place.</p></div><div class="sl"><div class="lg">&#9201;</div><h1>Study clock</h1><p>Run focus blocks, set a daily goal and keep a floating timer visible while you work in other tabs.</p></div><div class="sl"><div class="lg">&#128218;</div><h1>Syllabus and QCT tracker</h1><p>Record theory, questions and QCTs for every chapter and see exactly how much of each test you have covered.</p></div><div class="sl"><div class="lg">&#128200;</div><h1>Tests and analysis</h1><p>Review upcoming tests, enter results when the test is live and study score trends and weak chapters.</p></div><div class="sl"><div class="lg">&#127769;</div><h1>Planner, sleep and backup</h1><p>Organise tasks by day, keep a weekly sleep balance and export your data whenever you wish.</p></div><div class="dots"><i></i><i></i><i></i><i></i><i></i></div><div class="obn"><button class="btn" id="obS" onclick="bootHide()">Skip</button><span><button class="btn" id="obB" onclick="obGo(-1)">Back</button> <button class="btn pri" id="obN" onclick="obGo(1)">Next</button></span></div></div></div></div>
 <header class="top"><div class="hw">
  <div class="brand" onclick="goTab(0)" title="Home" role="link" tabindex="0"><img src="favicon.png" alt="" width="22" height="22"><span id="bt">JEE 2027</span></div>
  <div class="areawrap"><button class="areabtn" id="areasw" onclick="toggleAreaMenu(event)" aria-haspopup="menu" aria-expanded="false" aria-label="Switch section" title="Switch between JEE and II PUC"></button><div class="areamenu" id="areamenu" role="menu" hidden></div></div>
  <span class="tag mono hide-sm" id="xtag"></span>
- <button class="avatar" id="avt" onclick="JEE_AUTH.toggleAccountMenu()" aria-label="Account menu"></button>
+ <button class="avatar" id="avt" onclick="openSettings()" aria-label="Profile and settings"></button>
  <nav class="tabs" id="tabs" aria-label="Sections"></nav>
  <button class="icon-btn" onclick="openSettings()" aria-label="Settings" id="setb"></button>
 
@@ -538,32 +515,6 @@ details.sd>.card{border-top:0;border-top-left-radius:0;border-top-right-radius:0
 <main id="m"></main>
 <nav class="tabbar" id="tabbar" aria-label="Sections"></nav>
 <dialog id="dlg"></dialog>
-<div id="jee-auth" aria-label="Login">
- <div class="auth-card">
-  <div class="auth-brand"><i class="auth-dot"></i><span>JEE 2027 Study Tracker</span></div>
-  <div class="auth-sub">Sign in to access your personal study data.</div>
-  <form id="jee-auth-form">
-   <label for="jee-auth-user">Username</label>
-   <input id="jee-auth-user" autocomplete="username" required placeholder="e.g. harshie">
-   <label for="jee-auth-pass">Password</label>
-   <input id="jee-auth-pass" type="password" autocomplete="current-password" required placeholder="Password">
-   <button class="btn pri auth-btn" type="submit" id="jee-auth-submit">Sign in</button>
-   <button class="btn auth-btn" type="button" id="jee-auth-back" hidden onclick="JEE_AUTH.cancelSwitch()">Back</button>
-   <div class="auth-msg" id="jee-auth-msg" role="alert"></div>
-  </form>
- </div>
-</div>
-<div id="jee-account-menu" hidden>
- <div class="lbl">Signed in as</div>
- <div id="jee-account-name" style="font-weight:600;margin:3px 0 12px"></div>
- <div class="f" style="display:grid;gap:8px">
-  <button class="btn sm" onclick="JEE_AUTH.openSettings()">Settings</button>
-  <button class="btn sm" onclick="JEE_AUTH.importBackup()">Import backup</button>
-  <button class="btn sm" onclick="JEE_AUTH.switchAccount()">Switch account</button>
-  <button class="btn sm" onclick="JEE_AUTH.logout()">Sign out</button>
- </div>
- <input id="jee-import-file" type="file" accept="application/json" class="sr-only" onchange="importData(this.files[0])">
-</div>
 <div id="toast" role="status" aria-live="polite"></div>
 <script>
 const IC2={cal:'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="3"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>',trash:'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6M10 11v6M14 11v6"/></svg>',sort:'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h13M3 12h9M3 18h5M17 8v10m0 0l-3-3m3 3l3-3"/></svg>'};
@@ -571,8 +522,9 @@ const IC2={cal:'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stro
 const K='jee27';
 const THEMES=[['dark','Dark blue'],['blue','Blue'],['rose','Transparent pink'],['light','Light'],['amoled','AMOLED'],['forest','Forest'],['violet','Violet'],['sunset','Sunset']],CH3=(k,a,d,cfg)=>`<div class="chips">${a.map(([v,l])=>`<button class="chip ${(S[k]||d)==v?'on':''}" onclick="${cfg?'setCfg':'setLook'}('${k}','${v}')">${l}</button>`).join('')}</div>`;
 let S={exam:'2027-01-21',subs:['Physics','Chemistry','Mathematics'],cur:'Physics',days:{},qlog:[],todos:[],tests:[],notes:{},syl:{},sess:[],topic:'',mode:0};
+try{const r=localStorage.getItem(K);if(r)S=Object.assign(S,JSON.parse(r))}catch(e){}
 if(!S.start){const ks=Object.keys(S.days||{}).sort();S.start=ks[0]||new Date().toLocaleDateString('en-CA')}
-const save=()=>{try{if(window.JEE_AUTH&&typeof window.JEE_AUTH.saveState==='function'){window.JEE_AUTH.saveState()}window.flashSaved&&window.flashSaved()}catch(e){}};
+const save=()=>{try{localStorage.setItem(K,JSON.stringify(S));window.flashSaved&&window.flashSaved()}catch(e){}};
 const $=id=>document.getElementById(id);
 const rollMs=()=>{try{return(S.roll||0)*36e5}catch(e){return 0}},td=()=>new Date(Date.now()-rollMs()).toLocaleDateString('en-CA');
 const TODOS=()=>S.area==='board'?(S.btodos=S.btodos||[]):S.todos,setTodos=a=>{if(S.area==='board')S.btodos=a;else S.todos=a},TSUBS=()=>S.area==='board'?BSUB:SUBS();
@@ -1071,16 +1023,7 @@ function calendar(g){const T=td(),ym=cm||T.slice(0,7),[y,m]=ym.split('-').map(Nu
   ${dayTodos(sel)}
   ${NOTES()[sel]?`<div class="mut">${esc(NOTES()[sel])}</div>`:''}</div></section>`}
 function exportData(){S.lastBackup=Date.now();save();const b=new Blob([JSON.stringify(S,null,1)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=`jee-tracker-${td()}.json`;a.click();URL.revokeObjectURL(a.href)}
-function importData(f){if(!f)return;const r=new FileReader();r.onload=()=>{try{
- const d=JSON.parse(r.result);
- if(!d||typeof d!=='object'||!d.days)throw 0;
- if(!confirm('Replace current data with this backup?'))return;
- const base={exam:'2027-01-21',subs:['Physics','Chemistry','Mathematics'],cur:'Physics',days:{},qlog:[],todos:[],tests:[],notes:{},syl:{},sess:[],topic:'',mode:0};
- S=Object.assign(base,d);
- normalize();save();toast('Backup imported');
- const m=$('jee-account-menu');if(m)m.hidden=true;
- go()
- }catch(e){console.error('Backup import failed',e);toast('Invalid backup file')}};r.readAsText(f)}
+function importData(f){if(!f)return;const r=new FileReader();r.onload=()=>{try{const d=JSON.parse(r.result);if(!d||typeof d!=='object'||!d.days)throw 0;if(!confirm('Replace current data with this backup?'))return;S=Object.assign(S,d);normalize();toast('Backup imported');go()}catch(e){toast('Invalid backup file')}};r.readAsText(f)}
 
 
 /* ---------- countdown ---------- */
@@ -1679,190 +1622,4 @@ const _c=window.chk;window.chk=function(i,v){let r=null;try{const a=document.act
  if(tt.length>1&&tt.every(z=>z.x))celebrate('all');else celebrate('one',r?r.left+r.width/2:innerWidth/2,r?r.top+r.height/2:innerHeight/2)};
 }catch(e){console.error('Celebrations failed',e)}})();
 </script>
-<script>
-/* ===== Account auth: Supabase login, per-user data, import, switch and sign-out ===== */
-(function(){
-'use strict';
-const cfg=window.SUPABASE_CONFIG||{};
-let sb=null,user=null,channel=null,saving=false,pending=false,ready=false,returnSession=null,switching=false;
-const authEl=()=>document.getElementById('jee-auth');
-const backEl=()=>document.getElementById('jee-auth-back');
-const menuEl=()=>document.getElementById('jee-account-menu');
-const msg=(s,bad=true)=>{const e=document.getElementById('jee-auth-msg');if(e){e.textContent=s||'';e.style.color=bad?'var(--bad)':'var(--ok)'}};
-const busy=b=>{const e=document.getElementById('jee-auth-submit');if(e){e.disabled=b;e.textContent=b?'Signing in…':'Sign in'}};
-const fresh=()=>({exam:'2027-01-21',subs:['Physics','Chemistry','Mathematics'],cur:'Physics',days:{},qlog:[],todos:[],tests:[],notes:{},syl:{},sess:[],topic:'',mode:0});
-const LOGIN_EMAILS={anushka:'anushka@jee.harsh',ayesha:'ayesha@jee.harsh',maryam:'maryam@jee.harsh',harshie:'harshie@jee.harsh'};
-async function getEmail(username){return LOGIN_EMAILS[String(username||'').trim().toLowerCase()]||null}
-
-async function load(){
- const {data,error}=await sb.from('tracker_data').select('state').eq('user_id',user.id).maybeSingle();
- if(error)throw error;
- S=data?.state&&typeof data.state==='object'?Object.assign(fresh(),data.state):fresh();
- if(!data){
-  const {error:e}=await sb.from('tracker_data').upsert({user_id:user.id,state:S,updated_at:new Date().toISOString()},{onConflict:'user_id'});
-  if(e)throw e;
- }
- if(!S.start){const ks=Object.keys(S.days||{}).sort();S.start=ks[0]||new Date().toLocaleDateString('en-CA')}
- try{normalize()}catch(e){console.error('Normalize after account load failed',e)}
-}
-
-async function push(){
- if(!user||!ready)return;
- if(saving){pending=true;return}
- saving=true;
- try{
-  const {error}=await sb.from('tracker_data').upsert({user_id:user.id,state:S,updated_at:new Date().toISOString()},{onConflict:'user_id'});
-  if(error)throw error;
- }catch(e){console.error('Supabase save failed',e)}
- finally{saving=false;if(pending){pending=false;void push()}}
-}
-
-function subscribe(){
- if(channel)sb.removeChannel(channel);
- channel=sb.channel('jee-tracker-'+user.id).on('postgres_changes',{
-  event:'UPDATE',schema:'public',table:'tracker_data',filter:'user_id=eq.'+user.id
- },p=>{
-  if(!p.new||saving)return;
-  if(p.new.state&&typeof p.new.state==='object'){
-   S=Object.assign(fresh(),p.new.state);
-   try{go()}catch(e){console.error(e)}
-  }
- }).subscribe();
-}
-
-async function finish(){
- await load();
- ready=true;
- switching=false;
- returnSession=null;
- authEl().hidden=true;
- if(backEl())backEl().hidden=true;
- msg('');
- const n=document.getElementById('jee-account-name');
- if(n)n.textContent=user.user_metadata?.username||S.name||user.email||'';
- subscribe();
- try{go()}catch(e){console.error(e)}
-}
-
-async function login(ev){
- ev.preventDefault();
- busy(true);msg('');
- try{
-  const u=document.getElementById('jee-auth-user').value.trim().toLowerCase();
-  const p=document.getElementById('jee-auth-pass').value;
-  if(!u||!p)throw new Error('Enter your username and password.');
-  const email=await getEmail(u);
-  if(!email)throw new Error('Username not found.');
-  const {data,error}=await sb.auth.signInWithPassword({email,password:p});
-  if(error)throw error;
-  user=data.user;
-  await finish();
- }catch(e){
-  console.error(e);
-  msg(e?.message||'Login failed.');
- }finally{busy(false)}
-}
-
-async function switchAccount(){
- if(!sb)return;
- const m=menuEl();if(m)m.hidden=true;
- const {data}=await sb.auth.getSession();
- returnSession=data?.session||null;
- switching=true;
- ready=false;
- if(backEl())backEl().hidden=!returnSession;
- authEl().hidden=false;
- msg('Sign in with another account, or press Back to keep the current account.',false);
- const u=document.getElementById('jee-auth-user');const p=document.getElementById('jee-auth-pass');
- if(u)u.value='';if(p)p.value='';
- if(u)u.focus();
- if(returnSession){
-  await sb.auth.signOut();
- }
-}
-
-async function cancelSwitch(){
- if(user&&ready){
-  authEl().hidden=true;
-  return;
- }
- if(returnSession&&sb){
-  try{
-   const {data,error}=await sb.auth.setSession({
-    access_token:returnSession.access_token,
-    refresh_token:returnSession.refresh_token
-   });
-   if(error)throw error;
-   user=data.session.user;
-   await finish();
-   return;
-  }catch(e){
-   console.error('Could not restore previous account',e);
-   returnSession=null;
-   switching=false;
-   msg('Could not restore the previous account. Please sign in again.');
-  }
- }
- authEl().hidden=false;
- if(backEl())backEl().hidden=true;
- msg('');
- const u=document.getElementById('jee-auth-user');if(u)u.focus();
-}
-
-async function logout(){
- if(menuEl())menuEl().hidden=true;
- returnSession=null;switching=false;ready=false;
- if(channel){try{sb.removeChannel(channel)}catch(e){}channel=null}
- if(sb)await sb.auth.signOut();
- user=null;
- location.reload();
-}
-
-window.JEE_AUTH={
- saveState:push,
- async logout(){await logout()},
- async switchAccount(){await switchAccount()},
- toggleAccountMenu(){
-  const m=menuEl();
-  if(!m)return;
-  m.hidden=!m.hidden;
- },
- openSettings(){
-  const m=menuEl();if(m)m.hidden=true;
-  if(typeof window.openSettings==='function')window.openSettings();
- },
- importBackup(){
-  const m=menuEl();if(m)m.hidden=true;
-  const f=document.getElementById('jee-import-file');
-  if(f){f.value='';f.click()}
- },
- cancelSwitch
-};
-
-async function init(){
- if(!window.supabase){msg('Supabase library failed to load.');return}
- if(!cfg.url||cfg.url.startsWith('YOUR_')||!cfg.anonKey||cfg.anonKey.startsWith('YOUR_')){
-  msg('Supabase configuration is missing.');
-  return;
- }
- sb=window.supabase.createClient(cfg.url,cfg.anonKey);
- const form=document.getElementById('jee-auth-form');
- if(form)form.addEventListener('submit',login);
- const {data,error}=await sb.auth.getSession();
- if(error){console.error(error);msg('Could not check your login session.');return}
- if(data.session){
-  user=data.session.user;
-  try{await finish()}catch(e){console.error(e);await sb.auth.signOut();user=null;ready=false;authEl().hidden=false;msg('Could not load your account data.')}
- }
- sb.auth.onAuthStateChange((_event,session)=>{
-  if(session){user=session.user;return}
-  ready=false;user=null;
-  if(channel){try{sb.removeChannel(channel)}catch(e){}channel=null}
-  authEl().hidden=false;
-  if(backEl())backEl().hidden=true;
- });
-}
-
-init();
-})();
-</script></body></html>
+</body></html>
