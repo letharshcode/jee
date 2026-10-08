@@ -5,6 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#070a12"><meta property="og:title" content="JEE 2027 Study Tracker"><meta property="og:description" content="Finally, a planner that gets it. Offline-first JEE tracker."><meta property="og:type" content="website">
 <link rel="icon" type="image/png" href="favicon.png">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+window.SUPABASE_CONFIG = {
+  url: "https://gwynbhrhjjqonnupcvjb.supabase.co",
+  anonKey: "sb_publishable_LpXT5B7Yf2DeT5gu68aF_Q_CYHaWoc6"
+};
+</script>
 <link rel="apple-touch-icon" href="favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
@@ -500,13 +507,53 @@ details.sd>.card{border-top:0;border-top-left-radius:0;border-top-right-radius:0
 .cbn{position:absolute;left:50%;top:22%;padding:16px 28px;border-radius:20px;background:var(--bg);color:var(--tx);border:2px solid var(--ac);font:700 20px Inter,system-ui,sans-serif;box-shadow:0 18px 50px -12px rgba(0,0,0,.6);white-space:nowrap;animation:cbi 2.6s ease forwards}
 .cbn.goal{border-color:#fbbf24;box-shadow:0 0 40px rgba(251,191,36,.45)}.cbn.all{border-color:var(--ok)}
 @keyframes cbi{0%{opacity:0;transform:translate(-50%,24px) scale(.7)}12%{opacity:1;transform:translate(-50%,0) scale(1.1)}22%{transform:translate(-50%,0) scale(1)}85%{opacity:1}100%{opacity:0;transform:translate(-50%,-12px) scale(.96)}}
-</style></head><body><div id="boot" role="dialog" aria-label="Welcome"><div class="bw"><div class="ld"><div class="lg"><img src="favicon.png" alt="JEE 2027 Study Tracker logo" onerror="this.replaceWith(document.createTextNode('JE'))"></div><h1>JEE 2027 Study Tracker</h1><p>Structured preparation, measured progress.</p><div class="pb"><i></i></div><div class="mut" id="bootpct" style="font-size:12px">Preparing dashboard 0%</div></div>
+
+/* ---- YouTube-style settings ---- */
+#hx aside button:not(.icon-btn):not(.mb){border-radius:12px;padding:11px 14px;font-size:14.5px}
+#hx aside button.on{font-weight:600}
+.yh{font-size:28px;margin:0}.yg{margin-top:26px}.yg h2{font-size:18px;margin:0 0 4px}.yg p{margin:0 0 10px;font-size:13px}
+.srow.ycol{flex-direction:column;align-items:flex-start;gap:10px}
+@media(max-width:720px){.yh{font-size:22px}}
+@media(max-width:720px){#hx aside{overflow-x:auto;scrollbar-width:none}#hx aside::-webkit-scrollbar{display:none}#hx aside button:not(.icon-btn){flex:none;min-width:86px;flex-direction:column;gap:4px;padding:8px 10px;font-size:11.5px;line-height:1.2;white-space:nowrap;align-items:center;justify-content:center;text-align:center}}
+
+/* ---- site footer ---- */
+.xf{box-sizing:border-box;width:calc(100% - 40px);max-width:1000px;margin:36px auto 0;padding:22px 0 40px;border-top:1px solid var(--bd);font-size:12.5px;color:var(--mut)}
+.xf-t{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;align-items:flex-start}
+.xf-t b{color:var(--tx);font-size:14px}.xf-t p{margin:4px 0 0;max-width:340px;line-height:1.5}
+.xf nav{display:flex;gap:18px;flex-wrap:wrap}
+.xf a{color:var(--mut);text-decoration:none}.xf a:hover{color:var(--tx);text-decoration:underline}
+.xf-b{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:18px;padding-top:14px;border-top:1px solid var(--bd)}
+.xf-b a{color:var(--ac);font-weight:500}
+#lnd .xf{width:100%;max-width:none}@media(max-width:760px){.xf{width:calc(100% - 28px);padding-bottom:96px}}
+
+/* ---- account login (Supabase) ---- */
+body.locked>*:not(#jee-auth){visibility:hidden}
+#jee-auth{position:fixed;inset:0;z-index:99999;display:grid;place-items:center;padding:20px;background:var(--bg,#070a12);overflow:auto}
+#jee-auth[hidden]{display:none}
+#jee-auth .auth-card{width:min(420px,100%);padding:26px;border:1px solid var(--bd);border-radius:20px;background:var(--g2);box-shadow:0 20px 80px rgba(0,0,0,.35)}
+#jee-auth .auth-brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:20px;margin-bottom:6px}
+#jee-auth .auth-dot{width:9px;height:9px;border-radius:50%;background:var(--ac);box-shadow:0 0 16px var(--ac)}
+#jee-auth .auth-sub{color:var(--mut);font-size:13px;margin-bottom:20px}
+#jee-auth label{display:block;color:var(--mut);font-size:12px;margin:12px 0 6px}
+#jee-auth input{width:100%;padding:11px 12px}
+#jee-auth .auth-btn{width:100%;justify-content:center;margin-top:16px}
+#jee-auth .auth-msg{min-height:20px;color:var(--bad);font-size:12px;margin-top:10px}
+#jee-auth .auth-back{display:inline-flex;align-items:center;gap:6px;background:none;border:0;color:var(--mut);font:inherit;font-weight:500;cursor:pointer;padding:4px 0;margin:-8px 0 14px}
+#jee-auth .auth-back:hover{color:var(--tx)}#jee-auth .auth-back[hidden]{display:none}
+#jee-account-menu{position:fixed;right:16px;top:58px;z-index:10000;width:270px;padding:8px 14px 10px;border:1px solid var(--bd);border-radius:16px;background:var(--bg);box-shadow:0 16px 50px rgba(0,0,0,.35)}
+#jee-account-menu[hidden]{display:none}
+.am-h{display:flex;gap:12px;align-items:center;padding:10px 4px}.am-av{width:42px;height:42px;border-radius:50%;background:var(--ac);color:#fff;display:grid;place-items:center;font-weight:700;flex:none}
+.am-t{min-width:0}.am-t b,.am-t small{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.am-t small{color:var(--mut);font-size:12px}
+.am-sep{height:1px;background:var(--bd);margin:6px -14px}
+.am-i{display:flex;align-items:center;gap:12px;width:100%;padding:10px 8px;border:0;background:none;color:var(--tx);font:inherit;border-radius:10px;cursor:pointer;text-align:left}.am-i:hover{background:var(--g2)}
+@media(max-width:560px){#jee-account-menu{right:10px;top:54px}}
+</style></head><body class="locked"><div id="boot" role="dialog" aria-label="Welcome"><div class="bw"><div class="ld"><div class="lg"><img src="favicon.png" alt="JEE 2027 Study Tracker logo" onerror="this.replaceWith(document.createTextNode('JE'))"></div><h1>JEE 2027 Study Tracker</h1><p>Structured preparation, measured progress.</p><div class="pb"><i></i></div><div class="mut" id="bootpct" style="font-size:12px">Preparing dashboard 0%</div></div>
 <div class="ob"><div class="sl on"><div class="lg"><img src="favicon.png" alt="JEE 2027 Study Tracker logo" onerror="this.replaceWith(document.createTextNode('JE'))"></div><h1>Welcome to JEE 2027</h1><p>A structured workspace for your preparation: plan, study, practise and review in one place.</p></div><div class="sl"><div class="lg">&#9201;</div><h1>Study clock</h1><p>Run focus blocks, set a daily goal and keep a floating timer visible while you work in other tabs.</p></div><div class="sl"><div class="lg">&#128218;</div><h1>Syllabus and QCT tracker</h1><p>Record theory, questions and QCTs for every chapter and see exactly how much of each test you have covered.</p></div><div class="sl"><div class="lg">&#128200;</div><h1>Tests and analysis</h1><p>Review upcoming tests, enter results when the test is live and study score trends and weak chapters.</p></div><div class="sl"><div class="lg">&#127769;</div><h1>Planner, sleep and backup</h1><p>Organise tasks by day, keep a weekly sleep balance and export your data whenever you wish.</p></div><div class="dots"><i></i><i></i><i></i><i></i><i></i></div><div class="obn"><button class="btn" id="obS" onclick="bootHide()">Skip</button><span><button class="btn" id="obB" onclick="obGo(-1)">Back</button> <button class="btn pri" id="obN" onclick="obGo(1)">Next</button></span></div></div></div></div>
 <header class="top"><div class="hw">
  <div class="brand" onclick="goTab(0)" title="Home" role="link" tabindex="0"><img src="favicon.png" alt="" width="22" height="22"><span id="bt">JEE 2027</span></div>
  <div class="areawrap"><button class="areabtn" id="areasw" onclick="toggleAreaMenu(event)" aria-haspopup="menu" aria-expanded="false" aria-label="Switch section" title="Switch between JEE and II PUC"></button><div class="areamenu" id="areamenu" role="menu" hidden></div></div>
  <span class="tag mono hide-sm" id="xtag"></span>
- <button class="avatar" id="avt" onclick="openSettings()" aria-label="Profile and settings"></button>
+ <button class="avatar" id="avt" onclick="JEE_AUTH.toggleAccountMenu()" aria-label="Account menu" aria-haspopup="menu"></button>
  <nav class="tabs" id="tabs" aria-label="Sections"></nav>
  <button class="icon-btn" onclick="openSettings()" aria-label="Settings" id="setb"></button>
 
@@ -515,6 +562,31 @@ details.sd>.card{border-top:0;border-top-left-radius:0;border-top-right-radius:0
 <main id="m"></main>
 <nav class="tabbar" id="tabbar" aria-label="Sections"></nav>
 <dialog id="dlg"></dialog>
+<div id="jee-auth" role="dialog" aria-label="Login">
+ <div class="auth-card">
+  <button class="auth-back" type="button" id="jee-auth-back" hidden onclick="JEE_AUTH.cancelSwitch()">&larr; Back</button>
+  <div class="auth-brand"><i class="auth-dot"></i><span>JEE 2027 Study Tracker</span></div>
+  <div class="auth-sub" id="jee-auth-sub">Sign in to access your personal study data.</div>
+  <form id="jee-auth-form">
+   <label for="jee-auth-user">Username</label>
+   <input id="jee-auth-user" autocomplete="username" required placeholder="e.g. harshie">
+   <label for="jee-auth-pass">Password</label>
+   <input id="jee-auth-pass" type="password" autocomplete="current-password" required placeholder="Password">
+   <button class="btn pri auth-btn" type="submit" id="jee-auth-submit">Sign in</button>
+   <div class="auth-msg" id="jee-auth-msg" role="alert"></div>
+  </form>
+ </div>
+</div>
+<div id="jee-account-menu" role="menu" hidden>
+ <div class="am-h"><span class="am-av" id="jee-am-av"></span><div class="am-t"><b id="jee-account-name"></b><small id="jee-account-user"></small></div></div>
+ <div class="am-sep"></div>
+ <button class="am-i" role="menuitem" onclick="JEE_AUTH.switchAccount()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.6-3.6 3.2-5.5 6.5-5.5s5.9 1.9 6.5 5.5"/><path d="M17 4.7a3.5 3.5 0 0 1 0 6.6M21.5 20c-.3-2.2-1.5-3.8-3.3-4.6"/></svg>Switch account</button>
+ <button class="am-i" role="menuitem" onclick="JEE_AUTH.logout()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></svg>Sign out</button>
+ <div class="am-sep"></div>
+ <button class="am-i" role="menuitem" data-ic="gear" onclick="JEE_AUTH.openSettings()">Settings</button>
+ <button class="am-i" role="menuitem" onclick="JEE_AUTH.importBackup()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 16V4M7 9l5-5 5 5M4 20h16"/></svg>Import backup</button>
+</div>
+<input id="jee-import-file" type="file" accept="application/json" class="sr-only" onchange="importData(this.files[0])">
 <div id="toast" role="status" aria-live="polite"></div>
 <script>
 const IC2={cal:'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="3"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>',trash:'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6M10 11v6M14 11v6"/></svg>',sort:'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h13M3 12h9M3 18h5M17 8v10m0 0l-3-3m3 3l3-3"/></svg>'};
@@ -522,9 +594,8 @@ const IC2={cal:'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stro
 const K='jee27';
 const THEMES=[['dark','Dark blue'],['blue','Blue'],['rose','Transparent pink'],['light','Light'],['amoled','AMOLED'],['forest','Forest'],['violet','Violet'],['sunset','Sunset']],CH3=(k,a,d,cfg)=>`<div class="chips">${a.map(([v,l])=>`<button class="chip ${(S[k]||d)==v?'on':''}" onclick="${cfg?'setCfg':'setLook'}('${k}','${v}')">${l}</button>`).join('')}</div>`;
 let S={exam:'2027-01-21',subs:['Physics','Chemistry','Mathematics'],cur:'Physics',days:{},qlog:[],todos:[],tests:[],notes:{},syl:{},sess:[],topic:'',mode:0};
-try{const r=localStorage.getItem(K);if(r)S=Object.assign(S,JSON.parse(r))}catch(e){}
 if(!S.start){const ks=Object.keys(S.days||{}).sort();S.start=ks[0]||new Date().toLocaleDateString('en-CA')}
-const save=()=>{try{localStorage.setItem(K,JSON.stringify(S));window.flashSaved&&window.flashSaved()}catch(e){}};
+const save=()=>{try{if(window.JEE_AUTH&&typeof window.JEE_AUTH.saveState==='function'){window.JEE_AUTH.saveState()}window.flashSaved&&window.flashSaved()}catch(e){}};
 const $=id=>document.getElementById(id);
 const rollMs=()=>{try{return(S.roll||0)*36e5}catch(e){return 0}},td=()=>new Date(Date.now()-rollMs()).toLocaleDateString('en-CA');
 const TODOS=()=>S.area==='board'?(S.btodos=S.btodos||[]):S.todos,setTodos=a=>{if(S.area==='board')S.btodos=a;else S.todos=a},TSUBS=()=>S.area==='board'?BSUB:SUBS();
@@ -670,7 +741,7 @@ const qctDone=s=>(CHD[s]||[]).reduce((a,c)=>a+bits(qv(s,c.n)),0),qctTot=s=>(CHD[
 function seed(){const L=schedule(),ok=new Set(L.map(t=>t.name));
  if(S.sch2!==2){S.tests=S.tests.filter(t=>ok.has(t.name));S.sch2=2}
  L.forEach(t=>{const x=S.tests.find(y=>y.name===t.name||y.orig===t.name);if(x&&x.ed){if(!x.mx)x.mx=t.mx}else if(x){x.date=(S.tdate&&S.tdate[t.name])||t.date;x.kind=t.kind;x.syl=t.syl;if(!x.mx)x.mx=t.mx}else S.tests.push({...t,p:'',c:'',m:''})})}
-function normalize(){S.goal=S.goal||10;S.subs=['Physics','Chemistry','Mathematics'];S.area=S.scope==='jee'?'jee':(S.area||'jee');S.cat=S.cat||'Study';if(!S.cur||!(S.cur.includes(' · ')||S.subs.includes(S.cur))){S.cur='Physics';S.cat='Study'}S.bsyl=S.bsyl||{};S.bdays=S.bdays||{};S.syl=S.syl||{};S.sy3=S.sy3||{};S.qct=S.qct||{};seed();S.sess=S.sess||[];S.notes=S.notes||{};
+function normalize(){window.ensureState&&ensureState();S.goal=S.goal||10;S.subs=['Physics','Chemistry','Mathematics'];S.area=S.scope==='jee'?'jee':(S.area||'jee');S.cat=S.cat||'Study';if(!S.cur||!(S.cur.includes(' · ')||S.subs.includes(S.cur))){S.cur='Physics';S.cat='Study'}S.bsyl=S.bsyl||{};S.bdays=S.bdays||{};S.syl=S.syl||{};S.sy3=S.sy3||{};S.qct=S.qct||{};seed();S.sess=S.sess||[];S.notes=S.notes||{};
  [S.todos,S.btodos||[]].forEach(a=>a.forEach(t=>{if(!t.id)t.id=Math.random().toString(36).slice(2,9)}));TODOS().forEach(t=>{t.pri=t.pri||'M';t.sub=t.sub||'';t.ch=t.ch||'';t.due=t.due||'';if(t.rep&&t.x&&t.doneOn!==td())t.x=false});
  S.tests.forEach(t=>{if(t.kind===undefined){t.kind='JEE Main mock';t.p=t.p||'';t.c=t.c||'';t.m=t.m||'';if(t.sc!==''&&t.sc!==undefined)t.tot=+t.sc}});save()}
 const ring=(p,c,label)=>`<div class="ring" style="--p:${p};--c:${c}"><span class="mono">${label??p+'%'}</span></div>`;
@@ -1023,7 +1094,7 @@ function calendar(g){const T=td(),ym=cm||T.slice(0,7),[y,m]=ym.split('-').map(Nu
   ${dayTodos(sel)}
   ${NOTES()[sel]?`<div class="mut">${esc(NOTES()[sel])}</div>`:''}</div></section>`}
 function exportData(){S.lastBackup=Date.now();save();const b=new Blob([JSON.stringify(S,null,1)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=`jee-tracker-${td()}.json`;a.click();URL.revokeObjectURL(a.href)}
-function importData(f){if(!f)return;const r=new FileReader();r.onload=()=>{try{const d=JSON.parse(r.result);if(!d||typeof d!=='object'||!d.days)throw 0;if(!confirm('Replace current data with this backup?'))return;S=Object.assign(S,d);normalize();toast('Backup imported');go()}catch(e){toast('Invalid backup file')}};r.readAsText(f)}
+function importData(f){if(!f)return;const r=new FileReader();r.onload=()=>{try{const d=JSON.parse(r.result);if(!d||typeof d!=='object'||!d.days)throw 0;if(!confirm('Replace current data with this backup?'))return;const base={exam:'2027-01-21',subs:['Physics','Chemistry','Mathematics'],cur:'Physics',days:{},qlog:[],todos:[],tests:[],notes:{},syl:{},sess:[],topic:'',mode:0};S=Object.assign(base,d);normalize();save();toast('Backup imported');const m=$('jee-account-menu');if(m)m.hidden=true;go()}catch(e){console.error('Backup import failed',e);toast('Invalid backup file')}};r.readAsText(f)}
 
 
 /* ---------- countdown ---------- */
@@ -1036,7 +1107,7 @@ function applyLook(){const r=document.documentElement;r.dataset.rad=S.rad||'roun
 function setLook(k,v){S[k]=v;save();applyLook();window._fk=k+':'+v;rs()}
 function resetLook(){['rad','den','fs','anim','side','bg','blur','showxp','sa','acc','font','bgo'].forEach(k=>delete S[k]);S.theme='dark';document.documentElement.dataset.theme='dark';save();applyLook();window._fk='th:dark';rs();toast('Appearance reset')}
 function setTheme(k){window._fk='th:'+k;S.theme=k;document.documentElement.dataset.theme=k;save();hdr();rs()}
-function resetAll(){if(prompt('Type DELETE to erase ALL data')==='DELETE'){localStorage.removeItem(K);location.reload()}}
+function resetAll(){if(prompt('Type DELETE to erase ALL data')==='DELETE'){JEE_AUTH.reset()}}
 function openSettings(){const th=S.theme||'dark',T=[['light','Light'],['blue','Blue'],['pink','Pink'],['dark','Dark'],['darkpink','Dark pink']];
 dlg(`<div class="set"><div class="row"><h3>Settings</h3><button class="icon-btn" onclick="closeDlg()" aria-label="Close">${ic('x',16)}</button></div>
 <div class="lbl" style="margin:16px 0 8px">Profile &amp; goals</div>
@@ -1436,21 +1507,17 @@ function setX(k,v){S[k]=v;
  save();if(k==='rad')applyLook();else applyX();if(k==='roll')go();window._fk=k+':'+v;rs()}
 function notifTest(){askNotify();setTimeout(()=>{notify('JEE 2027 Study Tracker','Notifications are working.');rs()},400)}
 function settingsExtra(part){const c=(k,v,l,cur,sw)=>`<button class="chip ${cur==v?'on':''}" data-k="${k}:${v}" onclick="setX('${k}','${v}')">${sw?`<span class="dot" style="background:${sw}"></span>`:''}${l}</button>`,
- sec=(t,b)=>part==='look'?`<details class="sd" data-t="${t}" ${(window._so||{})[t]?'open':''} ontoggle="(window._so=window._so||{})[this.dataset.t]=this.open"><summary>${t}</summary><div class="card" style="padding:12px 16px">${b}</div></details>`:`<div class="lbl" style="margin:18px 0 8px">${t}</div>${b}`,row=(k,a,cur)=>`<div class="chips" style="margin-bottom:8px">${a.map(x=>c(k,x,x,cur)).join('')}</div>`,
- tg=(k,l)=>sec(l,`<div class="chips">${c(k,'','On',S[k]||'')}${c(k,'1','Off',S[k]||'')}</div>`),
+ sec=(t,b)=>part?`<div class="srow ycol"><b>${t}</b><div>${b}</div></div>`:`<div class="lbl" style="margin:18px 0 8px">${t}</div>${b}`,row=(k,a,cur)=>`<div class="chips" style="margin-bottom:8px">${a.map(x=>c(k,x,x,cur)).join('')}</div>`,
+ tg=(k,l)=>part?`<div class="srow"><div><b>${l}</b></div><button class="sw ${S[k]?'':'on'}" role="switch" aria-checked="${!S[k]}" aria-label="${l}" onclick="setX('${k}','${S[k]?'':'1'}')"><i></i></button></div>`:sec(l,`<div class="chips">${c(k,'','On',S[k]||'')}${c(k,'1','Off',S[k]||'')}</div>`),
  gm=Math.round((S.goalMain||0)/3),ga=Math.round((S.goalAdv||0)/3.6),np=('Notification' in window)?Notification.permission:'unsupported';
 const A=` 
 ${sec('Study profile',row('cls',['Class 11','Class 12','Dropper','Other'],S.cls||'')+row('smode',['Online','Offline','Hybrid','Self study'],S.smode||'')+'<div class="f"><label class="fl">Coaching institute<input value="'+esc(S.inst||'')+'" placeholder="Institute name" onchange="S.inst=this.value.trim().slice(0,60);save();go()"></label></div>')}
 ${sec('Target exam',row('etype',['JEE Main','JEE Advanced'],S.etype==='JEE Advanced'?'JEE Advanced':'JEE Main')+row('esess',['January','April'],S.esess||'')+row('tyear',['2026','2027','2028','2029'],S.tyear||'2027')+'<div class="f"><label class="fl">JEE Advanced date<input type="date" value="'+esc(S.advDate||'')+'" onchange="S.advDate=this.value;save()"></label></div>')}
 ${sec('Score goals',`<div class="f"><label class="fl">JEE Advanced target /360<input type="number" min="0" max="360" value="${S.goalAdv||''}" onchange="S.goalAdv=+this.value||0;save();rs()"></label></div><div class="mut" style="font-size:12.5px;margin-top:8px">Main target: ${gm}% of maximum &middot; Advanced target: ${ga}% of maximum</div>`)}
-${sec('Export',`<div class="f"><button class="btn" onclick="closeDlg();print()">Save report as PDF</button><button class="btn" onclick="exportICS()">Export tests to calendar</button></div>`)}`,B=`${sec('Accent colour',`<div class="chips">${ACC.map(([v,l])=>c('acc',v,l,S.acc||'',v||'#5b9dff')).join('')}</div>`)}
+${sec('Export',`<div class="f"><button class="btn" onclick="closeDlg();print()">Save report as PDF</button><button class="btn" onclick="exportICS()">Export tests to calendar</button></div>`)}`,Bl=`${sec('Accent colour',`<div class="chips">${ACC.map(([v,l])=>c('acc',v,l,S.acc||'',v||'#5b9dff')).join('')}</div>`)}
 ${sec('Typeface',`<div class="chips">${FONTS.map(f=>c('font',f,f,S.font||'Inter')).join('')}</div>`)}
 ${sec('Corner style',`<div class="chips">${RADS.map(r=>c('rad',r,r[0].toUpperCase()+r.slice(1),S.rad||'rounded')).join('')}</div>`)}
-${sec('Background intensity',`<input type="range" min="0" max="1" step=".1" value="${S.bgo||1}" aria-label="Background intensity" onchange="setX('bgo',this.value)" style="width:100%;max-width:320px">`)}
-${tg('nobeep','Sound when a focus block ends')}${tg('nobrk','Break reminder after 50 minutes')}${tg('nocf','Celebration when the daily goal is met')}${tg('nocel','Celebration when tasks are finished')}${tg('nopip','Open the floating timer when the timer starts')}
-${sec('Day rollover',`<div class="f"><select aria-label="Day rollover time" onchange="setX('roll',+this.value)">${[0,1,2,3,4,5,6].map(h=>`<option value="${h}" ${(S.roll||0)==h?'selected':''}>${h?h+':00 AM':'Midnight'}</option>`).join('')}</select></div><div class="mut" style="font-size:12.5px;margin-top:8px">Study logged before this hour counts towards the previous day.</div>`)}
-${sec('Notifications',`<div class="f"><button class="btn" onclick="notifTest()">Enable and send a test</button><span class="mut" style="font-size:12.5px">Status: ${np}</span></div>`)}
-${sec('Version',`<div class="mut" style="font-size:12.5px;line-height:1.7">JEE 2027 Study Tracker, version 69.69<br>Shortcuts: Space starts or pauses the timer; Ctrl + K opens the command palette.</div>`)}`;return part==='look'?B:`<div id="sx">${A}</div>`}
+${sec('Background intensity',`<input type="range" min="0" max="1" step=".1" value="${S.bgo||1}" aria-label="Background intensity" onchange="setX('bgo',this.value)" style="width:100%;max-width:320px">`)}`,Bn=`${tg('nobeep','Sound when a focus block ends')}${tg('nobrk','Break reminder after 50 minutes')}${tg('nocf','Celebration when the daily goal is met')}${tg('nocel','Celebration when tasks are finished')}${tg('nopip','Open the floating timer when the timer starts')}`,Bf=`${sec('Day rollover',`<div class="f"><select aria-label="Day rollover time" onchange="setX('roll',+this.value)">${[0,1,2,3,4,5,6].map(h=>`<option value="${h}" ${(S.roll||0)==h?'selected':''}>${h?h+':00 AM':'Midnight'}</option>`).join('')}</select></div><div class="mut" style="font-size:12.5px;margin-top:8px">Study logged before this hour counts towards the previous day.</div>`)}`,Bn2=`${sec('Notifications',`<div class="f"><button class="btn" onclick="notifTest()">Enable and send a test</button><span class="mut" style="font-size:12.5px">Status: ${np}</span></div>`)}`,Bv=`${sec('Version',`<div class="mut" style="font-size:12.5px;line-height:1.7">JEE 2027 Study Tracker, version 69.69<br>Shortcuts: Space starts or pauses the timer; Ctrl + K opens the command palette.</div>`)}`;return part==='look'?Bl:part==='focus'?Bf:part==='notif'?Bn+Bn2:part==='about'?Bv:`<div id="sx">${A}</div>`}
 (function(){const o=openSettings;openSettings=function(){o();const d=document.querySelector('#dlg .set');if(!d||d.querySelector('#sx'))return;const t=[...d.querySelectorAll('.lbl')].find(e=>e.textContent.trim()==='Data');if(t)t.insertAdjacentHTML('beforebegin',settingsExtra());else d.insertAdjacentHTML('beforeend',settingsExtra());const k=window._fk&&d.querySelector('[data-k="'+window._fk+'"]');if(k)k.focus()}})();
 applyX();
 
@@ -1473,14 +1540,14 @@ st=(l,v,c)=>`<div class="card stat"><span class="lbl">${l}</span><b class="${c||
 done=()=>S.tests.filter(t=>tot(t)!==null&&t.mx).sort((a,b)=>a.date<b.date?-1:1);
 
 /* 1. OJEET-style start interface */
-const FE=[['book','Syllabus tracker','Chapter-wise Theory, Analysis, PYQs and Revision, plus QCT coverage for every chapter.'],['clock','Study clock engine','Stopwatch and 25/50/90 minute focus blocks, floating timer, day rollover and streaks.'],['todo','To-do and backlog','Plan the day, carry over missed tasks, revision reminders and a backlog to clear.'],['test','Mock test scores','Upcoming tests, test-day reminders, score trends and weak chapters.'],['moon','Sleep and stats','Hours per day and subject, accuracy, sleep log and streaks that pause on break days.'],['stats','Offline-first','Everything stays in your browser. Export a JSON backup whenever you like.']];
+const FE=[['book','Syllabus tracker','Chapter-wise Theory, Analysis, PYQs and Revision, plus QCT coverage for every chapter.'],['clock','Study clock engine','Stopwatch and 25/50/90 minute focus blocks, floating timer, day rollover and streaks.'],['todo','To-do and backlog','Plan the day, carry over missed tasks, revision reminders and a backlog to clear.'],['test','Mock test scores','Upcoming tests, test-day reminders, score trends and weak chapters.'],['moon','Sleep and stats','Hours per day and subject, accuracy, sleep log and streaks that pause on break days.'],['stats','Synced to your account','Your progress is saved securely to your account. Export a JSON backup whenever you like.']];
 window.showLanding=function(){let l=$('lnd');if(!l){l=document.createElement('div');l.id='lnd';document.body.appendChild(l)}
 const n=S.exam?Math.max(0,dd(S.exam)):0,sp=Math.round(av(SUBS().map(sylPct)));
 l.innerHTML=`<div class="lw"><div class="ln"><div class="brand"><img src="favicon.png" alt="" width="22" height="22"><span>JEE 2027 Tracker</span></div></div>
-<div class="lh"><h1>Finally, a planner <em>that gets it.</em></h1><p>Track your syllabus down to the last chapter, log every study hour and analyse your progress. Offline-first, always instant.</p><div class="lb2"><button class="btn pri" onclick="hideLanding()">Open tracker</button></div></div>
+<div class="lh"><h1>Finally, a planner <em>that gets it.</em></h1><p>Track your syllabus down to the last chapter, log every study hour and analyse your progress. Saved to your account, always instant.</p><div class="lb2"><button class="btn pri" onclick="hideLanding()">Open tracker</button></div></div>
 <div class="ls">${st('Days to JEE Main',n)}${st('Streak',streak()+' d'+(streakPaused()?' · paused':''))}${st('Studied today',hm(((S.days[td()]||{}).s)||0))}${st('Syllabus',sp+'%')}</div>
 <div class="lf">${FE.map(f=>`<div class="card"><div class="ico">${ic(f[0],18)}</div><h3>${f[1]}</h3><p>${f[2]}</p></div>`).join('')}</div>
-<div class="row" style="margin-top:26px"><label class="f mut" style="font-size:12.5px"><input type="checkbox" onchange="S.nolnd=this.checked?1:0;save()" ${S.nolnd?'checked':''}>Skip this page next time</label><span class="mut" style="font-size:12.5px">Press Enter to open</span></div></div>`;
+<div class="row" style="margin-top:26px"><label class="f mut" style="font-size:12.5px"><input type="checkbox" onchange="S.nolnd=this.checked?1:0;save()" ${S.nolnd?'checked':''}>Skip this page next time</label><span class="mut" style="font-size:12.5px">Press Enter to open</span></div>${window.siteFooter?siteFooter(1):''}</div>`;
 l.classList.add('on');document.body.style.overflow='hidden';l.scrollTop=0};
 window.hideLanding=function(){const l=$('lnd');if(l)l.classList.remove('on');document.body.style.overflow='';try{sessionStorage.setItem('jt_lnd','1')}catch(e){}};
 addEventListener('keydown',e=>{const l=$('lnd');if(!l||!l.classList.contains('on'))return;if(e.code==='Space'&&!/INPUT|BUTTON/.test(e.target.tagName)){e.preventDefault();e.stopPropagation()}if((e.key==='Enter'||e.key==='Escape')&&!/INPUT|BUTTON/.test(e.target.tagName))hideLanding()},true);
@@ -1523,7 +1590,7 @@ const H=s=>{let h=5381;for(const c of 'jee27'+s)h=(h*33^c.charCodeAt(0))>>>0;ret
 function look(){document.documentElement.style.setProperty('--ac',S.hs.ac||'');if(!S.hs.ac)document.documentElement.style.removeProperty('--ac');document.body.classList.toggle('fs1',S.hs.fs===1);document.body.classList.toggle('fs2',S.hs.fs===2)}
 function pill(){const b=$('cbp');if(b)b.remove()}
 look();pill();
-if(S.hs.pin){const o=document.createElement('div');o.id='lk';o.innerHTML='<div class="card" style="width:min(300px,90vw);text-align:center"><b>Enter PIN</b><input id="lkp" type="password" inputmode="numeric" maxlength="8" autocomplete="off" aria-label="PIN" style="width:100%;margin:12px 0;text-align:center" onkeydown="if(event.key===\'Enter\')XP.unl()"><button class="btn pri" style="width:100%;justify-content:center" onclick="XP.unl()">Unlock</button><div id="lke" class="bad" style="font-size:12px;margin-top:8px"></div></div>';document.body.appendChild(o)}
+window.lockIfPin=()=>{if(S.hs&&S.hs.pin&&!document.getElementById('lk')){const o=document.createElement('div');o.id='lk';o.innerHTML='<div class="card" style="width:min(300px,90vw);text-align:center"><b>Enter PIN</b><input id="lkp" type="password" inputmode="numeric" maxlength="8" autocomplete="off" aria-label="PIN" style="width:100%;margin:12px 0;text-align:center" onkeydown="if(event.key===\'Enter\')XP.unl()"><button class="btn pri" style="width:100%;justify-content:center" onclick="XP.unl()">Unlock</button><div id="lke" class="bad" style="font-size:12px;margin-top:8px"></div></div>';document.body.appendChild(o)}};
 }catch(e){console.error('Paths module failed',e)}})();
 </script>
 <script>
@@ -1532,18 +1599,31 @@ if(S.hs.pin){const o=document.createElement('div');o.id='lk';o.innerHTML='<div c
 S.hs=Object.assign({spd:1,rm:0},S.hs||{});S.doubts=S.doubts||[];
 const X=window.HX={pgn:'home',q:''},tst=m=>typeof toast==='function'?toast(m):alert(m);
 const P=window.XPG={
-set(){const r=(t,d,c)=>`<div class="srow"><div><b>${t}</b><div class="mut" style="font-size:12.5px">${d}</div></div><div class="f">${c}</div></div>`,b=(t,f)=>`<button class="btn sm" onclick="${f}">${t}</button>`,sec=(t,a)=>`<details class="sd" data-t="${t}" ${(window._so||{})[t]?'open':''} ontoggle="(window._so=window._so||{})[this.dataset.t]=this.open"><summary>${t}</summary><div class="card" style="padding:4px 16px">${a.join('')}</div></details>`,sw=`<button class="sw ${S.hs.rm?'on':''}" role="switch" aria-checked="${!!S.hs.rm}" aria-label="Reduce motion" onclick="HX.tg('rm')"><i></i></button>`;
- return `<h1 style="font-size:24px">Settings</h1>`+sec('General',[r('Exam, goals and profile','Name, exam date, daily goal, backup',b('Open','HX.os()')),r('Reduce motion','Turn off animations',sw)])
- +sec('Exam path',[r('Your path','Decides tabs, syllabus and the II PUC tracker',`<select aria-label="Path" onchange="XP.path(this.value)">${[['jee','JEE only (dropper)'],['puc','JEE + II PUC (Karnataka)']].map(([v,n])=>`<option value="${v}" ${(S.path==='cbse'?'puc':(S.path||(S.scope==='jee'?'jee':'puc')))===v?'selected':''}>${n}</option>`).join('')}</select>`)])
-+sec('Look and feel',[r('Text size','Applies everywhere',`<select aria-label="Text size" onchange="XP.fs(this.value)">${['Normal','Large','Larger'].map((n,i)=>`<option value="${i}" ${+S.hs.fs===i?'selected':''}>${n}</option>`).join('')}</select>`)])
-+sec('Privacy and security',[r('App lock','A casual PIN lock for this device, not encryption',S.hs.pin?b('Remove PIN','XP.pin(0)'):b('Set PIN','XP.pin(1)')),r('Privacy policy','What is stored and where',b('Open','LEGAL.privacy()'))])
-+sec('Medium and focus',[r('II PUC language medium','Kannada or Urdu: swaps the language paper in the II PUC tracker',`<select aria-label="Medium" onchange="XP2.med(this.value)"><option value="kannada" ${(S.h2||{}).med!=='urdu'?'selected':''}>Kannada medium</option><option value="urdu" ${(S.h2||{}).med==='urdu'?'selected':''}>Urdu medium</option></select>`),r('Pause timer when idle','Minutes without activity (0 = off)',`<input type="number" min="0" step="5" aria-label="Idle minutes" value="${(S.h2||{}).idle||0}" onchange="XP2.set('idle',this.value)">`)])
-+sec('Theme',[r('Colour theme','Choose how the app looks',`<div class="chips">${THEMES.map(([k,l])=>`<button class="chip ${(S.theme||'dark')===k?'on':''}" onclick="setTheme('${k}')">${l}</button>`).join('')}</div>`)])
-+sec('Appearance',[r('Layout density','Spacing inside cards',CH3('den',[['compact','Compact'],['normal','Normal'],['relaxed','Relaxed']],'normal')),r('Animations','Motion across the app',CH3('anim',[['on','On'],['off','Off']],'on')),r('Background glow','Soft gradient behind the app',CH3('bg',[['on','Show'],['off','Hide']],'on')),r('Glass blur','Turn off for a faster feel',CH3('blur',[['on','On'],['off','Off']],'on')),r('Reset appearance','Back to the default look',b('Reset','resetLook()'))])
-+sec('Study options',[r('Sleep timing','Default bedtime and wake time',`<input type="time" aria-label="Bedtime" value="${S.bedT||'23:00'}" onchange="S.bedT=this.value||'23:00';save()"><input type="time" aria-label="Wake time" value="${S.wakeT||'06:00'}" onchange="S.wakeT=this.value||'06:00';save()">`),r('Test editing','Show Edit test and Add test buttons',CH3('tedit',[['on','On'],['off','Off']],'off',1))])
-+settingsExtra('look')
-+sec('Welcome page',[r('Show welcome page when the website opens','The JEE 2027 Tracker start screen',`<button class="sw ${!S.nolnd?'on':''}" role="switch" aria-checked="${!S.nolnd}" aria-label="Show welcome page" onclick="S.nolnd=S.nolnd?0:1;save();HX.pg('set')"><i></i></button>`),r('Open welcome page now','Opens it right away',b('Open',"HX.close();showLanding()"))])
-+sec('About',[r('Rules','Terms for using this website',b('Open','LEGAL.rules()')),r('Privacy policy','What is stored and where',b('Open','LEGAL.privacy()'))])+`<div class="mut" style="text-align:center;margin:36px 0 12px">ayo fuck you</div>`}};
+set(){const cat=X.cat||'general',r=(t,d,c)=>`<div class="srow"><div><b>${t}</b><div class="mut" style="font-size:12.5px">${d}</div></div><div class="f">${c}</div></div>`,b=(t,f)=>`<button class="btn sm" onclick="${f}">${t}</button>`,
+sw1=(on,f,l)=>`<button class="sw ${on?'on':''}" role="switch" aria-checked="${!!on}" aria-label="${l}" onclick="${f}"><i></i></button>`,
+g=(t,d,rows)=>`<div class="yg"><h2>${t}</h2>${d?`<p class="mut">${d}</p>`:''}<div class="card" style="padding:4px 16px">${rows}</div></div>`,
+sel=(l,f,o,cur)=>`<select aria-label="${l}" onchange="${f}">${o.map(([v,n])=>`<option value="${v}" ${cur==v?'selected':''}>${n}</option>`).join('')}</select>`,
+TH={dark:'#5b9dff',blue:'#2563eb',rose:'#ff7ba6',light:'#4f46e5',amoled:'#6b7280',forest:'#3deb9c',violet:'#a78bfa',sunset:'#fb923c'},
+pth=S.path==='cbse'?'puc':(S.path||(S.scope==='jee'?'jee':'puc')),
+T={
+general:['General','Your profile, exam path and start screen',
+ g('Account','',r('Signed in as',esc(window.JEE_AUTH?JEE_AUTH.name():''),b('Switch account','JEE_AUTH.switchAccount()')+b('Sign out','JEE_AUTH.logout()'))+r('Exam, goals and profile','Name, exam date, daily goal, backup',b('Open','HX.os()'))+r('Your path','Decides tabs, syllabus and the II PUC tracker',sel('Path','XP.path(this.value)',[['jee','JEE only (dropper)'],['puc','JEE + II PUC (Karnataka)']],pth))+r('II PUC language medium','Kannada or Urdu: swaps the language paper in the II PUC tracker',sel('Medium','XP2.med(this.value)',[['kannada','Kannada medium'],['urdu','Urdu medium']],(S.h2||{}).med==='urdu'?'urdu':'kannada')))
+ +g('Start screen','',r('Show welcome page when the website opens','The JEE 2027 Tracker start screen',sw1(!S.nolnd,'S.nolnd=S.nolnd?0:1;save();HX.pg()','Show welcome page'))+r('Open welcome page now','Opens it right away',b('Open','HX.close();showLanding()')))],
+appearance:['Appearance','Theme, colours and how the app looks',
+ g('Theme','Choose how the app looks',`<div class="srow ycol"><div class="chips">${THEMES.map(([k,l])=>`<button class="chip ${(S.theme||'dark')===k?'on':''}" onclick="setTheme('${k}')"><span class="dot" style="background:${TH[k]}"></span>${l}</button>`).join('')}</div></div>`)
+ +g('Colours and type','',settingsExtra('look')+r('Text size','Applies everywhere',sel('Text size','XP.fs(this.value)',[[0,'Normal'],[1,'Large'],[2,'Larger']],+S.hs.fs)))
+ +g('Display','',r('Layout density','Spacing inside cards',CH3('den',[['compact','Compact'],['normal','Normal'],['relaxed','Relaxed']],'normal'))+r('Animations','Motion across the app',CH3('anim',[['on','On'],['off','Off']],'on'))+r('Background glow','Soft gradient behind the app',CH3('bg',[['on','Show'],['off','Hide']],'on'))+r('Glass blur','Turn off for a faster feel',CH3('blur',[['on','On'],['off','Off']],'on'))+r('Reduce motion','Turn off animations',sw1(S.hs.rm,"HX.tg('rm')",'Reduce motion'))+r('Reset appearance','Back to the default look',b('Reset','resetLook()')))],
+focus:['Study and focus','Timer, sleep and test options',
+ g('Timer','',r('Pause timer when idle','Minutes without activity (0 = off)',`<input type="number" min="0" step="5" aria-label="Idle minutes" value="${(S.h2||{}).idle||0}" onchange="XP2.set('idle',this.value)">`)+settingsExtra('focus'))
+ +g('Study options','',r('Sleep timing','Default bedtime and wake time',`<input type="time" aria-label="Bedtime" value="${S.bedT||'23:00'}" onchange="S.bedT=this.value||'23:00';save()"><input type="time" aria-label="Wake time" value="${S.wakeT||'06:00'}" onchange="S.wakeT=this.value||'06:00';save()">`)+r('Test editing','Show Edit test and Add test buttons',CH3('tedit',[['on','On'],['off','Off']],'off',1)))],
+notif:['Notifications','Alerts, sounds and celebrations',g('Alerts and celebrations','',settingsExtra('notif'))],
+privacy:['Privacy and security','Protect access on this device',g('Privacy','',r('App lock','A casual PIN lock for this device, not encryption',S.hs.pin?b('Remove PIN','XP.pin(0)'):b('Set PIN','XP.pin(1)'))+r('Privacy policy','What is stored and where',b('Open','LEGAL.privacy()')))],
+data:['Data and backup','Your data is saved to your account',
+ g('Backup','',r('Export backup','Download all your data as a JSON file',b('Export','exportData()'))+r('Import backup','Replace current data with a backup file',`<label class="btn sm" style="cursor:pointer">Import<input type="file" accept="application/json" class="sr-only" onchange="importData(this.files[0])"></label>`)+r('Save report as PDF','Print or save the current page',b('Print','closeDlg();print()'))+r('Export tests to calendar','Download a .ics calendar file',b('Export','exportICS()')))
+ +g('Reset','',r('Reset today','Clear the study time logged today',`<button class="btn sm dng" onclick="if(confirm('Reset the study time logged today?')){DAYS()[td()]={s:0,sub:{}};S.sess=S.sess.filter(x=>x.d!==td()||(x.a||'jee')!==(S.area||'jee'));save();go();HX.pg()}">Reset</button>`)+r('Reset everything','Erase all data from this browser',`<button class="btn sm dng" onclick="resetAll()">Reset</button>`))],
+about:['About','Rules, policy and version',
+ g('Information','',r('Rules','Terms for using this website',b('Open','LEGAL.rules()'))+r('Privacy policy','What is stored and where',b('Open','LEGAL.privacy()'))+settingsExtra('about'))+`<div class="mut" style="text-align:center;margin:36px 0 12px">ayo fuck you</div><div class="xf" style="margin:0;padding:16px 0 8px"><div class="xf-b" style="margin:0;padding:0;border:0"><span>&copy; 2026 @shx.fr. All rights reserved.</span><a href="https://discord.com/users/1177525756461592609" target="_blank" rel="noopener noreferrer">Made by @shx.fr</a></div></div>`]};
+const c=T[cat]||T.general;return `<h1 class="yh">${c[0]}</h1><p class="mut" style="margin:4px 0 0">${c[1]}</p>${c[2]}`}};
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&$('hx')&&!$('hx').hidden&&!$('dlg').open)X.close()});
 X.os=()=>{X.close();if(X._os)X._os()};X._os=window.openSettings;window.rs=()=>{const d=$('dlg');if(d.open&&d.querySelector('.set'))X._os();else X.pg()};window.openSettings=()=>X.hub('set');
 X.tg=k=>{S.hs[k]=S.hs[k]?0:1;save();document.body.classList.toggle('rm',!!S.hs.rm);X.pg('set')};
@@ -1591,15 +1671,17 @@ if(S.area==='all')S.area='jee';
 window.applyBoard=()=>{if(S.path&&S.path!=='jee'&&S.scope==='jee')S.scope='both';BSUB[0]=(S.h2||{}).med==='urdu'?'Urdu':'Kannada';if(!BSUB.includes(S.bcur))S.bcur=BSUB[0];T(()=>{if(!BSUB.includes(bsel))bsel=BSUB[0]})};
 X.close=()=>{const h=$('hx');if(h)h.hidden=true;document.body.style.overflow=''};
 X.hub=()=>{let h=$('hx');if(!h){h=document.createElement('div');h.id='hx';h.setAttribute('role','dialog');h.setAttribute('aria-label','Settings');document.body.appendChild(h)}X.was=!h.hidden;h.hidden=false;document.body.style.overflow='hidden';X.pg('set');X.was=undefined};
+X.cat=X.cat||'general';X.go=c=>{X.cat=c;X.was=false;X.pg();X.was=undefined};
 X.pg=()=>{if(!$('hx')){X.hub();return}const h=$('hx'),hv=X.was!==undefined?X.was:!h.hidden,o=$('hxm'),st=hv&&o?o.scrollTop:0;X.pgn='set';
- h.innerHTML=`<aside><div class="bt row" style="padding:4px 8px 12px"><b>Settings</b><button class="icon-btn" onclick="HX.close()" aria-label="Close settings">&times;</button></div><button class="mb" onclick="HX.close()"><span>Close</span></button></aside><section id="hxm">${P.set()}</section>`;$('hxm').scrollTop=st};
-const MAIL='letharshcode@gmail.com',XB2=`<button class="icon-btn" onclick="closeDlg()" aria-label="Close">&times;</button>`,
+ const CT=[['general','General','gear'],['appearance','Appearance','sun'],['focus','Study and focus','clock'],['notif','Notifications','alert'],['privacy','Privacy and security','check2'],['data','Data and backup','list'],['about','About','book']];
+ h.innerHTML=`<aside><div class="bt row" style="padding:4px 8px 14px"><b style="font-size:20px">Settings</b><button class="icon-btn" onclick="HX.close()" aria-label="Close settings">&times;</button></div>${CT.map(([k,l,i])=>`<button class="${k===X.cat?'on':''}" onclick="HX.go('${k}')" ${k===X.cat?'aria-current="page"':''}>${ic(i,18)}<span>${l}</span></button>`).join('')}<button class="mb" onclick="HX.close()"><span>Close</span></button></aside><section id="hxm">${P.set()}</section>`;$('hxm').scrollTop=st;try{const ab=h.querySelector('aside button.on');if(ab&&innerWidth<=720)ab.scrollIntoView({inline:'center',block:'nearest'})}catch(e){}};
+const XB2=`<button class="icon-btn" onclick="closeDlg()" aria-label="Close">&times;</button>`,
  box=(t,L)=>dlg(`<div class="row"><h3>${t}</h3>${XB2}</div><div class="mut" style="font-size:12px;margin:4px 0 10px">Last updated 2026</div>`+L.map(([h,d])=>`<div class="card" style="margin:8px 0"><b>${h}</b><p style="margin:6px 0 0;font-size:13.5px">${d}</p></div>`).join(''));
-const RULES=[['1. Acceptance','By using this website you agree to these rules. If you do not agree, please stop using it.'],['2. What this is','A free study planner and tracker for JEE and II PUC (Karnataka) preparation. It is not affiliated with or endorsed by NTA, the Karnataka PU Department or any other organisation named here.'],['3. Your data','There are no accounts. Your progress is stored in your own browser on your own device. Clearing browser data, changing device or resetting the site removes it. Export backups regularly from the menu.'],['4. Accuracy','Syllabus lists, blueprints, weightage and test dates are study aids. Always confirm with official notifications before relying on them.'],['5. Acceptable use','Use the website lawfully and for your own study. Do not try to copy, resell or disrupt it.'],['6. Ownership','\u00a9 2026 @letharshcode. All rights reserved. Names of other services belong to their owners.'],['7. No warranty','The website is provided as is, without guarantees of results, uptime or accuracy. To the extent the law allows, the author is not liable for losses arising from its use.'],['8. Changes','These rules and the features may change. Continued use means you accept the updated rules.']];
-const PRIV=[['What is stored','Nothing is sent to a server. Your study time, syllabus progress, tests, to-dos, backlog, sleep log and settings are saved only in this browser\u2019s local storage.'],['Accounts and tracking','There are no accounts, no ads, no analytics and no tracking cookies.'],['PIN lock','If you set an app lock PIN, only a hash of it is stored on this device. It is a casual lock, not encryption.'],['Backups','Exported backup files stay wherever you save them. Importing a backup replaces the data in this browser.'],['Deleting your data','Clear this site\u2019s data in your browser settings, or use the reset option in Settings, to delete everything.']];
-window.LEGAL={rules:()=>box('Rules',RULES),privacy:()=>box('Privacy policy',PRIV),
- contact:()=>dlg(`<div class="row"><h3>Contact</h3>${XB2}</div><p class="mut" style="font-size:13.5px;margin:8px 0 14px">Found a bug, have a suggestion or need help? Send an email and mention what you were doing when it happened.</p><div class="card"><div class="lbl">Email</div><a href="mailto:${MAIL}" style="font-weight:600">${MAIL}</a><div class="lbl" style="margin-top:10px">Creator</div><b>@letharshcode</b></div><div class="f" style="margin-top:14px"><a class="btn pri" href="mailto:${MAIL}?subject=${encodeURIComponent('JEE 2027 Tracker')}">Send email</a></div>`)};
-const m=$('m');if(m&&!$('xf'))m.insertAdjacentHTML('afterend',`<footer id="xf" class="mut" style="text-align:center;font-size:12px;padding:18px 12px 32px">\u00a9 2026 @letharshcode. All rights reserved. <a href="#" onclick="LEGAL.rules();return false">Rules</a> \u00b7 <a href="#" onclick="LEGAL.privacy();return false">Privacy policy</a></footer>`);
+const RULES=[['1. Acceptance','By using this website you agree to these rules. If you do not agree, please stop using it.'],['2. What this is','A free study planner and tracker for JEE and II PUC (Karnataka) preparation. It is not affiliated with or endorsed by NTA, the Karnataka PU Department or any other organisation named here.'],['3. Your data','You sign in with a username and password. Your progress is saved to your account on a server. Export backups regularly from Settings.'],['4. Accuracy','Syllabus lists, blueprints, weightage and test dates are study aids. Always confirm with official notifications before relying on them.'],['5. Acceptable use','Use the website lawfully and for your own study. Do not try to copy, resell or disrupt it.'],['6. Ownership','\u00a9 2026 @letharshcode. All rights reserved. Names of other services belong to their owners.'],['7. No warranty','The website is provided as is, without guarantees of results, uptime or accuracy. To the extent the law allows, the author is not liable for losses arising from its use.'],['8. Changes','These rules and the features may change. Continued use means you accept the updated rules.']];
+const PRIV=[['What is stored','Your study time, syllabus progress, tests, to-dos, backlog, sleep log and settings are saved to your account on a secure server so you can sign in from any device.'],['Accounts and tracking','Accounts are created by the site owner. There are no ads, no analytics and no tracking cookies.'],['PIN lock','If you set an app lock PIN, only a hash of it is stored on this device. It is a casual lock, not encryption.'],['Backups','Exported backup files stay wherever you save them. Importing a backup replaces the data in this browser.'],['Deleting your data','Use Reset everything in Settings to erase the data saved to your account.']];
+window.LEGAL={rules:()=>box('Rules',RULES),privacy:()=>box('Privacy policy',PRIV)};
+window.siteFooter=lnd=>`<footer class="xf" ${lnd?'':'id="xf"'}><div class="xf-t"><div><b>JEE 2027 Study Tracker</b><p>A free study planner for JEE and II PUC. Your progress is saved to your account.</p></div><nav aria-label="Footer"><a href="#" onclick="LEGAL.rules();return false">Rules</a><a href="#" onclick="LEGAL.privacy();return false">Privacy policy</a>${lnd?'':'<a href="#" onclick="openSettings();return false">Settings</a>'}</nav></div><div class="xf-b"><span>&copy; 2026 @shx.fr. All rights reserved.</span><a href="https://discord.com/users/1177525756461592609" target="_blank" rel="noopener noreferrer">Made by @shx.fr</a></div></footer>`;
+const m=$('m');if(m&&!$('xf'))m.insertAdjacentHTML('afterend',siteFooter());
 applyBoard();T(renderAreaSw);T(go);
 }catch(e){console.error('Board/settings/legal module failed',e)}})();
 </script>
@@ -1621,5 +1703,138 @@ const _c=window.chk;window.chk=function(i,v){let r=null;try{const a=document.act
  const T=td(),tt=TODOS().filter(z=>!z.mv&&(!z.due||z.due<=T));
  if(tt.length>1&&tt.every(z=>z.x))celebrate('all');else celebrate('one',r?r.left+r.width/2:innerWidth/2,r?r.top+r.height/2:innerHeight/2)};
 }catch(e){console.error('Celebrations failed',e)}})();
+</script>
+<script>
+/* ===== Account login: Supabase auth, per-user server storage, switch account, sign out ===== */
+(function(){'use strict';
+const cfg=window.SUPABASE_CONFIG||{},$a=id=>document.getElementById(id);
+let sb=null,user=null,channel=null,saving=false,pending=false,ready=false,returnSession=null,switching=false,tm=null;
+const authEl=()=>$a('jee-auth'),backEl=()=>$a('jee-auth-back'),menuEl=()=>$a('jee-account-menu');
+const msg=(t,bad=true)=>{const e=$a('jee-auth-msg');if(e){e.textContent=t||'';e.style.color=bad?'var(--bad)':'var(--ok)'}};
+const busy=b=>{const e=$a('jee-auth-submit');if(e){e.disabled=b;e.textContent=b?'Signing in…':'Sign in'}};
+const fresh=()=>({exam:'2027-01-21',subs:['Physics','Chemistry','Mathematics'],cur:'Physics',days:{},qlog:[],todos:[],tests:[],notes:{},syl:{},sess:[],topic:'',mode:0});
+const LOGIN_EMAILS={anushka:'anushka@jee.harsh',ayesha:'ayesha@jee.harsh',maryam:'maryam@jee.harsh',harshie:'harshie@jee.harsh'};
+const getEmail=u=>LOGIN_EMAILS[String(u||'').trim().toLowerCase()]||null;
+const uname=()=>(user&&user.user_metadata&&user.user_metadata.username)||((user&&user.email)||'').split('@')[0]||'';
+const dname=()=>((typeof S==='object'&&S.name)||'').trim()||uname()||'Account';
+/* nothing in the app is usable or visible until signed in */
+const lock=on=>{document.body.classList.toggle('locked',on);[...document.body.children].forEach(e=>{if(e.id==='jee-auth'||/^(SCRIPT|STYLE)$/.test(e.tagName))return;on?e.setAttribute('inert',''):e.removeAttribute('inert')})};
+const showAuth=back=>{lock(true);authEl().hidden=false;if(backEl())backEl().hidden=!back};
+const closeUi=()=>{const m=menuEl();if(m)m.hidden=true;try{window.HX&&HX.close()}catch(e){}try{const d=$a('dlg');d&&d.open&&d.close()}catch(e){}};
+window.ensureState=()=>{S.act=S.act||[];S.cb=S.cb||{};S.hrv=S.hrv||{};S.doubts=S.doubts||[];S.hs=Object.assign({wt:1,ac:'',fs:0,pin:'',spd:1,rm:0},S.hs||{});S.h2=Object.assign({med:'kannada',rec:1,cap:90,idle:0},S.h2||{});S.msd=S.msd||{};S.mist=S.mist||[];S.dis=S.dis||{};S.off=S.off||{};S.later=S.later||{};S.revd=S.revd||{};S.rvT=S.rvT||{};S.sleep=S.sleep||{};S.tdate=S.tdate||{};S.bz=S.bz||{};S.back=S.back||[];S.autoT=S.autoT||{};S.bdays=S.bdays||{};S.bnotes=S.bnotes||{};S.btodos=S.btodos||[];S.btests=S.btests||[];S.bsyl=S.bsyl||{}};
+const dropChannel=()=>{if(channel&&sb){try{sb.removeChannel(channel)}catch(e){}}channel=null};
+
+async function load(){
+ const {data,error}=await sb.from('tracker_data').select('state').eq('user_id',user.id).maybeSingle();
+ if(error)throw error;
+ S=data&&data.state&&typeof data.state==='object'?Object.assign(fresh(),data.state):fresh();
+ if(!data){const {error:e}=await sb.from('tracker_data').upsert({user_id:user.id,state:S,updated_at:new Date().toISOString()},{onConflict:'user_id'});if(e)throw e}
+ if(!S.start){const ks=Object.keys(S.days||{}).sort();S.start=ks[0]||new Date().toLocaleDateString('en-CA')}
+ try{normalize()}catch(e){console.error('Normalize after account load failed',e)}
+}
+async function push(){
+ clearTimeout(tm);
+ if(!user||!ready)return;
+ if(saving){pending=true;return}
+ saving=true;
+ try{const {error}=await sb.from('tracker_data').upsert({user_id:user.id,state:S,updated_at:new Date().toISOString()},{onConflict:'user_id'});if(error)throw error}
+ catch(e){console.error('Server save failed',e)}
+ finally{saving=false;if(pending){pending=false;void push()}}
+}
+const sched=()=>{if(!user||!ready)return;clearTimeout(tm);tm=setTimeout(push,600)};
+addEventListener('visibilitychange',()=>{if(document.hidden)push()});addEventListener('pagehide',()=>{push()});
+function subscribe(){
+ dropChannel();
+ channel=sb.channel('jee-tracker-'+user.id).on('postgres_changes',{event:'UPDATE',schema:'public',table:'tracker_data',filter:'user_id=eq.'+user.id},p=>{
+  if(!p.new||saving||!ready)return;
+  if(p.new.state&&typeof p.new.state==='object'){S=Object.assign(fresh(),p.new.state);try{normalize()}catch(e){}try{go()}catch(e){console.error(e)}}
+ }).subscribe();
+}
+async function finish(){
+ await load();
+ ready=true;switching=false;returnSession=null;
+ authEl().hidden=true;lock(false);msg('');
+ const n=dname();
+ $a('jee-account-name').textContent=n;$a('jee-account-user').textContent='@'+uname();
+ subscribe();
+ try{go()}catch(e){console.error(e)}
+ try{window.lockIfPin&&lockIfPin()}catch(e){}
+}
+async function login(ev){
+ ev.preventDefault();busy(true);msg('');
+ try{
+  const u=$a('jee-auth-user').value.trim().toLowerCase(),p=$a('jee-auth-pass').value;
+  if(!u||!p)throw new Error('Enter your username and password.');
+  const email=getEmail(u);if(!email)throw new Error('Username not found.');
+  const {data,error}=await sb.auth.signInWithPassword({email,password:p});
+  if(error)throw error;
+  user=data.user;
+  await finish();
+ }catch(e){console.error(e);msg((e&&e.message)||'Login failed.')}
+ finally{busy(false)}
+}
+async function switchAccount(){
+ if(!sb)return;
+ closeUi();
+ await push();
+ const {data}=await sb.auth.getSession();
+ returnSession=(data&&data.session)||null;
+ switching=true;ready=false;dropChannel();
+ showAuth(!!returnSession);
+ $a('jee-auth-sub').textContent='Choose an account to switch to.';
+ msg(returnSession?'Sign in with another account, or press Back to keep the current one.':'',false);
+ const u=$a('jee-auth-user'),p=$a('jee-auth-pass');if(u)u.value='';if(p)p.value='';if(u)u.focus();
+ if(returnSession)await sb.auth.signOut({scope:'local'});   /* local only: keeps the previous session valid for Back */
+}
+async function cancelSwitch(){
+ if(user&&ready){authEl().hidden=true;lock(false);return}
+ if(returnSession&&sb){
+  try{
+   const {data,error}=await sb.auth.setSession({access_token:returnSession.access_token,refresh_token:returnSession.refresh_token});
+   if(error)throw error;
+   user=data.session.user;await finish();return;
+  }catch(e){console.error('Could not restore previous account',e);returnSession=null;switching=false;msg('Could not restore the previous account. Please sign in again.')}
+ }
+ showAuth(false);$a('jee-auth-sub').textContent='Sign in to access your personal study data.';
+ const u=$a('jee-auth-user');if(u)u.focus();
+}
+async function logout(){
+ closeUi();
+ await push();
+ returnSession=null;switching=false;ready=false;dropChannel();
+ try{if(sb)await sb.auth.signOut({scope:'local'})}catch(e){console.error(e)}
+ user=null;location.reload();
+}
+window.JEE_AUTH={
+ saveState:sched,logout,switchAccount,cancelSwitch,
+ name:()=>user?dname()+' (@'+uname()+')':'',
+ toggleAccountMenu(){const m=menuEl();if(!m)return;if(m.hidden){const n=dname();$a('jee-account-name').textContent=n;$a('jee-account-user').textContent='@'+uname();$a('jee-am-av').textContent=n.split(/\s+/).map(w=>w[0]).join('').slice(0,2).toUpperCase()}m.hidden=!m.hidden},
+ openSettings(){const m=menuEl();if(m)m.hidden=true;if(typeof window.openSettings==='function')window.openSettings()},
+ importBackup(){const m=menuEl();if(m)m.hidden=true;const f=$a('jee-import-file');if(f){f.value='';f.click()}},
+ async reset(){if(!user)return;S=fresh();try{normalize()}catch(e){}clearTimeout(tm);try{const {error}=await sb.from('tracker_data').upsert({user_id:user.id,state:S,updated_at:new Date().toISOString()},{onConflict:'user_id'});if(error)throw error}catch(e){console.error(e);toast('Could not reset your saved data')}location.reload()}
+};
+document.addEventListener('click',e=>{const m=menuEl();if(m&&!m.hidden&&!m.contains(e.target)&&!e.target.closest('#avt'))m.hidden=true});
+document.addEventListener('keydown',e=>{if(e.key!=='Escape')return;const m=menuEl();if(m&&!m.hidden){m.hidden=true;return}if(!authEl().hidden&&backEl()&&!backEl().hidden)cancelSwitch()});
+async function init(){
+ lock(true);
+ try{document.querySelectorAll('#jee-account-menu [data-ic]').forEach(b=>b.insertAdjacentHTML('afterbegin',ic(b.dataset.ic,18)))}catch(e){}
+ if(!window.supabase){msg('Sign-in service failed to load. Check your connection and reload.');return}
+ if(!cfg.url||!cfg.anonKey){msg('Sign-in is not configured.');return}
+ sb=window.supabase.createClient(cfg.url,cfg.anonKey);
+ const form=$a('jee-auth-form');if(form)form.addEventListener('submit',login);
+ const {data,error}=await sb.auth.getSession();
+ if(error){console.error(error);msg('Could not check your login session.');return}
+ if(data.session){
+  user=data.session.user;
+  try{await finish()}catch(e){console.error(e);try{await sb.auth.signOut({scope:'local'})}catch(_){}user=null;ready=false;showAuth(false);msg('Could not load your account data.')}
+ }
+ sb.auth.onAuthStateChange((_ev,session)=>{
+  if(session){user=session.user;return}
+  if(switching)return;                       /* switch flow manages its own screen and Back button */
+  ready=false;user=null;dropChannel();showAuth(false);
+ });
+}
+init();
+})();
 </script>
 </body></html>
