@@ -1708,7 +1708,7 @@ const _c=window.chk;window.chk=function(i,v){let r=null;try{const a=document.act
 /* ===== Account login: Supabase auth, per-user server storage, switch account, sign out ===== */
 (function(){'use strict';
 const cfg=window.SUPABASE_CONFIG||{},$a=id=>document.getElementById(id);
-let sb=null,user=null,channel=null,saving=false,pending=false,ready=false,returnSession=null,switching=false,tm=null;
+let sb=null,user=null,channel=null,saving=false,pending=false,ready=false,prev=null,sbAlt=null,switching=false,tm=null;
 const authEl=()=>$a('jee-auth'),backEl=()=>$a('jee-auth-back'),menuEl=()=>$a('jee-account-menu');
 const msg=(t,bad=true)=>{const e=$a('jee-auth-msg');if(e){e.textContent=t||'';e.style.color=bad?'var(--bad)':'var(--ok)'}};
 const busy=b=>{const e=$a('jee-auth-submit');if(e){e.disabled=b;e.textContent=b?'Signing in…':'Sign in'}};
@@ -1752,7 +1752,7 @@ function subscribe(){
 }
 async function finish(){
  await load();
- ready=true;switching=false;returnSession=null;
+ ready=true;switching=false;prev=null;
  authEl().hidden=true;lock(false);msg('');
  const n=dname();
  $a('jee-account-name').textContent=n;$a('jee-account-user').textContent='@'+uname();
@@ -1766,34 +1766,39 @@ async function login(ev){
   const u=$a('jee-auth-user').value.trim().toLowerCase(),p=$a('jee-auth-pass').value;
   if(!u||!p)throw new Error('Enter your username and password.');
   const email=getEmail(u);if(!email)throw new Error('Username not found.');
-  const {data,error}=await sb.auth.signInWithPassword({email,password:p});
-  if(error)throw error;
-  user=data.user;
+  let r;
+  if(switching){
+   /* separate in-memory client: the previous account stays signed in, so Back always works */
+   sbAlt=sbAlt||window.supabase.createClient(cfg.url,cfg.anonKey,{auth:{persistSession:false,autoRefreshToken:false,detectSessionInUrl:false,storageKey:'jee-alt-auth'}});
+   r=await sbAlt.auth.signInWithPassword({email,password:p});
+   if(r.error)throw r.error;
+   const ss=await sb.auth.setSession({access_token:r.data.session.access_token,refresh_token:r.data.session.refresh_token});
+   if(ss.error)throw ss.error;
+  }else{
+   r=await sb.auth.signInWithPassword({email,password:p});
+   if(r.error)throw r.error;
+  }
+  user=r.data.user;
   await finish();
  }catch(e){console.error(e);msg((e&&e.message)||'Login failed.')}
  finally{busy(false)}
 }
 async function switchAccount(){
- if(!sb)return;
+ if(!sb||!user)return;
  closeUi();
  await push();
- const {data}=await sb.auth.getSession();
- returnSession=(data&&data.session)||null;
- switching=true;ready=false;dropChannel();
- showAuth(!!returnSession);
+ prev=user;switching=true;ready=false;dropChannel();
+ showAuth(true);
  $a('jee-auth-sub').textContent='Choose an account to switch to.';
- msg(returnSession?'Sign in with another account, or press Back to keep the current one.':'',false);
+ msg('Sign in with another account, or press Back to keep the current one.',false);
  const u=$a('jee-auth-user'),p=$a('jee-auth-pass');if(u)u.value='';if(p)p.value='';if(u)u.focus();
- if(returnSession)await sb.auth.signOut({scope:'local'});   /* local only: keeps the previous session valid for Back */
 }
 async function cancelSwitch(){
  if(user&&ready){authEl().hidden=true;lock(false);return}
- if(returnSession&&sb){
-  try{
-   const {data,error}=await sb.auth.setSession({access_token:returnSession.access_token,refresh_token:returnSession.refresh_token});
-   if(error)throw error;
-   user=data.session.user;await finish();return;
-  }catch(e){console.error('Could not restore previous account',e);returnSession=null;switching=false;msg('Could not restore the previous account. Please sign in again.')}
+ if(prev){
+  try{user=prev;await finish();return}   /* the previous account was never signed out, so just reload its data */
+  catch(e){console.error('Could not reopen previous account',e);ready=false;msg('Could not reload your account. Check your connection and press Back again.')}
+  return;
  }
  showAuth(false);$a('jee-auth-sub').textContent='Sign in to access your personal study data.';
  const u=$a('jee-auth-user');if(u)u.focus();
@@ -1801,7 +1806,7 @@ async function cancelSwitch(){
 async function logout(){
  closeUi();
  await push();
- returnSession=null;switching=false;ready=false;dropChannel();
+ prev=null;switching=false;ready=false;dropChannel();
  try{if(sb)await sb.auth.signOut({scope:'local'})}catch(e){console.error(e)}
  user=null;location.reload();
 }
