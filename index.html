@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8">
-<title>JEE 2027 · CANON EVENT</title>
+<title>JEE 2027 · Study Tracker</title>
 <meta name="description" content="Free, offline-first JEE study tracker: study clock, syllabus and QCT tracker, tests, practice, to-do, backlog, sleep and daily stats for JEE and II PUC.">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#070a12"><meta property="og:title" content="JEE 2027 Study Tracker"><meta property="og:description" content="Finally, a planner that gets it. Offline-first JEE tracker."><meta property="og:type" content="website">
-<link rel="icon" type="image/png" href="favicon.png">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 window.SUPABASE_CONFIG = {
@@ -12,7 +12,7 @@ window.SUPABASE_CONFIG = {
   anonKey: "sb_publishable_LpXT5B7Yf2DeT5gu68aF_Q_CYHaWoc6"
 };
 </script>
-<link rel="apple-touch-icon" href="favicon.png">
+<link rel="apple-touch-icon" href="favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
 <style>
@@ -551,7 +551,7 @@ body.locked>*:not(#jee-auth){visibility:hidden}
 <div class="ob"><div class="sl on"><div class="lg"><img src="favicon.png" alt="JEE 2027 Study Tracker logo" onerror="this.replaceWith(document.createTextNode('JE'))"></div><h1>Welcome to JEE 2027</h1><p>A structured workspace for your preparation: plan, study, practise and review in one place.</p></div><div class="sl"><div class="lg">&#9201;</div><h1>Study clock</h1><p>Run focus blocks, set a daily goal and keep a floating timer visible while you work in other tabs.</p></div><div class="sl"><div class="lg">&#128218;</div><h1>Syllabus and QCT tracker</h1><p>Record theory, questions and QCTs for every chapter and see exactly how much of each test you have covered.</p></div><div class="sl"><div class="lg">&#128200;</div><h1>Tests and analysis</h1><p>Review upcoming tests, enter results when the test is live and study score trends and weak chapters.</p></div><div class="sl"><div class="lg">&#127769;</div><h1>Planner, sleep and backup</h1><p>Organise tasks by day, keep a weekly sleep balance and export your data whenever you wish.</p></div><div class="dots"><i></i><i></i><i></i><i></i><i></i></div><div class="obn"><button class="btn" id="obS" onclick="bootHide()">Skip</button><span><button class="btn" id="obB" onclick="obGo(-1)">Back</button> <button class="btn pri" id="obN" onclick="obGo(1)">Next</button></span></div></div></div></div>
 <header class="top"><div class="hw">
  <div class="brand" onclick="goTab(0)" title="Home" role="link" tabindex="0"><img src="favicon.png" alt="" width="22" height="22"><span id="bt">JEE 2027</span></div>
- <div class="areawrap"><button class="areabtn" id="areasw" onclick="toggleAreaMenu(event)" aria-haspopup="menu" aria-expanded="false" aria-label="Switch section" title="Switch between JEE and II PUC"></button><div class="areamenu" id="areamenu" role="menu" hidden></div></div>
+ <div class="areawrap"><button class="areabtn" id="areasw" onclick="toggleAreaMenu(event)" aria-haspopup="menu" aria-expanded="false" aria-label="Switch between JEE, II PUC, and Overall" title="Switch between JEE, II PUC, and Overall"></button><div class="areamenu" id="areamenu" role="menu" hidden></div></div>
  <span class="tag mono hide-sm" id="xtag"></span>
  <button class="avatar" id="avt" onclick="JEE_AUTH.toggleAccountMenu()" aria-label="Account menu" aria-haspopup="menu"></button>
  <nav class="tabs" id="tabs" aria-label="Sections"></nav>
@@ -565,7 +565,7 @@ body.locked>*:not(#jee-auth){visibility:hidden}
 <div id="jee-auth" role="dialog" aria-label="Login">
  <div class="auth-card">
   <button class="auth-back" type="button" id="jee-auth-back" hidden onclick="JEE_AUTH.cancelSwitch()">&larr; Back</button>
-  <div class="auth-brand"><i class="auth-dot"></i><span>GHEE KHTM</span></div>
+  <div class="auth-brand"><i class="auth-dot"></i><span>JEE 2027 Study Tracker</span></div>
   <div class="auth-sub" id="jee-auth-sub">Sign in to access your personal study data.</div>
   <form id="jee-auth-form">
    <label for="jee-auth-user">Username</label>
@@ -595,7 +595,7 @@ const K='jee27';
 const THEMES=[['dark','Dark blue'],['blue','Blue'],['rose','Transparent pink'],['light','Light'],['amoled','AMOLED'],['forest','Forest'],['violet','Violet'],['sunset','Sunset']],CH3=(k,a,d,cfg)=>`<div class="chips">${a.map(([v,l])=>`<button class="chip ${(S[k]||d)==v?'on':''}" onclick="${cfg?'setCfg':'setLook'}('${k}','${v}')">${l}</button>`).join('')}</div>`;
 let S={exam:'2027-01-21',subs:['Physics','Chemistry','Mathematics'],cur:'Physics',days:{},qlog:[],todos:[],tests:[],notes:{},syl:{},sess:[],topic:'',mode:0};
 if(!S.start){const ks=Object.keys(S.days||{}).sort();S.start=ks[0]||new Date().toLocaleDateString('en-CA')}
-const save=()=>{try{if(window.JEE_AUTH&&typeof window.JEE_AUTH.saveState==='function'){window.JEE_AUTH.saveState()}window.flashSaved&&window.flashSaved()}catch(e){}};
+const save=()=>{try{if(window.JEE_AUTH&&typeof window.JEE_AUTH.saveState==='function')window.JEE_AUTH.saveState()}catch(e){}};
 const $=id=>document.getElementById(id);
 const rollMs=()=>{try{return(S.roll||0)*36e5}catch(e){return 0}},td=()=>new Date(Date.now()-rollMs()).toLocaleDateString('en-CA');
 const TODOS=()=>S.area==='board'?(S.btodos=S.btodos||[]):S.todos,setTodos=a=>{if(S.area==='board')S.btodos=a;else S.todos=a},TSUBS=()=>S.area==='board'?BSUB:SUBS();
@@ -694,9 +694,9 @@ function fx(e){fs+=e;S.xs=(S.xs||0)+e;while(S.xs>=60){S.xs-=60;addXP(1)}
 const MODES=[['Stopwatch',0],['25m',25],['50m',50],['90m',90]];
 let run=false,last=0,sessSec=0,sessStart=0;
 function credit(sub,e,d=td()){const x=day(d);x.s+=e;x.sub[sub]=(x.sub[sub]||0)+e}
-function start(){askNotify();run=true;last=Date.now();sessSec=0;sessStart=Date.now();fs=0;fi=0;go();try{if(window.documentPictureInPicture&&!pipW&&!S.nopip)popOut(true)}catch(e){}}
+function start(){askNotify();run=true;document.body.classList.add('live');last=Date.now();sessSec=0;sessStart=Date.now();fs=0;fi=0;go();try{if(window.documentPictureInPicture&&!pipW&&!S.nopip)popOut(true)}catch(e){}}
 function logSess(){if(sessSec>=30)S.sess.push({d:td(),sub:CUR(),a:S.area||'jee',ch:TOPIC().trim(),sec:sessSec,at:sessStart})}
-function stop(){const _ss=sessSec,_n=S.nowName||TOPIC().trim()||subOf(CUR());logSess();run=false;S.nowKey='';S.nowName='';sessSec=0;if(_ss>=1){nbSave={sec:_ss,n:_n,t:Date.now()};setTimeout(nowBar,1750);setTimeout(nowBar,2800)}save();go()}
+function stop(){const _ss=sessSec,_n=S.nowName||TOPIC().trim()||subOf(CUR());logSess();run=false;document.body.classList.remove('live');S.nowKey='';S.nowName='';sessSec=0;if(_ss>=1){nbSave={sec:_ss,n:_n,t:Date.now()};setTimeout(nowBar,1750);setTimeout(nowBar,2800)}save();go()}
 function toggle(){run?stop():start()}
 const CATS=['Study','Practice','PYQs','Test'],TSUB=['Mock test','Analysis','Solutions'],jkey=(c,x)=>c==='Study'?x:c+' · '+x;
 function setSub(s){if(run)logSess();if(S.area==='board')S.bcur=s;else{S.cur=s;if(!TSUB.includes(subOf(s)))S.sc=subOf(s)}if(run){sessSec=0;sessStart=Date.now()}save();go()}
@@ -709,8 +709,11 @@ function keyOpts(){const ks=S.area==='board'?BSUB:[...S.subs,...['Practice','PYQ
 function topicList(){if(S.area==='board')return `<datalist id="chl-cur">${(BCH[CUR()]||[]).filter(c=>c.n).map(c=>`<option value="${esc(c.n)}">`).join('')}</datalist>`;return isT()?tList():chList('chl-cur',subOf(S.cur))}
 function setMode(i){if(run&&!confirm('A session is in progress. Stop it and change the mode?'))return;if(run)stop();S.mode=i;save();go()}
 function beep(){if(S.nobeep)return;try{const a=new (window.AudioContext||window.webkitAudioContext)(),o=a.createOscillator(),g=a.createGain();o.connect(g);g.connect(a.destination);o.frequency.value=880;g.gain.setValueAtTime(.2,a.currentTime);g.gain.exponentialRampToValueAtTime(.001,a.currentTime+1.2);o.start();o.stop(a.currentTime+1.2)}catch(e){}}
-setInterval(()=>{if(!run)return;const n=Date.now(),e=Math.floor((n-last)/1000);if(e<1)return;last+=e*1000;credit(CUR(),e);sessSec+=e;fx(e);
- const m=MODES[S.mode||0][1];if(m&&sessSec>=m*60){beep();toast(`Focus block done · ${m} min`);stop();return}save();tick()},250);
+setInterval(()=>{if(!run)return;const n=Date.now(),e=Math.floor((n-last)/1000);if(e<1)return;last+=e*1000;const before=sessSec;credit(CUR(),e);sessSec+=e;fx(e);
+ const m=MODES[S.mode||0][1];if(m&&sessSec>=m*60){beep();toast(`Focus block done · ${m} min`);stop();return}
+ /* The clock is rendered every second, but the full study record only needs
+    a checkpoint every 15 seconds. Stop/page-hide still flush immediately. */
+ if(Math.floor(sessSec/15)!==Math.floor(before/15))save();tick()},1000);
 addEventListener('pagehide',()=>{if(run){logSess();save()}});
 function tick(){nowBar();heroTick();const d=day(td()),m=MODES[S.mode||0][1];document.title=run?`${hms(m?Math.max(0,m*60-sessSec):d.s)} · ${CUR()}`:'JEE 2027 · Study Tracker';
  const c=$('clk');if(!c)return;
@@ -747,25 +750,25 @@ function normalize(){window.ensureState&&ensureState();S.goal=S.goal||10;S.subs=
 const ring=(p,c,label)=>`<div class="ring" style="--p:${p};--c:${c}"><span class="mono">${label??p+'%'}</span></div>`;
 
 /* ---------- shell ---------- */
-const areaTitle=()=>isOv()?'JEE + Board':S.area==='board'?'II PUC Board':S.area==='all'?'JEE + Board':(S.etype==='JEE Advanced'?'JEE Adv ':'JEE ')+(S.tyear||'2027'),examName=()=>S.etype==='JEE Advanced'?'JEE Advanced':'JEE Main',examDate=()=>S.etype==='JEE Advanced'&&S.advDate?S.advDate:S.exam;
+const areaTitle=()=>isOv()?'Overall':S.area==='board'?'II PUC Board':(S.etype==='JEE Advanced'?'JEE Adv ':'JEE ')+(S.tyear||'2027'),examName=()=>S.etype==='JEE Advanced'?'JEE Advanced':'JEE Main',examDate=()=>S.etype==='JEE Advanced'&&S.advDate?S.advDate:S.exam;
 function hdr(){$('bt').textContent=areaTitle();const nm=(S.name||'Student').trim(),ini=nm.split(/\s+/).map(w=>w[0]).join('').slice(0,2).toUpperCase();$('avt').innerHTML=`<i>${esc(ini)}</i><span class="hide-sm">${esc(nm.split(' ')[0])}</span>`;$('xtag').textContent=`Lv ${lv()} · ${Math.round(S.xp||0)} XP`;
  $('setb').innerHTML=ic('gear',16)}
-const TA=[['Overall','stats']],TJ=[['Today','clock'],['Syllabus','book'],['Tests','test'],['Practice','target'],['To Do','todo'],['Backlog','alert'],['Stats','stats'],['Sleep','moon']],TB=[['Today','clock'],['Syllabus','book'],['Tests','test'],['To Do','todo'],['Stats','stats']],tabsOf=()=>{const a=S.area==='board'?TB:TJ;return S.scope==='jee'?a:[...a,['Overall','chart']]},isOv=()=>{try{const t=tabsOf()[tab];return !!t&&t[0]==='Overall'}catch(e){return false}};
-function setArea(a){if(S.area===a)return;if(run){if(!confirm('A timer is running. Stop it and switch?'))return;stop()}window._tabSw=1;try{S.area=a;tab=(S.tabs&&S.tabs[a])||0;S.tab=tab;save();go();scrollTo(0,0)}finally{window._tabSw=0}}
-function nav(){const TABS=tabsOf(),b=(t,i)=>`<button class="${i==tab?'on':''}" onclick="goTab(${i})" ${i==tab?'aria-current="page"':''}>${ic(t[1],16)}<span>${t[0]}</span></button>`;
+const TJ=[['Today','clock'],['Syllabus','book'],['Tests','test'],['Practice','target'],['To Do','todo'],['Backlog','alert'],['Stats','stats'],['Sleep','moon']],TB=[['Today','clock'],['Syllabus','book'],['Tests','test'],['To Do','todo'],['Stats','stats']],tabsOf=()=>{const a=S.area==='all'?(S.lastArea||'jee'):S.area;return a==='board'?TB:TJ},isOv=()=>S.area==='all';
+function setArea(a){if(!['jee','board','all'].includes(a)||((a==='board'||a==='all')&&S.scope==='jee'))return;if(S.area===a)return;if(run){if(!confirm('A timer is running. Stop it and switch?'))return;stop()}window._tabSw=1;try{if(a==='all'&&S.area!=='all')S.lastArea=S.area==='board'?'board':'jee';S.area=a;tab=a==='all'?0:(S.tabs&&S.tabs[a])||0;S.tab=tab;save();go();scrollTo(0,0)}finally{window._tabSw=0}}
+function nav(){const TABS=tabsOf(),active=S.area==='all'?-1:tab,b=(t,i)=>`<button class="${i==active?'on':''}" onclick="goTab(${i})" ${i==active?'aria-current="page"':''}>${ic(t[1],16)}<span>${t[0]}</span></button>`;
  $('tabs').innerHTML=TABS.map(b).join('');$('tabbar').innerHTML=TABS.map(b).join('');
  renderAreaSw()
- const sb=(t,i)=>`<button class="nv ${i==tab?'on':''}" onclick="goTab(${i})" title="${t[0]}" ${i==tab?'aria-current="page"':''}>${ic(t[1],20)}<span class="lb">${t[0]}</span></button>`;
+ const sb=(t,i)=>`<button class="nv ${i==active?'on':''}" onclick="goTab(${i})" title="${t[0]}" ${i==active?'aria-current="page"':''}>${ic(t[1],20)}<span class="lb">${t[0]}</span></button>`;
  $('side').innerHTML=`<div class="sb-brand" onclick="goTab(0)" role="link" tabindex="0" title="Home"><img src="favicon.png" alt=""><span class="lb">${areaTitle()}</span></div>${TABS.map(sb).join('')}<button class="setc" onclick="openSettings()" aria-label="Settings" title="Settings">${ic('gear',20)}</button>`}
-const AREAS=[['jee','JEE'],['board','II PUC']];
-function renderAreaSw(){$('areasw').parentNode.style.display=(S.scope==='jee')?'none':'';const cur=S.area||'jee';$('areasw').innerHTML=`<span>${isOv()?'Overall':AREAS.find(a=>a[0]===cur)[1]}</span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m6 9 6 6 6-6"/></svg>`;$('areamenu').innerHTML=AREAS.map(([k,l])=>`<button role="menuitem" class="${cur===k?'on':''}" onclick="pickArea('${k}')">${isOv()&&k==='board'?'Board':l}</button>`).join('')}
+const AREAS=[['jee','JEE'],['board','II PUC'],['all','Overall']];
+function renderAreaSw(){$('areasw').parentNode.style.display=(S.scope==='jee')?'none':'';const cur=S.area||'jee';$('areasw').title='Switch between JEE, II PUC, and Overall';$('areasw').setAttribute('aria-label','Switch between JEE, II PUC, and Overall');$('areasw').innerHTML=`<span>${AREAS.find(a=>a[0]===cur)?.[1]||'JEE'}</span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m6 9 6 6 6-6"/></svg>`;$('areamenu').innerHTML=AREAS.filter(([k])=>k==='jee'||S.scope!=='jee').map(([k,l])=>`<button role="menuitem" class="${cur===k?'on':''}" onclick="pickArea('${k}')">${l}</button>`).join('')}
 function toggleAreaMenu(e){e.stopPropagation();const m=$('areamenu'),open=m.hidden;m.hidden=!open;$('areasw').setAttribute('aria-expanded',String(open));}
 function pickArea(k){$('areamenu').hidden=true;$('areasw').setAttribute('aria-expanded','false');setArea(k)}
 document.addEventListener('click',()=>{const m=$('areamenu');if(m&&!m.hidden){m.hidden=true;$('areasw').setAttribute('aria-expanded','false')}});
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){const m=$('areamenu');if(m)m.hidden=true}});
-function go(){try{sweepMissed()}catch(e){}tab=(S.tabs&&S.tabs[S.area||'jee'])||0;applyLook();nav();hdr();const V=S.area==='board'?[vToday,vBSyl,vBTests,vTodo,vBStats]:S.area==='all'?[vOverall]:[vToday,vSyl,vTests,vPrac,vTodo,vBack,vStats,vSleep];if(S.scope!=='jee')V.push(vOverall);if(tab>=V.length)tab=0;$('m').innerHTML=V[tab]();tick();cdTick()}
+function go(){try{sweepMissed()}catch(e){}tab=S.area==='all'?0:(S.tabs&&S.tabs[S.area||'jee'])||0;const V=S.area==='all'?[vOverall]:S.area==='board'?[vToday,vBSyl,vBTests,vTodo,vBStats]:[vToday,vSyl,vTests,vPrac,vTodo,vBack,vStats,vSleep];if(tab>=V.length){tab=0;if(S.area!=='all'&&S.tabs&&S.tabs[S.area]!==0){S.tabs[S.area]=0;save()}}applyLook();nav();hdr();$('m').innerHTML=V[tab]();tick();cdTick()}
 function enterAnim(){const m=$('m');m.classList.add('enter');clearTimeout(enterAnim.t);enterAnim.t=setTimeout(()=>m.classList.remove('enter'),900)}
-function goTab(i){window._tabSw=1;try{S.tabs=S.tabs||{};S.tabs[S.area||'jee']=i;tab=i;S.tab=i;save();enterAnim();go();scrollTo(0,0)}finally{window._tabSw=0}}
+function goTab(i){window._tabSw=1;try{if(S.area==='all')S.area=S.lastArea||'jee';S.tabs=S.tabs||{};S.tabs[S.area||'jee']=i;tab=i;S.tab=i;save();enterAnim();go();scrollTo(0,0)}finally{window._tabSw=0}}
 function theme(){const r=document.documentElement,l=r.dataset.theme!=='light';r.dataset.theme=l?'light':'dark';S.theme=r.dataset.theme;save();hdr()}
 function setExam(){const B=S.area==='board',v=prompt((B?'Board exam':'JEE Main')+' date (YYYY-MM-DD)',(B?S.bexam:S.exam)||'');if(v&&!isNaN(new Date(v))){if(B)S.bexam=v;else S.exam=v;save();go()}}
 function addSub(){const v=prompt('New subject name');if(v&&v.trim()&&!S.subs.includes(v.trim())){S.subs.push(v.trim());save();go()}}
@@ -1293,11 +1296,11 @@ function vProgress(){const B=S.area==='board',D=DAYS();let pct,ch,rows,c1,c2;
  <div class="sech">${ic('target',16)} YOUR RHYTHM</div><section class="card"><div class="pgt3 rt"><div class="rt1"><b>${streak()}</b> days<div>Current streak${streakPaused()?' · paused':''}</div></div><div class="rt2"><b>${bestStreak(D)}</b> days<div>Best streak</div></div><div class="rt2"><b>${studied}</b> of ${since}<div>Days studied</div></div></div>
  <div class="lbl" style="margin:18px 0 8px">LAST 30 DAYS</div><div class="strip">${strip.join('')}</div><div class="row mut" style="font-size:12.5px;margin-top:6px"><span>${dmy(dstr(29))}</span><span style="color:var(--ac);font-weight:600">Today</span></div></section>
  <p class="mut" style="font-size:12.5px;margin-top:14px">Time from your timer and manual entries is counted here automatically. A day counts as studied when you log at least a minute, and days off never break your streak.</p></div>`}
-const TOURS=[['Today','Your day, in minutes','Everything for today sits on one page: the countdown to your exam, the next test, your goal for the day and the timer. The badge tells you whether you are on track.'],['Today','Start the clock','Pick Study, Practice, PYQs or Test, choose a subject and press play. The time is saved against that subject and counts toward today\'s goal.'],['To Do','To Do with time slots','Tasks with a duration get a slot starting now, with a 15-minute gap between tasks. Press the play button on a task to start the timer for it, or add a test slot to plan a test, its analysis and its solutions.'],['Syllabus','Chapters and tests','Tick each stage of a chapter and each chapter test. Progress rolls up into every subject and your whole plan.'],['Tests','Tests and results','Enter a result and the test is marked attempted. Open Analysis to see where marks were lost.'],['Practice','Practice log','Log the questions you solve and see your accuracy by subject and by chapter.'],['Stats','Calendar and stats','Tap any date to see that day: time studied, questions, tests and your To Do list, done and not done.'],['Sleep','Sleep bank','Log your sleep. Each night adds to or takes from your bank against your goal, and you get a weekly report.'],['Overall','Overall: JEE vs Board','Open the Overall tab to compare JEE and Board side by side, with time for every subject.'],['Settings','Make it yours','The round gear opens Settings: goals, theme, backups and more.']];
+const TOURS=[['Today','Your day, in minutes','Everything for today sits on one page: the countdown to your exam, the next test, your goal for the day and the timer. The badge tells you whether you are on track.'],['Today','Start the clock','Pick Study, Practice, PYQs or Test, choose a subject and press play. The time is saved against that subject and counts toward today\'s goal.'],['To Do','To Do with time slots','Tasks with a duration get a slot starting now, with a 15-minute gap between tasks. Press the play button on a task to start the timer for it, or add a test slot to plan a test, its analysis and its solutions.'],['Syllabus','Chapters and tests','Tick each stage of a chapter and each chapter test. Progress rolls up into every subject and your whole plan.'],['Tests','Tests and results','Enter a result and the test is marked attempted. Open Analysis to see where marks were lost.'],['Practice','Practice log','Log the questions you solve and see your accuracy by subject and by chapter.'],['Stats','Calendar and stats','Tap any date to see that day: time studied, questions, tests and your To Do list, done and not done.'],['Sleep','Sleep bank','Log your sleep. Each night adds to or takes from your bank against your goal, and you get a weekly report.'],['Overall','Overall: JEE vs II PUC','Choose Overall in the JEE / II PUC switch to compare your time, progress, tasks, and tests side by side.'],['Settings','Make it yours','The round gear opens Settings: goals, theme, backups and more.']];
 let tourI=0,tourSteps=[];
 function startTour(){const names=tabsOf().map(t=>t[0]);tourSteps=TOURS.filter(x=>names.includes(x[0])||(['Overall','Settings'].includes(x[0])&&(x[0]!=='Overall'||S.scope!=='jee')));tourI=0;showTour()}
 function showTour(){let el=$('tour');if(!el){el=document.createElement('div');el.id='tour';el.className='tour';el.setAttribute('role','dialog');el.setAttribute('aria-label','Guided tour');document.body.appendChild(el)}
- const st=tourSteps[tourI],ix=tabsOf().map(t=>t[0]).indexOf(st[0]);if(ix>=0&&ix!==tab)goTab(ix);
+ const st=tourSteps[tourI];if(st[0]==='Overall'&&S.scope!=='jee')setArea('all');else{if(S.area==='all')setArea(S.lastArea||'jee');const ix=tabsOf().map(t=>t[0]).indexOf(st[0]);if(ix>=0&&ix!==tab)goTab(ix)}
  el.hidden=false;el.innerHTML=`<div class="tstep">STEP ${tourI+1} OF ${tourSteps.length}</div><button class="tx" onclick="endTour()" aria-label="Close tour">${ic('x',18)}</button><h4>${st[1]}</h4><p>${st[2]}</p><div class="tfoot"><div class="tdots">${tourSteps.map((_,i)=>`<i class="${i<=tourI?'on':''}"></i>`).join('')}</div><button class="tback" onclick="tourGo(-1)" ${tourI?'':'disabled'}>‹ Back</button><button class="btn pri solid" onclick="tourGo(1)">${tourI===tourSteps.length-1?'Finish':'Next ›'}</button></div>`}
 function tourGo(d){tourI+=d;if(tourI>=tourSteps.length){endTour();return}if(tourI<0)tourI=0;showTour()}
 function endTour(){const el=$('tour');if(el)el.hidden=true;S.toured=1;save()}
@@ -1430,7 +1433,7 @@ function nowBar(){let e=$('nowbar');const sd=nbSave&&Date.now()-nbSave.t<2700?nb
  if(!e){e=document.createElement('div');e.id='nowbar';document.body.appendChild(e);nbInit(e)}
  e.hidden=false;const nm=S.nowName||TOPIC().trim()||subOf(CUR());let h;
  if(run)h=`<span class="dot" style="background:var(--ok)"></span><b>${nbLabel()}</b><span class="nbn">${esc(nm)} · ${esc(subOf(CUR()))}</span><b class="mono">${hms(sessSec)}</b><button class="nbx" onclick="popOut()" title="Float over other windows" aria-label="Pop out">⧉</button>`;
- else{const ok=Date.now()-sd.t>1700;h=`<b>Paused</b><span class="nbn">${esc(sd.n)}</span><b class="mono">Studied ${hmsS(sd.sec)}</b>${ok?'<b style="color:var(--ok)">✓ Saved</b>':'<span class="spin"></span><span class="mut">Saving…</span>'}`}
+ else{h=`<b>Paused</b><span class="nbn">${esc(sd.n)}</span><b class="mono">Studied ${hmsS(sd.sec)}</b>`}
  e.innerHTML=h;if(pipW&&!pipW.closed){try{pipW.document.body.innerHTML=`<div><div style="font-size:12px;opacity:.7">${run?nbLabel():'Paused'}</div><div style="font-weight:700;margin:4px 0">${esc(run?nm:sd.n)}</div><div style="font:700 26px ui-monospace,monospace">${run?hms(sessSec):hmsS(sd.sec)}</div></div>`}catch(x){}}}
 /* ---------- boot ---------- */
 {const TM={slate:'dark',ocean:'dark',graphite:'dark',midnight:'dark',jeetrack:'dark',chaosprep:'dark',youtube:'dark',pwdark:'dark',pw:'light',tracker:'light',pink:'rose',darkpink:'rose'};if(TM[S.theme])S.theme=TM[S.theme]}
@@ -1478,7 +1481,6 @@ function exportICS(){const z=x=>x.replace(/-/g,''),L=(S.tests||[]).filter(t=>t.d
 
 (function(){const rm=matchMedia('(prefers-reduced-motion:reduce)').matches,bp=document.getElementById('bootpct');
  if(bp){const t0=performance.now(),f=n=>{const p=Math.min(100,Math.round((n-t0)/1000*100));bp.textContent='Preparing dashboard '+p+'%';if(p<100)requestAnimationFrame(f)};requestAnimationFrame(f)}
- setInterval(()=>document.body.classList.toggle('live',!!run),500);
  const io='IntersectionObserver' in window?new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.08}):null;
  function cu(e){const v=+e.textContent;if(!(v>0&&v<1e5))return;const t0=performance.now();(function f(n){const p=Math.min(1,(n-t0)/700);e.textContent=Math.round(v*(1-Math.pow(1-p,3)));if(p<1)requestAnimationFrame(f);else e.textContent=v})(t0)}
  function reveal(){if(rm)return;const m=document.getElementById('m');if(!m)return;const en=m.classList.contains('enter');
@@ -1491,7 +1493,7 @@ function exportICS(){const z=x=>x.replace(/-/g,''),L=(S.tests||[]).filter(t=>t.d
 
 (function(){const t=toggle;toggle=function(){t();document.body.classList.toggle('live',!!run);const b=document.querySelector('.play');if(b){b.setAttribute('aria-pressed',!!run);b.classList.add('burst');setTimeout(()=>b.classList.remove('burst'),750)}}})();
 let brk=false;setInterval(()=>{if(!run){brk=false;return}if(!brk&&!S.nobrk&&sessSec>=3000){brk=true;toast('You have studied for 50 minutes. Consider a short break.')}},5000);
-function openPalette(){const T=tabsOf().map((t,i)=>['Go to '+t[0],`closeDlg();goTab(${i})`]),A=[['Start or pause the timer','closeDlg();toggle()'],['Switch between light and dark theme','closeDlg();theme()'],['Study tools','openTools()'],['Mistake notebook','openMist()'],['Reality check','openReality()'],['Daily summary','openSummary()'],['Zen mode','zen()'],['Floating timer','closeDlg();popOut()'],['Export backup','closeDlg();exportData()']];window._pal=[...T,...A];dlg(`<div class="row"><h3>Command palette</h3>${XB}</div><input id="cq" placeholder="Type a command" aria-label="Command" style="width:100%;margin-top:12px" oninput="palF()" onkeydown="if(event.key==='Enter'){const b=$('cl').querySelector('button');if(b)b.click()}"><div id="cl" class="stack" style="margin-top:10px;gap:6px"></div>`);palF();$('cq').focus()}
+function openPalette(){const T=tabsOf().map((t,i)=>['Go to '+t[0],`closeDlg();goTab(${i})`]);if(S.scope!=='jee')T.push(['Go to Overall',"closeDlg();setArea('all')"]);const A=[['Start or pause the timer','closeDlg();toggle()'],['Switch between light and dark theme','closeDlg();theme()'],['Study tools','openTools()'],['Mistake notebook','openMist()'],['Reality check','openReality()'],['Daily summary','openSummary()'],['Zen mode','zen()'],['Floating timer','closeDlg();popOut()'],['Export backup','closeDlg();exportData()']];window._pal=[...T,...A];dlg(`<div class="row"><h3>Command palette</h3>${XB}</div><input id="cq" placeholder="Type a command" aria-label="Command" style="width:100%;margin-top:12px" oninput="palF()" onkeydown="if(event.key==='Enter'){const b=$('cl').querySelector('button');if(b)b.click()}"><div id="cl" class="stack" style="margin-top:10px;gap:6px"></div>`);palF();$('cq').focus()}
 function palF(){const q=$('cq').value.toLowerCase();$('cl').innerHTML=window._pal.filter(([t])=>t.toLowerCase().includes(q)).slice(0,8).map(([t,f])=>`<button class="btn" style="justify-content:flex-start" onclick="${f}">${t}</button>`).join('')||'<div class="mut">No matching command.</div>'}
 addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&!e.altKey&&e.key.toLowerCase()==='k'){if($('lk'))return;e.preventDefault();if($('dlg').open&&$('cq')){closeDlg();return}openPalette()}});
 
@@ -1506,7 +1508,7 @@ function setX(k,v){S[k]=v;
  if(['esess','tyear','cls','etype','inst','smode'].includes(k)){save();go()}
  save();if(k==='rad')applyLook();else applyX();if(k==='roll')go();window._fk=k+':'+v;rs()}
 function notifTest(){askNotify();setTimeout(()=>{notify('JEE 2027 Study Tracker','Notifications are working.');rs()},400)}
-function settingsExtra(part){const c=(k,v,l,cur,sw)=>`<button class="chip ${cur==v?'on':''}" data-k="${k}:${v}" onclick="setX('${k}','${v}')">${sw?`<span class="dot" style="background:${sw}"></span>`:''}${l}</button>`,
+function settingsExtra(part){const c=(k,v,l,cur,sw)=>`<button type="button" class="chip ${cur==v?'on':''}" data-k="${k}:${v}" onclick="setX('${k}','${v}')" ${k==='font'?`style="font-family:'${v}',Inter,system-ui,sans-serif" aria-label="Use ${v} font"`:''}>${sw?`<span class="dot" style="background:${sw}"></span>`:''}${l}</button>`,
  sec=(t,b)=>part?`<div class="srow ycol"><b>${t}</b><div>${b}</div></div>`:`<div class="lbl" style="margin:18px 0 8px">${t}</div>${b}`,row=(k,a,cur)=>`<div class="chips" style="margin-bottom:8px">${a.map(x=>c(k,x,x,cur)).join('')}</div>`,
  tg=(k,l)=>part?`<div class="srow"><div><b>${l}</b></div><button class="sw ${S[k]?'':'on'}" role="switch" aria-checked="${!S[k]}" aria-label="${l}" onclick="setX('${k}','${S[k]?'':'1'}')"><i></i></button></div>`:sec(l,`<div class="chips">${c(k,'','On',S[k]||'')}${c(k,'1','Off',S[k]||'')}</div>`),
  gm=Math.round((S.goalMain||0)/3),ga=Math.round((S.goalAdv||0)/3.6),np=('Notification' in window)?Notification.permission:'unsupported';
@@ -1515,7 +1517,7 @@ ${sec('Study profile',row('cls',['Class 11','Class 12','Dropper','Other'],S.cls|
 ${sec('Target exam',row('etype',['JEE Main','JEE Advanced'],S.etype==='JEE Advanced'?'JEE Advanced':'JEE Main')+row('esess',['January','April'],S.esess||'')+row('tyear',['2026','2027','2028','2029'],S.tyear||'2027')+'<div class="f"><label class="fl">JEE Advanced date<input type="date" value="'+esc(S.advDate||'')+'" onchange="S.advDate=this.value;save()"></label></div>')}
 ${sec('Score goals',`<div class="f"><label class="fl">JEE Advanced target /360<input type="number" min="0" max="360" value="${S.goalAdv||''}" onchange="S.goalAdv=+this.value||0;save();rs()"></label></div><div class="mut" style="font-size:12.5px;margin-top:8px">Main target: ${gm}% of maximum &middot; Advanced target: ${ga}% of maximum</div>`)}
 ${sec('Export',`<div class="f"><button class="btn" onclick="closeDlg();print()">Save report as PDF</button><button class="btn" onclick="exportICS()">Export tests to calendar</button></div>`)}`,Bl=`${sec('Accent colour',`<div class="chips">${ACC.map(([v,l])=>c('acc',v,l,S.acc||'',v||'#5b9dff')).join('')}</div>`)}
-${sec('Typeface',`<div class="chips">${FONTS.map(f=>c('font',f,f,S.font||'Inter')).join('')}</div>`)}
+${sec('Typeface',`<div class="mut" style="font-size:12px;margin-bottom:8px">Choose from five font styles.</div><div class="chips" role="group" aria-label="Font style">${FONTS.map(f=>c('font',f,f,S.font||'Inter')).join('')}</div>`)}
 ${sec('Corner style',`<div class="chips">${RADS.map(r=>c('rad',r,r[0].toUpperCase()+r.slice(1),S.rad||'rounded')).join('')}</div>`)}
 ${sec('Background intensity',`<input type="range" min="0" max="1" step=".1" value="${S.bgo||1}" aria-label="Background intensity" onchange="setX('bgo',this.value)" style="width:100%;max-width:320px">`)}`,Bn=`${tg('nobeep','Sound when a focus block ends')}${tg('nobrk','Break reminder after 50 minutes')}${tg('nocf','Celebration when the daily goal is met')}${tg('nocel','Celebration when tasks are finished')}${tg('nopip','Open the floating timer when the timer starts')}`,Bf=`${sec('Day rollover',`<div class="f"><select aria-label="Day rollover time" onchange="setX('roll',+this.value)">${[0,1,2,3,4,5,6].map(h=>`<option value="${h}" ${(S.roll||0)==h?'selected':''}>${h?h+':00 AM':'Midnight'}</option>`).join('')}</select></div><div class="mut" style="font-size:12.5px;margin-top:8px">Study logged before this hour counts towards the previous day.</div>`)}`,Bn2=`${sec('Notifications',`<div class="f"><button class="btn" onclick="notifTest()">Enable and send a test</button><span class="mut" style="font-size:12.5px">Status: ${np}</span></div>`)}`,Bv=`${sec('Version',`<div class="mut" style="font-size:12.5px;line-height:1.7">JEE 2027 Study Tracker, version 69.69<br>Shortcuts: Space starts or pauses the timer; Ctrl + K opens the command palette.</div>`)}`;return part==='look'?Bl:part==='focus'?Bf:part==='notif'?Bn+Bn2:part==='about'?Bv:`<div id="sx">${A}</div>`}
 (function(){const o=openSettings;openSettings=function(){o();const d=document.querySelector('#dlg .set');if(!d||d.querySelector('#sx'))return;const t=[...d.querySelectorAll('.lbl')].find(e=>e.textContent.trim()==='Data');if(t)t.insertAdjacentHTML('beforebegin',settingsExtra());else d.insertAdjacentHTML('beforeend',settingsExtra());const k=window._fk&&d.querySelector('[data-k="'+window._fk+'"]');if(k)k.focus()}})();
@@ -1650,17 +1652,11 @@ T(go);
 }catch(e){console.error('Urdu/Site/Pro module failed',e)}})();
 </script>
 <script>
-/* ===== Save popup ===== */
+/* ===== UI utilities ===== */
 (function(){try{
 const T=(f,d)=>{try{return f()}catch(e){return d}};
 window.T2=n=>{try{window[n]()}catch(e){toast('That feature is not available here')}};
-/* save popup: shows when something you did was saved */
-let ua=0,hf=0,sh=0;['click','change','keydown','touchend'].forEach(e=>addEventListener(e,()=>{ua=Date.now()},true));
-window.flashSaved=()=>{if(window._tabSw||Date.now()-ua>900)return;let el=$('sfl');
- if(!el){el=document.createElement('div');el.id='sfl';el.setAttribute('popover','manual');el.setAttribute('role','status');el.style.cssText='position:fixed;inset:auto;top:14px;left:50%;transform:translateX(-50%);margin:0;padding:9px 18px;border:1px solid var(--ac);border-radius:999px;background:var(--bg);color:var(--tx);box-shadow:0 8px 30px rgba(0,0,0,.35);font:600 13px system-ui,sans-serif';el.textContent='\u2713 Saved';document.body.appendChild(el)}
- if(Date.now()-sh>300){try{el.hidePopover()}catch(e){}try{el.showPopover()}catch(e){el.style.display='block'}sh=Date.now()}
- clearTimeout(hf);hf=setTimeout(()=>{try{el.hidePopover()}catch(e){el.style.display='none'}},1400)};
-}catch(e){console.error('Save popup module failed',e)}})();
+}catch(e){console.error('UI utility module failed',e)}})();
 </script>
 <script>
 /* ===== II PUC board, settings shell, rules, privacy policy and contact ===== */
@@ -1708,9 +1704,10 @@ const _c=window.chk;window.chk=function(i,v){let r=null;try{const a=document.act
 /* ===== Account login: Supabase auth, per-user server storage, switch account, sign out ===== */
 (function(){'use strict';
 const cfg=window.SUPABASE_CONFIG||{},$a=id=>document.getElementById(id);
-let sb=null,user=null,channel=null,saving=false,pending=false,ready=false,prev=null,sbAlt=null,switching=false,tm=null;
+let sb=null,user=null,channel=null,saving=false,pending=false,ready=false,prev=null,sbAlt=null,switching=false,tm=null,retryTimer=null,dirty=false,revision=0,retryMs=1000,lastSaveNotice=0;
 const authEl=()=>$a('jee-auth'),backEl=()=>$a('jee-auth-back'),menuEl=()=>$a('jee-account-menu');
 const msg=(t,bad=true)=>{const e=$a('jee-auth-msg');if(e){e.textContent=t||'';e.style.color=bad?'var(--bad)':'var(--ok)'}};
+const saveNotice=text=>{if(Date.now()-lastSaveNotice<5000)return;lastSaveNotice=Date.now();try{toast(text)}catch(e){}};
 const busy=b=>{const e=$a('jee-auth-submit');if(e){e.disabled=b;e.textContent=b?'Signing in…':'Sign in'}};
 const fresh=()=>({exam:'2027-01-21',subs:['Physics','Chemistry','Mathematics'],cur:'Physics',days:{},qlog:[],todos:[],tests:[],notes:{},syl:{},sess:[],topic:'',mode:0});
 const LOGIN_EMAILS={anushka:'anushka@jee.harsh',ayesha:'ayesha@jee.harsh',maryam:'maryam@jee.harsh',harshie:'harshie@jee.harsh'};
@@ -1727,26 +1724,59 @@ const dropChannel=()=>{if(channel&&sb){try{sb.removeChannel(channel)}catch(e){}}
 async function load(){
  const {data,error}=await sb.from('tracker_data').select('state').eq('user_id',user.id).maybeSingle();
  if(error)throw error;
+ clearTimeout(tm);tm=null;clearTimeout(retryTimer);retryTimer=null;pending=false;dirty=false;retryMs=1000;
  S=data&&data.state&&typeof data.state==='object'?Object.assign(fresh(),data.state):fresh();
  if(!data){const {error:e}=await sb.from('tracker_data').upsert({user_id:user.id,state:S,updated_at:new Date().toISOString()},{onConflict:'user_id'});if(e)throw e}
  if(!S.start){const ks=Object.keys(S.days||{}).sort();S.start=ks[0]||new Date().toLocaleDateString('en-CA')}
  try{normalize()}catch(e){console.error('Normalize after account load failed',e)}
 }
 async function push(){
- clearTimeout(tm);
- if(!user||!ready)return;
- if(saving){pending=true;return}
+ clearTimeout(tm);tm=null;
+ clearTimeout(retryTimer);retryTimer=null;
+ if(!user||!ready||!dirty)return true;
+ if(saving){pending=true;return false}
+ if(navigator.onLine===false){
+  saveNotice('Offline. Changes will sync when you reconnect.');
+  retryTimer=setTimeout(()=>{if(navigator.onLine!==false)void push()},retryMs);
+  retryMs=Math.min(retryMs*2,30000);
+  return false;
+ }
  saving=true;
- try{const {error}=await sb.from('tracker_data').upsert({user_id:user.id,state:S,updated_at:new Date().toISOString()},{onConflict:'user_id'});if(error)throw error}
- catch(e){console.error('Server save failed',e)}
- finally{saving=false;if(pending){pending=false;void push()}}
+ const savedRevision=revision;
+ let failed=false;
+ try{
+  const {error}=await sb.from('tracker_data').upsert({user_id:user.id,state:S,updated_at:new Date().toISOString()},{onConflict:'user_id'});
+  if(error)throw error;
+  if(revision===savedRevision){dirty=false;retryMs=1000}
+  else pending=true;
+  return true;
+ }catch(e){
+  failed=true;dirty=true;console.error('Server save failed',e);
+  saveNotice('Could not save changes. Retrying in the background.');
+  clearTimeout(tm);tm=null;
+  retryTimer=setTimeout(()=>{if(navigator.onLine!==false)void push()},retryMs);
+  retryMs=Math.min(retryMs*2,30000);
+  return false;
+ }finally{
+  saving=false;
+  if(failed)pending=false;
+  else if(pending){pending=false;void push()}
+ }
 }
-const sched=()=>{if(!user||!ready)return;clearTimeout(tm);tm=setTimeout(push,600)};
-addEventListener('visibilitychange',()=>{if(document.hidden)push()});addEventListener('pagehide',()=>{push()});
+const sched=()=>{
+ if(!user||!ready)return;
+ dirty=true;revision++;
+ clearTimeout(retryTimer);retryTimer=null;retryMs=1000;
+ clearTimeout(tm);tm=setTimeout(()=>void push(),600);
+};
+addEventListener('online',()=>{if(dirty){clearTimeout(retryTimer);retryTimer=null;retryMs=1000;void push()}});
+addEventListener('offline',()=>{if(dirty)saveNotice('Offline. Changes will sync when you reconnect.')});
+addEventListener('visibilitychange',()=>{if(document.hidden)void push()});
+addEventListener('pagehide',()=>{void push()});
 function subscribe(){
  dropChannel();
  channel=sb.channel('jee-tracker-'+user.id).on('postgres_changes',{event:'UPDATE',schema:'public',table:'tracker_data',filter:'user_id=eq.'+user.id},p=>{
-  if(!p.new||saving||!ready)return;
+  if(!p.new||saving||dirty||!ready)return;
   if(p.new.state&&typeof p.new.state==='object'){S=Object.assign(fresh(),p.new.state);try{normalize()}catch(e){}try{go()}catch(e){console.error(e)}}
  }).subscribe();
 }
@@ -1787,6 +1817,8 @@ async function switchAccount(){
  if(!sb||!user)return;
  closeUi();
  await push();
+ while(saving)await new Promise(resolve=>setTimeout(resolve,25));
+ if(dirty){toast('Your latest changes could not be saved. Reconnect and try switching again.');return}
  prev=user;switching=true;ready=false;dropChannel();
  showAuth(true);
  $a('jee-auth-sub').textContent='Choose an account to switch to.';
@@ -1806,6 +1838,9 @@ async function cancelSwitch(){
 async function logout(){
  closeUi();
  await push();
+ while(saving)await new Promise(resolve=>setTimeout(resolve,25));
+ if(dirty&&!confirm('Your latest changes could not be saved. Sign out anyway?'))return;
+ clearTimeout(tm);clearTimeout(retryTimer);
  prev=null;switching=false;ready=false;dropChannel();
  try{if(sb)await sb.auth.signOut({scope:'local'})}catch(e){console.error(e)}
  user=null;location.reload();
