@@ -1663,7 +1663,16 @@ const authEl=()=>document.getElementById('jee-auth');
 const msg=(s,bad=true)=>{const e=document.getElementById('jee-auth-msg');if(e){e.textContent=s||'';e.style.color=bad?'var(--bad)':'var(--ok)'}};
 const busy=b=>{const e=document.getElementById('jee-auth-submit');if(e){e.disabled=b;e.textContent=b?'Signing in…':'Sign in'}};
 const fresh=()=>({exam:'2027-01-21',subs:['Physics','Chemistry','Mathematics'],cur:'Physics',days:{},qlog:[],todos:[],tests:[],notes:{},syl:{},sess:[],topic:'',mode:0});
-async function getEmail(username){const {data,error}=await sb.rpc('get_login_email',{p_username:String(username||'').trim().toLowerCase()});if(error)throw error;return data}
+const LOGIN_EMAILS={
+  anushka:'anushka@jee.harsh',
+  ayesha:'ayesha@jee.harsh',
+  maryam:'maryam@jee.harsh',
+  harshie:'harshie@jee.harsh'
+};
+
+async function getEmail(username){
+  return LOGIN_EMAILS[String(username||'').trim().toLowerCase()]||null;
+}
 async function load(){
  const {data,error}=await sb.from('tracker_data').select('state').eq('user_id',user.id).maybeSingle();if(error)throw error;
  S=data?.state&&typeof data.state==='object'?Object.assign(fresh(),data.state):fresh();
