@@ -1062,7 +1062,7 @@ function calendar(g){const T=td(),ym=cm||T.slice(0,7),[y,m]=ym.split('-').map(Nu
   ${dayTodos(sel)}
   ${NOTES()[sel]?`<div class="mut">${esc(NOTES()[sel])}</div>`:''}</div></section>`}
 function exportData(){S.lastBackup=Date.now();save();const b=new Blob([JSON.stringify(S,null,1)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=`jee-tracker-${td()}.json`;a.click();URL.revokeObjectURL(a.href)}
-function importData(f){if(!f)return;const r=new FileReader();r.onload=()=>{try{const d=JSON.parse(r.result);if(!d||typeof d!=='object'||!d.days)throw 0;if(!confirm('Replace current data with this backup?'))return;S=Object.assign(S,d);normalize();toast('Backup imported');go()}catch(e){toast('Invalid backup file')}};r.readAsText(f)}
+function importData(f){if(!f)return;const r=new FileReader();r.onload=()=>{try{const d=JSON.parse(r.result);if(!d||typeof d!=='object'||!d.days)throw 0;if(!confirm('Replace current data with this backup?'))return;S=Object.assign(fresh(),d);normalize();save();toast('Backup imported');const m=$('jee-account-menu');if(m)m.hidden=true;go()}catch(e){console.error('Backup import failed',e);toast('Invalid backup file')}};r.readAsText(f)}
 
 
 /* ---------- countdown ---------- */
@@ -1713,9 +1713,15 @@ async function init(){
  if(data.session){user=data.session.user;try{await finish()}catch(e){console.error(e);await sb.auth.signOut();msg('Could not load your account data.')}}
  sb.auth.onAuthStateChange((_e,session)=>{if(!session&&ready){ready=false;user=null;if(channel)sb.removeChannel(channel);authEl().hidden=false}});
 }
-window.JEE_AUTH={saveState:push,async logout(){if(sb)await sb.auth.signOut();location.reload()},async switchAccount(){if(sb)await sb.auth.signOut();location.reload()},toggleAccountMenu(){const m=document.getElementById('jee-account-menu');if(m)m.hidden=!m.hidden}};
-const oldOpen=window.openSettings;
-window.openSettings=function(){const m=document.getElementById('jee-account-menu');if(m){m.hidden=!m.hidden;return}if(oldOpen)oldOpen()};
+window.JEE_AUTH={
+ saveState:push,
+ async logout(){if(sb)await sb.auth.signOut();location.reload()},
+ async switchAccount(){if(sb)await sb.auth.signOut()},
+ toggleAccountMenu(){const m=document.getElementById('jee-account-menu');if(m)m.hidden=!m.hidden},
+ openSettings(){const m=document.getElementById('jee-account-menu');if(m)m.hidden=true;if(window.HX&&typeof window.HX.hub==='function')window.HX.hub('set');else if(typeof window.openSettings==='function')window.openSettings()},
+ importBackup(){const m=document.getElementById('jee-account-menu');if(m)m.hidden=true;const f=document.getElementById('jee-import-file');if(f){f.value='';f.click()}},
+ cancelSwitch(){const a=authEl();if(user&&ready){a.hidden=true;msg('');return}a.hidden=false;msg('');const u=document.getElementById('jee-auth-user'),pw=document.getElementById('jee-auth-pass');if(u)u.focus();}};
+window.openSettings=function(){const m=document.getElementById('jee-account-menu');if(m)m.hidden=true;if(window.HX&&typeof window.HX.hub==='function')window.HX.hub('set');};
 init();
 })();
 </script></body></html>
