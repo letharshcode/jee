@@ -547,6 +547,12 @@ body.locked>*:not(#jee-auth){visibility:hidden}
 .am-sep{height:1px;background:var(--bd);margin:6px -14px}
 .am-i{display:flex;align-items:center;gap:12px;width:100%;padding:10px 8px;border:0;background:none;color:var(--tx);font:inherit;border-radius:10px;cursor:pointer;text-align:left}.am-i:hover{background:var(--g2)}
 @media(max-width:560px){#jee-account-menu{right:10px;top:54px}}
+#m .it{content-visibility:auto;contain-intrinsic-size:auto 84px}
+#jee-auth .auth-loading{display:none;align-items:center;gap:12px;justify-content:center;padding:34px 0;color:var(--mut);font-size:14px}
+#jee-auth.checking .auth-loading{display:flex}
+#jee-auth.checking .auth-brand,#jee-auth.checking .auth-sub,#jee-auth.checking #jee-auth-form,#jee-auth.checking .auth-back{display:none}
+.auth-spin{width:18px;height:18px;border-radius:50%;border:2px solid var(--bd);border-top-color:var(--ac);animation:authspin .8s linear infinite}
+@keyframes authspin{to{transform:rotate(360deg)}}
 </style></head><body class="locked"><div id="boot" role="dialog" aria-label="Welcome"><div class="bw"><div class="ld"><div class="lg"><img src="favicon.png" alt="JEE 2027 Study Tracker logo" onerror="this.replaceWith(document.createTextNode('JE'))"></div><h1>JEE 2027 Study Tracker</h1><p>Structured preparation, measured progress.</p><div class="pb"><i></i></div><div class="mut" id="bootpct" style="font-size:12px">Preparing dashboard 0%</div></div><div class="ob"><div class="sl on"><div class="lg"><img src="favicon.png" alt="JEE 2027 Study Tracker logo" onerror="this.replaceWith(document.createTextNode('JE'))"></div><h1>Welcome to JEE 2027</h1><p>A structured workspace for your preparation: plan, study, practise and review in one place.</p></div><div class="sl"><div class="lg">&#9201;</div><h1>Study clock</h1><p>Run focus blocks, set a daily goal and keep a floating timer visible while you work in other tabs.</p></div><div class="sl"><div class="lg">&#128218;</div><h1>Syllabus and QCT tracker</h1><p>Record theory, questions and QCTs for every chapter and see exactly how much of each test you have covered.</p></div><div class="sl"><div class="lg">&#128200;</div><h1>Tests and analysis</h1><p>Review upcoming tests, enter results when the test is live and study score trends and weak chapters.</p></div><div class="sl"><div class="lg">&#127769;</div><h1>Planner, sleep and backup</h1><p>Organise tasks by day, keep a weekly sleep balance and export your data whenever you wish.</p></div><div class="dots"><i></i><i></i><i></i><i></i><i></i></div><div class="obn"><button class="btn" id="obS" onclick="bootHide()">Skip</button><span><button class="btn" id="obB" onclick="obGo(-1)">Back</button> <button class="btn pri" id="obN" onclick="obGo(1)">Next</button></span></div></div></div></div>
 <header class="top"><div class="hw">
  <div class="brand" onclick="goTab(0)" title="Home" role="link" tabindex="0"><img src="favicon.png" alt="" width="22" height="22"><span id="bt">JEE 2027</span></div>
@@ -561,10 +567,11 @@ body.locked>*:not(#jee-auth){visibility:hidden}
 <main id="m"></main>
 <nav class="tabbar" id="tabbar" aria-label="Sections"></nav>
 <dialog id="dlg"></dialog>
-<div id="jee-auth" role="dialog" aria-label="Login">
+<div id="jee-auth" role="dialog" aria-label="Login" class="checking">
  <div class="auth-card">
   <button class="auth-back" type="button" id="jee-auth-back" hidden onclick="JEE_AUTH.cancelSwitch()">&larr; Back</button>
-  <div class="auth-brand"><i class="auth-dot"></i><span>ghee khtm🥺</span></div>
+  <div class="auth-loading" id="jee-auth-loading" role="status"><i class="auth-spin"></i>Loading your account…</div>
+  <div class="auth-brand"><i class="auth-dot"></i><span>maut hai aage</span></div>
   <div class="auth-sub" id="jee-auth-sub">Sign in.</div>
   <form id="jee-auth-form">
    <label for="jee-auth-user">Username</label>
@@ -693,10 +700,10 @@ function fx(e){fs+=e;S.xs=(S.xs||0)+e;while(S.xs>=60){S.xs-=60;addXP(1)}
 const MODES=[['Stopwatch',0],['25m',25],['50m',50],['90m',90]];
 let run=false,last=0,sessSec=0,sessStart=0;
 function credit(sub,e,d=td()){const x=day(d);x.s+=e;x.sub[sub]=(x.sub[sub]||0)+e}
-function start(){askNotify();run=true;document.body.classList.add('live');last=Date.now();sessSec=0;sessStart=Date.now();fs=0;fi=0;go();try{if(window.documentPictureInPicture&&!pipW&&!S.nopip)popOut(true)}catch(e){}}
+function start(){if(document.body.classList.contains('locked'))return;askNotify();run=true;document.body.classList.add('live');last=Date.now();sessSec=0;sessStart=Date.now();fs=0;fi=0;go();try{if(window.documentPictureInPicture&&!pipW&&!S.nopip)popOut(true)}catch(e){}}
 function logSess(){if(sessSec>=30)S.sess.push({d:td(),sub:CUR(),a:S.area||'jee',ch:TOPIC().trim(),sec:sessSec,at:sessStart})}
 function stop(){const _ss=sessSec,_n=S.nowName||TOPIC().trim()||subOf(CUR());logSess();run=false;document.body.classList.remove('live');S.nowKey='';S.nowName='';sessSec=0;if(_ss>=1){nbSave={sec:_ss,n:_n,t:Date.now()};setTimeout(nowBar,1750);setTimeout(nowBar,2800)}save();go()}
-function toggle(){run?stop():start()}
+function toggle(){if(document.body.classList.contains('locked'))return;run?stop():start()}
 const CATS=['Study','Practice','PYQs','Test'],TSUB=['Mock test','Analysis','Solutions'],jkey=(c,x)=>c==='Study'?x:c+' · '+x;
 function setSub(s){if(run)logSess();if(S.area==='board')S.bcur=s;else{S.cur=s;if(!TSUB.includes(subOf(s)))S.sc=subOf(s)}if(run){sessSec=0;sessStart=Date.now()}save();go()}
 function setCat(c){if(run)logSess();S.cat=c;S.cur=jkey(c,c==='Test'?TSUB[0]:(S.subs.includes(S.sc)?S.sc:S.subs[0]));if(run){sessSec=0;sessStart=Date.now()}save();go()}
@@ -712,7 +719,7 @@ setInterval(()=>{if(!run)return;const n=Date.now(),e=Math.floor((n-last)/1000);i
  const m=MODES[S.mode||0][1];if(m&&sessSec>=m*60){beep();toast(`Focus block done · ${m} min`);stop();return}
  /* The clock is rendered every second, but the full study record only needs
     a checkpoint every 15 seconds. Stop/page-hide still flush immediately. */
- if(Math.floor(sessSec/15)!==Math.floor(before/15))save();tick()},1000);
+ if(Math.floor(sessSec/15)!==Math.floor(before/15))save();tick()},250);
 addEventListener('pagehide',()=>{if(run){logSess();save()}});
 function tick(){nowBar();heroTick();const d=day(td()),m=MODES[S.mode||0][1];document.title=run?`${hms(m?Math.max(0,m*60-sessSec):d.s)} · ${CUR()}`:'JEE 2027 · Study Tracker';
  const c=$('clk');if(!c)return;
@@ -765,13 +772,13 @@ function toggleAreaMenu(e){e.stopPropagation();const m=$('areamenu'),open=m.hidd
 function pickArea(k){$('areamenu').hidden=true;$('areasw').setAttribute('aria-expanded','false');setArea(k)}
 document.addEventListener('click',()=>{const m=$('areamenu');if(m&&!m.hidden){m.hidden=true;$('areasw').setAttribute('aria-expanded','false')}});
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){const m=$('areamenu');if(m)m.hidden=true}});
-function go(){try{sweepMissed()}catch(e){}tab=S.area==='all'?0:(S.tabs&&S.tabs[S.area||'jee'])||0;const V=S.area==='all'?[vOverall]:S.area==='board'?[vToday,vBSyl,vBTests,vTodo,vBStats]:[vToday,vSyl,vTests,vPrac,vTodo,vBack,vStats,vSleep];if(tab>=V.length){tab=0;if(S.area!=='all'&&S.tabs&&S.tabs[S.area]!==0){S.tabs[S.area]=0;save()}}applyLook();nav();hdr();$('m').innerHTML=V[tab]();tick();cdTick()}
+function go(){_tcm=new WeakMap();_cvm=new WeakMap();try{sweepMissed()}catch(e){}tab=S.area==='all'?0:(S.tabs&&S.tabs[S.area||'jee'])||0;const V=S.area==='all'?[vOverall]:S.area==='board'?[vToday,vBSyl,vBTests,vTodo,vBStats]:[vToday,vSyl,vTests,vPrac,vTodo,vBack,vStats,vSleep];if(tab>=V.length){tab=0;if(S.area!=='all'&&S.tabs&&S.tabs[S.area]!==0){S.tabs[S.area]=0;save()}}applyLook();nav();hdr();$('m').innerHTML=V[tab]();tick();cdTick()}
 function enterAnim(){const m=$('m');m.classList.add('enter');clearTimeout(enterAnim.t);enterAnim.t=setTimeout(()=>m.classList.remove('enter'),900)}
 function goTab(i){window._tabSw=1;try{if(S.area==='all')S.area=S.lastArea||'jee';S.tabs=S.tabs||{};S.tabs[S.area||'jee']=i;tab=i;S.tab=i;save();enterAnim();go();scrollTo(0,0)}finally{window._tabSw=0}}
 function theme(){const r=document.documentElement,l=r.dataset.theme!=='light';r.dataset.theme=l?'light':'dark';S.theme=r.dataset.theme;save();hdr()}
 function setExam(){const B=S.area==='board',v=prompt((B?'Board exam':'JEE Main')+' date (YYYY-MM-DD)',(B?S.bexam:S.exam)||'');if(v&&!isNaN(new Date(v))){if(B)S.bexam=v;else S.exam=v;save();go()}}
 function addSub(){const v=prompt('New subject name');if(v&&v.trim()&&!S.subs.includes(v.trim())){S.subs.push(v.trim());save();go()}}
-function dlg(h){const d=$('dlg');d.innerHTML=h;if(!d.open)d.showModal();d.scrollTop=0;if(window._fk){const e=d.querySelector('[data-k="'+window._fk+'"]');window._fk=null;if(e)e.classList.add('flashit')}}
+function dlg(h){if(document.body.classList.contains('locked'))return;const d=$('dlg');d.innerHTML=h;if(!d.open)d.showModal();d.scrollTop=0;if(window._fk){const e=d.querySelector('[data-k="'+window._fk+'"]');window._fk=null;if(e)e.classList.add('flashit')}}
 function closeDlg(){$('dlg').close()}
 $('dlg').addEventListener('click',e=>{if(e.target.id==='dlg')closeDlg()});
 const nv=id=>{const e=$(id);if(!e)return'';const v=e.value.trim();return v===''?'':+v};
@@ -1325,7 +1332,7 @@ function ovWork(){const A=Object.keys(CHD),jt=S.todos.filter(t=>!t.mv),bt=(S.bto
  R=[['Syllabus complete',Math.round(A.reduce((a,x)=>a+sylPct(x),0)/A.length),bAll(),'%'],['Chapters fully done',A.reduce((a,x)=>a+sylDone(x),0),BSUB.reduce((a,b)=>a+bDone(b),0),''],['Tasks completed',jt.filter(t=>t.x).length,bt.filter(t=>t.x).length,''],['Tasks pending today',pt(jt),pt(bt),'',1],['Backlog pending',bl(false),bl(true),'',1],['Tests taken',jts.length,bts.length,''],['Average test score',mean(jts),mean(bts),'%'],['Questions solved',qstat().d,null,'']],
  F=(v,u)=>v==null?'—':v+u,W=(a,b,lo)=>a==null||b==null||a===b?0:((a>b)!==!!lo)?1:2;
  return `<section class="card" style="margin-bottom:14px"><div class="row" style="margin-bottom:10px"><div class="lbl">Work done</div><div class="f" style="gap:14px;font-size:12px;margin:0"><span class="f" style="gap:5px"><span class="dot" style="background:var(--ac)"></span>JEE</span><span class="f" style="gap:5px"><span class="dot" style="background:var(--warn)"></span>Board</span></div></div><div class="tblw"><table><tr class="mut"><th></th><th style="text-align:right">JEE</th><th style="text-align:right">Board</th></tr>${R.map(([l,a,b,u,lo])=>{const w=W(a,b,lo);return `<tr><td>${l}</td><td class="mono" style="text-align:right;${w==1?'color:var(--ac);font-weight:600':''}">${F(a,u)}</td><td class="mono" style="text-align:right;${w==2?'color:var(--warn);font-weight:600':''}">${F(b,u)}</td></tr>`}).join('')}</table></div></section>`}
-function vOverall(){const J=ovStats(S.days,'jee'),B=ovStats(S.bdays||{},'board'),tot=J.today+B.today,H=x=>(x/3600).toFixed(1)+'h',pj=J.all+B.all?Math.round(J.all/(J.all+B.all)*100):50;
+function vOverall(){const J=ovStats(S.days,'jee'),B=ovStats(S.bdays||{},'board'),tot=J.today+B.today,H=x=>(x/3600).toFixed(1)+'h',pj=J.all+B.all?Math.round(J.all/(J.all+B.all)*100):null;
  const rows=[['Today',J.today,B.today,H],['Last 7 days',J.w,B.w,H],['Last 30 days',J.m,B.m,H],['All time',J.all,B.all,H],['Active days',J.act,B.act,x=>x],['Current streak',J.st,B.st,x=>x+' d'],['Avg / active day',J.avg,B.avg,H],['Best day',J.best,B.best,H],['Sessions',J.n,B.n,x=>x],['Longest session',J.lg,B.lg,x=>hm(x)]];
  const days=[];for(let o=13;o>=0;o--){const d=dstr(o);days.push([(S.days[d]?.s||0)/3600,((S.bdays||{})[d]?.s||0)/3600,d])}const mx=Math.max(1,...days.map(x=>x[0]+x[1]));
  const by=(o,c)=>Object.entries(o).sort((a,b)=>b[1]-a[1]).map(([k,v])=>`<div class="it"><span class="dot" style="background:${col(k)}"></span><span>${esc(k)}</span><span class="mono mut" style="flex:none">${H(v)}</span></div>`).join('')||'<div class="empty">No time logged yet.</div>';
@@ -1333,9 +1340,9 @@ function vOverall(){const J=ovStats(S.days,'jee'),B=ovStats(S.bdays||{},'board')
 <section class="card" style="margin-bottom:14px"><div class="lbl">Total study time today (JEE + Board)</div><div class="big mono" style="margin:10px 0 4px">${hms(tot)}</div>
 <div class="mut mono" style="font-size:13px"><span style="color:var(--ac)">JEE ${hms(J.today)}</span> · <span style="color:var(--warn)">Board ${hms(B.today)}</span></div>
 <div class="f" style="margin-top:14px"><button class="btn pri" onclick="setArea('jee')">Open JEE timer</button><button class="btn" onclick="setArea('board')">Open Board timer</button></div></section>
-<div class="g2" style="margin-bottom:14px"><div class="card stat"><div class="lbl">Total all time</div><b class="mono">${H(J.all+B.all)}</b></div><div class="card stat"><div class="lbl">Last 7 days</div><b class="mono">${H(J.w+B.w)}</b></div><div class="card stat"><div class="lbl">Time split</div><b class="mono" style="font-size:20px">${pj}% / ${100-pj}%</b><small>JEE / Board</small></div><div class="card stat"><div class="lbl">Active days</div><b class="mono">${new Set([...Object.keys(S.days).filter(k=>S.days[k].s>0),...Object.keys(S.bdays||{}).filter(k=>S.bdays[k].s>0)]).size}</b></div></div>
+<div class="g2" style="margin-bottom:14px"><div class="card stat"><div class="lbl">Total all time</div><b class="mono">${H(J.all+B.all)}</b></div><div class="card stat"><div class="lbl">Last 7 days</div><b class="mono">${H(J.w+B.w)}</b></div><div class="card stat"><div class="lbl">Time split</div><b class="mono" style="font-size:20px">${pj===null?'—':pj+'% / '+(100-pj)+'%'}</b><small>JEE / Board</small></div><div class="card stat"><div class="lbl">Active days</div><b class="mono">${new Set([...Object.keys(S.days).filter(k=>S.days[k].s>0),...Object.keys(S.bdays||{}).filter(k=>S.bdays[k].s>0)]).size}</b></div></div>
 ${ovCols()}${ovWork()}
-<section class="card" style="margin-bottom:14px"><div class="lbl" style="margin-bottom:10px">Share of study time</div><div style="display:flex;height:14px;border-radius:8px;overflow:hidden;background:var(--g2)"><div style="width:${pj}%;background:var(--ac)"></div><div style="width:${100-pj}%;background:var(--warn)"></div></div></section>
+<section class="card" style="margin-bottom:14px"><div class="lbl" style="margin-bottom:10px">Share of study time</div><div style="display:flex;height:14px;border-radius:8px;overflow:hidden;background:var(--g2)"><div style="width:${pj===null?0:pj}%;background:var(--ac)"></div><div style="width:${pj===null?0:100-pj}%;background:var(--warn)"></div></div></section>
 <section class="card" style="margin-bottom:14px"><div class="row" style="margin-bottom:10px"><div class="lbl">Side by side</div><div class="f" style="gap:14px;font-size:12px;margin:0"><span class="f" style="gap:5px"><span class="dot" style="background:var(--ac)"></span>JEE</span><span class="f" style="gap:5px"><span class="dot" style="background:var(--warn)"></span>Board</span></div></div>
 <div class="tblw"><table style="width:100%;border-collapse:collapse"><tr class="mut" style="text-align:left"><th></th><th style="padding:6px 8px;text-align:right">JEE</th><th style="padding:6px 8px;text-align:right">Board</th></tr>${rows.map(([l,a,b,f])=>`<tr style="border-top:1px solid var(--bd)"><td style="padding:9px 8px">${l}</td><td class="mono" style="padding:9px 8px;text-align:right;${a>b?'color:var(--ac);font-weight:600':''}">${f(a)}</td><td class="mono" style="padding:9px 8px;text-align:right;${b>a?'color:var(--warn);font-weight:600':''}">${f(b)}</td></tr>`).join('')}</table></div></section>
 <section class="card" style="margin-bottom:14px"><div class="lbl" style="margin-bottom:10px">Last 14 days · stacked hours</div><div class="slb">${days.map(([a,b,d])=>`<div title="${d}: JEE ${a.toFixed(1)}h · Board ${b.toFixed(1)}h" style="height:${Math.max(4,(a+b)/mx*100)}%;background:linear-gradient(to top,var(--ac) ${a/(a+b||1)*100}%,var(--warn) 0);opacity:${a+b?1:.15}"></div>`).join('')}</div></section>
@@ -1400,18 +1407,21 @@ TAL={'maths in physics':['Mathematics in Physics'],'motion 1d':['Motion In One D
 function findChs(sub,n){const L=CHD[sub]||[],k=TN(n);if(!k)return[];const al=TAL[k];if(al){const r=L.filter(x=>al.includes(x.n));if(r.length)return r}let r=L.filter(x=>TN(x.n)===k);if(r.length)return r;return k.length>3?L.filter(x=>{const m=TN(x.n);return m.includes(k)||k.includes(m)}).slice(0,1):[]}
 function findCh(sub,n){return findChs(sub,n)[0]}
 const CLS={11:{Physics:i=>i<=14||i===30,Chemistry:i=>i<=14,Mathematics:i=>i<=14||i>=28},12:{Physics:i=>i>=15&&i<=29,Chemistry:i=>i>=15,Mathematics:i=>i>=15&&i<=27}};
-function testChapters(t){const out=[],SB=['Physics','Chemistry','Mathematics'],add=(s,c)=>{if(c&&!out.some(x=>x.sub===s&&x.c===c))out.push({sub:s,c})},sy=t.syl;
+var _tcm=new WeakMap(),_cvm=new WeakMap();
+function testChapters(t){let r=_tcm.get(t);if(!r){r=testChapters0(t);_tcm.set(t,r)}return r}
+function testChapters0(t){const out=[],SB=['Physics','Chemistry','Mathematics'],add=(s,c)=>{if(c&&!out.some(x=>x.sub===s&&x.c===c))out.push({sub:s,c})},sy=t.syl;
  if(sy&&typeof sy==='object'){[['p','Physics'],['c','Chemistry'],['m','Mathematics']].forEach(([k,s])=>String(sy[k]||'').split(/\s*[·;\n]\s*/).forEach(n=>findChs(s,n).forEach(c=>add(s,c))));return out}
  const x=String(sy||'');if(/full syllabus|complete class/i.test(x)){const cl=/class/i.test(x)?(/12/.test(x)?12:/11/.test(x)?11:0):0,adv=/advanced/i.test(x);SB.forEach(s=>CHD[s].forEach((c,i)=>{if(cl?CLS[cl][s](i):(adv||!c.adv))add(s,c)}));return out}
  x.split(/\s*[·;,\n]\s*/).forEach(n=>SB.forEach(s=>findChs(s,n).forEach(c=>add(s,c))));return out}
 function bchOf(b,str){const L=(BCH[b]||[]).filter(c=>c.n);if(!str||/^all chapters$/i.test(str))return L;const x=String(str).toLowerCase(),r=L.filter(c=>x.includes(c.n.toLowerCase()));return r.length?r:L.filter(c=>x.split(',').some(p=>{p=p.trim();return p.length>3&&c.n.toLowerCase().includes(p)}))}
-function covSum(t,kind){let rows;if(kind==='b')rows=Object.entries(t.subs||{}).flatMap(([b,str])=>bchOf(b,str).map(c=>{const n=BSTEP[b].length,v=bv(b,c.n),d=BSTEP[b].filter((_,k)=>v&(1<<k)).length;return{sub:b,name:c.n,st:d===n?2:d?1:0,pc:d/n*100,det:BSTEP[b].map((x,k)=>v&(1<<k)?x:'·').join(' · ')}}));
+function covSum(t,kind){let r=_cvm.get(t);if(!r){r=covSum0(t,kind);_cvm.set(t,r)}return r}
+function covSum0(t,kind){let rows;if(kind==='b')rows=Object.entries(t.subs||{}).flatMap(([b,str])=>bchOf(b,str).map(c=>{const n=BSTEP[b].length,v=bv(b,c.n),d=BSTEP[b].filter((_,k)=>v&(1<<k)).length;return{sub:b,name:c.n,st:d===n?2:d?1:0,pc:d/n*100,det:BSTEP[b].map((x,k)=>v&(1<<k)?x:'·').join(' · ')}}));
  else rows=testChapters(t).map(({sub,c})=>{const v=sv(sub,c.n),q=qv(sub,c.n);return{sub,name:c.n,st:v===15?2:v?1:0,pc:chPct(sub,c),det:STEPS.map((x,j)=>v&(1<<j)?x[0]:'·').join(' ')+' · QCT '+bits(q)+'/'+c.q}});
  const p=rows.length?Math.round(rows.reduce((a,r)=>a+r.pc,0)/rows.length):0,cov=rows.filter(r=>r.st===2).length,nc=rows.filter(r=>r.st===0).length;
  return{rows,p,cov,nc,vd:p>=75?['Prepared','ok']:p>=40?['Partly prepared','warn']:['Not prepared yet','bad']}}
 function covLine(t,kind){const c=covSum(t,kind);if(!c.rows.length)return'';return `<div class="cvl"><span class="cvc s${c.vd[1]}">${c.vd[0]}</span><small class="mut">${c.cov}/${c.rows.length} chapters covered · ${c.p}% · <a href="#" onclick="openCover('${kind}',${kind==='b'?S.btests.indexOf(t):S.tests.indexOf(t)});return false" style="color:var(--ac)">chapter-wise</a></small></div>`}
 const tring=(t,p,c,kind,i)=>{const m=String(t.name).split(' - '),lb=m.length===2?esc(m[0])+'<br>'+esc(m[1]):esc(t.name);return `<button type="button" class="ring tring" style="--p:${p};--c:${c}" onclick="openCover('${kind}',${i})" title="${esc(t.name)}: syllabus coverage" aria-label="${esc(t.name)}: view syllabus coverage"><span class="mono">${lb}</span></button>`};
-function openCover(kind,i){const t=(kind==='b'?S.btests:S.tests)[i];if(!t)return;const c=covSum(t,kind),n=dd(t.date),subs=[...new Set(c.rows.map(r=>r.sub))];
+function openCover(kind,i){_tcm=new WeakMap();_cvm=new WeakMap();const t=(kind==='b'?S.btests:S.tests)[i];if(!t)return;const c=covSum(t,kind),n=dd(t.date),subs=[...new Set(c.rows.map(r=>r.sub))];
  dlg(`<div class="row"><div><div class="lbl">${esc(t.kind||'Board test')} · ${fdate(t.date)}</div><h3>${esc(t.name)}</h3></div><button class="icon-btn" onclick="closeDlg()" aria-label="Close">${ic('x',16)}</button></div>
  ${c.rows.length?`<div class="card" style="margin:14px 0"><div class="row"><b class="${c.vd[1]}" style="font-size:17px">${c.vd[0]}</b><b class="mono">${c.p}%</b></div><div class="bar" style="margin:8px 0"><i style="width:${c.p}%;background:var(--${c.vd[1]})"></i></div><div class="mut" style="font-size:12.5px">${c.cov} of ${c.rows.length} chapters fully covered · ${c.nc} not started${n>0?' · '+n+' day'+(n>1?'s':'')+' left':''}</div></div>
  ${subs.map(s=>{const R=c.rows.filter(r=>r.sub===s);return `<div class="lbl" style="margin:16px 0 2px;color:${col(s)}">${esc(s)} · ${R.filter(r=>r.st===2).length}/${R.length} covered</div>${R.map(r=>`<div class="it"><span class="dot" style="background:${col(s)}"></span><span>${esc(r.name)}<br><small class="mut mono">${esc(r.det)}</small></span><span class="cvc s${['bad','warn','ok'][r.st]}">${['Not covered','In progress','Covered'][r.st]}</span></div>`).join('')}`}).join('')}`:'<div class="empty">No chapter list is attached to this test yet.</div>'}
@@ -1452,7 +1462,7 @@ normalize();autoTestTasks();save();enterAnim();go();enhanceDates();
 
 function askNotify(){try{if('Notification' in window&&Notification.permission==='default')Notification.requestPermission()}catch(e){}}
 function notify(t,b){try{if(!('Notification' in window)||Notification.permission!=='granted')return;const n=new Notification(t,{body:b,icon:'favicon.png',tag:'jee-tracker',renotify:true});n.onclick=()=>{window.focus();n.close()};if(navigator.vibrate)navigator.vibrate(200)}catch(e){}}
-addEventListener('keydown',e=>{if(e.code!=='Space'||e.repeat||e.ctrlKey||e.metaKey||e.altKey)return;const t=e.target,g=t&&t.tagName;if(/INPUT|SELECT|TEXTAREA|BUTTON|A/.test(g||'')||(t&&t.isContentEditable)||$('dlg').open)return;if(!$('m')||typeof toggle!=='function')return;e.preventDefault();toggle()});
+addEventListener('keydown',e=>{if(e.code!=='Space'||e.repeat||e.ctrlKey||e.metaKey||e.altKey||document.body.classList.contains('locked'))return;const t=e.target,g=t&&t.tagName;if(/INPUT|SELECT|TEXTAREA|BUTTON|A/.test(g||'')||(t&&t.isContentEditable)||$('dlg').open)return;if(!$('m')||typeof toggle!=='function')return;e.preventDefault();toggle()});
 (function(){const b=document.getElementById('boot');let seen=0;try{seen=localStorage.getItem('jt_seen')}catch(e){}
  window.bootHide=function(){b.classList.add('out');try{localStorage.setItem('jt_seen','1')}catch(e){}setTimeout(()=>b.remove(),700)};
  if(!seen){b.classList.add('first')}else{addEventListener('load',()=>setTimeout(bootHide,1150))}
@@ -1494,7 +1504,7 @@ function exportICS(){const z=x=>x.replace(/-/g,''),L=(S.tests||[]).filter(t=>t.d
 let brk=false;setInterval(()=>{if(!run){brk=false;return}if(!brk&&!S.nobrk&&sessSec>=3000){brk=true;toast('You have studied for 50 minutes. Consider a short break.')}},5000);
 function openPalette(){const T=tabsOf().map((t,i)=>['Go to '+t[0],`closeDlg();goTab(${i})`]);if(S.scope!=='jee')T.push(['Go to Overall',"closeDlg();setArea('all')"]);const A=[['Start or pause the timer','closeDlg();toggle()'],['Switch between light and dark theme','closeDlg();theme()'],['Study tools','openTools()'],['Mistake notebook','openMist()'],['Reality check','openReality()'],['Daily summary','openSummary()'],['Zen mode','zen()'],['Floating timer','closeDlg();popOut()'],['Export backup','closeDlg();exportData()']];window._pal=[...T,...A];dlg(`<div class="row"><h3>Command palette</h3>${XB}</div><input id="cq" placeholder="Type a command" aria-label="Command" style="width:100%;margin-top:12px" oninput="palF()" onkeydown="if(event.key==='Enter'){const b=$('cl').querySelector('button');if(b)b.click()}"><div id="cl" class="stack" style="margin-top:10px;gap:6px"></div>`);palF();$('cq').focus()}
 function palF(){const q=$('cq').value.toLowerCase();$('cl').innerHTML=window._pal.filter(([t])=>t.toLowerCase().includes(q)).slice(0,8).map(([t,f])=>`<button class="btn" style="justify-content:flex-start" onclick="${f}">${t}</button>`).join('')||'<div class="mut">No matching command.</div>'}
-addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&!e.altKey&&e.key.toLowerCase()==='k'){if($('lk'))return;e.preventDefault();if($('dlg').open&&$('cq')){closeDlg();return}openPalette()}});
+addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&!e.altKey&&e.key.toLowerCase()==='k'){if($('lk')||document.body.classList.contains('locked'))return;e.preventDefault();if($('dlg').open&&$('cq')){closeDlg();return}openPalette()}});
 
 (function(){const o=nowBar;nowBar=function(){const e=document.getElementById('nowbar');if(e&&e.classList.contains('out'))return;const vis=e&&!e.hidden;o();if(vis&&e.hidden){e.hidden=false;e.classList.add('out');setTimeout(()=>{e.classList.remove('out');if(!run&&!(nbSave&&Date.now()-nbSave.t<2700))e.hidden=true},320)}}})();
 
@@ -1715,7 +1725,7 @@ const uname=()=>(user&&user.user_metadata&&user.user_metadata.username)||((user&
 const dname=()=>((typeof S==='object'&&S.name)||'').trim()||uname()||'Account';
 /* nothing in the app is usable or visible until signed in */
 const lock=on=>{document.body.classList.toggle('locked',on);[...document.body.children].forEach(e=>{if(e.id==='jee-auth'||/^(SCRIPT|STYLE)$/.test(e.tagName))return;on?e.setAttribute('inert',''):e.removeAttribute('inert')})};
-const showAuth=back=>{lock(true);authEl().hidden=false;if(backEl())backEl().hidden=!back};
+const showAuth=back=>{lock(true);authEl().hidden=false;authEl().classList.remove('checking');if(backEl())backEl().hidden=!back};
 const closeUi=()=>{const m=menuEl();if(m)m.hidden=true;try{window.HX&&HX.close()}catch(e){}try{const d=$a('dlg');d&&d.open&&d.close()}catch(e){}};
 window.ensureState=()=>{S.act=S.act||[];S.cb=S.cb||{};S.hrv=S.hrv||{};S.doubts=S.doubts||[];S.hs=Object.assign({wt:1,ac:'',fs:0,pin:'',spd:1,rm:0},S.hs||{});S.h2=Object.assign({med:'kannada',rec:1,cap:90,idle:0},S.h2||{});S.msd=S.msd||{};S.mist=S.mist||[];S.dis=S.dis||{};S.off=S.off||{};S.later=S.later||{};S.revd=S.revd||{};S.rvT=S.rvT||{};S.sleep=S.sleep||{};S.tdate=S.tdate||{};S.bz=S.bz||{};S.back=S.back||[];S.autoT=S.autoT||{};S.bdays=S.bdays||{};S.bnotes=S.bnotes||{};S.btodos=S.btodos||[];S.btests=S.btests||[];S.bsyl=S.bsyl||{}};
 const dropChannel=()=>{if(channel&&sb){try{sb.removeChannel(channel)}catch(e){}}channel=null};
@@ -1790,7 +1800,9 @@ async function finish(){
  try{window.lockIfPin&&lockIfPin()}catch(e){}
 }
 async function login(ev){
- ev.preventDefault();busy(true);msg('');
+ ev.preventDefault();
+ if(!sb){msg('Sign-in service is unavailable. Check your connection and reload.');return}
+ busy(true);msg('');
  try{
   const u=$a('jee-auth-user').value.trim().toLowerCase(),p=$a('jee-auth-pass').value;
   if(!u||!p)throw new Error('Enter your username and password.');
@@ -1856,17 +1868,18 @@ document.addEventListener('click',e=>{const m=menuEl();if(m&&!m.hidden&&!m.conta
 document.addEventListener('keydown',e=>{if(e.key!=='Escape')return;const m=menuEl();if(m&&!m.hidden){m.hidden=true;return}if(!authEl().hidden&&backEl()&&!backEl().hidden)cancelSwitch()});
 async function init(){
  lock(true);
+ const form=$a('jee-auth-form');if(form)form.addEventListener('submit',login);   /* always handled, so a password can never end up in the URL */
  try{document.querySelectorAll('#jee-account-menu [data-ic]').forEach(b=>b.insertAdjacentHTML('afterbegin',ic(b.dataset.ic,18)))}catch(e){}
- if(!window.supabase){msg('Sign-in service failed to load. Check your connection and reload.');return}
- if(!cfg.url||!cfg.anonKey){msg('Sign-in is not configured.');return}
+ if(!window.supabase){showAuth(false);msg('Sign-in service failed to load. Check your connection and reload.');return}
+ if(!cfg.url||!cfg.anonKey){showAuth(false);msg('Sign-in is not configured.');return}
  sb=window.supabase.createClient(cfg.url,cfg.anonKey);
- const form=$a('jee-auth-form');if(form)form.addEventListener('submit',login);
  const {data,error}=await sb.auth.getSession();
- if(error){console.error(error);msg('Could not check your login session.');return}
- if(data.session){
+ if(error){console.error(error);showAuth(false);msg('Could not check your login session.')}
+ else if(data.session){
   user=data.session.user;
-  try{await finish()}catch(e){console.error(e);try{await sb.auth.signOut({scope:'local'})}catch(_){}user=null;ready=false;showAuth(false);msg('Could not load your account data.')}
- }
+  try{await finish()}
+  catch(e){console.error(e);ready=false;showAuth(false);msg('Could not load your account data. Check your connection and reload. You are still signed in.')}   /* a network blip no longer signs you out */
+ }else showAuth(false);
  sb.auth.onAuthStateChange((_ev,session)=>{
   if(session){user=session.user;return}
   if(switching)return;                       /* switch flow manages its own screen and Back button */
