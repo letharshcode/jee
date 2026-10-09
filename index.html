@@ -4,7 +4,7 @@
 <meta name="description" content="Free, offline-first JEE study tracker: study clock, syllabus and QCT tracker, tests, practice, to-do, backlog, sleep and daily stats for JEE and II PUC.">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#070a12"><meta property="og:title" content="JEE 2027 Study Tracker"><meta property="og:description" content="Finally, a planner that gets it. Offline-first JEE tracker."><meta property="og:type" content="website">
-<link rel="icon" type="image/png" href="favicon.png">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 window.SUPABASE_CONFIG = {
@@ -545,15 +545,11 @@ body.locked>*:not(#jee-auth){visibility:hidden}
 .am-h{display:flex;gap:12px;align-items:center;padding:10px 4px}.am-av{width:42px;height:42px;border-radius:50%;background:var(--ac);color:#fff;display:grid;place-items:center;font-weight:700;flex:none}
 .am-t{min-width:0}.am-t b,.am-t small{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.am-t small{color:var(--mut);font-size:12px}
 .am-sep{height:1px;background:var(--bd);margin:6px -14px}
+.jee-sync{display:flex;align-items:center;gap:8px;padding:0 4px 8px;color:var(--mut);font-size:12px}.jee-sync i{width:7px;height:7px;border-radius:50%;background:var(--ok);flex:none}.jee-sync[data-state=connecting] i,.jee-sync[data-state=saving] i{background:var(--warn);animation:syncPulse 1.5s ease-in-out infinite}.jee-sync[data-state=offline] i,.jee-sync[data-state=error] i{background:var(--bad)}@keyframes syncPulse{50%{opacity:.45;transform:scale(.82)}}@media(prefers-reduced-motion:reduce){.jee-sync i{animation:none!important}}
 .am-i{display:flex;align-items:center;gap:12px;width:100%;padding:10px 8px;border:0;background:none;color:var(--tx);font:inherit;border-radius:10px;cursor:pointer;text-align:left}.am-i:hover{background:var(--g2)}
 @media(max-width:560px){#jee-account-menu{right:10px;top:54px}}
-#m .it{content-visibility:auto;contain-intrinsic-size:auto 84px}
-#jee-auth .auth-loading{display:none;align-items:center;gap:12px;justify-content:center;padding:34px 0;color:var(--mut);font-size:14px}
-#jee-auth.checking .auth-loading{display:flex}
-#jee-auth.checking .auth-brand,#jee-auth.checking .auth-sub,#jee-auth.checking #jee-auth-form,#jee-auth.checking .auth-back{display:none}
-.auth-spin{width:18px;height:18px;border-radius:50%;border:2px solid var(--bd);border-top-color:var(--ac);animation:authspin .8s linear infinite}
-@keyframes authspin{to{transform:rotate(360deg)}}
-</style></head><body class="locked"><div id="boot" role="dialog" aria-label="Welcome"><div class="bw"><div class="ld"><div class="lg"><img src="favicon.png" alt="JEE 2027 Study Tracker logo" onerror="this.replaceWith(document.createTextNode('JE'))"></div><h1>JEE 2027 Study Tracker</h1><p>Structured preparation, measured progress.</p><div class="pb"><i></i></div><div class="mut" id="bootpct" style="font-size:12px">Preparing dashboard 0%</div></div><div class="ob"><div class="sl on"><div class="lg"><img src="favicon.png" alt="JEE 2027 Study Tracker logo" onerror="this.replaceWith(document.createTextNode('JE'))"></div><h1>Welcome to JEE 2027</h1><p>A structured workspace for your preparation: plan, study, practise and review in one place.</p></div><div class="sl"><div class="lg">&#9201;</div><h1>Study clock</h1><p>Run focus blocks, set a daily goal and keep a floating timer visible while you work in other tabs.</p></div><div class="sl"><div class="lg">&#128218;</div><h1>Syllabus and QCT tracker</h1><p>Record theory, questions and QCTs for every chapter and see exactly how much of each test you have covered.</p></div><div class="sl"><div class="lg">&#128200;</div><h1>Tests and analysis</h1><p>Review upcoming tests, enter results when the test is live and study score trends and weak chapters.</p></div><div class="sl"><div class="lg">&#127769;</div><h1>Planner, sleep and backup</h1><p>Organise tasks by day, keep a weekly sleep balance and export your data whenever you wish.</p></div><div class="dots"><i></i><i></i><i></i><i></i><i></i></div><div class="obn"><button class="btn" id="obS" onclick="bootHide()">Skip</button><span><button class="btn" id="obB" onclick="obGo(-1)">Back</button> <button class="btn pri" id="obN" onclick="obGo(1)">Next</button></span></div></div></div></div>
+</style></head><body class="locked"><div id="boot" role="dialog" aria-label="Welcome"><div class="bw"><div class="ld"><div class="lg"><img src="favicon.png" alt="JEE 2027 Study Tracker logo" onerror="this.replaceWith(document.createTextNode('JE'))"></div><h1>JEE 2027 Study Tracker</h1><p>Structured preparation, measured progress.</p><div class="pb"><i></i></div><div class="mut" id="bootpct" style="font-size:12px">Preparing dashboard 0%</div></div>
+<div class="ob"><div class="sl on"><div class="lg"><img src="favicon.png" alt="JEE 2027 Study Tracker logo" onerror="this.replaceWith(document.createTextNode('JE'))"></div><h1>Welcome to JEE 2027</h1><p>A structured workspace for your preparation: plan, study, practise and review in one place.</p></div><div class="sl"><div class="lg">&#9201;</div><h1>Study clock</h1><p>Run focus blocks, set a daily goal and keep a floating timer visible while you work in other tabs.</p></div><div class="sl"><div class="lg">&#128218;</div><h1>Syllabus and QCT tracker</h1><p>Record theory, questions and QCTs for every chapter and see exactly how much of each test you have covered.</p></div><div class="sl"><div class="lg">&#128200;</div><h1>Tests and analysis</h1><p>Review upcoming tests, enter results when the test is live and study score trends and weak chapters.</p></div><div class="sl"><div class="lg">&#127769;</div><h1>Planner, sleep and backup</h1><p>Organise tasks by day, keep a weekly sleep balance and export your data whenever you wish.</p></div><div class="dots"><i></i><i></i><i></i><i></i><i></i></div><div class="obn"><button class="btn" id="obS" onclick="bootHide()">Skip</button><span><button class="btn" id="obB" onclick="obGo(-1)">Back</button> <button class="btn pri" id="obN" onclick="obGo(1)">Next</button></span></div></div></div></div>
 <header class="top"><div class="hw">
  <div class="brand" onclick="goTab(0)" title="Home" role="link" tabindex="0"><img src="favicon.png" alt="" width="22" height="22"><span id="bt">JEE 2027</span></div>
  <div class="areawrap"><button class="areabtn" id="areasw" onclick="toggleAreaMenu(event)" aria-haspopup="menu" aria-expanded="false" aria-label="Switch between JEE, II PUC, and Overall" title="Switch between JEE, II PUC, and Overall"></button><div class="areamenu" id="areamenu" role="menu" hidden></div></div>
@@ -567,15 +563,14 @@ body.locked>*:not(#jee-auth){visibility:hidden}
 <main id="m"></main>
 <nav class="tabbar" id="tabbar" aria-label="Sections"></nav>
 <dialog id="dlg"></dialog>
-<div id="jee-auth" role="dialog" aria-label="Login" class="checking">
+<div id="jee-auth" role="dialog" aria-label="Login">
  <div class="auth-card">
   <button class="auth-back" type="button" id="jee-auth-back" hidden onclick="JEE_AUTH.cancelSwitch()">&larr; Back</button>
-  <div class="auth-loading" id="jee-auth-loading" role="status"><i class="auth-spin"></i>Loading your account…</div>
-  <div class="auth-brand"><i class="auth-dot"></i><span>maut hai aage</span></div>
+  <div class="auth-brand"><i class="auth-dot"></i><span>maut</span></div>
   <div class="auth-sub" id="jee-auth-sub">Sign in.</div>
   <form id="jee-auth-form">
    <label for="jee-auth-user">Username</label>
-   <input id="jee-auth-user" autocomplete="username" required placeholder="harshie">
+   <input id="jee-auth-user" autocomplete="username" required placeholder="e.g. harshie">
    <label for="jee-auth-pass">Password</label>
    <input id="jee-auth-pass" type="password" autocomplete="current-password" required placeholder="Password">
    <button class="btn pri auth-btn" type="submit" id="jee-auth-submit">Sign in</button>
@@ -585,6 +580,7 @@ body.locked>*:not(#jee-auth){visibility:hidden}
 </div>
 <div id="jee-account-menu" role="menu" hidden>
  <div class="am-h"><span class="am-av" id="jee-am-av"></span><div class="am-t"><b id="jee-account-name"></b><small id="jee-account-user"></small></div></div>
+ <div class="jee-sync" id="jee-sync-state" data-state="connecting" role="status" aria-live="polite"><i aria-hidden="true"></i><span>Connecting to your account…</span></div>
  <div class="am-sep"></div>
  <button class="am-i" role="menuitem" onclick="JEE_AUTH.switchAccount()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.6-3.6 3.2-5.5 6.5-5.5s5.9 1.9 6.5 5.5"/><path d="M17 4.7a3.5 3.5 0 0 1 0 6.6M21.5 20c-.3-2.2-1.5-3.8-3.3-4.6"/></svg>Switch account</button>
  <button class="am-i" role="menuitem" onclick="JEE_AUTH.logout()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></svg>Sign out</button>
@@ -700,10 +696,10 @@ function fx(e){fs+=e;S.xs=(S.xs||0)+e;while(S.xs>=60){S.xs-=60;addXP(1)}
 const MODES=[['Stopwatch',0],['25m',25],['50m',50],['90m',90]];
 let run=false,last=0,sessSec=0,sessStart=0;
 function credit(sub,e,d=td()){const x=day(d);x.s+=e;x.sub[sub]=(x.sub[sub]||0)+e}
-function start(){if(document.body.classList.contains('locked'))return;askNotify();run=true;document.body.classList.add('live');last=Date.now();sessSec=0;sessStart=Date.now();fs=0;fi=0;go();try{if(window.documentPictureInPicture&&!pipW&&!S.nopip)popOut(true)}catch(e){}}
+function start(){askNotify();run=true;document.body.classList.add('live');last=Date.now();sessSec=0;sessStart=Date.now();fs=0;fi=0;go();try{if(window.documentPictureInPicture&&!pipW&&!S.nopip)popOut(true)}catch(e){}}
 function logSess(){if(sessSec>=30)S.sess.push({d:td(),sub:CUR(),a:S.area||'jee',ch:TOPIC().trim(),sec:sessSec,at:sessStart})}
 function stop(){const _ss=sessSec,_n=S.nowName||TOPIC().trim()||subOf(CUR());logSess();run=false;document.body.classList.remove('live');S.nowKey='';S.nowName='';sessSec=0;if(_ss>=1){nbSave={sec:_ss,n:_n,t:Date.now()};setTimeout(nowBar,1750);setTimeout(nowBar,2800)}save();go()}
-function toggle(){if(document.body.classList.contains('locked'))return;run?stop():start()}
+function toggle(){run?stop():start()}
 const CATS=['Study','Practice','PYQs','Test'],TSUB=['Mock test','Analysis','Solutions'],jkey=(c,x)=>c==='Study'?x:c+' · '+x;
 function setSub(s){if(run)logSess();if(S.area==='board')S.bcur=s;else{S.cur=s;if(!TSUB.includes(subOf(s)))S.sc=subOf(s)}if(run){sessSec=0;sessStart=Date.now()}save();go()}
 function setCat(c){if(run)logSess();S.cat=c;S.cur=jkey(c,c==='Test'?TSUB[0]:(S.subs.includes(S.sc)?S.sc:S.subs[0]));if(run){sessSec=0;sessStart=Date.now()}save();go()}
@@ -719,7 +715,7 @@ setInterval(()=>{if(!run)return;const n=Date.now(),e=Math.floor((n-last)/1000);i
  const m=MODES[S.mode||0][1];if(m&&sessSec>=m*60){beep();toast(`Focus block done · ${m} min`);stop();return}
  /* The clock is rendered every second, but the full study record only needs
     a checkpoint every 15 seconds. Stop/page-hide still flush immediately. */
- if(Math.floor(sessSec/15)!==Math.floor(before/15))save();tick()},250);
+ if(Math.floor(sessSec/15)!==Math.floor(before/15))save();tick()},1000);
 addEventListener('pagehide',()=>{if(run){logSess();save()}});
 function tick(){nowBar();heroTick();const d=day(td()),m=MODES[S.mode||0][1];document.title=run?`${hms(m?Math.max(0,m*60-sessSec):d.s)} · ${CUR()}`:'JEE 2027 · Study Tracker';
  const c=$('clk');if(!c)return;
@@ -772,13 +768,13 @@ function toggleAreaMenu(e){e.stopPropagation();const m=$('areamenu'),open=m.hidd
 function pickArea(k){$('areamenu').hidden=true;$('areasw').setAttribute('aria-expanded','false');setArea(k)}
 document.addEventListener('click',()=>{const m=$('areamenu');if(m&&!m.hidden){m.hidden=true;$('areasw').setAttribute('aria-expanded','false')}});
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){const m=$('areamenu');if(m)m.hidden=true}});
-function go(){_tcm=new WeakMap();_cvm=new WeakMap();try{sweepMissed()}catch(e){}tab=S.area==='all'?0:(S.tabs&&S.tabs[S.area||'jee'])||0;const V=S.area==='all'?[vOverall]:S.area==='board'?[vToday,vBSyl,vBTests,vTodo,vBStats]:[vToday,vSyl,vTests,vPrac,vTodo,vBack,vStats,vSleep];if(tab>=V.length){tab=0;if(S.area!=='all'&&S.tabs&&S.tabs[S.area]!==0){S.tabs[S.area]=0;save()}}applyLook();nav();hdr();$('m').innerHTML=V[tab]();tick();cdTick()}
+function go(){try{sweepMissed()}catch(e){}tab=S.area==='all'?0:(S.tabs&&S.tabs[S.area||'jee'])||0;const V=S.area==='all'?[vOverall]:S.area==='board'?[vToday,vBSyl,vBTests,vTodo,vBStats]:[vToday,vSyl,vTests,vPrac,vTodo,vBack,vStats,vSleep];if(tab>=V.length){tab=0;if(S.area!=='all'&&S.tabs&&S.tabs[S.area]!==0){S.tabs[S.area]=0;save()}}applyLook();nav();hdr();$('m').innerHTML=V[tab]();tick();cdTick()}
 function enterAnim(){const m=$('m');m.classList.add('enter');clearTimeout(enterAnim.t);enterAnim.t=setTimeout(()=>m.classList.remove('enter'),900)}
 function goTab(i){window._tabSw=1;try{if(S.area==='all')S.area=S.lastArea||'jee';S.tabs=S.tabs||{};S.tabs[S.area||'jee']=i;tab=i;S.tab=i;save();enterAnim();go();scrollTo(0,0)}finally{window._tabSw=0}}
 function theme(){const r=document.documentElement,l=r.dataset.theme!=='light';r.dataset.theme=l?'light':'dark';S.theme=r.dataset.theme;save();hdr()}
 function setExam(){const B=S.area==='board',v=prompt((B?'Board exam':'JEE Main')+' date (YYYY-MM-DD)',(B?S.bexam:S.exam)||'');if(v&&!isNaN(new Date(v))){if(B)S.bexam=v;else S.exam=v;save();go()}}
 function addSub(){const v=prompt('New subject name');if(v&&v.trim()&&!S.subs.includes(v.trim())){S.subs.push(v.trim());save();go()}}
-function dlg(h){if(document.body.classList.contains('locked'))return;const d=$('dlg');d.innerHTML=h;if(!d.open)d.showModal();d.scrollTop=0;if(window._fk){const e=d.querySelector('[data-k="'+window._fk+'"]');window._fk=null;if(e)e.classList.add('flashit')}}
+function dlg(h){const d=$('dlg');d.innerHTML=h;if(!d.open)d.showModal();d.scrollTop=0;if(window._fk){const e=d.querySelector('[data-k="'+window._fk+'"]');window._fk=null;if(e)e.classList.add('flashit')}}
 function closeDlg(){$('dlg').close()}
 $('dlg').addEventListener('click',e=>{if(e.target.id==='dlg')closeDlg()});
 const nv=id=>{const e=$(id);if(!e)return'';const v=e.value.trim();return v===''?'':+v};
@@ -799,7 +795,7 @@ const dlOpts=k=>chOptsFor(k).map(c=>`<option value="${esc(c)}">`).join('');
 function fillCh(selId,dlId){const e=$(selId),d=$(dlId);if(e&&d)d.innerHTML=dlOpts(e.value)}
 function chList(id,sub){const L=sub?(CH[sub]||[]):Object.values(CH).flat();return `<datalist id="${id}">${L.map(c=>`<option value="${esc(c)}">`).join('')}</datalist>`}
 function addQ(){const d=nv('qd'),c=nv('qc');if(!(d>0)||c===''||c<0||c>d){toast('Enter done > 0 and 0 ≤ correct ≤ done');return}
- S.qlog.push({d:td(),sub:$('qs').value,ch:$('qch').value.trim(),done:d,ok:c});delete S.pend;addXP(Math.round(c+(d-c)*.5),true);save();go()}
+ S.qlog.push({id:Math.random().toString(36).slice(2,11),d:td(),sub:$('qs').value,ch:$('qch').value.trim(),done:d,ok:c});delete S.pend;addXP(Math.round(c+(d-c)*.5),true);save();go()}
 function addManual(){const m=nv('mm');if(!(m>0)){toast('Please enter the minutes studied.');return}const sub=$('ms').value,ch=$('mch').value.trim();
  credit(sub,m*60);S.sess.push({d:td(),sub,ch,sec:m*60,at:Date.now(),man:1,a:S.area||'jee'});addXP(m,true);save();go()}
 function delSess(i){const x=S.sess[i];if(!x||!confirm('Delete this session? Its time will be removed.'))return;const d=day(x.d);d.s=Math.max(0,d.s-x.sec);d.sub[x.sub]=Math.max(0,(d.sub[x.sub]||0)-x.sec);S.sess.splice(i,1);save();go()}
@@ -1129,7 +1125,7 @@ function sweepMissed(){const T=td();S.back=S.back||[];let n=0;[[S.todos,0],[S.bt
 setInterval(()=>{try{if(sweepMissed())go()}catch(e){}},60000);
 function bzMark(){S.bz=S.bz||{};S.bz[td()]=(S.back||[]).some(x=>!x.x)?0:1}
 function bzStreak(){let n=0;for(let o=0;o<400;o++){if((S.bz||{})[dstr(o)])n++;else if(o>0)break;else continue}return n}
-function addB(){const e=$('bkt'),v=e?e.value.trim():'';if(!v){toast('Describe the backlog item first.');if(e)e.focus();return}S.back=S.back||[];if(S.back.some(x=>!x.x&&x.t.toLowerCase()===v.toLowerCase())){toast('That item is already in your backlog.');return}S.back.push({t:v,sub:$('bs').value,pri:$('bp').value,x:false,at:td()});save();go();toast('Added to backlog');const n=$('bkt');if(n)n.focus()}
+function addB(){const e=$('bkt'),v=e?e.value.trim():'';if(!v){toast('Describe the backlog item first.');if(e)e.focus();return}S.back=S.back||[];if(S.back.some(x=>!x.x&&x.t.toLowerCase()===v.toLowerCase())){toast('That item is already in your backlog.');return}S.back.push({id:Math.random().toString(36).slice(2,11),t:v,sub:$('bs').value,pri:$('bp').value,x:false,at:td()});save();go();toast('Added to backlog');const n=$('bkt');if(n)n.focus()}
 function delB(i){const t=(S.back||[])[i];if(!t||!confirm('Remove "'+t.t+'" from your backlog?'))return;if(t.rw)subXP(8);S.back.splice(i,1);save();go();toast('Backlog item removed')}
 function backToTodo(i){const t=(S.back||[])[i];if(!t)return;const title='Backlog: '+t.t,LL=t.board?(S.btodos=S.btodos||[]):TODOS();if(LL.some(x=>x.t===title&&x.due===td()&&!x.x)){toast('Already on today\u2019s To Do');return}LL.push({t:title,sub:(t.board?BSUB:SUBS()).includes(t.sub)?t.sub:'',ch:'',pri:t.pri||'M',due:td(),min:45,x:false,id:Math.random().toString(36).slice(2,9)});save();go();toast('Scheduled for today in To Do')}
 function chkB(i,v){const t=S.back[i];t.x=v;t.doneOn=v?td():undefined;if(v&&!t.rw){t.rw=1;addXP(8,true)}else if(!v&&t.rw){subXP(8);t.rw=0}save();go()}
@@ -1332,7 +1328,7 @@ function ovWork(){const A=Object.keys(CHD),jt=S.todos.filter(t=>!t.mv),bt=(S.bto
  R=[['Syllabus complete',Math.round(A.reduce((a,x)=>a+sylPct(x),0)/A.length),bAll(),'%'],['Chapters fully done',A.reduce((a,x)=>a+sylDone(x),0),BSUB.reduce((a,b)=>a+bDone(b),0),''],['Tasks completed',jt.filter(t=>t.x).length,bt.filter(t=>t.x).length,''],['Tasks pending today',pt(jt),pt(bt),'',1],['Backlog pending',bl(false),bl(true),'',1],['Tests taken',jts.length,bts.length,''],['Average test score',mean(jts),mean(bts),'%'],['Questions solved',qstat().d,null,'']],
  F=(v,u)=>v==null?'—':v+u,W=(a,b,lo)=>a==null||b==null||a===b?0:((a>b)!==!!lo)?1:2;
  return `<section class="card" style="margin-bottom:14px"><div class="row" style="margin-bottom:10px"><div class="lbl">Work done</div><div class="f" style="gap:14px;font-size:12px;margin:0"><span class="f" style="gap:5px"><span class="dot" style="background:var(--ac)"></span>JEE</span><span class="f" style="gap:5px"><span class="dot" style="background:var(--warn)"></span>Board</span></div></div><div class="tblw"><table><tr class="mut"><th></th><th style="text-align:right">JEE</th><th style="text-align:right">Board</th></tr>${R.map(([l,a,b,u,lo])=>{const w=W(a,b,lo);return `<tr><td>${l}</td><td class="mono" style="text-align:right;${w==1?'color:var(--ac);font-weight:600':''}">${F(a,u)}</td><td class="mono" style="text-align:right;${w==2?'color:var(--warn);font-weight:600':''}">${F(b,u)}</td></tr>`}).join('')}</table></div></section>`}
-function vOverall(){const J=ovStats(S.days,'jee'),B=ovStats(S.bdays||{},'board'),tot=J.today+B.today,H=x=>(x/3600).toFixed(1)+'h',pj=J.all+B.all?Math.round(J.all/(J.all+B.all)*100):null;
+function vOverall(){const J=ovStats(S.days,'jee'),B=ovStats(S.bdays||{},'board'),tot=J.today+B.today,H=x=>(x/3600).toFixed(1)+'h',pj=J.all+B.all?Math.round(J.all/(J.all+B.all)*100):50;
  const rows=[['Today',J.today,B.today,H],['Last 7 days',J.w,B.w,H],['Last 30 days',J.m,B.m,H],['All time',J.all,B.all,H],['Active days',J.act,B.act,x=>x],['Current streak',J.st,B.st,x=>x+' d'],['Avg / active day',J.avg,B.avg,H],['Best day',J.best,B.best,H],['Sessions',J.n,B.n,x=>x],['Longest session',J.lg,B.lg,x=>hm(x)]];
  const days=[];for(let o=13;o>=0;o--){const d=dstr(o);days.push([(S.days[d]?.s||0)/3600,((S.bdays||{})[d]?.s||0)/3600,d])}const mx=Math.max(1,...days.map(x=>x[0]+x[1]));
  const by=(o,c)=>Object.entries(o).sort((a,b)=>b[1]-a[1]).map(([k,v])=>`<div class="it"><span class="dot" style="background:${col(k)}"></span><span>${esc(k)}</span><span class="mono mut" style="flex:none">${H(v)}</span></div>`).join('')||'<div class="empty">No time logged yet.</div>';
@@ -1340,9 +1336,9 @@ function vOverall(){const J=ovStats(S.days,'jee'),B=ovStats(S.bdays||{},'board')
 <section class="card" style="margin-bottom:14px"><div class="lbl">Total study time today (JEE + Board)</div><div class="big mono" style="margin:10px 0 4px">${hms(tot)}</div>
 <div class="mut mono" style="font-size:13px"><span style="color:var(--ac)">JEE ${hms(J.today)}</span> · <span style="color:var(--warn)">Board ${hms(B.today)}</span></div>
 <div class="f" style="margin-top:14px"><button class="btn pri" onclick="setArea('jee')">Open JEE timer</button><button class="btn" onclick="setArea('board')">Open Board timer</button></div></section>
-<div class="g2" style="margin-bottom:14px"><div class="card stat"><div class="lbl">Total all time</div><b class="mono">${H(J.all+B.all)}</b></div><div class="card stat"><div class="lbl">Last 7 days</div><b class="mono">${H(J.w+B.w)}</b></div><div class="card stat"><div class="lbl">Time split</div><b class="mono" style="font-size:20px">${pj===null?'—':pj+'% / '+(100-pj)+'%'}</b><small>JEE / Board</small></div><div class="card stat"><div class="lbl">Active days</div><b class="mono">${new Set([...Object.keys(S.days).filter(k=>S.days[k].s>0),...Object.keys(S.bdays||{}).filter(k=>S.bdays[k].s>0)]).size}</b></div></div>
+<div class="g2" style="margin-bottom:14px"><div class="card stat"><div class="lbl">Total all time</div><b class="mono">${H(J.all+B.all)}</b></div><div class="card stat"><div class="lbl">Last 7 days</div><b class="mono">${H(J.w+B.w)}</b></div><div class="card stat"><div class="lbl">Time split</div><b class="mono" style="font-size:20px">${pj}% / ${100-pj}%</b><small>JEE / Board</small></div><div class="card stat"><div class="lbl">Active days</div><b class="mono">${new Set([...Object.keys(S.days).filter(k=>S.days[k].s>0),...Object.keys(S.bdays||{}).filter(k=>S.bdays[k].s>0)]).size}</b></div></div>
 ${ovCols()}${ovWork()}
-<section class="card" style="margin-bottom:14px"><div class="lbl" style="margin-bottom:10px">Share of study time</div><div style="display:flex;height:14px;border-radius:8px;overflow:hidden;background:var(--g2)"><div style="width:${pj===null?0:pj}%;background:var(--ac)"></div><div style="width:${pj===null?0:100-pj}%;background:var(--warn)"></div></div></section>
+<section class="card" style="margin-bottom:14px"><div class="lbl" style="margin-bottom:10px">Share of study time</div><div style="display:flex;height:14px;border-radius:8px;overflow:hidden;background:var(--g2)"><div style="width:${pj}%;background:var(--ac)"></div><div style="width:${100-pj}%;background:var(--warn)"></div></div></section>
 <section class="card" style="margin-bottom:14px"><div class="row" style="margin-bottom:10px"><div class="lbl">Side by side</div><div class="f" style="gap:14px;font-size:12px;margin:0"><span class="f" style="gap:5px"><span class="dot" style="background:var(--ac)"></span>JEE</span><span class="f" style="gap:5px"><span class="dot" style="background:var(--warn)"></span>Board</span></div></div>
 <div class="tblw"><table style="width:100%;border-collapse:collapse"><tr class="mut" style="text-align:left"><th></th><th style="padding:6px 8px;text-align:right">JEE</th><th style="padding:6px 8px;text-align:right">Board</th></tr>${rows.map(([l,a,b,f])=>`<tr style="border-top:1px solid var(--bd)"><td style="padding:9px 8px">${l}</td><td class="mono" style="padding:9px 8px;text-align:right;${a>b?'color:var(--ac);font-weight:600':''}">${f(a)}</td><td class="mono" style="padding:9px 8px;text-align:right;${b>a?'color:var(--warn);font-weight:600':''}">${f(b)}</td></tr>`).join('')}</table></div></section>
 <section class="card" style="margin-bottom:14px"><div class="lbl" style="margin-bottom:10px">Last 14 days · stacked hours</div><div class="slb">${days.map(([a,b,d])=>`<div title="${d}: JEE ${a.toFixed(1)}h · Board ${b.toFixed(1)}h" style="height:${Math.max(4,(a+b)/mx*100)}%;background:linear-gradient(to top,var(--ac) ${a/(a+b||1)*100}%,var(--warn) 0);opacity:${a+b?1:.15}"></div>`).join('')}</div></section>
@@ -1407,21 +1403,18 @@ TAL={'maths in physics':['Mathematics in Physics'],'motion 1d':['Motion In One D
 function findChs(sub,n){const L=CHD[sub]||[],k=TN(n);if(!k)return[];const al=TAL[k];if(al){const r=L.filter(x=>al.includes(x.n));if(r.length)return r}let r=L.filter(x=>TN(x.n)===k);if(r.length)return r;return k.length>3?L.filter(x=>{const m=TN(x.n);return m.includes(k)||k.includes(m)}).slice(0,1):[]}
 function findCh(sub,n){return findChs(sub,n)[0]}
 const CLS={11:{Physics:i=>i<=14||i===30,Chemistry:i=>i<=14,Mathematics:i=>i<=14||i>=28},12:{Physics:i=>i>=15&&i<=29,Chemistry:i=>i>=15,Mathematics:i=>i>=15&&i<=27}};
-var _tcm=new WeakMap(),_cvm=new WeakMap();
-function testChapters(t){let r=_tcm.get(t);if(!r){r=testChapters0(t);_tcm.set(t,r)}return r}
-function testChapters0(t){const out=[],SB=['Physics','Chemistry','Mathematics'],add=(s,c)=>{if(c&&!out.some(x=>x.sub===s&&x.c===c))out.push({sub:s,c})},sy=t.syl;
+function testChapters(t){const out=[],SB=['Physics','Chemistry','Mathematics'],add=(s,c)=>{if(c&&!out.some(x=>x.sub===s&&x.c===c))out.push({sub:s,c})},sy=t.syl;
  if(sy&&typeof sy==='object'){[['p','Physics'],['c','Chemistry'],['m','Mathematics']].forEach(([k,s])=>String(sy[k]||'').split(/\s*[·;\n]\s*/).forEach(n=>findChs(s,n).forEach(c=>add(s,c))));return out}
  const x=String(sy||'');if(/full syllabus|complete class/i.test(x)){const cl=/class/i.test(x)?(/12/.test(x)?12:/11/.test(x)?11:0):0,adv=/advanced/i.test(x);SB.forEach(s=>CHD[s].forEach((c,i)=>{if(cl?CLS[cl][s](i):(adv||!c.adv))add(s,c)}));return out}
  x.split(/\s*[·;,\n]\s*/).forEach(n=>SB.forEach(s=>findChs(s,n).forEach(c=>add(s,c))));return out}
 function bchOf(b,str){const L=(BCH[b]||[]).filter(c=>c.n);if(!str||/^all chapters$/i.test(str))return L;const x=String(str).toLowerCase(),r=L.filter(c=>x.includes(c.n.toLowerCase()));return r.length?r:L.filter(c=>x.split(',').some(p=>{p=p.trim();return p.length>3&&c.n.toLowerCase().includes(p)}))}
-function covSum(t,kind){let r=_cvm.get(t);if(!r){r=covSum0(t,kind);_cvm.set(t,r)}return r}
-function covSum0(t,kind){let rows;if(kind==='b')rows=Object.entries(t.subs||{}).flatMap(([b,str])=>bchOf(b,str).map(c=>{const n=BSTEP[b].length,v=bv(b,c.n),d=BSTEP[b].filter((_,k)=>v&(1<<k)).length;return{sub:b,name:c.n,st:d===n?2:d?1:0,pc:d/n*100,det:BSTEP[b].map((x,k)=>v&(1<<k)?x:'·').join(' · ')}}));
+function covSum(t,kind){let rows;if(kind==='b')rows=Object.entries(t.subs||{}).flatMap(([b,str])=>bchOf(b,str).map(c=>{const n=BSTEP[b].length,v=bv(b,c.n),d=BSTEP[b].filter((_,k)=>v&(1<<k)).length;return{sub:b,name:c.n,st:d===n?2:d?1:0,pc:d/n*100,det:BSTEP[b].map((x,k)=>v&(1<<k)?x:'·').join(' · ')}}));
  else rows=testChapters(t).map(({sub,c})=>{const v=sv(sub,c.n),q=qv(sub,c.n);return{sub,name:c.n,st:v===15?2:v?1:0,pc:chPct(sub,c),det:STEPS.map((x,j)=>v&(1<<j)?x[0]:'·').join(' ')+' · QCT '+bits(q)+'/'+c.q}});
  const p=rows.length?Math.round(rows.reduce((a,r)=>a+r.pc,0)/rows.length):0,cov=rows.filter(r=>r.st===2).length,nc=rows.filter(r=>r.st===0).length;
  return{rows,p,cov,nc,vd:p>=75?['Prepared','ok']:p>=40?['Partly prepared','warn']:['Not prepared yet','bad']}}
 function covLine(t,kind){const c=covSum(t,kind);if(!c.rows.length)return'';return `<div class="cvl"><span class="cvc s${c.vd[1]}">${c.vd[0]}</span><small class="mut">${c.cov}/${c.rows.length} chapters covered · ${c.p}% · <a href="#" onclick="openCover('${kind}',${kind==='b'?S.btests.indexOf(t):S.tests.indexOf(t)});return false" style="color:var(--ac)">chapter-wise</a></small></div>`}
 const tring=(t,p,c,kind,i)=>{const m=String(t.name).split(' - '),lb=m.length===2?esc(m[0])+'<br>'+esc(m[1]):esc(t.name);return `<button type="button" class="ring tring" style="--p:${p};--c:${c}" onclick="openCover('${kind}',${i})" title="${esc(t.name)}: syllabus coverage" aria-label="${esc(t.name)}: view syllabus coverage"><span class="mono">${lb}</span></button>`};
-function openCover(kind,i){_tcm=new WeakMap();_cvm=new WeakMap();const t=(kind==='b'?S.btests:S.tests)[i];if(!t)return;const c=covSum(t,kind),n=dd(t.date),subs=[...new Set(c.rows.map(r=>r.sub))];
+function openCover(kind,i){const t=(kind==='b'?S.btests:S.tests)[i];if(!t)return;const c=covSum(t,kind),n=dd(t.date),subs=[...new Set(c.rows.map(r=>r.sub))];
  dlg(`<div class="row"><div><div class="lbl">${esc(t.kind||'Board test')} · ${fdate(t.date)}</div><h3>${esc(t.name)}</h3></div><button class="icon-btn" onclick="closeDlg()" aria-label="Close">${ic('x',16)}</button></div>
  ${c.rows.length?`<div class="card" style="margin:14px 0"><div class="row"><b class="${c.vd[1]}" style="font-size:17px">${c.vd[0]}</b><b class="mono">${c.p}%</b></div><div class="bar" style="margin:8px 0"><i style="width:${c.p}%;background:var(--${c.vd[1]})"></i></div><div class="mut" style="font-size:12.5px">${c.cov} of ${c.rows.length} chapters fully covered · ${c.nc} not started${n>0?' · '+n+' day'+(n>1?'s':'')+' left':''}</div></div>
  ${subs.map(s=>{const R=c.rows.filter(r=>r.sub===s);return `<div class="lbl" style="margin:16px 0 2px;color:${col(s)}">${esc(s)} · ${R.filter(r=>r.st===2).length}/${R.length} covered</div>${R.map(r=>`<div class="it"><span class="dot" style="background:${col(s)}"></span><span>${esc(r.name)}<br><small class="mut mono">${esc(r.det)}</small></span><span class="cvc s${['bad','warn','ok'][r.st]}">${['Not covered','In progress','Covered'][r.st]}</span></div>`).join('')}`}).join('')}`:'<div class="empty">No chapter list is attached to this test yet.</div>'}
@@ -1456,13 +1449,14 @@ function enhanceDates(){document.querySelectorAll('input[type=date]:not([data-dp
  t.addEventListener('change',()=>{const v=t.value.trim(),iso=v?pdmy(v):'';if(v&&!iso){toast('Use the format dd/mm/yy');t.value=dmy(o.value);return}o.value=iso||'';o.dispatchEvent(new Event('change',{bubbles:true}))});
  o.addEventListener('change',()=>{t.value=dmy(o.value)});
  b.addEventListener('click',()=>{try{o.showPicker()}catch(e){o.focus()}})})}
-if(typeof MutationObserver!=='undefined')new MutationObserver(()=>requestAnimationFrame(enhanceDates)).observe(document.body,{childList:true,subtree:true});
+let datesQueued=false;const queueEnhanceDates=()=>{if(datesQueued)return;datesQueued=true;requestAnimationFrame(()=>{datesQueued=false;enhanceDates()})};
+if(typeof MutationObserver!=='undefined')new MutationObserver(queueEnhanceDates).observe(document.body,{childList:true,subtree:true});
 let ld=td();setInterval(()=>{if(td()!==ld){ld=td();normalize();autoTestTasks();save();go()}},30000);
 normalize();autoTestTasks();save();enterAnim();go();enhanceDates();
 
 function askNotify(){try{if('Notification' in window&&Notification.permission==='default')Notification.requestPermission()}catch(e){}}
 function notify(t,b){try{if(!('Notification' in window)||Notification.permission!=='granted')return;const n=new Notification(t,{body:b,icon:'favicon.png',tag:'jee-tracker',renotify:true});n.onclick=()=>{window.focus();n.close()};if(navigator.vibrate)navigator.vibrate(200)}catch(e){}}
-addEventListener('keydown',e=>{if(e.code!=='Space'||e.repeat||e.ctrlKey||e.metaKey||e.altKey||document.body.classList.contains('locked'))return;const t=e.target,g=t&&t.tagName;if(/INPUT|SELECT|TEXTAREA|BUTTON|A/.test(g||'')||(t&&t.isContentEditable)||$('dlg').open)return;if(!$('m')||typeof toggle!=='function')return;e.preventDefault();toggle()});
+addEventListener('keydown',e=>{if(e.code!=='Space'||e.repeat||e.ctrlKey||e.metaKey||e.altKey)return;const t=e.target,g=t&&t.tagName;if(/INPUT|SELECT|TEXTAREA|BUTTON|A/.test(g||'')||(t&&t.isContentEditable)||$('dlg').open)return;if(!$('m')||typeof toggle!=='function')return;e.preventDefault();toggle()});
 (function(){const b=document.getElementById('boot');let seen=0;try{seen=localStorage.getItem('jt_seen')}catch(e){}
  window.bootHide=function(){b.classList.add('out');try{localStorage.setItem('jt_seen','1')}catch(e){}setTimeout(()=>b.remove(),700)};
  if(!seen){b.classList.add('first')}else{addEventListener('load',()=>setTimeout(bootHide,1150))}
@@ -1479,7 +1473,7 @@ const XB='<button class="icon-btn" onclick="closeDlg()" aria-label="Close">&time
 let nz=null,fcL=[];
 function openTools(){dlg(`<div class="row"><h3>Study tools</h3>${XB}</div><div class="stack" style="margin-top:14px;gap:8px">${[['Command palette (Ctrl + K)','openPalette()'],['Mistake notebook and flashcards','openMist()'],['Reality check','openReality()'],['Daily summary','openSummary()'],['Zen mode (full screen)','zen()'],['Ambient brown noise: '+(nz?'on':'off'),'noise()'],['Export tests to calendar (.ics)','exportICS()'],['Print or save report as PDF','closeDlg();print()']].map(([t,f])=>`<button class="btn" style="justify-content:flex-start" onclick="${f}">${t}</button>`).join('')}</div>`)}
 function openMist(){S.mist=S.mist||[];const L=S.mist;dlg(`<div class="row"><h3>Mistake notebook</h3>${XB}</div><div class="f" style="margin-top:12px"><select id="mu" aria-label="Subject">${SUBS().map(x=>`<option>${esc(x)}</option>`).join('')}</select><input id="mc" placeholder="Chapter" aria-label="Chapter"><select id="mt" aria-label="Type of mistake">${MT.map(t=>`<option>${t}</option>`).join('')}</select></div><textarea id="mx" rows="3" style="width:100%;margin-top:8px" placeholder="What went wrong, and what is the correct approach?" aria-label="Description"></textarea><div class="f" style="margin-top:8px"><button class="btn pri" onclick="addMist()">Log mistake</button><button class="btn" onclick="flash()" ${L.length?'':'disabled'}>Revise as flashcards</button></div><div class="f" style="margin-top:14px">${MT.map(t=>`<span class="tag" style="cursor:default">${t}: ${L.filter(m=>m.type===t).length}</span>`).join('')}</div><div style="margin-top:12px">${L.slice(-8).reverse().map(m=>`<div class="it"><span>${esc(m.ch||m.sub)} <span class="mut">&middot; ${esc(m.type)}</span><div class="mut" style="font-size:12.5px">${esc(m.txt)}</div></span><button class="x" onclick="delMist(${L.indexOf(m)})" aria-label="Delete mistake">&times;</button></div>`).join('')||'<div class="mut">No mistakes have been logged yet.</div>'}</div>`)}
-function addMist(){const t=$('mx').value.trim();if(!t){toast('Please describe the mistake.');return}S.mist.push({d:td(),sub:$('mu').value,ch:$('mc').value.trim(),type:$('mt').value,txt:t});save();openMist();toast('Mistake logged.')}
+function addMist(){const t=$('mx').value.trim();if(!t){toast('Please describe the mistake.');return}S.mist.push({id:Math.random().toString(36).slice(2,11),d:td(),sub:$('mu').value,ch:$('mc').value.trim(),type:$('mt').value,txt:t});save();openMist();toast('Mistake logged.')}
 function delMist(i){S.mist.splice(i,1);save();openMist()}
 function flash(i){if(i===undefined){fcL=S.mist.slice().sort(()=>Math.random()-.5);i=0}const m=fcL[i];if(!m){openMist();return}dlg(`<div class="row"><h3>Flashcard ${i+1} of ${fcL.length}</h3>${XB}</div><div class="card" style="margin-top:14px;text-align:center;padding:32px"><div class="lbl">${esc(m.sub)} &middot; ${esc(m.type)}</div><h3 style="margin:10px 0">${esc(m.ch||'Untitled')}</h3><div id="fcb" class="mut" style="display:none;white-space:pre-wrap">${esc(m.txt)}</div></div><div class="f" style="margin-top:14px"><button class="btn" onclick="$('fcb').style.display='block'">Show answer</button><button class="btn pri" onclick="flash(${i+1})">${i+1<fcL.length?'Next':'Finish'}</button></div>`)}
 function openReality(){const e=S.area==='board'?S.bexam:examDate();if(!e){toast('Please set the exam date first.');return}const n=Math.max(0,Math.ceil((new Date(e+'T00:00:00')-new Date(td()+'T00:00:00'))/864e5));let u=0;for(let k=0;k<n;k++)if(new Date(Date.now()+k*864e5).getDay()===0)u++;dlg(`<div class="row"><h3>Reality check</h3>${XB}</div><div class="grid" style="margin-top:14px">${[['Days remaining',n],['Sundays left',u],['Study hours at goal',Math.max(0,n-Object.keys(S.off||{}).filter(d=>d>=td()&&d<e).length)*goalH()]].map(([a,b])=>`<div class="card stat"><span class="lbl">${a}</span><b>${b}</b></div>`).join('')}</div>${S.advDate?`<p class="mut" style="margin-top:14px">JEE Advanced: <b>${Math.max(0,Math.ceil((new Date(S.advDate+'T00:00:00')-new Date(td()+'T00:00:00'))/864e5))}</b> days remaining.</p>`:''}<p class="mut" style="margin-top:14px">Losing 2 hours a day costs <b>${n*2} hours</b> of preparation before the exam.</p>`)}
@@ -1504,7 +1498,7 @@ function exportICS(){const z=x=>x.replace(/-/g,''),L=(S.tests||[]).filter(t=>t.d
 let brk=false;setInterval(()=>{if(!run){brk=false;return}if(!brk&&!S.nobrk&&sessSec>=3000){brk=true;toast('You have studied for 50 minutes. Consider a short break.')}},5000);
 function openPalette(){const T=tabsOf().map((t,i)=>['Go to '+t[0],`closeDlg();goTab(${i})`]);if(S.scope!=='jee')T.push(['Go to Overall',"closeDlg();setArea('all')"]);const A=[['Start or pause the timer','closeDlg();toggle()'],['Switch between light and dark theme','closeDlg();theme()'],['Study tools','openTools()'],['Mistake notebook','openMist()'],['Reality check','openReality()'],['Daily summary','openSummary()'],['Zen mode','zen()'],['Floating timer','closeDlg();popOut()'],['Export backup','closeDlg();exportData()']];window._pal=[...T,...A];dlg(`<div class="row"><h3>Command palette</h3>${XB}</div><input id="cq" placeholder="Type a command" aria-label="Command" style="width:100%;margin-top:12px" oninput="palF()" onkeydown="if(event.key==='Enter'){const b=$('cl').querySelector('button');if(b)b.click()}"><div id="cl" class="stack" style="margin-top:10px;gap:6px"></div>`);palF();$('cq').focus()}
 function palF(){const q=$('cq').value.toLowerCase();$('cl').innerHTML=window._pal.filter(([t])=>t.toLowerCase().includes(q)).slice(0,8).map(([t,f])=>`<button class="btn" style="justify-content:flex-start" onclick="${f}">${t}</button>`).join('')||'<div class="mut">No matching command.</div>'}
-addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&!e.altKey&&e.key.toLowerCase()==='k'){if($('lk')||document.body.classList.contains('locked'))return;e.preventDefault();if($('dlg').open&&$('cq')){closeDlg();return}openPalette()}});
+addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&!e.altKey&&e.key.toLowerCase()==='k'){if($('lk'))return;e.preventDefault();if($('dlg').open&&$('cq')){closeDlg();return}openPalette()}});
 
 (function(){const o=nowBar;nowBar=function(){const e=document.getElementById('nowbar');if(e&&e.classList.contains('out'))return;const vis=e&&!e.hidden;o();if(vis&&e.hidden){e.hidden=false;e.classList.add('out');setTimeout(()=>{e.classList.remove('out');if(!run&&!(nbSave&&Date.now()-nbSave.t<2700))e.hidden=true},320)}}})();
 
@@ -1683,7 +1677,7 @@ X.pg=()=>{if(!$('hx')){X.hub();return}const h=$('hx'),hv=X.was!==undefined?X.was
 const XB2=`<button class="icon-btn" onclick="closeDlg()" aria-label="Close">&times;</button>`,
  box=(t,L)=>dlg(`<div class="row"><h3>${t}</h3>${XB2}</div><div class="mut" style="font-size:12px;margin:4px 0 10px">Last updated 2026</div>`+L.map(([h,d])=>`<div class="card" style="margin:8px 0"><b>${h}</b><p style="margin:6px 0 0;font-size:13.5px">${d}</p></div>`).join(''));
 const RULES=[['1. Acceptance','By using this website you agree to these rules. If you do not agree, please stop using it.'],['2. What this is','A free study planner and tracker for JEE and II PUC (Karnataka) preparation. It is not affiliated with or endorsed by NTA, the Karnataka PU Department or any other organisation named here.'],['3. Your data','You sign in with a username and password. Your progress is saved to your account on a server. Export backups regularly from Settings.'],['4. Accuracy','Syllabus lists, blueprints, weightage and test dates are study aids. Always confirm with official notifications before relying on them.'],['5. Acceptable use','Use the website lawfully and for your own study. Do not try to copy, resell or disrupt it.'],['6. Ownership','\u00a9 2026 @letharshcode. All rights reserved. Names of other services belong to their owners.'],['7. No warranty','The website is provided as is, without guarantees of results, uptime or accuracy. To the extent the law allows, the author is not liable for losses arising from its use.'],['8. Changes','These rules and the features may change. Continued use means you accept the updated rules.']];
-const PRIV=[['What is stored','Your study time, syllabus progress, tests, to-dos, backlog, sleep log and settings are saved to your account on a secure server so you can sign in from any device.'],['Accounts and tracking','Accounts are created by the site owner. There are no ads, no analytics and no tracking cookies.'],['PIN lock','If you set an app lock PIN, only a hash of it is stored on this device. It is a casual lock, not encryption.'],['Backups','Exported backup files stay wherever you save them. Importing a backup replaces the data in this browser.'],['Deleting your data','Use Reset everything in Settings to erase the data saved to your account.']];
+const PRIV=[['What is stored','Your study time, syllabus progress, tests, to-dos, backlog, sleep log and settings are saved to your account on a secure server so you can sign in from any device. Unsynced changes are temporarily cached in this browser until the server confirms them.'],['Accounts and tracking','Accounts are created by the site owner. There are no ads, no analytics and no tracking cookies.'],['PIN lock','If you set an app lock PIN, only a hash of it is stored on this device. It is a casual lock, not encryption.'],['Backups','Exported backup files stay wherever you save them. Importing a backup replaces the data in this browser.'],['Deleting your data','Use Reset everything in Settings to erase the data saved to your account.']];
 window.LEGAL={rules:()=>box('Rules',RULES),privacy:()=>box('Privacy policy',PRIV)};
 window.siteFooter=lnd=>`<footer class="xf" ${lnd?'':'id="xf"'}><div class="xf-t"><div><b>JEE 2027 Study Tracker</b><p>A free study planner for JEE and II PUC. Your progress is saved to your account.</p></div><nav aria-label="Footer"><a href="#" onclick="LEGAL.rules();return false">Rules</a><a href="#" onclick="LEGAL.privacy();return false">Privacy policy</a>${lnd?'':'<a href="#" onclick="openSettings();return false">Settings</a>'}</nav></div><div class="xf-b"><span>&copy; 2026 @shx.fr. All rights reserved.</span><a href="https://discord.com/users/1177525756461592609" target="_blank" rel="noopener noreferrer">Made by @shx.fr</a></div></footer>`;
 const m=$('m');if(m&&!$('xf'))m.insertAdjacentHTML('afterend',siteFooter());
@@ -1713,10 +1707,12 @@ const _c=window.chk;window.chk=function(i,v){let r=null;try{const a=document.act
 /* ===== Account login: Supabase auth, per-user server storage, switch account, sign out ===== */
 (function(){'use strict';
 const cfg=window.SUPABASE_CONFIG||{},$a=id=>document.getElementById(id);
-let sb=null,user=null,channel=null,saving=false,pending=false,ready=false,prev=null,sbAlt=null,switching=false,tm=null,retryTimer=null,dirty=false,revision=0,retryMs=1000,lastSaveNotice=0;
+let sb=null,user=null,channel=null,saving=false,pending=false,ready=false,prev=null,sbAlt=null,switching=false,tm=null,retryTimer=null,pollTimer=null,liveConnected=false,dirty=false,revision=0,retryMs=1000,serverState=null,serverVersion=null,queuedRemote=null;
 const authEl=()=>$a('jee-auth'),backEl=()=>$a('jee-auth-back'),menuEl=()=>$a('jee-account-menu');
 const msg=(t,bad=true)=>{const e=$a('jee-auth-msg');if(e){e.textContent=t||'';e.style.color=bad?'var(--bad)':'var(--ok)'}};
-const saveNotice=text=>{if(Date.now()-lastSaveNotice<5000)return;lastSaveNotice=Date.now();try{toast(text)}catch(e){}};
+const syncText={connecting:'Connecting to your account…',live:'Live updates connected',synced:'Synced',saving:'Saving changes…',offline:'Offline · changes will retry',error:'Sync needs attention',reconnecting:'Reconnecting live updates…'};
+const setSync=(state,text)=>{const e=$a('jee-sync-state'),message=text||syncText[state]||'Sync status';if(e){e.dataset.state=state;const label=e.querySelector('span');if(label)label.textContent=message}const a=$a('avt');if(a)a.title='Account menu · '+message};
+const saveNotice=text=>setSync(/offline/i.test(text)?'offline':'error',/offline/i.test(text)?syncText.offline:syncText.error);
 const busy=b=>{const e=$a('jee-auth-submit');if(e){e.disabled=b;e.textContent=b?'Signing in…':'Sign in'}};
 const fresh=()=>({exam:'2027-01-21',subs:['Physics','Chemistry','Mathematics'],cur:'Physics',days:{},qlog:[],todos:[],tests:[],notes:{},syl:{},sess:[],topic:'',mode:0});
 const LOGIN_EMAILS={anushka:'anushka@jee.harsh',ayesha:'ayesha@jee.harsh',maryam:'maryam@jee.harsh',harshie:'harshie@jee.harsh'};
@@ -1725,19 +1721,73 @@ const uname=()=>(user&&user.user_metadata&&user.user_metadata.username)||((user&
 const dname=()=>((typeof S==='object'&&S.name)||'').trim()||uname()||'Account';
 /* nothing in the app is usable or visible until signed in */
 const lock=on=>{document.body.classList.toggle('locked',on);[...document.body.children].forEach(e=>{if(e.id==='jee-auth'||/^(SCRIPT|STYLE)$/.test(e.tagName))return;on?e.setAttribute('inert',''):e.removeAttribute('inert')})};
-const showAuth=back=>{lock(true);authEl().hidden=false;authEl().classList.remove('checking');if(backEl())backEl().hidden=!back};
+const showAuth=back=>{lock(true);authEl().hidden=false;if(backEl())backEl().hidden=!back};
 const closeUi=()=>{const m=menuEl();if(m)m.hidden=true;try{window.HX&&HX.close()}catch(e){}try{const d=$a('dlg');d&&d.open&&d.close()}catch(e){}};
 window.ensureState=()=>{S.act=S.act||[];S.cb=S.cb||{};S.hrv=S.hrv||{};S.doubts=S.doubts||[];S.hs=Object.assign({wt:1,ac:'',fs:0,pin:'',spd:1,rm:0},S.hs||{});S.h2=Object.assign({med:'kannada',rec:1,cap:90,idle:0},S.h2||{});S.msd=S.msd||{};S.mist=S.mist||[];S.dis=S.dis||{};S.off=S.off||{};S.later=S.later||{};S.revd=S.revd||{};S.rvT=S.rvT||{};S.sleep=S.sleep||{};S.tdate=S.tdate||{};S.bz=S.bz||{};S.back=S.back||[];S.autoT=S.autoT||{};S.bdays=S.bdays||{};S.bnotes=S.bnotes||{};S.btodos=S.btodos||[];S.btests=S.btests||[];S.bsyl=S.bsyl||{}};
-const dropChannel=()=>{if(channel&&sb){try{sb.removeChannel(channel)}catch(e){}}channel=null};
+const copyState=v=>v==null?v:JSON.parse(JSON.stringify(v));
+const MISSING=Symbol('missing');
+const stableValue=v=>Array.isArray(v)?v.map(stableValue):v&&typeof v==='object'?Object.keys(v).sort().reduce((o,k)=>{if(v[k]!==undefined)o[k]=stableValue(v[k]);return o},{}):v;
+const stableString=v=>JSON.stringify(stableValue(v));
+const same=(a,b)=>a===b||(a!==MISSING&&b!==MISSING&&stableString(a)===stableString(b));
+function itemKey(x,path){if(!x||typeof x!=='object')return null;if(x.id!=null)return'id:'+x.id;const p=path.split('.').pop();if((p==='tests'||p==='btests')&&x.name)return p+':'+String(x.name).toLowerCase();if(p==='sess'&&x.at!=null)return'sess:'+x.at+':'+(x.a||'');if(p==='back'&&x.t)return'back:'+String(x.t).toLowerCase()+':'+(x.at||'')+':'+(x.board?'1':'0');return null}
+function mergeArray(base,local,remote,path){
+ const keyed=a=>{const m=new Map();for(const x of a){const k=itemKey(x,path);if(k==null||m.has(k))return null;m.set(k,x)}return m};
+ const bm=keyed(base),lm=keyed(local),rm=keyed(remote);
+ if(bm&&lm&&rm){const keys=[...new Set([...lm.keys(),...rm.keys(),...bm.keys()])],out=[];for(const k of keys){const v=mergeState(bm.has(k)?bm.get(k):MISSING,lm.has(k)?lm.get(k):MISSING,rm.has(k)?rm.get(k):MISSING,path);if(v!==MISSING)out.push(v)}return out}
+ const sig=stableString,counts=a=>{const m=new Map();for(const x of a){const k=sig(x);m.set(k,(m.get(k)||0)+1)}return m},bc=counts(base),lc=counts(local),rc=counts(remote),out=[],used=new Map();
+ for(const x of base){const k=sig(x),n=used.get(k)||0;if(n<(lc.get(k)||0)&&(n<(rc.get(k)||0))){out.push(copyState(x));used.set(k,n+1)}}
+ const need=new Map();for(const k of new Set([...bc.keys(),...lc.keys(),...rc.keys()]))need.set(k,Math.max(0,(lc.get(k)||0)-(bc.get(k)||0),(rc.get(k)||0)-(bc.get(k)||0)));
+ const added=new Map();for(const a of [local,remote]){const seen=new Map();for(const x of a){const k=sig(x),n=(seen.get(k)||0)+1;seen.set(k,n);if(n>(bc.get(k)||0)&&(added.get(k)||0)<(need.get(k)||0)){out.push(copyState(x));added.set(k,(added.get(k)||0)+1)}}}
+ return out
+}
+function mergeState(base,local,remote,path=''){
+ if(same(local,base))return copyState(remote);
+ if(same(remote,base)||same(local,remote))return copyState(local);
+ if(Array.isArray(base)&&Array.isArray(local)&&Array.isArray(remote))return mergeArray(base,local,remote,path);
+ const obj=x=>x!==MISSING&&x&&typeof x==='object'&&!Array.isArray(x);
+ if(obj(base)&&obj(local)&&obj(remote)){const out={},keys=new Set([...Object.keys(base),...Object.keys(local),...Object.keys(remote)]);for(const k of keys){const v=mergeState(Object.hasOwn(base,k)?base[k]:MISSING,Object.hasOwn(local,k)?local[k]:MISSING,Object.hasOwn(remote,k)?remote[k]:MISSING,path?path+'.'+k:k);if(v!==MISSING)out[k]=copyState(v)}return out}
+ return copyState(local)
+}
+const versionTime=v=>{const n=Date.parse(v||'');return Number.isFinite(n)?n:0};
+const isNewer=(a,b)=>!b||versionTime(a)>versionTime(b);
+const dropChannel=()=>{clearInterval(pollTimer);pollTimer=null;liveConnected=false;const old=channel;channel=null;if(old&&sb){try{sb.removeChannel(old)}catch(e){}}};
+const draftKey=()=>user?'jee-tracker-pending-v1:'+user.id:'';
+function readDraft(){try{const d=JSON.parse(localStorage.getItem(draftKey())||'null');return d&&d.state&&typeof d.state==='object'?d:null}catch(e){return null}}
+function writeDraft(){if(!user||!dirty)return;try{localStorage.setItem(draftKey(),JSON.stringify({state:S,baseState:serverState||fresh(),baseVersion:serverVersion}))}catch(e){console.warn('Could not cache pending study changes',e);setSync('error','Browser storage is full · keep this tab open until sync')}}
+function clearDraft(){if(!user)return;try{localStorage.removeItem(draftKey())}catch(e){}}
 
 async function load(){
- const {data,error}=await sb.from('tracker_data').select('state').eq('user_id',user.id).maybeSingle();
+ const {data,error}=await sb.from('tracker_data').select('state,updated_at').eq('user_id',user.id).maybeSingle();
  if(error)throw error;
- clearTimeout(tm);tm=null;clearTimeout(retryTimer);retryTimer=null;pending=false;dirty=false;retryMs=1000;
+ clearTimeout(tm);tm=null;clearTimeout(retryTimer);retryTimer=null;pending=false;dirty=false;retryMs=1000;queuedRemote=null;
+ const draft=readDraft();
  S=data&&data.state&&typeof data.state==='object'?Object.assign(fresh(),data.state):fresh();
- if(!data){const {error:e}=await sb.from('tracker_data').upsert({user_id:user.id,state:S,updated_at:new Date().toISOString()},{onConflict:'user_id'});if(e)throw e}
+ if(!data){if(draft)S=Object.assign(fresh(),draft.state);const {data:created,error:e}=await sb.from('tracker_data').upsert({user_id:user.id,state:S,updated_at:new Date().toISOString()},{onConflict:'user_id'}).select('state,updated_at').maybeSingle();if(e)throw e;serverState=copyState(created&&created.state||S);serverVersion=created&&created.updated_at||null;clearDraft()}
+ else{
+  serverState=copyState(S);serverVersion=data.updated_at||null;
+  if(draft){const base=draft.baseState&&typeof draft.baseState==='object'?draft.baseState:serverState;S=Object.assign(fresh(),mergeState(base,draft.state,serverState));if(!same(S,serverState)){dirty=true;revision++;writeDraft()}else clearDraft()}
+  else clearDraft()
+ }
  if(!S.start){const ks=Object.keys(S.days||{}).sort();S.start=ks[0]||new Date().toLocaleDateString('en-CA')}
  try{normalize()}catch(e){console.error('Normalize after account load failed',e)}
+}
+async function readLatest(){
+ const {data,error}=await sb.from('tracker_data').select('state,updated_at').eq('user_id',user.id).maybeSingle();
+ if(error)throw error;
+ return data
+}
+function applyRemote(row){
+ if(!row||!row.state||typeof row.state!=='object')return;
+ if(row.updated_at&&serverVersion&&!isNewer(row.updated_at,serverVersion))return;
+ if(saving||dirty){if(!queuedRemote||isNewer(row.updated_at,queuedRemote.updated_at))queuedRemote=row;if(dirty&&!saving)void push();return}
+ if(same(row.state,serverState)){serverVersion=row.updated_at||serverVersion;clearDraft();return}
+ S=Object.assign(fresh(),copyState(row.state));serverState=copyState(S);serverVersion=row.updated_at||null;queuedRemote=null;
+ try{normalize();go()}catch(e){console.error('Could not apply a live update',e)}
+ clearDraft();setSync('synced');
+}
+async function pullLatest(){
+ if(!user||!ready||navigator.onLine===false)return;
+ try{const row=await readLatest();if(row)applyRemote(row)}catch(e){console.error('Live refresh failed',e);setSync(navigator.onLine===false?'offline':'reconnecting')}
 }
 async function push(){
  clearTimeout(tm);tm=null;
@@ -1750,14 +1800,28 @@ async function push(){
   retryMs=Math.min(retryMs*2,30000);
   return false;
  }
- saving=true;
- const savedRevision=revision;
+ saving=true;setSync('saving');
+ const savedRevision=revision,savedState=copyState(S),baseState=copyState(serverState||fresh()),nextVersion=new Date(Math.max(Date.now(),versionTime(serverVersion)+1)).toISOString();
  let failed=false;
  try{
-  const {error}=await sb.from('tracker_data').upsert({user_id:user.id,state:S,updated_at:new Date().toISOString()},{onConflict:'user_id'});
+  let query=sb.from('tracker_data').update({state:savedState,updated_at:nextVersion}).eq('user_id',user.id);
+  query=serverVersion?query.eq('updated_at',serverVersion):query.is('updated_at',null);
+  const {data,error}=await query.select('state,updated_at').maybeSingle();
   if(error)throw error;
-  if(revision===savedRevision){dirty=false;retryMs=1000}
-  else pending=true;
+  if(!data){
+   const latest=await readLatest();
+   if(!latest)throw new Error('The saved study record is missing. Your unsaved changes are still in this tab.');
+   if((latest.updated_at||null)===(serverVersion||null))throw new Error('Supabase denied the update. Check the table update policy for this account.');
+   serverState=copyState(latest.state||fresh());serverVersion=latest.updated_at||null;
+   S=mergeState(baseState,S,serverState);
+   if(same(S,serverState)){dirty=false;pending=false;clearDraft();try{normalize();go()}catch(e){console.error(e)}setSync('synced');return true}
+   dirty=true;revision++;pending=true;writeDraft();
+   try{normalize();go()}catch(e){console.error('Could not merge a live update',e)}
+   setSync('saving');return false
+  }
+  serverState=copyState(savedState);serverVersion=data.updated_at||nextVersion;
+  if(revision===savedRevision){dirty=false;retryMs=1000;clearDraft();setSync('synced')}
+  else{pending=true;writeDraft()}
   return true;
  }catch(e){
   failed=true;dirty=true;console.error('Server save failed',e);
@@ -1770,39 +1834,53 @@ async function push(){
   saving=false;
   if(failed)pending=false;
   else if(pending){pending=false;void push()}
+  else if(!dirty&&queuedRemote){const row=queuedRemote;queuedRemote=null;applyRemote(row)}
  }
 }
 const sched=()=>{
  if(!user||!ready)return;
- dirty=true;revision++;
+ dirty=true;revision++;writeDraft();setSync('saving');
  clearTimeout(retryTimer);retryTimer=null;retryMs=1000;
  clearTimeout(tm);tm=setTimeout(()=>void push(),600);
 };
-addEventListener('online',()=>{if(dirty){clearTimeout(retryTimer);retryTimer=null;retryMs=1000;void push()}});
-addEventListener('offline',()=>{if(dirty)saveNotice('Offline. Changes will sync when you reconnect.')});
-addEventListener('visibilitychange',()=>{if(document.hidden)void push()});
+addEventListener('online',()=>{setSync('reconnecting');if(dirty){clearTimeout(retryTimer);retryTimer=null;retryMs=1000;void push()}void pullLatest()});
+addEventListener('offline',()=>{if(dirty)saveNotice('Offline. Changes will sync when you reconnect.');else setSync('offline')});
+addEventListener('visibilitychange',()=>{if(document.hidden)void push();else void pullLatest()});
 addEventListener('pagehide',()=>{void push()});
 function subscribe(){
  dropChannel();
- channel=sb.channel('jee-tracker-'+user.id).on('postgres_changes',{event:'UPDATE',schema:'public',table:'tracker_data',filter:'user_id=eq.'+user.id},p=>{
-  if(!p.new||saving||dirty||!ready)return;
-  if(p.new.state&&typeof p.new.state==='object'){S=Object.assign(fresh(),p.new.state);try{normalize()}catch(e){}try{go()}catch(e){console.error(e)}}
- }).subscribe();
+ setSync('connecting');
+ pollTimer=setInterval(()=>{if(!liveConnected)void pullLatest()},20000);
+ const uid=user.id,active=sb.channel('jee-tracker-'+uid);
+ channel=active;
+ active.on('postgres_changes',{event:'*',schema:'public',table:'tracker_data',filter:'user_id=eq.'+uid},p=>{
+  if(p.eventType==='DELETE'){setSync('error','The saved study record was deleted.');return}
+  if(p.new)applyRemote(p.new)
+ }).subscribe(status=>{
+  if(channel!==active||!user||user.id!==uid)return;
+  if(status==='SUBSCRIBED'){liveConnected=true;clearInterval(pollTimer);pollTimer=null;setSync(dirty?'saving':'live');void pullLatest()}
+  else if(status==='CHANNEL_ERROR'||status==='TIMED_OUT'||status==='CLOSED'){liveConnected=false;setSync('reconnecting');if(!pollTimer)pollTimer=setInterval(()=>void pullLatest(),20000)}
+ });
 }
 async function finish(){
- await load();
+ try{await load()}catch(e){
+  const draft=readDraft();
+  if(!draft)throw e;
+  S=Object.assign(fresh(),draft.state);serverState=Object.assign(fresh(),draft.baseState&&typeof draft.baseState==='object'?draft.baseState:fresh());serverVersion=draft.baseVersion||null;dirty=true;revision++;
+  try{normalize()}catch(x){console.error('Could not normalize pending offline changes',x)}
+  setSync('offline','Using cached changes · waiting to sync')
+ }
  ready=true;switching=false;prev=null;
  authEl().hidden=true;lock(false);msg('');
  const n=dname();
  $a('jee-account-name').textContent=n;$a('jee-account-user').textContent='@'+uname();
  subscribe();
  try{go()}catch(e){console.error(e)}
+ if(dirty)void push();
  try{window.lockIfPin&&lockIfPin()}catch(e){}
 }
 async function login(ev){
- ev.preventDefault();
- if(!sb){msg('Sign-in service is unavailable. Check your connection and reload.');return}
- busy(true);msg('');
+ ev.preventDefault();busy(true);msg('');
  try{
   const u=$a('jee-auth-user').value.trim().toLowerCase(),p=$a('jee-auth-pass').value;
   if(!u||!p)throw new Error('Enter your username and password.');
@@ -1851,6 +1929,7 @@ async function logout(){
  await push();
  while(saving)await new Promise(resolve=>setTimeout(resolve,25));
  if(dirty&&!confirm('Your latest changes could not be saved. Sign out anyway?'))return;
+ clearDraft();
  clearTimeout(tm);clearTimeout(retryTimer);
  prev=null;switching=false;ready=false;dropChannel();
  try{if(sb)await sb.auth.signOut({scope:'local'})}catch(e){console.error(e)}
@@ -1862,24 +1941,43 @@ window.JEE_AUTH={
  toggleAccountMenu(){const m=menuEl();if(!m)return;if(m.hidden){const n=dname();$a('jee-account-name').textContent=n;$a('jee-account-user').textContent='@'+uname();$a('jee-am-av').textContent=n.split(/\s+/).map(w=>w[0]).join('').slice(0,2).toUpperCase()}m.hidden=!m.hidden},
  openSettings(){const m=menuEl();if(m)m.hidden=true;if(typeof window.openSettings==='function')window.openSettings()},
  importBackup(){const m=menuEl();if(m)m.hidden=true;const f=$a('jee-import-file');if(f){f.value='';f.click()}},
- async reset(){if(!user)return;S=fresh();try{normalize()}catch(e){}clearTimeout(tm);try{const {error}=await sb.from('tracker_data').upsert({user_id:user.id,state:S,updated_at:new Date().toISOString()},{onConflict:'user_id'});if(error)throw error}catch(e){console.error(e);toast('Could not reset your saved data')}location.reload()}
+ async reset(){
+  if(!user||!ready)return;
+  if(dirty||saving){toast('Wait for your current changes to sync before resetting.');return}
+  const previous=S;let resetState;
+  try{S=fresh();normalize();resetState=copyState(S)}catch(e){S=previous;console.error(e);toast('Could not prepare the reset');return}finally{S=previous}
+  const nextVersion=new Date(Math.max(Date.now(),versionTime(serverVersion)+1)).toISOString();
+  try{
+   let query=sb.from('tracker_data').update({state:resetState,updated_at:nextVersion}).eq('user_id',user.id);
+   query=serverVersion?query.eq('updated_at',serverVersion):query.is('updated_at',null);
+   const {data,error}=await query.select('state,updated_at').maybeSingle();
+   if(error)throw error;
+   if(!data){
+    const latest=await readLatest();
+    if(latest){S=Object.assign(fresh(),latest.state||fresh());serverState=copyState(S);serverVersion=latest.updated_at||null;try{normalize();go()}catch(e){console.error(e)}setSync('synced')}
+    else setSync('error','Saved study data could not be found');
+    toast('Another device updated your data. Reset was cancelled; review it and try again.');
+    return
+   }
+   S=Object.assign(fresh(),resetState);serverState=copyState(S);serverVersion=data.updated_at||nextVersion;dirty=false;revision++;clearDraft();setSync('synced');location.reload()
+  }catch(e){console.error('Could not reset saved data',e);setSync('error','Reset failed · your data was kept');toast('Could not reset your saved data')}
+ }
 };
 document.addEventListener('click',e=>{const m=menuEl();if(m&&!m.hidden&&!m.contains(e.target)&&!e.target.closest('#avt'))m.hidden=true});
 document.addEventListener('keydown',e=>{if(e.key!=='Escape')return;const m=menuEl();if(m&&!m.hidden){m.hidden=true;return}if(!authEl().hidden&&backEl()&&!backEl().hidden)cancelSwitch()});
 async function init(){
  lock(true);
- const form=$a('jee-auth-form');if(form)form.addEventListener('submit',login);   /* always handled, so a password can never end up in the URL */
  try{document.querySelectorAll('#jee-account-menu [data-ic]').forEach(b=>b.insertAdjacentHTML('afterbegin',ic(b.dataset.ic,18)))}catch(e){}
- if(!window.supabase){showAuth(false);msg('Sign-in service failed to load. Check your connection and reload.');return}
- if(!cfg.url||!cfg.anonKey){showAuth(false);msg('Sign-in is not configured.');return}
+ if(!window.supabase){msg('Sign-in service failed to load. Check your connection and reload.');return}
+ if(!cfg.url||!cfg.anonKey){msg('Sign-in is not configured.');return}
  sb=window.supabase.createClient(cfg.url,cfg.anonKey);
+ const form=$a('jee-auth-form');if(form)form.addEventListener('submit',login);
  const {data,error}=await sb.auth.getSession();
- if(error){console.error(error);showAuth(false);msg('Could not check your login session.')}
- else if(data.session){
+ if(error){console.error(error);msg('Could not check your login session.');return}
+ if(data.session){
   user=data.session.user;
-  try{await finish()}
-  catch(e){console.error(e);ready=false;showAuth(false);msg('Could not load your account data. Check your connection and reload. You are still signed in.')}   /* a network blip no longer signs you out */
- }else showAuth(false);
+  try{await finish()}catch(e){console.error(e);try{await sb.auth.signOut({scope:'local'})}catch(_){}user=null;ready=false;showAuth(false);msg('Could not load your account data.')}
+ }
  sb.auth.onAuthStateChange((_ev,session)=>{
   if(session){user=session.user;return}
   if(switching)return;                       /* switch flow manages its own screen and Back button */
