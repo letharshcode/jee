@@ -553,6 +553,56 @@ body.locked>*:not(#jee-auth){visibility:hidden}
 #jee-auth.checking .auth-brand,#jee-auth.checking .auth-sub,#jee-auth.checking #jee-auth-form,#jee-auth.checking .auth-back{display:none}
 .auth-spin{width:18px;height:18px;border-radius:50%;border:2px solid var(--bd);border-top-color:var(--ac);animation:authspin .8s linear infinite}
 @keyframes authspin{to{transform:rotate(360deg)}}
+
+/* ---- To Do: Discord-inspired ---- */
+.dch{display:flex;align-items:center;gap:10px;padding-bottom:12px;margin-bottom:14px;border-bottom:1px solid var(--bd);flex-wrap:wrap}
+.dch h3{margin:0;font-size:18px;font-weight:700}.dhash{font-size:26px;font-weight:300;color:var(--mut);line-height:1;margin-right:-2px}
+.dsep{width:1px;height:20px;background:var(--bd)}.dtopic{flex:1;min-width:0;color:var(--mut);font-size:13px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.composer{display:flex;align-items:center;gap:8px;margin-top:14px;padding:5px 5px 5px 14px;background:var(--g2);border:1px solid var(--bd);border-radius:10px;transition:border-color .15s,box-shadow .15s}
+.composer:focus-within{border-color:var(--ac);box-shadow:0 0 0 3px color-mix(in srgb,var(--ac) 20%,transparent)}
+.composer input{flex:1;min-width:0;background:none!important;border:0!important;box-shadow:none!important;outline:0!important;padding:9px 0!important;font-size:15px}
+.dtabs{display:flex;gap:2px;flex-wrap:wrap;border-bottom:1px solid var(--bd);margin:0 0 10px!important}
+.dtabs .chip{background:none!important;border:0!important;border-radius:7px 7px 0 0;padding:9px 12px;color:var(--mut);font-weight:500;position:relative;backdrop-filter:none;-webkit-backdrop-filter:none}
+.dtabs .chip:hover{color:var(--tx);background:var(--g2)!important}.dtabs .chip.on{color:var(--tx)}
+.dtabs .chip.on::after{content:"";position:absolute;left:10px;right:10px;bottom:-1px;height:2px;border-radius:2px;background:var(--ac)}
+#tsrch{border-radius:8px;background:var(--g2)}
+.dlist{padding:8px 10px 12px}
+details.tcat{margin-top:12px}details.tcat:first-child{margin-top:4px}
+details.tcat>summary{list-style:none;display:flex;align-items:center;gap:2px;cursor:pointer;padding:4px 6px;border-radius:6px;font-size:12px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--mut);user-select:none}
+details.tcat>summary:hover{color:var(--tx)}details.tcat>summary::-webkit-details-marker{display:none}
+details.tcat>summary::before{content:"";width:6px;height:6px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(-45deg);margin:0 8px 0 3px;transition:transform .15s}
+details.tcat[open]>summary::before{transform:rotate(45deg)}details.tcat.ok>summary{color:var(--ok)}.tcn{font-weight:500;opacity:.8}
+.it.trow.dr{display:flex;flex-wrap:nowrap!important;align-items:flex-start;gap:12px;padding:9px 10px!important;margin:1px 0;border:0;border-radius:8px;position:relative;transition:background .12s}
+.it.trow.dr:hover,.it.trow.dr:focus-within{background:color-mix(in srgb,var(--tx) 6%,transparent)}
+.dr.ovd{box-shadow:inset 3px 0 0 var(--bad)}.dr.nowrow{box-shadow:inset 3px 0 0 var(--ok);background:color-mix(in srgb,var(--ok) 8%,transparent)}
+.dr .grip{opacity:0;width:14px;padding:0;margin-top:2px;transition:opacity .12s}.dr:hover .grip{opacity:.7}
+.dr .rchk{appearance:none;-webkit-appearance:none;flex:none;display:block;position:relative;box-sizing:border-box;padding:0!important;min-width:0;width:20px!important;height:20px!important;margin:1px 0 0;border-radius:50%;border:2px solid var(--mut);background:transparent;cursor:pointer;transition:all .15s}
+.dr .rchk:hover{border-color:var(--ok);background:color-mix(in srgb,var(--ok) 16%,transparent)}
+.dr .rchk:checked{background:var(--ok);border-color:var(--ok)}
+.dr .rchk:checked::after{content:"";position:absolute;left:5px;top:1px;width:4px;height:9px;border:solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg)}
+.dr .rchk:focus-visible{outline:2px solid var(--ac);outline-offset:2px}
+.it.trow.dr>.grip,.it.trow.dr>.tact{flex:none}
+.it.trow.dr>.rmain{flex:1 1 auto}
+.rmain{flex:1;min-width:0;display:flex;flex-direction:column;gap:3px}
+.rtitle{font-weight:500;font-size:15px;line-height:1.35;word-break:break-word}.dr.done .rtitle{text-decoration:line-through;color:var(--mut)}
+.rmeta{display:flex;flex-wrap:wrap;align-items:center;gap:5px 10px;font-size:12.5px;color:var(--mut)}
+.rtag{display:inline-flex;align-items:center;gap:6px;padding:1px 9px 1px 7px;border-radius:999px;background:color-mix(in srgb,var(--tx) 8%,transparent);font-size:12px;font-weight:600;color:var(--tx)}
+.rtag i{width:8px;height:8px;border-radius:50%;flex:none}
+.rnote{font-size:12.5px;font-style:italic;color:var(--mut)}.dr .slot{font-size:12px;font-weight:600}
+.dr .dpill,.dr .ppill{padding:1px 8px;font-size:11.5px;font-weight:700;border-radius:5px}
+.dr .tact{display:flex;gap:4px;flex:none;opacity:0;transition:opacity .12s}
+.dr:hover .tact,.dr:focus-within .tact,.dr.nowrow .tact{opacity:1}
+@media(hover:none){.dr .tact{opacity:1}.dr .grip{display:none}}
+.dr .tact .ib{width:30px;height:30px;border-radius:8px}.dr .tact .mvb{padding:0;border:1px solid var(--bd);background:var(--g);color:var(--mut)}
+.dempty{display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center;padding:36px 16px;color:var(--mut)}
+.dempty .dei{width:54px;height:54px;border-radius:50%;display:grid;place-items:center;font-size:30px;font-weight:300;background:var(--g2);color:var(--mut)}.dempty b{color:var(--tx);font-size:16px}
+
+@media(max-width:640px){
+ .dr .grip{display:none}.it.trow.dr{gap:10px;padding:9px 6px!important}
+ .dr .tact{gap:3px}.dr .tact .ib{width:28px;height:28px}
+ .dtabs{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}.dtabs::-webkit-scrollbar{display:none}.dtabs .chip{flex:none}
+ .dlist{padding:6px 6px 10px}
+}
 </style></head><body class="locked"><div id="boot" role="dialog" aria-label="Welcome"><div class="bw"><div class="ld"><div class="lg"><img src="favicon.png" alt="JEE 2027 Study Tracker logo" onerror="this.replaceWith(document.createTextNode('JE'))"></div><h1>JEE 2027 Study Tracker</h1><p>Structured preparation, measured progress.</p><div class="pb"><i></i></div><div class="mut" id="bootpct" style="font-size:12px">Preparing dashboard 0%</div></div><div class="ob"><div class="sl on"><div class="lg"><img src="favicon.png" alt="JEE 2027 Study Tracker logo" onerror="this.replaceWith(document.createTextNode('JE'))"></div><h1>Welcome to JEE 2027</h1><p>A structured workspace for your preparation: plan, study, practise and review in one place.</p></div><div class="sl"><div class="lg">&#9201;</div><h1>Study clock</h1><p>Run focus blocks, set a daily goal and keep a floating timer visible while you work in other tabs.</p></div><div class="sl"><div class="lg">&#128218;</div><h1>Syllabus and QCT tracker</h1><p>Record theory, questions and QCTs for every chapter and see exactly how much of each test you have covered.</p></div><div class="sl"><div class="lg">&#128200;</div><h1>Tests and analysis</h1><p>Review upcoming tests, enter results when the test is live and study score trends and weak chapters.</p></div><div class="sl"><div class="lg">&#127769;</div><h1>Planner, sleep and backup</h1><p>Organise tasks by day, keep a weekly sleep balance and export your data whenever you wish.</p></div><div class="dots"><i></i><i></i><i></i><i></i><i></i></div><div class="obn"><button class="btn" id="obS" onclick="bootHide()">Skip</button><span><button class="btn" id="obB" onclick="obGo(-1)">Back</button> <button class="btn pri" id="obN" onclick="obGo(1)">Next</button></span></div></div></div></div>
 <header class="top"><div class="hw">
  <div class="brand" onclick="goTab(0)" title="Home" role="link" tabindex="0"><img src="favicon.png" alt="" width="22" height="22"><span id="bt">JEE 2027</span></div>
@@ -571,7 +621,7 @@ body.locked>*:not(#jee-auth){visibility:hidden}
  <div class="auth-card">
   <button class="auth-back" type="button" id="jee-auth-back" hidden onclick="JEE_AUTH.cancelSwitch()">&larr; Back</button>
   <div class="auth-loading" id="jee-auth-loading" role="status"><i class="auth-spin"></i>Loading your account…</div>
-  <div class="auth-brand"><i class="auth-dot"></i><span>maut</span></div>
+  <div class="auth-brand"><i class="auth-dot"></i><span>so done</span></div>
   <div class="auth-sub" id="jee-auth-sub">Sign in.</div>
   <form id="jee-auth-form">
    <label for="jee-auth-user">Username</label>
@@ -1000,21 +1050,27 @@ let SM={};
 const fm12=ms=>{const d=new Date(ms);let h=d.getHours();const m=d.getMinutes(),ap=h>=12?'pm':'am';h=h%12||12;return `${p2(h)}:${p2(m)}${ap}`};
 function slotMap(){const T=td();let cur=Date.now();const o={};TODOS().forEach((t,i)=>{if(t.x||t.mv||!(+t.min>0))return;if(t.due&&t.due>T)return;const a=cur,b=a+t.min*60000;o[i]=[a,b];cur=b+15*60000});return o}
 setInterval(()=>{if(!$('ti'))return;SM=slotMap();document.querySelectorAll('.slot').forEach(e=>{const x=SM[e.dataset.i];if(x){e.textContent=fm12(x[0])+'–'+fm12(x[1]);e.style.color='var(--'+slc(x[1])+')'}})},30000);
-function rowT(t,T){const ov=isOd(t,T),sl=SM[t.i],lv2=sl?slc(sl[1]):'',now=run&&!!t.id&&S.nowKey===t.id&&!t.x;return `<div class="it trow ${t.x?'done':''}" style="flex-wrap:wrap${now?';border-left:3px solid var(--ok);padding-left:8px;background:color-mix(in srgb,var(--ok) 8%,transparent)':ov?';border-left:3px solid var(--bad);padding-left:8px':''}" draggable="true" ondragstart="dgs(${t.i},event)" ondragover="event.preventDefault();this.classList.add('dragover')" ondragleave="this.classList.remove('dragover')" ondrop="dgd(${t.i},event)"><span class="grip" title="Drag to reorder" aria-hidden="true" style="flex:none">${ic('grip',16)}</span><input type="checkbox" ${t.x?'checked':''} onchange="chk(${t.i},this.checked)" aria-label="Done" style="width:18px;height:18px;accent-color:var(--ok)"><span style="min-width:0">${esc(t.t)}${now?' <b class="nowb">● Now happening</b>':''}<br><small class="mut">${[t.sub,t.ch,t.min?t.min+'m':'',t.rep?'daily':'',t.from?'copied from '+dmy(t.from):'',t.mv&&!t.x?(t.bk?'missed · moved to Backlog':'not done · copied ahead'):''].filter(Boolean).map(esc).join(' · ')}</small>${t.note?`<br><small class="mut" style="font-style:italic">${esc(t.note)}</small>`:''}${SM[t.i]?`<br><small class="slot mono" data-i="${t.i}" style="color:var(--${lv2});font-weight:600">${fm12(SM[t.i][0])}–${fm12(SM[t.i][1])}</small>`:''}</span><span class="ppill p${t.pri||'M'}">${t.pri=='H'?'High':t.pri=='L'?'Low':'Medium'}</span>${t.due?`<span class="dpill ${t.x?'':ov?'od':t.due==T?'td':''}">${ov?'Overdue &middot; '+fdate(t.from&&t.from<t.due?t.from:t.due):t.due==T?'Today':fdate(t.due)}</span>`:''}${t.x||t.mv?'':`<button class="ib pl" onclick="${now?'stop()':`playT(${t.i})`}" title="${now?'Pause':'Start the timer for this task'}" aria-label="Play or pause">${ic(now?'pause':'play',15)}</button><button class="mvb" onclick="moveT(${t.i})" title="Move to another day" aria-label="Move to another day">${IC2.cal}Move</button>`}<button class="ib" onclick="editT(${t.i})" aria-label="Edit task" title="Edit">${ic('edit',15)}</button></div>`}
+function catT(k,n,rows,cls){const st=window._tcat||{};return `<details class="tcat ${cls||''}" data-k="${esc(k)}" ${st[k]===false?'':'open'} ontoggle="(window._tcat=window._tcat||{})[this.dataset.k]=this.open"><summary>${esc(k)} <span class="tcn">&mdash; ${n}</span></summary>${rows}</details>`}
+function rowT(t,T){const ov=isOd(t,T),sl=SM[t.i],lv2=sl?slc(sl[1]):'',now=run&&!!t.id&&S.nowKey===t.id&&!t.x,
+ bits=[t.ch,t.min?t.min+'m':'',t.rep?'daily':'',(t.from&&!ov)?'copied from '+dmy(t.from):'',t.mv&&!t.x?(t.bk?'missed · moved to Backlog':'not done · copied ahead'):''].filter(Boolean),
+ sc=t.sub?col(t.sub):'var(--mut)',
+ due=t.x?'':ov?`<span class="dpill od">Overdue &middot; ${fdate(t.from&&t.from<t.due?t.from:t.due)}</span>`:(t.due&&t.due>T?`<span class="dpill">${t.due===dstr(-1)?'Tomorrow':fdate(t.due)}</span>`:''),
+ pr=t.pri==='H'?'<span class="ppill pH">High</span>':t.pri==='L'?'<span class="ppill pL">Low</span>':'';
+ return `<div class="it trow dr ${t.x?'done':''}${ov?' ovd':''}${now?' nowrow':''}" draggable="true" ondragstart="dgs(${t.i},event)" ondragover="event.preventDefault();this.classList.add('dragover')" ondragleave="this.classList.remove('dragover')" ondrop="dgd(${t.i},event)"><span class="grip" title="Drag to reorder" aria-hidden="true">${ic('grip',16)}</span><input type="checkbox" class="rchk" ${t.x?'checked':''} onchange="chk(${t.i},this.checked)" aria-label="Done"><span class="rmain"><span class="rtitle">${esc(t.t)}${now?' <b class="nowb">● Now happening</b>':''}</span><span class="rmeta"><span class="rtag"><i style="background:${sc}"></i>${esc(t.sub||'Overall')}</span>${bits.length?`<span>${bits.map(esc).join(' · ')}</span>`:''}${pr}${due}</span>${t.note?`<span class="rnote">${esc(t.note)}</span>`:''}${SM[t.i]?`<span class="slot mono" data-i="${t.i}" style="color:var(--${lv2})">${fm12(SM[t.i][0])}–${fm12(SM[t.i][1])}</span>`:''}</span><span class="tact">${t.x||t.mv?'':`<button class="ib pl" onclick="${now?'stop()':`playT(${t.i})`}" title="${now?'Pause':'Start the timer for this task'}" aria-label="Play or pause">${ic(now?'pause':'play',14)}</button><button class="ib mvb" onclick="moveT(${t.i})" title="Move to another day" aria-label="Move to another day">${IC2.cal}</button>`}<button class="ib" onclick="editT(${t.i})" aria-label="Edit task" title="Edit">${ic('edit',14)}</button></span></div>`}
 function vTodo(){const T=td(),L=TODOS().map((t,i)=>({...t,i})),fl=L.filter(matchT);SM=slotMap();
  const tt=L.filter(t=>!t.mv&&(!t.due||t.due<=T)&&keptT(t,T)),dn=tt.filter(t=>t.x).length,rem=tt.filter(t=>!t.x).reduce((a,t)=>a+(+t.min||0),0),od=L.filter(t=>isOd(t,T)).length;
  let body;if(tgrp==='None')body=fl.filter(t=>!t.x).map(t=>rowT(t,T)).join('');else{const g={};fl.forEach(t=>{const k=tgrp==='Subject'?(t.sub||'Overall'):(t.due?((t.due<T||(t.from&&t.from<T&&!t.x))?'Overdue':t.due===T?'Today':t.due===dstr(-1)?'Tomorrow':fdate(t.due)):'No date');(g[k]=g[k]||[]).push(t)});
-  body=Object.entries(g).filter(([k,a])=>a.some(t=>!t.x)).map(([k,a])=>`<div class="lbl" style="margin:14px 0 2px">${esc(k)} · ${a.filter(t=>t.x).length}/${a.length}</div>${a.filter(t=>!t.x).map(t=>rowT(t,T)).join('')}`).join('')}
- const cdn=fl.filter(t=>t.x);if(cdn.length)body=(body||'')+`<div class="lbl" style="margin:24px 0 2px;color:var(--ok)">Completed · ${cdn.length}</div>${cdn.map(t=>rowT(t,T)).join('')}`;
+  body=Object.entries(g).filter(([k,a])=>a.some(t=>!t.x)).map(([k,a])=>catT(k,a.filter(t=>t.x).length+'/'+a.length,a.filter(t=>!t.x).map(t=>rowT(t,T)).join(''))).join('')}
+ const cdn=fl.filter(t=>t.x);if(cdn.length)body=(body||'')+catT('Completed',cdn.length,cdn.map(t=>rowT(t,T)).join(''),'ok');
  const FL=[['Today','Today'],['Tomorrow','Tomorrow'],['Week','This week'],['Overdue','Overdue'],['All','All'],...TSUBS().map(x=>[x,x])];
- return `<div class="row" style="margin-bottom:14px"><h3>To Do</h3><div class="f" style="margin:0"><button class="btn" onclick="openSortMenu()">${IC2.sort}Sort</button></div></div>
+ return `<div class="dch"><span class="dhash" aria-hidden="true">#</span><h3>To Do</h3><span class="dsep" aria-hidden="true"></span><span class="dtopic">${tt.length-dn} open &middot; ${dn} done today</span><button class="btn sm" onclick="openSortMenu()">${IC2.sort}Sort</button></div>
  <section class="card" style="margin-bottom:14px"><div class="row" style="margin-bottom:10px"><div class="lbl">${dn}/${tt.length} done today</div><span class="mut mono" style="font-size:12px">${rem>=60?Math.floor(rem/60)+' h '+(rem%60)+' min':rem+' min'} left${Object.keys(SM).length?' &middot; finish by '+fm12(Math.max(...Object.values(SM).map(x=>x[1]))):''}</span></div><div class="bar"><i style="width:${tt.length?dn/tt.length*100:0}%;background:var(--ok)"></i></div>${tt.length?`<div class="f" style="margin-top:12px">${Object.entries(tt.reduce((g,t)=>{const k=t.sub||'Overall';(g[k]=g[k]||[0,0])[1]++;if(t.x)g[k][0]++;return g},{})).map(([k,v])=>`<span class="tag" style="cursor:default">${esc(k)} ${v[0]}/${v[1]}</span>`).join('')}${dn===tt.length&&L.some(t=>!t.x&&!t.mv&&t.due===dstr(-1))?`<button class="btn sm" onclick="pullT()">All done. Bring in tomorrow's tasks</button>`:''}</div>`:''}
- <div class="f" style="margin-top:14px"><input id="ti" placeholder='Add a task, e.g. — try: Physics: Rotation DPP tomorrow !high 45m' style="flex:1 1 280px" onkeydown="if(event.key==='Enter'&&!event.isComposing)addT()" enterkeyhint="done" aria-label="Task"><button class="btn pri" onclick="addT()">${ic('plus',15)}Add</button></div>
+ <div class="composer"><input id="ti" placeholder='Add a task, e.g. — try: Physics: Rotation DPP tomorrow !high 45m' onkeydown="if(event.key==='Enter'&&!event.isComposing)addT()" enterkeyhint="done" aria-label="Task"><button class="btn pri sm" onclick="addT()">${ic('plus',15)}Add</button></div>
  <details style="margin-top:10px"><summary class="mut" style="cursor:pointer;font-size:13px">More options</summary><div class="f" style="margin-top:8px"><select id="ts" aria-label="Subject" onchange="fillCh('ts','chl-t')"><option value="">Overall</option>${TSUBS().map(s=>`<option>${esc(s)}</option>`).join('')}</select><input id="tch" list="chl-t" placeholder="Chapter" style="flex:1 1 150px"><datalist id="chl-t">${dlOpts('')}</datalist><select id="tp" aria-label="Priority"><option value="H">High</option><option value="M" selected>Med</option><option value="L">Low</option></select><input type="date" id="tdue" value="${T}" aria-label="Due"><input type="number" id="tm" placeholder="min" aria-label="Minutes"><label class="f mut" style="gap:5px;font-size:13px"><input type="checkbox" id="tr"> daily</label></div></details>
  </section>
  <div class="f" style="margin-bottom:10px"><input id="tsrch" type="search" placeholder="Search tasks, subjects, chapters…" value="${esc(tq)}" oninput="tq=this.value;go();const e=$('tsrch');e.focus();e.setSelectionRange(e.value.length,e.value.length)" style="flex:1 1 220px" aria-label="Search tasks"><div class="seg" role="group" aria-label="Status">${['All','Active','Done'].map(k=>`<button class="${k===tst2?'on':''}" onclick="setFlt('s','${k}')">${k}</button>`).join('')}</div><div class="seg" role="group" aria-label="Group by">${['None','Subject','Due'].map(k=>`<button class="${k===tgrp?'on':''}" onclick="setFlt('g','${k}')">${k==='None'?'No grouping':'By '+k.toLowerCase()}</button>`).join('')}</div></div>
- <div class="chips" style="margin-bottom:10px">${FL.map(([k,l])=>`<button class="chip ${k==tf?'on':''}" onclick="setFlt('f','${esc(k)}')" style="padding:6px 12px">${esc(l)}</button>`).join('')}</div>
- <section class="card">${body||'<div class="empty">No tasks to display. Add a task above, or adjust the filters.</div>'}
+ <div class="chips dtabs">${FL.map(([k,l])=>`<button class="chip ${k==tf?'on':''}" onclick="setFlt('f','${esc(k)}')">${esc(l)}</button>`).join('')}</div>
+ <section class="card dlist">${body||'<div class="dempty"><div class="dei">#</div><b>No tasks here yet</b><span class="mut">Type in the box above and press Enter. Try: Physics: Rotation DPP tomorrow !high 45m</span></div>'}
  </section>`}
 let dragI=null;
 function dgs(i,e){dragI=i;try{e.dataTransfer.effectAllowed='move';e.dataTransfer.setData('text/plain',String(i))}catch(x){}}
@@ -1206,10 +1262,22 @@ function openBRes(i){const t=S.btests[i];dlg(`<div class="row"><h3>Result · ${e
  <label class="fl" style="margin-top:10px">Notes<textarea id="brn" rows="3" style="width:100%" placeholder="What went wrong / what to revise">${esc(t.note||'')}</textarea></label>
  <div class="f" style="margin-top:14px"><button class="btn pri" onclick="saveBRes(${i})">Save</button>${t.sc!==undefined&&t.sc!==''?`<button class="btn" onclick="S.btests[${i}].sc='';save();closeDlg();go()">Clear result</button>`:''}<button class="btn" onclick="closeDlg()">Cancel</button></div>`)}
 function saveBRes(i){const v=$('brs').value,m=+$('brm').value||S.btests[i].mx;if(v===''||+v<0||+v>m){toast('Enter marks between 0 and '+m);return}Object.assign(S.btests[i],{sc:+v,mx:m,note:$('brn').value.trim()});save();closeDlg();go()}
+function importBTests(f){if(!f)return;const r=new FileReader();r.onload=()=>{try{
+ const d=JSON.parse(r.result),arr=Array.isArray(d)?d:(d&&Array.isArray(d.btests)?d.btests:null);
+ if(!arr)throw new Error('this file has no board tests');
+ S.btests=S.btests||[];const key=t=>String(t.name).trim().toLowerCase()+'|'+t.date,have=new Set(S.btests.map(key)),add=[];let dup=0,bad=0;
+ arr.forEach(t=>{if(!t||typeof t.name!=='string'||!t.name.trim()||!/^\d{4}-\d{2}-\d{2}$/.test(t.date||'')){bad++;return}
+  if(have.has(key(t))||(t.ex&&S.btests.some(x=>x.ex===t.ex))){dup++;return}
+  const c={name:t.name.trim().slice(0,120),date:t.date,mx:+t.mx>0?+t.mx:80,mins:+t.mins>0?+t.mins:180,subs:(t.subs&&typeof t.subs==='object'&&!Array.isArray(t.subs))?Object.fromEntries(Object.entries(t.subs).map(([k,v])=>[String(k),String(v)])):{}};
+  ['sc','an','so','note','ex','lm'].forEach(k=>{if(t[k]!==undefined&&t[k]!==null)c[k]=t[k]});have.add(key(c));add.push(c)});
+ if(!add.length){toast(dup?'Nothing new: '+dup+' test'+(dup>1?'s are':' is')+' already here':'No valid board tests found in that file');return}
+ if(!confirm('Add '+add.length+' board test'+(add.length>1?'s':'')+(dup?' ('+dup+' already here will be skipped)':'')+'? Nothing else will change.'))return;
+ add.forEach(c=>S.btests.push(c));save();go();toast(add.length+' board test'+(add.length>1?'s':'')+' added'+(dup?', '+dup+' skipped':''))
+ }catch(e){console.error('Board test import failed',e);toast('Could not import: '+(e&&e.message||'invalid file'))}};r.readAsText(f)}
 function vBTests(){S.btests=S.btests||[];const T=td(),L=S.btests.map((t,i)=>({...t,i})).sort((a,b)=>a.date<b.date?-1:1),has=t=>t.sc!==undefined&&t.sc!==''&&t.mx,pc=t=>Math.round(t.sc/t.mx*100),sc=L.filter(has),
  av=sc.length?Math.round(sc.reduce((a,t)=>a+pc(t),0)/sc.length):0,bs=sc.length?Math.max(...sc.map(pc)):0,nx=L.find(t=>t.date>=T&&!has(t)),
  FL=L.filter(t=>btf==='All'||(btf==='Upcoming'?!has(t):has(t))),l10=sc.slice(-10);
- return `<div class="row" style="margin-bottom:14px"><h3>Board tests</h3><div class="f" style="margin:0"><div class="seg" role="group" aria-label="Filter tests">${['All','Upcoming','Taken'].map(k=>`<button class="${k===btf?'on':''}" onclick="btf='${k}';go()">${k}</button>`).join('')}</div><button class="btn pri" onclick="openBTestForm(-1)">${ic('plus',15)}Create test</button></div></div>
+ return `<div class="row" style="margin-bottom:14px"><h3>Board tests</h3><div class="f" style="margin:0"><div class="seg" role="group" aria-label="Filter tests">${['All','Upcoming','Taken'].map(k=>`<button class="${k===btf?'on':''}" onclick="btf='${k}';go()">${k}</button>`).join('')}</div><label class="btn" style="cursor:pointer" title="Add board tests from a backup file. Nothing else changes."><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 16V4M7 9l5-5 5 5M4 20h16"/></svg>Import<input type="file" accept="application/json,.json" class="sr-only" aria-label="Import board tests from a backup file" onchange="importBTests(this.files[0]);this.value=''"></label><button class="btn pri" onclick="openBTestForm(-1)">${ic('plus',15)}Create test</button></div></div>
 <div class="grid" style="margin-bottom:14px"><div class="card stat"><div class="lbl">Taken</div><b class="mono">${sc.length}</b></div><div class="card stat"><div class="lbl">Average</div><b class="mono">${av}%</b></div><div class="card stat"><div class="lbl">Best</div><b class="mono ok">${bs}%</b></div><div class="card stat"><div class="lbl">Next test</div><b style="font-size:15px">${nx?esc(nx.name):'—'}</b><small>${nx?(dd(nx.date)?'in '+dd(nx.date)+' days':'today'):'create one'}</small></div></div>
 ${l10.length?`<section class="card" style="margin-bottom:14px"><div class="lbl" style="margin-bottom:10px">Score trend · last ${l10.length}</div><div class="slb">${l10.map(t=>`<div title="${esc(t.name)}: ${pc(t)}%" style="height:${Math.max(4,pc(t))}%;background:${pc(t)>=60?'var(--ok)':'var(--ac)'}"></div>`).join('')}</div></section>`:''}
 <section class="card"><div class="row" style="margin-bottom:4px"><div class="lbl">Your tests</div><span class="mut mono" style="font-size:12px">${sc.length}/${L.length} done</span></div>
