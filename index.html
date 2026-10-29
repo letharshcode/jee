@@ -2027,5 +2027,77 @@ function post2(){const m=$('m');if(!m)return;
 W.upT={coach,heat,cmp};
 const g1=W.go;W.go=function(){const r=g1.apply(this,arguments);T(post2);return r};
 })();
+</script> <script id="harsh-addon">
+/* Harsh: AI study mentor add-on. Paste AFTER your other add-ons. Uses your own Google Gemini API key, stored only in this browser (localStorage). */
+(function(){'use strict';
+const W=window,LS=k=>{try{return localStorage.getItem(k)||''}catch(e){return''}},SV=(k,v)=>{try{v?localStorage.setItem(k,v):localStorage.removeItem(k)}catch(e){}},q=id=>document.getElementById(id);
+let msgs=[],busy=false,isOpen=false;
+const css=document.createElement('style');
+css.textContent=`#hbtn{position:fixed;right:16px;bottom:calc(84px + env(safe-area-inset-bottom,0px));z-index:50;display:inline-flex;align-items:center;gap:8px;border-radius:999px;box-shadow:0 8px 28px rgba(0,0,0,.35)}
+#hp{position:fixed;right:16px;bottom:76px;width:min(400px,calc(100vw - 24px));height:min(620px,calc(100vh - 100px));z-index:60;display:flex;flex-direction:column;background:var(--bg);border:1px solid var(--bd);border-radius:18px;box-shadow:0 24px 70px rgba(0,0,0,.55);overflow:hidden}
+#hp[hidden]{display:none}#hp header{display:flex;align-items:center;gap:10px;padding:12px 14px;border-bottom:1px solid var(--bd)}
+#hp .hav{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;background:color-mix(in srgb,var(--ac) 20%,transparent);color:var(--ac);font-weight:700}
+#hm{flex:1;overflow:auto;padding:14px;display:flex;flex-direction:column;gap:10px}
+.hb{max-width:88%;padding:10px 12px;border-radius:14px;font-size:13.5px;line-height:1.5;overflow-wrap:anywhere}
+.hb.u{align-self:flex-end;background:color-mix(in srgb,var(--ac) 20%,transparent)}.hb.a{align-self:flex-start;background:var(--g2)}.hb.e{color:var(--bad)}
+#hp .hint{color:var(--mut);font-size:13px;text-align:center;padding:18px 8px}
+#hc{display:flex;gap:6px;flex-wrap:wrap;padding:0 14px 8px}
+.hcomp{display:flex;gap:8px;padding:10px 14px calc(10px + env(safe-area-inset-bottom,0px));border-top:1px solid var(--bd)}.hcomp textarea{flex:1;resize:none;max-height:110px}
+#hs{flex:1;overflow:auto;padding:14px}#hs label{display:block;margin:12px 0 4px;font-size:12px;color:var(--mut)}#hs input,#hs textarea{width:100%}
+@media(max-width:720px){#hp{inset:0;width:auto;height:auto;border-radius:0}#hp header{padding-top:calc(12px + env(safe-area-inset-top,0px))}}
+@media print{#hbtn,#hp{display:none!important}}`;
+document.head.appendChild(css);
+const md=t=>esc(t).replace(/\*\*(.+?)\*\*/g,'<b>$1</b>').replace(/^\s*[-*] /gm,'• ').replace(/\n/g,'<br>');
+
+/* ---- what Harsh knows: a summary of your real tracker data ---- */
+function ctx(){const L=[],T0=td(),s=f=>{try{const r=f();if(r)L.push(r)}catch(e){console.error('harsh ctx',e)}},h=o=>((DAYS()[dstr(o)]||{}).s||0)/3600,B=S.area==='board';
+ s(()=>{const ex=examDate();return `Student ${(S.name||'').trim()||'(no name)'}; area ${B?'II PUC Board':'JEE'}; target ${B?'board exam':examName()}${ex?' on '+ex+' ('+dd(ex)+' days left)':''}; today ${T0}; daily goal ${goalH()}h.`});
+ s(()=>{let w=0;for(let o=0;o<7;o++)w+=h(o);return `Study today ${h(0).toFixed(1)}h; last 7 days ${w.toFixed(1)}h (avg ${(w/7).toFixed(1)}h/day); streak ${streak()} days.`});
+ s(()=>{const p={};for(let o=0;o<7;o++){const x=DAYS()[dstr(o)];if(x)Object.entries(x.sub||{}).forEach(([k,v])=>{const n=subOf(k);p[n]=(p[n]||0)+v})}const a=Object.entries(p).sort((x,y)=>y[1]-x[1]).map(([k,v])=>k+' '+(v/3600).toFixed(1)+'h').join(', ');return a&&'Time by subject (7 days): '+a+'.'});
+ if(!B){
+  s(()=>'Syllabus complete: '+Object.keys(CHD).map(n=>n+' '+sylPct(n)+'%').join(', ')+'.');
+  s(()=>{const w=weakCh().slice(0,3);return w.length&&'Weakest chapters by practice accuracy: '+w.map(c=>`${c.ch} (${c.sub}) ${c.a}% over ${c.d} questions`).join('; ')+'.'});
+  s(()=>{const t=S.tests.filter(x=>tot(x)!==null&&x.mx).sort((a,b)=>a.date<b.date?-1:1).slice(-5);return t.length&&'Recent tests: '+t.map(x=>`${x.name} (${x.date}) ${tot(x)}/${x.mx}`+(x.p!==''&&x.p!=null?` [P ${x.p}, C ${x.c}, M ${x.m}]`:'')).join('; ')+'.'});
+  s(()=>{const n=nextTests().slice(0,2);return n.length&&'Upcoming tests: '+n.map(x=>x.name+' on '+x.date).join(', ')+'.'});
+ }else s(()=>'Board syllabus completion '+bAll()+'%.');
+ s(()=>{const b=(S.back||[]).filter(x=>!x.x);return b.length&&b.length+' backlog items: '+b.slice(0,6).map(x=>x.t+' ('+x.sub+')').join('; ')+'.'});
+ s(()=>{const t=TODOS().filter(x=>!x.x&&!x.mv&&(!x.due||x.due<=T0));return t.length&&'Pending tasks today: '+t.slice(0,10).map(x=>x.t+(x.min?' '+x.min+'m':'')).join('; ')+'.'});
+ s(()=>{const a=[];for(let o=0;o<7;o++){const m=sleepMin(dstr(o));if(m!=null)a.push(m)}return a.length&&'Average sleep '+(a.reduce((x,y)=>x+y,0)/a.length/60).toFixed(1)+'h over '+a.length+' nights (goal '+(S.sleepGoal||8)+'h).'});
+ return L.join('\n')}
+const sys=()=>{const ab=LS('harsh_about').trim();return `You are Harsh, a direct and honest study mentor inside the student's own tracker. Use only the data below. Never invent numbers; say when data is missing. Give short, specific, actionable advice (which chapters first, how long, in what order). Be encouraging but truthful. Plain text, short bullet lines, no long essays.\n\nSTUDENT DATA\n${ctx()}`+(ab?`\n\nABOUT THE STUDENT / THEIR INSTRUCTIONS\n${ab}`:'')};
+function hist(){const o=[];msgs.forEach((m,i)=>{if(m.err||(m.r==='user'&&msgs[i+1]&&msgs[i+1].err))return;o.push({role:m.r==='user'?'user':'model',parts:[{text:m.t}]})});const r=o.slice(-12);while(r.length&&r[0].role!=='user')r.shift();return r}
+const body=()=>({systemInstruction:{parts:[{text:sys()}]},contents:hist(),generationConfig:{temperature:.6,maxOutputTokens:900}});
+
+function paint(){const m=q('hm');if(!m)return;const k=LS('harsh_key');
+ m.innerHTML=(msgs.length?'':`<div class="hint">${k?'Ask about your week, weak chapters or what to study next. I read your real tracker stats.':'Add your free Gemini API key in Setup (gear icon) to start.'}</div>`)+msgs.map(x=>`<div class="hb ${x.r==='user'?'u':'a'}${x.err?' e':''}">${md(x.t)}</div>`).join('')+(busy?'<div class="hb a"><span class="spin"></span> Thinking</div>':'');
+ m.scrollTop=m.scrollHeight;q('hsend').disabled=busy}
+async function ask(t){t=String(t||'').trim();if(!t||busy)return;const k=LS('harsh_key');if(!k){hSetup();toast('Add your Gemini API key first');return}
+ msgs.push({r:'user',t});busy=true;paint();
+ try{const mod=LS('harsh_model').trim()||'gemini-2.5-flash',r=await fetch('https://generativelanguage.googleapis.com/v1beta/models/'+encodeURIComponent(mod)+':generateContent',{method:'POST',headers:{'Content-Type':'application/json','x-goog-api-key':k},body:JSON.stringify(body())}),j=await r.json().catch(()=>({}));
+  if(!r.ok)throw new Error((j.error&&j.error.message)||'HTTP '+r.status);
+  const c=((j.candidates||[])[0]||{}),x=((c.content||{}).parts||[]).map(p=>p.text||'').join('').trim();msgs.push({r:'ai',t:x||'No reply came back. Try rephrasing, or check the model name in Setup.'})}
+ catch(e){msgs.push({r:'ai',t:'Could not get a reply: '+e.message+'. Check your key and model in Setup.',err:1})}
+ busy=false;paint()}
+W.hSend=()=>{const i=q('hi'),v=i.value;i.value='';i.style.height='';ask(v)};
+W.hQ=t=>ask(t);W.hClear=()=>{msgs=[];paint()};
+W.hOpen=()=>{build();q('hp').hidden=false;isOpen=true;if(LS('harsh_key'))hChat();else hSetup();paint()};
+W.hClose=()=>{const p=q('hp');if(p)p.hidden=true;isOpen=false};
+W.hChat=()=>{q('hs').hidden=true;q('hchat').hidden=false;q('hi').focus()};
+W.hSetup=()=>{build();q('hp').hidden=false;isOpen=true;q('hchat').hidden=true;q('hs').hidden=false;q('hk').value=LS('harsh_key');q('hmod').value=LS('harsh_model');q('hab').value=LS('harsh_about')};
+W.hSave=()=>{SV('harsh_key',q('hk').value.trim());SV('harsh_model',q('hmod').value.trim());SV('harsh_about',q('hab').value.trim());toast('Harsh settings saved on this device');hChat();paint()};
+W.hRemove=()=>{if(!confirm('Remove your API key from this browser?'))return;SV('harsh_key','');q('hk').value='';toast('API key removed');paint()};
+function build(){if(q('hp')||!document.body)return;
+ const b=document.createElement('button');b.id='hbtn';b.type='button';b.className='btn pri';b.setAttribute('aria-label','Open Harsh, your AI study mentor');b.innerHTML='<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/></svg><span>Harsh</span>';b.onclick=()=>isOpen?hClose():hOpen();document.body.appendChild(b);
+ const p=document.createElement('section');p.id='hp';p.hidden=true;p.setAttribute('role','dialog');p.setAttribute('aria-label','Harsh, AI study mentor');
+ p.innerHTML=`<header><span class="hav">H</span><div style="flex:1"><b>Harsh</b><div class="mut" style="font-size:12px">AI study mentor · reads your tracker</div></div><button class="x" onclick="hClear()" title="Start a new chat">New</button><button class="icon-btn" onclick="hSetup()" aria-label="Setup" title="Setup">${ic('gear',16)}</button><button class="icon-btn" onclick="hClose()" aria-label="Close">${ic('x',16)}</button></header>
+ <div id="hchat" style="display:flex;flex-direction:column;flex:1;min-height:0"><div id="hm" aria-live="polite"></div><div id="hc">${['Plan my day','Review my week','Fix my weak chapters','Am I on track?'].map(t=>`<button class="tag" onclick="hQ('${t}')">${t}</button>`).join('')}</div><div class="hcomp"><textarea id="hi" rows="1" placeholder="Ask Harsh about your prep" aria-label="Message"></textarea><button class="btn pri" id="hsend" onclick="hSend()">Send</button></div></div>
+ <div id="hs" hidden><b>Setup</b><label for="hk">Gemini API key</label><input id="hk" type="password" autocomplete="off" placeholder="Paste your key"><div class="mut" style="font-size:12px;margin-top:6px">Free from <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener noreferrer" style="color:var(--ac)">Google AI Studio</a>. The key is saved only in this browser. Each question sends a summary of your tracker stats to Google Gemini.</div>
+ <label for="hmod">Model</label><input id="hmod" placeholder="gemini-2.5-flash"><label for="hab">About me and instructions (optional)</label><textarea id="hab" rows="4" placeholder="e.g. I am a dropper, weak in Physics, prefer short answers"></textarea>
+ <div class="f" style="margin-top:14px"><button class="btn pri" onclick="hSave()">Save</button><button class="btn" onclick="hChat()">Back</button><button class="btn dng" onclick="hRemove()">Remove key</button></div></div>`;
+ document.body.appendChild(p);q('hi').addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey&&!e.isComposing){e.preventDefault();hSend()}});q('hi').addEventListener('input',e=>{e.target.style.height='auto';e.target.style.height=Math.min(110,e.target.scrollHeight)+'px'})}
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&isOpen&&!(q('dlg')&&q('dlg').open))hClose()});
+W.harsh={ctx,sys,body,msgs:()=>msgs,push:m=>msgs.push(m)};
+build();
+})();
 </script>
 </body></html>
