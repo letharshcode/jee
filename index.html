@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8">
-<title>JEE 2027 · Study Tracker</title>
+<title>JEE 2027 · Study Tracker with Harsh AI</title>
 <meta name="description" content="Free, offline-first JEE study tracker: study clock, syllabus and QCT tracker, tests, practice, to-do, backlog, sleep and daily stats for JEE and II PUC.">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#070a12"><meta property="og:title" content="JEE 2027 Study Tracker"><meta property="og:description" content="Finally, a planner that gets it. Offline-first JEE tracker."><meta property="og:type" content="website">
@@ -596,7 +596,52 @@ body.live .brand i{animation:live 1.2s ease-in-out infinite!important}
 header.top{background:color-mix(in srgb,var(--bg) 94%,transparent)!important}
 .tabbar{background:color-mix(in srgb,var(--bg) 96%,transparent)!important}
 .side{background:color-mix(in srgb,var(--bg) 94%,transparent)!important}
-</style></head><body class="locked"><div id="boot" role="dialog" aria-label="Welcome"><div class="bw"><div class="ld"><div class="lg"><img src="favicon.png" alt="JEE 2027 Study Tracker logo" onerror="this.replaceWith(document.createTextNode('JE'))"></div><h1>JEE 2027 Study Tracker</h1><p>Structured preparation, measured progress.</p><div class="pb"><i></i></div><div class="mut" id="bootpct" style="font-size:12px">Preparing dashboard 0%</div></div><div class="ob"><div class="sl on"><div class="lg"><img src="favicon.png" alt="JEE 2027 Study Tracker logo" onerror="this.replaceWith(document.createTextNode('JE'))"></div><h1>Welcome to JEE 2027</h1><p>A structured workspace for your preparation: plan, study, practise and review in one place.</p></div><div class="sl"><div class="lg">&#9201;</div><h1>Study clock</h1><p>Run focus blocks, set a daily goal and keep a floating timer visible while you work in other tabs.</p></div><div class="sl"><div class="lg">&#128218;</div><h1>Syllabus and QCT tracker</h1><p>Record theory, questions and QCTs for every chapter and see exactly how much of each test you have covered.</p></div><div class="sl"><div class="lg">&#128200;</div><h1>Tests and analysis</h1><p>Review upcoming tests, enter results when the test is live and study score trends and weak chapters.</p></div><div class="sl"><div class="lg">&#127769;</div><h1>Planner, sleep and backup</h1><p>Organise tasks by day, keep a weekly sleep balance and export your data whenever you wish.</p></div><div class="dots"><i></i><i></i><i></i><i></i><i></i></div><div class="obn"><button class="btn" id="obS" onclick="bootHide()">Skip</button><span><button class="btn" id="obB" onclick="obGo(-1)">Back</button> <button class="btn pri" id="obN" onclick="obGo(1)">Next</button></span></div></div></div></div>
+</style><style id="premium-css">
+/* ===== Premium layer (JeeTrack-inspired: violet glow, glass, soft depth) ===== */
+:root:not([data-theme]),:root[data-theme=dark]{--ac:#8b7cf8;--b1:rgba(139,124,248,.20);--b2:rgba(244,114,182,.09)}
+:root{--grad:linear-gradient(135deg,var(--ac),color-mix(in srgb,var(--ac) 45%,#f472b6));--glow:0 10px 30px color-mix(in srgb,var(--ac) 30%,transparent)}
+html{scroll-behavior:smooth}
+body::before{background:radial-gradient(700px 460px at 6% -10%,var(--b1),transparent 70%),radial-gradient(560px 460px at 100% 30%,var(--b2),transparent 70%),radial-gradient(500px 360px at 50% 115%,var(--b1),transparent 75%)}
+.brand i{background:var(--grad);box-shadow:0 0 16px var(--ac)}
+.card{transition:border-color .25s,box-shadow .25s;box-shadow:0 1px 0 rgba(255,255,255,.03) inset}
+.card:hover{border-color:color-mix(in srgb,var(--ac) 38%,var(--bd))}
+.btn{transition:transform .15s,box-shadow .2s,border-color .2s,background .2s}
+.btn:hover{border-color:color-mix(in srgb,var(--ac) 45%,var(--bd))}
+.btn:active{transform:scale(.97)}
+.btn.pri{background:var(--grad);border-color:transparent;box-shadow:var(--glow)}
+.btn.pri:hover{transform:translateY(-1px);filter:brightness(1.06)}
+.tabs button{transition:color .2s,background .2s}
+.tabs button.on{background:color-mix(in srgb,var(--ac) 18%,transparent);color:var(--tx);box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--ac) 35%,transparent)}
+.seg button{transition:background .2s,color .2s}
+.seg button.on{background:color-mix(in srgb,var(--ac) 22%,transparent);color:var(--tx)}
+input:focus,select:focus,textarea:focus{border-color:var(--ac);box-shadow:0 0 0 3px color-mix(in srgb,var(--ac) 22%,transparent)}
+.it{content-visibility:auto;contain-intrinsic-size:auto 56px}
+.tabbar{overflow-x:auto;scrollbar-width:none}.tabbar::-webkit-scrollbar{display:none}.tabbar button{min-width:62px;flex:1 0 auto}
+.gtxt{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.kpis{display:grid;gap:12px;grid-template-columns:repeat(2,1fr)}@media(min-width:720px){.kpis{grid-template-columns:repeat(4,1fr)}}
+.kpi{padding:14px}.kpi .lbl{font-size:11.5px}.kpi b{display:block;font-size:24px;letter-spacing:-.02em;margin:4px 0 2px}.kpi small{color:var(--mut);font-size:12px}
+.up{color:var(--ok)}.dn{color:var(--bad)}
+.pbar{height:8px;border-radius:99px;background:var(--g2);overflow:hidden}.pbar i{display:block;height:100%;border-radius:99px;background:var(--grad);transition:width .6s cubic-bezier(.2,.8,.2,1)}
+.srow{display:grid;grid-template-columns:110px 1fr 44px;gap:10px;align-items:center;margin:9px 0;font-size:13px}
+.hero-i{position:relative;overflow:hidden;border-color:color-mix(in srgb,var(--ac) 35%,var(--bd))}
+.hero-i::after{content:"";position:absolute;right:-60px;top:-60px;width:220px;height:220px;border-radius:50%;background:radial-gradient(circle,color-mix(in srgb,var(--ac) 30%,transparent),transparent 70%);pointer-events:none}
+.aiL li{margin:6px 0}.aiL{margin:6px 0 0;padding-left:18px}
+.skel{height:14px;border-radius:8px;background:linear-gradient(90deg,var(--g),var(--g2),var(--g));background-size:200% 100%;animation:sk 1.2s linear infinite;margin:10px 0}@keyframes sk{to{background-position:-200% 0}}
+.rsn{font-size:11px;padding:2px 8px;border-radius:99px;background:color-mix(in srgb,var(--ac) 16%,transparent);color:var(--tx);white-space:nowrap}
+.grpb{font-size:10.5px;padding:1px 7px;border-radius:99px;margin-left:6px;background:color-mix(in srgb,var(--ac) 16%,transparent);color:var(--tx);vertical-align:1px}
+#cp{position:fixed;inset:0;z-index:90;background:rgba(3,4,10,.55);backdrop-filter:blur(6px);display:flex;justify-content:center;align-items:flex-start;padding:12vh 14px 0}
+#cp[hidden]{display:none}
+#cp .bx{width:min(560px,100%);background:var(--bg);border:1px solid var(--bd);border-radius:16px;box-shadow:0 30px 80px rgba(0,0,0,.5);overflow:hidden}
+#cp input{width:100%;border:0;border-bottom:1px solid var(--bd);border-radius:0;padding:15px 16px;font-size:15px;background:transparent}
+#cp input:focus{box-shadow:none}
+#cp ul{list-style:none;margin:0;padding:6px;max-height:50vh;overflow:auto}
+#cp li{padding:10px 12px;border-radius:10px;cursor:pointer;display:flex;justify-content:space-between;gap:10px}
+#cp li.on{background:color-mix(in srgb,var(--ac) 18%,transparent)}#cp li small{color:var(--mut)}
+@media(max-width:720px){.card,.chip,.btn,.tag,.seg{backdrop-filter:none;-webkit-backdrop-filter:none}.srow{grid-template-columns:84px 1fr 40px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
+@media print{#cp{display:none!important}}
+</style>
+</head><body class="locked"><div id="boot" role="dialog" aria-label="Welcome"><div class="bw"><div class="ld"><div class="lg"><img src="favicon.png" alt="JEE 2027 Study Tracker logo" onerror="this.replaceWith(document.createTextNode('JE'))"></div><h1>JEE 2027 Study Tracker</h1><p>Structured preparation, measured progress.</p><div class="pb"><i></i></div><div class="mut" id="bootpct" style="font-size:12px">Preparing dashboard 0%</div></div><div class="ob"><div class="sl on"><div class="lg"><img src="favicon.png" alt="JEE 2027 Study Tracker logo" onerror="this.replaceWith(document.createTextNode('JE'))"></div><h1>Welcome to JEE 2027</h1><p>A structured workspace for your preparation: plan, study, practise and review in one place.</p></div><div class="sl"><div class="lg">&#9201;</div><h1>Study clock</h1><p>Run focus blocks, set a daily goal and keep a floating timer visible while you work in other tabs.</p></div><div class="sl"><div class="lg">&#128218;</div><h1>Syllabus and QCT tracker</h1><p>Record theory, questions and QCTs for every chapter and see exactly how much of each test you have covered.</p></div><div class="sl"><div class="lg">&#128200;</div><h1>Tests and analysis</h1><p>Review upcoming tests, enter results when the test is live and study score trends and weak chapters.</p></div><div class="sl"><div class="lg">&#127769;</div><h1>Planner, sleep and backup</h1><p>Organise tasks by day, keep a weekly sleep balance and export your data whenever you wish.</p></div><div class="dots"><i></i><i></i><i></i><i></i><i></i></div><div class="obn"><button class="btn" id="obS" onclick="bootHide()">Skip</button><span><button class="btn" id="obB" onclick="obGo(-1)">Back</button> <button class="btn pri" id="obN" onclick="obGo(1)">Next</button></span></div></div></div></div>
 <header class="top"><div class="hw">
  <div class="brand" onclick="goTab(0)" title="Home" role="link" tabindex="0"><img src="favicon.png" alt="" width="22" height="22"><span id="bt">JEE 2027</span></div>
  <div class="areawrap"><button class="areabtn" id="areasw" onclick="toggleAreaMenu(event)" aria-haspopup="menu" aria-expanded="false" aria-label="Switch between JEE, II PUC, and Overall" title="Switch between JEE, II PUC, and Overall"></button><div class="areamenu" id="areamenu" role="menu" hidden></div></div>
@@ -641,7 +686,7 @@ header.top{background:color-mix(in srgb,var(--bg) 94%,transparent)!important}
 const IC2={cal:'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="3"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>',trash:'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6M10 11v6M14 11v6"/></svg>',sort:'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h13M3 12h9M3 18h5M17 8v10m0 0l-3-3m3 3l3-3"/></svg>'};
 
 const K='jee27';
-const THEMES=[['dark','Dark blue'],['blue','Blue'],['rose','Transparent pink'],['light','Light'],['amoled','AMOLED'],['forest','Forest'],['violet','Violet'],['sunset','Sunset']],CH3=(k,a,d,cfg)=>`<div class="chips">${a.map(([v,l])=>`<button class="chip ${(S[k]||d)==v?'on':''}" onclick="${cfg?'setCfg':'setLook'}('${k}','${v}')">${l}</button>`).join('')}</div>`;
+const THEMES=[['dark','Midnight violet'],['blue','Blue'],['rose','Transparent pink'],['light','Light'],['amoled','AMOLED'],['forest','Forest'],['violet','Violet'],['sunset','Sunset']],CH3=(k,a,d,cfg)=>`<div class="chips">${a.map(([v,l])=>`<button class="chip ${(S[k]||d)==v?'on':''}" onclick="${cfg?'setCfg':'setLook'}('${k}','${v}')">${l}</button>`).join('')}</div>`;
 let S={exam:'2027-01-21',subs:['Physics','Chemistry','Mathematics'],cur:'Physics',days:{},qlog:[],todos:[],tests:[],notes:{},syl:{},sess:[],topic:'',mode:0};
 if(!S.start){const ks=Object.keys(S.days||{}).sort();S.start=ks[0]||ymd(new Date())}
 const save=()=>{try{if(window.JEE_AUTH&&typeof window.JEE_AUTH.saveState==='function')window.JEE_AUTH.saveState()}catch(e){}};
@@ -809,7 +854,7 @@ const ring=(p,c,label)=>`<div class="ring" style="--p:${p};--c:${c}"><span class
 const areaTitle=()=>isOv()?'Overall':S.area==='board'?'II PUC Board':(S.etype==='JEE Advanced'?'JEE Adv ':'JEE ')+(S.tyear||'2027'),examName=()=>S.etype==='JEE Advanced'?'JEE Advanced':'JEE Main',examDate=()=>S.etype==='JEE Advanced'&&S.advDate?S.advDate:S.exam;
 function hdr(){$('bt').textContent=areaTitle();const nm=(S.name||'Student').trim(),ini=nm.split(/\s+/).map(w=>w[0]).join('').slice(0,2).toUpperCase();$('avt').innerHTML=`<i>${esc(ini)}</i><span class="hide-sm">${esc(nm.split(' ')[0])}</span>`;$('xtag').textContent=`Lv ${lv()} · ${Math.round(S.xp||0)} XP`;
  $('setb').innerHTML=ic('gear',16)}
-const TJ=[['Today','clock'],['Syllabus','book'],['Tests','test'],['Practice','target'],['To Do','todo'],['Backlog','alert'],['Stats','stats'],['Sleep','moon']],TB=[['Today','clock'],['Syllabus','book'],['Tests','test'],['To Do','todo'],['Stats','stats']],tabsOf=()=>{const a=S.area==='all'?(S.lastArea||'jee'):S.area;return a==='board'?TB:TJ},isOv=()=>S.area==='all';
+const TJ=[['Today','clock'],['Syllabus','book'],['Tests','test'],['Practice','target'],['To Do','todo'],['Backlog','alert'],['Stats','stats'],['Sleep','moon'],['Insights','spark'],['Mistakes','flag']],TB=[['Today','clock'],['Syllabus','book'],['Tests','test'],['To Do','todo'],['Stats','stats']],tabsOf=()=>{const a=S.area==='all'?(S.lastArea||'jee'):S.area;return a==='board'?TB:TJ},isOv=()=>S.area==='all';
 function setArea(a){if(!['jee','board','all'].includes(a)||((a==='board'||a==='all')&&S.scope==='jee'))return;if(S.area===a)return;if(run){if(!confirm('A timer is running. Stop it and switch?'))return;stop()}window._tabSw=1;try{if(a==='all'&&S.area!=='all')S.lastArea=S.area==='board'?'board':'jee';S.area=a;tab=a==='all'?0:(S.tabs&&S.tabs[a])||0;S.tab=tab;save();if(scrollY>0)scrollTo({top:0,behavior:'instant'});go()}finally{window._tabSw=0}}
 function nav(){const TABS=tabsOf(),active=S.area==='all'?-1:tab,b=(t,i)=>`<button class="${i==active?'on':''}" onclick="goTab(${i})" ${i==active?'aria-current="page"':''}>${ic(t[1],16)}<span>${t[0]}</span></button>`;
  $('tabs').innerHTML=TABS.map(b).join('');$('tabbar').innerHTML=TABS.map(b).join('');
@@ -830,7 +875,7 @@ function pageT(FL,k,done){const l=tlGet(k);let start=0;if(!l.all){const f=FL.fin
  return{rows,top:start>0?`<button class="btn" style="width:100%;justify-content:center;margin:6px 0 4px" onclick="tlEarlier('${k}')">Show ${start} earlier test${start>1?'s':''}</button>`:'',
   bot:after>0?`<div class="f" style="gap:8px;margin-top:10px"><button class="btn" style="flex:1;justify-content:center" onclick="tlMore('${k}')">Show ${Math.min(20,after)} more &middot; ${after} left</button><button class="x" onclick="tlMore('${k}',1)">Show all</button></div>`:''}}
 function ymd(d){const m=d.getMonth()+1,k=d.getDate();return d.getFullYear()+'-'+(m<10?'0':'')+m+'-'+(k<10?'0':'')+k}
-function go(){_tcm=new WeakMap();_cvm=new WeakMap();try{sweepMissed()}catch(e){}tab=S.area==='all'?0:(S.tabs&&S.tabs[S.area||'jee'])||0;const V=S.area==='all'?[vOverall]:S.area==='board'?[vToday,vBSyl,vBTests,vTodo,vBStats]:[vToday,vSyl,vTests,vPrac,vTodo,vBack,vStats,vSleep];if(tab>=V.length){tab=0;if(S.area!=='all'&&S.tabs&&S.tabs[S.area]!==0){S.tabs[S.area]=0;save()}}applyLook();nav();hdr();$('m').innerHTML=V[tab]();tick();cdTick()}
+function go(){_tcm=new WeakMap();_cvm=new WeakMap();try{sweepMissed()}catch(e){}tab=S.area==='all'?0:(S.tabs&&S.tabs[S.area||'jee'])||0;const V=S.area==='all'?[vOverall]:S.area==='board'?[vToday,vBSyl,vBTests,vTodo,vBStats]:[vToday,vSyl,vTests,vPrac,vTodo,vBack,vStats,vSleep,(window.vInsights||(()=>'')),(window.vMist||(()=>''))];if(tab>=V.length){tab=0;if(S.area!=='all'&&S.tabs&&S.tabs[S.area]!==0){S.tabs[S.area]=0;save()}}applyLook();nav();hdr();$('m').innerHTML=V[tab]();tick();cdTick()}
 function enterAnim(){const m=$('m');m.classList.add('enter');clearTimeout(enterAnim.t);enterAnim.t=setTimeout(()=>m.classList.remove('enter'),900)}
 function goTab(i){window._tabSw=1;try{if(S.area==='all')S.area=S.lastArea||'jee';S.tabs=S.tabs||{};S.tabs[S.area||'jee']=i;tab=i;S.tab=i;save();enterAnim();if(scrollY>0)scrollTo({top:0,behavior:'instant'});go()}finally{window._tabSw=0}}
 function theme(){const r=document.documentElement,l=r.dataset.theme!=='light';r.dataset.theme=l?'light':'dark';S.theme=r.dataset.theme;save();hdr()}
@@ -930,7 +975,7 @@ function lineChart(series,h=130){const n=Math.max(0,...series.map(s=>s.pts.lengt
 function vTests(){const T=td(),L=S.tests.map((t,i)=>({...t,i,tt:tot(t)})).sort((a,b)=>a.date<b.date?-1:1),sc=L.filter(t=>t.tt!==null&&t.mx),pc=t=>Math.round(t.tt/t.mx*100),w=sc.length?weak():null;
  const av=sc.length?Math.round(sc.reduce((a,t)=>a+pc(t),0)/sc.length):0,bs=sc.length?Math.max(...sc.map(pc)):0,nx=L.find(t=>t.date>=T&&t.tt===null);
  const last10=sc.slice(-10),subAvg=SK.map(([k,n])=>{const v=sc.filter(t=>t[k]!==''&&t[k]!=null).map(t=>+t[k]/(t.mx/3)*100);return{n,a:v.length?Math.round(v.reduce((a,b)=>a+b,0)/v.length):null}});
- const KF=['All',...SER,...(L.some(t=>!SER.includes(t.kind))?['Other']:[])],KL=L.filter(t=>tkf==='All'||t.kind===tkf||(tkf==='Other'&&!SER.includes(t.kind))),stF={All:()=>true,Upcoming:t=>t.date>=td()&&!t.at,Attempted:t=>!!t.at,'Not attempted':t=>t.date<td()&&!t.at},FL=KL.filter(stF[tst]||stF.All);
+ const KF=['All','JEE Main','JEE Advanced',...SER,...(L.some(t=>!SER.includes(t.kind))?['Other']:[])],KL=L.filter(t=>tkf==='All'||t.kind===tkf||(tkf==='JEE Main'&&(t.kind==='QPT'||t.kind==='QFT'))||(tkf==='JEE Advanced'&&(t.kind==='QAPT'||t.kind==='QAFT'))||(tkf==='Other'&&!SER.includes(t.kind))),stF={All:()=>true,Upcoming:t=>t.date>=td()&&!t.at,Attempted:t=>!!t.at,'Not attempted':t=>t.date<td()&&!t.at},FL=KL.filter(stF[tst]||stF.All);
 const PG=pageT(FL,'j',t=>t.tt!==null);
  return `<div class="row" style="margin-bottom:14px"><h3>Tests & analysis</h3><div class="f" style="margin:0"><div class="seg" role="group" aria-label="Filter tests">${KF.map(k=>`<button class="${k===tkf?'on':''}" onclick="tkf='${k}';tlReset();go()">${k}</button>`).join('')}</div>${S.tedit==='on'?`<button class="btn pri" onclick="openTestEdit(-1)">${ic('plus',15)}Add test</button>`:''}</div></div>
 <div class="seg" role="group" aria-label="Filter by status" style="margin-bottom:14px">${Object.keys(stF).map(k=>`<button class="${k===tst?'on':''}" onclick="tst='${k}';tlReset();go()">${k} <span class="mono">${KL.filter(stF[k]).length}</span></button>`).join('')}</div>
@@ -949,7 +994,7 @@ const PG=pageT(FL,'j',t=>t.tt!==null);
 <section class="card"><div class="row" style="margin-bottom:4px"><div class="lbl">${tkf==='All'?'Quizrr test schedule':tkf+' schedule'}</div><span class="mut mono" style="font-size:12px">${FL.filter(t=>t.tt!==null).length}/${FL.length} done</span></div>
  ${PG.top}${PG.rows.map(t=>{const n=dd(t.date),p=t.tt!==null&&t.mx?pc(t):null;return `<div class="it trw">
   ${(()=>{const v=p!==null?p:(testCover(t)||0);return tring(t,v,v>=(p!==null?60:75)?'var(--ok)':v>=40?'var(--warn)':'var(--bad)','j',t.i)})()}
-  <span><span class="mut" style="font-size:12px">${n>0?'in '+n+' day'+(n>1?'s':''):n==0?'today':Math.abs(n)+' days ago'}</span><br><small class="mut">${esc(t.kind||'')} · ${fdate(t.date)}${p!==null?` · <span class="mono" style="color:var(--tx)">${t.tt}/${t.mx}</span>`:n<0?' · <span class="warn">result pending</span>':''}</small>
+  <span><span class="mut" style="font-size:12px">${n>0?'in '+n+' day'+(n>1?'s':''):n==0?'today':Math.abs(n)+' days ago'}</span><br><small class="mut">${esc(t.kind||'')}${(t.kind==='QPT'||t.kind==='QFT')?'<span class="grpb">Main</span>':(t.kind==='QAPT'||t.kind==='QAFT')?'<span class="grpb">Advanced</span>':''} · ${fdate(t.date)}${p!==null?` · <span class="mono" style="color:var(--tx)">${t.tt}/${t.mx}</span>`:n<0?' · <span class="warn">result pending</span>':''}</small>
   ${p!==null?`<br><small class="mut mono">P ${t.p===''?'–':t.p} · C ${t.c===''?'–':t.c} · M ${t.m===''?'–':t.m}</small>`:sylH(t)}${p===null?covLine(t,'j'):''}</span>
   <div class="f" style="flex:none;gap:4px"><a class="x" ${QL} title="Open on Quizrr">Quizrr ${ic('ext',13)}</a>${p!==null?`<button class="btn sm pri" onclick="openAn(${t.i})">Analysis</button><button class="x" onclick="openRes(${t.i})">Edit</button>`:`<button class="btn sm" onclick="openRes(${t.i})">Enter result</button>`}${S.tedit==='on'?`<button class="x" onclick="openTestEdit(${t.i})">${ic('edit',14)}Edit test</button>`:''}</div></div>`}).join('')||'<div class="empty">No tests in this filter.</div>'}${PG.bot}
 </section>`}
@@ -2027,29 +2072,37 @@ function post2(){const m=$('m');if(!m)return;
 W.upT={coach,heat,cmp};
 const g1=W.go;W.go=function(){const r=g1.apply(this,arguments);T(post2);return r};
 })();
-</script> <script id="harsh-addon">
-/* Harsh: AI study mentor add-on. Paste AFTER your other add-ons. Uses your own Google Gemini API key, stored only in this browser (localStorage). */
+</script> <script id="harsh-ai">
+/* Harsh AI — study mentor + AI engine for Insights. Google Gemini, called straight from the browser.
+   KEY SLOT: paste your Gemini API key between the quotes below exactly as issued. If it is left blank,
+   each student adds their own key under Harsh AI > Setup (kept only in that browser).
+   The key is sent only in the x-goog-api-key request header and is never logged or shown in the UI. */
 (function(){'use strict';
-const W=window,LS=k=>{try{return localStorage.getItem(k)||''}catch(e){return''}},SV=(k,v)=>{try{v?localStorage.setItem(k,v):localStorage.removeItem(k)}catch(e){}},q=id=>document.getElementById(id);
-let msgs=[],busy=false,isOpen=false;
-const css=document.createElement('style');
-css.textContent=`#hbtn{position:fixed;right:16px;bottom:calc(84px + env(safe-area-inset-bottom,0px));z-index:50;display:inline-flex;align-items:center;gap:8px;border-radius:999px;box-shadow:0 8px 28px rgba(0,0,0,.35)}
-#hp{position:fixed;right:16px;bottom:76px;width:min(400px,calc(100vw - 24px));height:min(620px,calc(100vh - 100px));z-index:60;display:flex;flex-direction:column;background:var(--bg);border:1px solid var(--bd);border-radius:18px;box-shadow:0 24px 70px rgba(0,0,0,.55);overflow:hidden}
-#hp[hidden]{display:none}#hp header{display:flex;align-items:center;gap:10px;padding:12px 14px;border-bottom:1px solid var(--bd)}
-#hp .hav{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;background:color-mix(in srgb,var(--ac) 20%,transparent);color:var(--ac);font-weight:700}
-#hm{flex:1;overflow:auto;padding:14px;display:flex;flex-direction:column;gap:10px}
-.hb{max-width:88%;padding:10px 12px;border-radius:14px;font-size:13.5px;line-height:1.5;overflow-wrap:anywhere}
-.hb.u{align-self:flex-end;background:color-mix(in srgb,var(--ac) 20%,transparent)}.hb.a{align-self:flex-start;background:var(--g2)}.hb.e{color:var(--bad)}
-#hp .hint{color:var(--mut);font-size:13px;text-align:center;padding:18px 8px}
-#hc{display:flex;gap:6px;flex-wrap:wrap;padding:0 14px 8px}
-.hcomp{display:flex;gap:8px;padding:10px 14px calc(10px + env(safe-area-inset-bottom,0px));border-top:1px solid var(--bd)}.hcomp textarea{flex:1;resize:none;max-height:110px}
-#hs{flex:1;overflow:auto;padding:14px}#hs label{display:block;margin:12px 0 4px;font-size:12px;color:var(--mut)}#hs input,#hs textarea{width:100%}
-@media(max-width:720px){#hp{inset:0;width:auto;height:auto;border-radius:0}#hp header{padding-top:calc(12px + env(safe-area-inset-top,0px))}}
-@media print{#hbtn,#hp{display:none!important}}`;
-document.head.appendChild(css);
-const md=t=>esc(t).replace(/\*\*(.+?)\*\*/g,'<b>$1</b>').replace(/^\s*[-*] /gm,'• ').replace(/\n/g,'<br>');
-
-/* ---- what Harsh knows: a summary of your real tracker data ---- */
+const GEMINI_KEY='';
+const W=window,q=id=>document.getElementById(id);
+const LS=k=>{try{return localStorage.getItem(k)||''}catch(e){return''}},SV=(k,v)=>{try{v?localStorage.setItem(k,v):localStorage.removeItem(k)}catch(e){}};
+const KEY=()=>(GEMINI_KEY||LS('harsh_key')).trim();
+const MODELS=()=>[...new Set([LS('harsh_model').trim(),'gemini-3.5-flash','gemini-3.1-flash-lite','gemini-2.5-flash'].filter(Boolean))];
+let cur=null,busy=false,ctl=null,view='chat',sess=[];
+const load=()=>{try{sess=JSON.parse(LS('harsh_sessions')||'[]')||[]}catch(e){sess=[]}};
+const persist=()=>{try{sess=sess.sort((a,b)=>b.t-a.t).slice(0,20);SV('harsh_sessions',JSON.stringify(sess))}catch(e){}};
+const clean=s=>{const k=KEY();return String(s||'').split(k||'\u0000').join('•••').slice(0,300)};
+const txt=j=>(((j.candidates||[])[0]||{}).content||{parts:[]}).parts.map(p=>p.text||'').join('');
+async function gem(body,o){o=o||{};const k=KEY();if(!k)throw new Error('NOKEY');let last='';
+ for(const m of MODELS()){
+  const url='https://generativelanguage.googleapis.com/v1beta/models/'+encodeURIComponent(m)+(o.stream?':streamGenerateContent?alt=sse':':generateContent');
+  let r;try{r=await fetch(url,{method:'POST',headers:{'Content-Type':'application/json','x-goog-api-key':k},body:JSON.stringify(body),signal:o.signal})}catch(e){if(e&&e.name==='AbortError')throw e;last='Network problem. Check your connection and try again.';continue}
+  if(r.ok){
+   if(!o.stream)return txt(await r.json());
+   const rd=r.body.getReader(),dec=new TextDecoder();let buf='',acc='';
+   for(;;){const x=await rd.read();if(x.done)break;buf+=dec.decode(x.value,{stream:true});const ls=buf.split('\n');buf=ls.pop();
+    for(const l of ls){if(l.indexOf('data:')===0){try{const t=txt(JSON.parse(l.slice(5)));if(t){acc+=t;o.onChunk&&o.onChunk(acc)}}catch(e){}}}}
+   return acc}
+  let msg='';try{msg=((await r.json()).error||{}).message||''}catch(e){}
+  if((r.status===400||r.status===401||r.status===403)&&/api key|permission|credential|invalid/i.test(msg))throw new Error('Gemini rejected the API key. Check it in Harsh AI > Setup.');
+  last=clean(msg)||('Request failed ('+r.status+')');
+ }
+ throw new Error(last||'No reply received.')}
 function ctx(){const L=[],T0=td(),s=f=>{try{const r=f();if(r)L.push(r)}catch(e){console.error('harsh ctx',e)}},h=o=>((DAYS()[dstr(o)]||{}).s||0)/3600,B=S.area==='board';
  s(()=>{const ex=examDate();return `Student ${(S.name||'').trim()||'(no name)'}; area ${B?'II PUC Board':'JEE'}; target ${B?'board exam':examName()}${ex?' on '+ex+' ('+dd(ex)+' days left)':''}; today ${T0}; daily goal ${goalH()}h.`});
  s(()=>{let w=0;for(let o=0;o<7;o++)w+=h(o);return `Study today ${h(0).toFixed(1)}h; last 7 days ${w.toFixed(1)}h (avg ${(w/7).toFixed(1)}h/day); streak ${streak()} days.`});
@@ -2064,40 +2117,155 @@ function ctx(){const L=[],T0=td(),s=f=>{try{const r=f();if(r)L.push(r)}catch(e){
  s(()=>{const t=TODOS().filter(x=>!x.x&&!x.mv&&(!x.due||x.due<=T0));return t.length&&'Pending tasks today: '+t.slice(0,10).map(x=>x.t+(x.min?' '+x.min+'m':'')).join('; ')+'.'});
  s(()=>{const a=[];for(let o=0;o<7;o++){const m=sleepMin(dstr(o));if(m!=null)a.push(m)}return a.length&&'Average sleep '+(a.reduce((x,y)=>x+y,0)/a.length/60).toFixed(1)+'h over '+a.length+' nights (goal '+(S.sleepGoal||8)+'h).'});
  return L.join('\n')}
-const sys=()=>{const ab=LS('harsh_about').trim();return `You are Harsh, a direct and honest study mentor inside the student's own tracker. Use only the data below. Never invent numbers; say when data is missing. Give short, specific, actionable advice (which chapters first, how long, in what order). Be encouraging but truthful. Plain text, short bullet lines, no long essays.\n\nSTUDENT DATA\n${ctx()}`+(ab?`\n\nABOUT THE STUDENT / THEIR INSTRUCTIONS\n${ab}`:'')};
-function hist(){const o=[];msgs.forEach((m,i)=>{if(m.err||(m.r==='user'&&msgs[i+1]&&msgs[i+1].err))return;o.push({role:m.r==='user'?'user':'model',parts:[{text:m.t}]})});const r=o.slice(-12);while(r.length&&r[0].role!=='user')r.shift();return r}
-const body=()=>({systemInstruction:{parts:[{text:sys()}]},contents:hist(),generationConfig:{temperature:.6,maxOutputTokens:900}});
-
-function paint(){const m=q('hm');if(!m)return;const k=LS('harsh_key');
- m.innerHTML=(msgs.length?'':`<div class="hint">${k?'Ask about your week, weak chapters or what to study next. I read your real tracker stats.':'Add your free Gemini API key in Setup (gear icon) to start.'}</div>`)+msgs.map(x=>`<div class="hb ${x.r==='user'?'u':'a'}${x.err?' e':''}">${md(x.t)}</div>`).join('')+(busy?'<div class="hb a"><span class="spin"></span> Thinking</div>':'');
- m.scrollTop=m.scrollHeight;q('hsend').disabled=busy}
-async function ask(t){t=String(t||'').trim();if(!t||busy)return;const k=LS('harsh_key');if(!k){hSetup();toast('Add your Gemini API key first');return}
- msgs.push({r:'user',t});busy=true;paint();
- try{const mod=LS('harsh_model').trim()||'gemini-2.5-flash',r=await fetch('https://generativelanguage.googleapis.com/v1beta/models/'+encodeURIComponent(mod)+':generateContent',{method:'POST',headers:{'Content-Type':'application/json','x-goog-api-key':k},body:JSON.stringify(body())}),j=await r.json().catch(()=>({}));
-  if(!r.ok)throw new Error((j.error&&j.error.message)||'HTTP '+r.status);
-  const c=((j.candidates||[])[0]||{}),x=((c.content||{}).parts||[]).map(p=>p.text||'').join('').trim();msgs.push({r:'ai',t:x||'No reply came back. Try rephrasing, or check the model name in Setup.'})}
- catch(e){msgs.push({r:'ai',t:'Could not get a reply: '+e.message+'. Check your key and model in Setup.',err:1})}
- busy=false;paint()}
-W.hSend=()=>{const i=q('hi'),v=i.value;i.value='';i.style.height='';ask(v)};
-W.hQ=t=>ask(t);W.hClear=()=>{msgs=[];paint()};
-W.hOpen=()=>{build();q('hp').hidden=false;isOpen=true;if(LS('harsh_key'))hChat();else hSetup();paint()};
-W.hClose=()=>{const p=q('hp');if(p)p.hidden=true;isOpen=false};
-W.hChat=()=>{q('hs').hidden=true;q('hchat').hidden=false;q('hi').focus()};
-W.hSetup=()=>{build();q('hp').hidden=false;isOpen=true;q('hchat').hidden=true;q('hs').hidden=false;q('hk').value=LS('harsh_key');q('hmod').value=LS('harsh_model');q('hab').value=LS('harsh_about')};
-W.hSave=()=>{SV('harsh_key',q('hk').value.trim());SV('harsh_model',q('hmod').value.trim());SV('harsh_about',q('hab').value.trim());toast('Harsh settings saved on this device');hChat();paint()};
-W.hRemove=()=>{if(!confirm('Remove your API key from this browser?'))return;SV('harsh_key','');q('hk').value='';toast('API key removed');paint()};
-function build(){if(q('hp')||!document.body)return;
- const b=document.createElement('button');b.id='hbtn';b.type='button';b.className='btn pri';b.setAttribute('aria-label','Open Harsh, your AI study mentor');b.innerHTML='<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/></svg><span>Harsh</span>';b.onclick=()=>isOpen?hClose():hOpen();document.body.appendChild(b);
- const p=document.createElement('section');p.id='hp';p.hidden=true;p.setAttribute('role','dialog');p.setAttribute('aria-label','Harsh, AI study mentor');
- p.innerHTML=`<header><span class="hav">H</span><div style="flex:1"><b>Harsh</b><div class="mut" style="font-size:12px">AI study mentor · reads your tracker</div></div><button class="x" onclick="hClear()" title="Start a new chat">New</button><button class="icon-btn" onclick="hSetup()" aria-label="Setup" title="Setup">${ic('gear',16)}</button><button class="icon-btn" onclick="hClose()" aria-label="Close">${ic('x',16)}</button></header>
- <div id="hchat" style="display:flex;flex-direction:column;flex:1;min-height:0"><div id="hm" aria-live="polite"></div><div id="hc">${['Plan my day','Review my week','Fix my weak chapters','Am I on track?'].map(t=>`<button class="tag" onclick="hQ('${t}')">${t}</button>`).join('')}</div><div class="hcomp"><textarea id="hi" rows="1" placeholder="Ask Harsh about your prep" aria-label="Message"></textarea><button class="btn pri" id="hsend" onclick="hSend()">Send</button></div></div>
- <div id="hs" hidden><b>Setup</b><label for="hk">Gemini API key</label><input id="hk" type="password" autocomplete="off" placeholder="Paste your key"><div class="mut" style="font-size:12px;margin-top:6px">Free from <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener noreferrer" style="color:var(--ac)">Google AI Studio</a>. The key is saved only in this browser. Each question sends a summary of your tracker stats to Google Gemini.</div>
- <label for="hmod">Model</label><input id="hmod" placeholder="gemini-2.5-flash"><label for="hab">About me and instructions (optional)</label><textarea id="hab" rows="4" placeholder="e.g. I am a dropper, weak in Physics, prefer short answers"></textarea>
- <div class="f" style="margin-top:14px"><button class="btn pri" onclick="hSave()">Save</button><button class="btn" onclick="hChat()">Back</button><button class="btn dng" onclick="hRemove()">Remove key</button></div></div>`;
- document.body.appendChild(p);q('hi').addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey&&!e.isComposing){e.preventDefault();hSend()}});q('hi').addEventListener('input',e=>{e.target.style.height='auto';e.target.style.height=Math.min(110,e.target.scrollHeight)+'px'})}
-document.addEventListener('keydown',e=>{if(e.key==='Escape'&&isOpen&&!(q('dlg')&&q('dlg').open))hClose()});
-W.harsh={ctx,sys,body,msgs:()=>msgs,push:m=>msgs.push(m)};
-build();
+const extra=()=>{const o=[];try{const m=(S.mist||[]).filter(x=>!x.rev);if(m.length){const c={};m.forEach(x=>c[x.why]=(c[x.why]||0)+1);o.push('Open mistake-log items: '+m.length+' ('+Object.entries(c).map(e=>e[0]+' '+e[1]).join(', ')+'). Latest: '+m.slice(-4).map(x=>x.sub+' / '+(x.ch||'?')+' - '+x.why).join('; ')+'.')}}catch(e){}
+ try{if(S.gm||S.ga)o.push('Target scores: JEE Main '+(S.gm||'not set')+'/300, JEE Advanced '+(S.ga||'not set')+'/360.')}catch(e){}return o.join('\n')};
+const fullCtx=()=>{let a='';try{a=ctx()}catch(e){}return(a+'\n'+extra()).trim()};
+const sys=()=>{const ab=LS('harsh_about').trim();return 'You are Harsh AI, a direct, honest and encouraging JEE study mentor inside the student\'s own tracker. Use the tracker data below for anything about their progress; never invent numbers and say when data is missing. You may also explain Physics, Chemistry and Maths concepts step by step; write maths in plain text, not LaTeX. Keep answers short, specific and actionable (which chapter, how many questions, how long). Use short paragraphs and simple lists.\n'+(ab?'About the student: '+ab+'\n':'')+'\n--- TRACKER DATA ---\n'+fullCtx()}
+const md=t=>{let h=esc(t);h=h.replace(/```\w*\n?([\s\S]*?)```/g,(m,c)=>'<pre><code>'+c+'</code></pre>').replace(/`([^`\n]+)`/g,'<code>$1</code>').replace(/\*\*(.+?)\*\*/g,'<b>$1</b>').replace(/^#{1,3} (.+)$/gm,'<b>$1</b>').replace(/^\s*[-*] (.+)$/gm,'• $1');
+ return h.split(/(<pre>[\s\S]*?<\/pre>)/).map((s,i)=>i%2?s:s.replace(/\n/g,'<br>')).join('')};
+const hist=m=>{const o=[];m.forEach((x,i)=>{if(x.err||(x.r==='user'&&m[i+1]&&m[i+1].err))return;o.push({role:x.r==='user'?'user':'model',parts:[{text:x.t}]})});const r=o.slice(-14);while(r.length&&r[0].role!=='user')r.shift();return r};
+const title=t=>{const w=String(t).replace(/\s+/g,' ').trim().split(' ').slice(0,5).join(' ');return w.length<String(t).trim().length?w+'…':w||'New chat'};
+const newSess=()=>{cur={id:Date.now().toString(36),t:Date.now(),title:'New chat',msgs:[]};return cur};
+const save1=()=>{if(!cur||!cur.msgs.length)return;cur.t=Date.now();cur.msgs=cur.msgs.slice(-40);const i=sess.findIndex(s=>s.id===cur.id);if(i<0)sess.push(cur);persist()};
+/* ---- UI ---- */
+function paintMsgs(last){const m=q('hm');if(!m)return;
+ if(last){const e=m.lastElementChild;if(e){e.innerHTML=md(cur.msgs[cur.msgs.length-1].t);m.scrollTop=m.scrollHeight;return}}
+ const k=KEY();
+ m.innerHTML=(cur.msgs.length?'':'<div class="hint"><b class="gtxt" style="font-size:18px">Hi, I\'m Harsh AI</b><br>'+(k?'Ask about your week, weak chapters, what to study next, or any JEE doubt. I read your real tracker data.':'Add a free Gemini API key in Setup (gear icon) to start chatting.')+'</div>')+
+ cur.msgs.map(x=>'<div class="hb '+(x.r==='user'?'u':'a')+(x.err?' e':'')+'">'+(x.r==='user'?esc(x.t).replace(/\n/g,'<br>'):md(x.t))+'</div>').join('')+(busy&&cur.msgs.length&&cur.msgs[cur.msgs.length-1].r==='user'?'<div class="hb a"><span class="skel" style="display:block;width:90px"></span></div>':'');
+ m.scrollTop=m.scrollHeight;const s=q('hsend');if(s){s.textContent=busy?'Stop':'Send';s.onclick=busy?hStop:hSend}}
+function show(v){view=v;['hchat','hs','hh'].forEach(i=>{const e=q(i);if(e)e.hidden=(i!=={chat:'hchat',set:'hs',his:'hh'}[v])});if(v==='chat')setTimeout(()=>{const i=q('hi');i&&i.focus()},30)}
+function paintHis(){const b=q('hhl');if(!b)return;b.innerHTML=sess.length?sess.map(s=>'<div class="it" style="cursor:pointer" onclick="hLoad(\''+s.id+'\')"><span>'+esc(s.title)+'<br><small class="mut">'+new Date(s.t).toLocaleDateString('en-IN',{day:'numeric',month:'short'})+' · '+s.msgs.length+' messages</small></span><button class="x" onclick="event.stopPropagation();hDel(\''+s.id+'\')" aria-label="Delete chat">Delete</button></div>').join(''):'<div class="empty">No saved chats yet.</div>'}
+function build(){if(q('hp')||!document.body)return;load();if(!cur)newSess();
+ const css=document.createElement('style');css.textContent='#hp{position:fixed;right:16px;bottom:76px;width:min(410px,calc(100vw - 24px));height:min(640px,calc(100vh - 100px));z-index:60;display:flex;flex-direction:column;background:var(--bg);border:1px solid var(--bd);border-radius:20px;box-shadow:0 30px 80px rgba(0,0,0,.5);overflow:hidden}#hp[hidden]{display:none}#hp>header{display:flex;align-items:center;gap:8px;padding:12px 14px;border-bottom:1px solid var(--bd);background:linear-gradient(135deg,color-mix(in srgb,var(--ac) 14%,transparent),transparent)}#hp .hav{width:34px;height:34px;border-radius:12px;display:grid;place-items:center;background:var(--grad);color:#fff;font-weight:700;flex:none}#hm{flex:1;overflow:auto;padding:14px;display:flex;flex-direction:column;gap:10px;overscroll-behavior:contain}.hb{max-width:90%;padding:10px 12px;border-radius:14px;font-size:13.5px;line-height:1.55;overflow-wrap:anywhere}.hb.u{align-self:flex-end;background:color-mix(in srgb,var(--ac) 24%,transparent)}.hb.a{align-self:flex-start;background:var(--g2)}.hb.e{color:var(--bad)}.hb pre{overflow:auto;background:rgba(0,0,0,.25);padding:8px;border-radius:8px;margin:6px 0}.hb code{font-family:JetBrains Mono,monospace;font-size:12px}#hp .hint{color:var(--mut);font-size:13px;text-align:center;padding:22px 8px;line-height:1.6}#hc{display:flex;gap:6px;flex-wrap:wrap;padding:0 14px 8px}.hcomp{display:flex;gap:8px;padding:10px 14px calc(10px + env(safe-area-inset-bottom,0px));border-top:1px solid var(--bd)}.hcomp textarea{flex:1;resize:none;max-height:110px}#hs,#hh{flex:1;overflow:auto;padding:14px}#hs label{display:block;margin:12px 0 4px;font-size:12px;color:var(--mut)}#hs input,#hs textarea{width:100%}#hbtn{position:fixed;right:16px;bottom:calc(84px + env(safe-area-inset-bottom,0px));z-index:50;display:inline-flex;align-items:center;gap:8px;border-radius:999px;padding:10px 16px}@media(max-width:720px){#hp{inset:0;width:auto;height:auto;border-radius:0}#hp>header{padding-top:calc(12px + env(safe-area-inset-top,0px))}}@media print{#hbtn,#hp{display:none!important}}';
+ document.head.appendChild(css);
+ const b=document.createElement('button');b.id='hbtn';b.type='button';b.className='btn pri';b.setAttribute('aria-label','Open Harsh AI, your study mentor');b.innerHTML='<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z"/></svg><span>Harsh AI</span>';b.onclick=()=>W.hOpen();document.body.appendChild(b);
+ const p=document.createElement('section');p.id='hp';p.hidden=true;p.setAttribute('role','dialog');p.setAttribute('aria-label','Harsh AI, study mentor');
+ const keyLocked=!!GEMINI_KEY;
+ p.innerHTML='<header><span class="hav">H</span><div style="flex:1;min-width:0"><b>Harsh AI</b><div class="mut" style="font-size:12px">Study mentor · reads your tracker</div></div><button class="x" onclick="hNew()" title="New chat">New</button><button class="x" onclick="hHis()" title="Past chats">History</button><button class="x" onclick="hSetup()" title="Setup" aria-label="Setup">Setup</button><button class="icon-btn" onclick="hClose()" aria-label="Close Harsh AI">&times;</button></header>'+
+ '<div id="hchat" style="display:flex;flex-direction:column;flex:1;min-height:0"><div id="hm" aria-live="polite"></div><div id="hc">'+['Plan my day','Review my week','Fix my weak chapters','Am I on track?'].map(t=>'<button class="tag" onclick="hQ(\''+t+'\')">'+t+'</button>').join('')+'</div><div class="hcomp"><textarea id="hi" rows="1" placeholder="Ask Harsh AI…" aria-label="Message Harsh AI"></textarea><button id="hsend" class="btn pri" onclick="hSend()">Send</button></div></div>'+
+ '<div id="hh" hidden><b>Past chats</b><div id="hhl" style="margin-top:8px"></div><div class="f" style="margin-top:12px"><button class="btn" onclick="hBack()">Back</button></div></div>'+
+ '<div id="hs" hidden><b>Setup</b>'+(keyLocked?'<div class="mut" style="font-size:13px;margin-top:8px">A Gemini key is already configured for this site.</div>':'<label for="hk">Gemini API key</label><input id="hk" type="password" autocomplete="off" spellcheck="false" placeholder="Paste your key"><div class="mut" style="font-size:12px;margin-top:6px">Free from <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener" style="color:var(--ac)">Google AI Studio</a>. Stored only in this browser and sent only to Google.</div>')+
+ '<label for="hmod">Model (optional)</label><input id="hmod" placeholder="gemini-3.5-flash"><label for="hab">About me and instructions (optional)</label><textarea id="hab" rows="4" placeholder="e.g. I am a dropper, weak in Physics, prefer short answers"></textarea><div class="f" style="margin-top:14px"><button class="btn pri" onclick="hSave()">Save</button><button class="btn" onclick="hBack()">Back</button>'+(keyLocked?'':'<button class="btn dng" onclick="hRemove()">Remove key</button>')+'</div></div>';
+ document.body.appendChild(p);
+ const i=q('hi');i.addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey&&!e.isComposing){e.preventDefault();if(!busy)hSend()}});i.addEventListener('input',e=>{e.target.style.height='auto';e.target.style.height=Math.min(110,e.target.scrollHeight)+'px'})}
+async function ask(t){t=String(t||'').trim();if(!t||busy)return;if(!KEY()){W.hSetup();W.toast&&toast('Add your Gemini API key first');return}
+ if(!cur)newSess();cur.msgs.push({r:'user',t});if(cur.title==='New chat')cur.title=title(t);busy=true;ctl=new AbortController();paintMsgs();
+ const msgs=cur.msgs;let started=false,raf=0;
+ try{const out=await gem({systemInstruction:{parts:[{text:sys()}]},contents:hist(msgs),generationConfig:{temperature:.6,maxOutputTokens:1200}},{stream:true,signal:ctl.signal,onChunk:a=>{if(!started){started=true;msgs.push({r:'ai',t:a});paintMsgs()}else{msgs[msgs.length-1].t=a;if(!raf)raf=requestAnimationFrame(()=>{raf=0;paintMsgs(true)})}}});
+  if(!started)msgs.push({r:'ai',t:out||'No reply came back. Try rephrasing.'});else msgs[msgs.length-1].t=out||msgs[msgs.length-1].t}
+ catch(e){if(e&&e.name==='AbortError'){if(!started)msgs.push({r:'ai',t:'Stopped.',err:1})}else msgs.push({r:'ai',t:'Could not get a reply: '+clean(e&&e.message)+'. Check your key and model in Setup.',err:1})}
+ busy=false;ctl=null;save1();paintMsgs()}
+async function generate(prompt,o){o=o||{};return gem({systemInstruction:{parts:[{text:o.system||sys()}]},contents:[{role:'user',parts:[{text:prompt}]}],generationConfig:Object.assign({temperature:.4,maxOutputTokens:o.max||2200},o.json?{responseMimeType:'application/json'}:{})},{signal:o.signal})}
+W.hSend=()=>{const i=q('hi'),v=i.value;i.value='';i.style.height='';ask(v)};W.hStop=()=>{ctl&&ctl.abort()};
+W.hQ=t=>ask(t);W.hNew=()=>{if(busy)return;newSess();show('chat');paintMsgs()};
+W.hOpen=()=>{build();q('hp').hidden=false;show('chat');paintMsgs()};
+W.hClose=()=>{const p=q('hp');if(p)p.hidden=true};
+W.hBack=()=>{show('chat');paintMsgs()};
+W.hHis=()=>{paintHis();show('his')};
+W.hLoad=id=>{const s=sess.find(x=>x.id===id);if(s){cur=s;show('chat');paintMsgs()}};
+W.hDel=id=>{sess=sess.filter(s=>s.id!==id);if(cur&&cur.id===id)newSess();persist();paintHis()};
+W.hSetup=()=>{build();q('hp').hidden=false;show('set');const k=q('hk');if(k)k.value=LS('harsh_key');q('hmod').value=LS('harsh_model');q('hab').value=LS('harsh_about')};
+W.hSave=()=>{const k=q('hk');if(k)SV('harsh_key',k.value.trim());SV('harsh_model',q('hmod').value.trim());SV('harsh_about',q('hab').value.trim());W.toast&&toast('Harsh AI settings saved on this device');W.hBack()};
+W.hRemove=()=>{if(!confirm('Remove your API key from this browser?'))return;SV('harsh_key','');const k=q('hk');if(k)k.value='';W.toast&&toast('API key removed');paintMsgs()};
+document.addEventListener('keydown',e=>{const p=q('hp');if(e.key==='Escape'&&p&&!p.hidden&&!(q('dlg')&&q('dlg').open))hClose()});
+W.HarshAI={open:()=>W.hOpen(),setup:()=>W.hSetup(),hasKey:()=>!!KEY(),generate,ctx:fullCtx,clean};
+const boot=()=>{try{build()}catch(e){console.error('Harsh AI failed to start')}};
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot);else boot();
 })();
+
+</script>
+<script id="pro-addon">
+/* Insights, Mistake log, Goals, command palette and help */
+(function(){'use strict';
+const T=(f,d)=>{try{return f()}catch(e){return d}},W=window,q=id=>document.getElementById(id),N=v=>Number.isFinite(+v)?+v:0;
+IC.spark='<path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z"/><path d="M19 3v4M17 5h4"/>';
+IC.flag='<path d="M4 22V4"/><path d="M4 4h12l-2 4 2 4H4"/>';
+const WHY=['Concept gap','Formula missed','Calculation slip','Silly mistake','Time pressure','Guess','Misread question'];
+const LSG=k=>{try{return localStorage.getItem(k)||''}catch(e){return''}};
+const hrs=o=>N(((DAYS()[dstr(o)]||{}).s||0))/3600;
+const sumH=(a,b)=>{let t=0;for(let o=a;o<b;o++)t+=hrs(o);return t};
+const isMain=k=>k==='QPT'||k==='QFT',isAdv=k=>k==='QAPT'||k==='QAFT';
+const pctOf=t=>{const v=tot(t);return v!==null&&t.mx?Math.round(v/t.mx*100):null};
+const recent=(f,n)=>S.tests.filter(t=>f(t.kind)&&pctOf(t)!==null).sort((a,b)=>a.date<b.date?-1:1).slice(-n);
+const avg=a=>a.length?Math.round(a.reduce((x,y)=>x+y,0)/a.length):null;
+const bar=p=>'<div class="pbar"><i style="width:'+Math.max(0,Math.min(100,p))+'%"></i></div>';
+const kpi=(l,v,s)=>'<div class="card kpi"><div class="lbl">'+l+'</div><b class="mono">'+v+'</b><small>'+(s||'')+'</small></div>';
+/* ---------- Goals ---------- */
+function goalCard(){const gm=N(S.gm),ga=N(S.ga),m=avg(recent(isMain,3).map(pctOf)),a=avg(recent(isAdv,3).map(pctOf));
+ const row=(n,g,mx,v)=>{const tp=g?Math.round(g/mx*100):0,pr=v!==null&&tp?Math.min(100,Math.round(v/tp*100)):0;return '<div style="margin:12px 0"><div class="row"><b>'+n+'</b><span class="mono mut" style="font-size:12px">'+(g?'target '+g+'/'+mx+' ('+tp+'%)':'no target set')+'</span></div><div style="margin:8px 0 4px">'+bar(pr)+'</div><small class="mut">'+(v===null?'No scored tests yet.':'Recent average '+v+'%'+(tp?(v>=tp?' · target reached':' · '+(tp-v)+' points of percentage to go'):''))+'</small></div>'};
+ return '<section class="card" style="margin-bottom:14px"><div class="row" style="margin-bottom:6px"><div class="lbl">Target scores</div></div>'+row('JEE Main',gm,300,m)+row('JEE Advanced',ga,360,a)+
+ '<div class="f" style="margin-top:6px"><label class="fl">Main target (of 300)<input type="number" id="gm" min="0" max="300" value="'+(gm||'')+'" placeholder="e.g. 220"></label><label class="fl">Advanced target (of 360)<input type="number" id="ga" min="0" max="360" value="'+(ga||'')+'" placeholder="e.g. 160"></label><button class="btn pri" onclick="setGoal()" style="align-self:flex-end">Save</button></div></section>'}
+W.setGoal=()=>{S.gm=Math.max(0,Math.min(300,Math.round(N(q('gm').value))))||0;S.ga=Math.max(0,Math.min(360,Math.round(N(q('ga').value))))||0;save();toast('Targets saved');go()};
+/* ---------- AI insights ---------- */
+let insBusy=false,insErr='';
+const cached=()=>{try{return JSON.parse(LSG('harsh_insights')||'null')}catch(e){return null}};
+const parse=t=>{t=String(t||'').replace(/^```(?:json)?/i,'').replace(/```$/,'').trim();try{return JSON.parse(t)}catch(e){const a=t.indexOf('{'),b=t.lastIndexOf('}');if(a>=0&&b>a)try{return JSON.parse(t.slice(a,b+1))}catch(e2){}}return{headline:'AI notes',raw:t}};
+W.insGen=async function(){if(insBusy)return;if(!HarshAI.hasKey()){HarshAI.setup();return}insBusy=true;insErr='';go();
+ try{const p='Analyse this student\'s tracker data and respond with ONLY a JSON object (no markdown) with exactly these keys: {"headline": one sentence verdict, "strengths": [up to 3 short strings], "risks": [up to 3 short strings], "plan": [7 items {"day":"Day 1","focus":"short","tasks":["2-3 concrete tasks with numbers"]}], "testAdvice": "2 sentences on how to use their next tests", "habit": "one small habit to change this week"}. Use only the data given; if data is missing, say so in the relevant field instead of guessing.\n\nDATA:\n'+HarshAI.ctx();
+  const raw=await HarshAI.generate(p,{json:true,max:2400});const d=parse(raw);localStorage.setItem('harsh_insights',JSON.stringify({t:Date.now(),d}))}
+ catch(e){insErr=HarshAI.clean(e&&e.message)||'Could not generate insights.'}
+ insBusy=false;go()};
+const li=a=>'<ul class="aiL">'+(a||[]).map(x=>'<li>'+esc(x)+'</li>').join('')+'</ul>';
+function aiCard(){const c=cached(),has=HarshAI.hasKey();
+ let b='';
+ if(insBusy)b='<div class="skel" style="width:70%"></div><div class="skel"></div><div class="skel" style="width:85%"></div><div class="skel" style="width:60%"></div>';
+ else if(c&&c.d){const d=c.d;b=(d.raw?'<div style="white-space:pre-wrap">'+esc(d.raw)+'</div>':'<p style="margin:0 0 10px;font-size:15px"><b>'+esc(d.headline||'')+'</b></p>'+
+  (d.strengths&&d.strengths.length?'<div class="lbl" style="margin-top:12px">Strengths</div>'+li(d.strengths):'')+(d.risks&&d.risks.length?'<div class="lbl" style="margin-top:12px">Watch out for</div>'+li(d.risks):'')+
+  (d.plan&&d.plan.length?'<div class="lbl" style="margin:14px 0 4px">7-day plan</div>'+d.plan.map(x=>'<div class="it"><span><b>'+esc(x.day||'')+'</b> · '+esc(x.focus||'')+(x.tasks?li(x.tasks):'')+'</span></div>').join(''):'')+
+  (d.testAdvice?'<div class="lbl" style="margin:14px 0 4px">Next tests</div><div>'+esc(d.testAdvice)+'</div>':'')+(d.habit?'<div class="lbl" style="margin:14px 0 4px">One habit</div><div>'+esc(d.habit)+'</div>':''))+
+  '<div class="mut" style="font-size:12px;margin-top:12px">Generated '+new Date(c.t).toLocaleString('en-IN',{day:'numeric',month:'short',hour:'numeric',minute:'2-digit'})+' from your tracker data. AI can be wrong, so double-check anything important.</div>'}
+ else b='<div class="empty">'+(has?'No AI report yet. Generate one from your latest tracker data.':'Add your Gemini API key in Harsh AI setup to generate an AI report.')+'</div>';
+ return '<section class="card hero-i" style="margin-bottom:14px"><div class="row" style="margin-bottom:10px"><div><div class="lbl">AI insights</div><div class="mut" style="font-size:12.5px;margin-top:2px">Your data analysed by Harsh AI</div></div><button class="btn pri" onclick="insGen()" '+(insBusy?'disabled':'')+'>'+ic('spark',15)+(insBusy?'Analysing…':c?'Regenerate':has?'Generate':'Set up AI')+'</button></div>'+
+  (insErr?'<div class="bad" style="margin-bottom:8px;font-size:13px">'+esc(insErr)+'</div>':'')+b+'</section>'}
+W.vInsights=function(){
+ const w=sumH(0,7),pw=sumH(7,14),d=w-pw,tl=S.tests.filter(t=>pctOf(t)!==null).sort((a,b)=>a.date<b.date?-1:1).slice(-5).map(pctOf),ta=avg(tl);
+ const open=(S.mist||[]).filter(x=>!x.rev).length,bk=(S.back||[]).filter(x=>!x.x).length,sg=T(()=>streak(),0);
+ const subs=Object.keys(CHD),wk=T(()=>weakCh().slice(0,5),[]);
+ const rs={};(S.mist||[]).filter(x=>!x.rev).forEach(x=>rs[x.why]=(rs[x.why]||0)+1);const rl=Object.entries(rs).sort((a,b)=>b[1]-a[1]),rm=rl.length?rl[0][1]:1;
+ return '<div class="row" style="margin-bottom:14px"><h3><span class="gtxt">Insights</span></h3><span class="mut" style="font-size:12.5px">Last 7 days vs the week before</span></div>'+
+ '<div class="kpis" style="margin-bottom:14px">'+kpi('Study · 7 days',w.toFixed(1)+'h','<span class="'+(d>=0?'up':'dn')+'">'+(d>=0?'+':'')+d.toFixed(1)+'h</span> vs last week')+kpi('Streak',sg+' days',goalH()+'h daily goal')+kpi('Recent tests',ta===null?'–':ta+'%',tl.length?'avg of last '+tl.length:'no scores yet')+kpi('Open mistakes',open,bk+' backlog open')+'</div>'+
+ aiCard()+goalCard()+
+ '<div class="two" style="margin-bottom:14px"><section class="card"><div class="lbl" style="margin-bottom:6px">Syllabus progress</div>'+subs.map(s=>'<div class="srow"><span style="color:'+col(s)+'">'+esc(s)+'</span>'+bar(T(()=>sylPct(s),0))+'<b class="mono" style="text-align:right">'+T(()=>sylPct(s),0)+'%</b></div>').join('')+'</section>'+
+ '<section class="card"><div class="lbl" style="margin-bottom:6px">Weakest chapters</div>'+(wk.length?wk.map(c=>'<div class="it"><span>'+esc(c.ch)+'<br><small class="mut">'+esc(c.sub)+' · '+c.d+' questions</small></span><b class="mono '+(c.a<50?'bad':'')+'">'+c.a+'%</b></div>').join(''):'<div class="empty">Log practice with chapters to see weak spots.</div>')+'</section></div>'+
+ '<section class="card"><div class="lbl" style="margin-bottom:6px">Why marks are lost (open mistakes)</div>'+(rl.length?rl.map(r=>'<div class="srow"><span>'+esc(r[0])+'</span>'+bar(r[1]/rm*100)+'<b class="mono" style="text-align:right">'+r[1]+'</b></div>').join(''):'<div class="empty">Add wrong questions in the Mistakes tab to see patterns.</div>')+'</section>'};
+/* ---------- Mistake log ---------- */
+let mf='Open',msub='All',mlim=40;
+W.vMist=function(){const L=(S.mist=S.mist||[]),subs=SUBS(),opn=L.filter(x=>!x.rev).length;
+ let F=L.filter(x=>(mf==='All'||(mf==='Open'?!x.rev:x.rev))&&(msub==='All'||x.sub===msub)).sort((a,b)=>b.id-a.id);const shown=F.slice(0,mlim);
+ const old=L.filter(x=>!x.rev&&Date.now()-x.id>3*864e5).length;
+ return '<div class="row" style="margin-bottom:14px"><h3><span class="gtxt">Mistake log</span></h3><span class="mut mono" style="font-size:12px">'+opn+' open · '+(L.length-opn)+' revised</span></div>'+
+ (old?'<section class="card" style="margin-bottom:14px;border-color:var(--warn)"><b>'+old+' mistake'+(old>1?'s are':' is')+' older than 3 days and still unrevised.</b><div class="mut" style="font-size:12.5px">Revisit them today. Repeating the same question once, a few days later, is what fixes it.</div></section>':'')+
+ '<section class="card" style="margin-bottom:14px"><div class="lbl" style="margin-bottom:10px">Log a wrong question</div><div class="f"><select id="ms1" aria-label="Subject" onchange="mFill()">'+subs.map(s=>'<option>'+esc(s)+'</option>').join('')+'</select><input id="mc1" list="mcl" placeholder="Chapter" style="flex:1 1 150px" aria-label="Chapter"><datalist id="mcl">'+((CH[subs[0]]||[]).map(c=>'<option value="'+esc(c)+'">').join(''))+'</datalist><select id="mw1" aria-label="Reason">'+WHY.map(w=>'<option>'+w+'</option>').join('')+'</select></div>'+
+ '<div class="f" style="margin-top:8px"><textarea id="mn1" rows="2" placeholder="What was the question / where did it go wrong?" style="flex:1 1 240px" aria-label="What went wrong"></textarea><textarea id="mx1" rows="2" placeholder="Correct approach or the one thing to remember" style="flex:1 1 240px" aria-label="Correct approach"></textarea></div><div class="f" style="margin-top:8px"><button class="btn pri" onclick="mAdd()">'+ic('plus',15)+'Add to log</button></div></section>'+
+ '<div class="f" style="margin-bottom:12px"><div class="seg">'+['Open','Revised','All'].map(k=>'<button class="'+(k===mf?'on':'')+'" onclick="mf2(\''+k+'\')">'+k+'</button>').join('')+'</div><div class="seg">'+['All',...subs].map(k=>'<button class="'+(k===msub?'on':'')+'" onclick="ms2(\''+esc(k)+'\')">'+esc(k)+'</button>').join('')+'</div></div>'+
+ '<section class="card">'+(shown.length?shown.map(x=>'<div class="it'+(x.rev?' done':'')+'" style="align-items:flex-start"><span style="flex:1"><b style="color:'+col(x.sub)+'">'+esc(x.sub)+'</b> · '+esc(x.ch||'No chapter')+' <span class="rsn">'+esc(x.why)+'</span><br><small class="mut">'+fdate(x.d)+'</small>'+(x.note?'<div style="margin-top:4px">'+esc(x.note)+'</div>':'')+(x.fix?'<div class="up" style="margin-top:4px;font-size:13px">✓ '+esc(x.fix)+'</div>':'')+'</span><span class="f" style="flex:none;gap:4px;margin:0"><button class="x" onclick="mRev('+x.id+')">'+(x.rev?'Reopen':'Revised')+'</button><button class="x" onclick="mDel('+x.id+')" aria-label="Delete">Delete</button></span></div>').join('')+(F.length>mlim?'<div class="f" style="justify-content:center;margin-top:10px"><button class="btn" onclick="mlim+=40;go()">Show more ('+(F.length-mlim)+')</button></div>':''):'<div class="empty">'+(L.length?'Nothing matches this filter.':'No mistakes logged yet. Log wrong questions after each test or practice session. Harsh AI uses them to find patterns.')+'</div>')+'</section>'};
+W.mf2=k=>{mf=k;mlim=40;go()};W.ms2=k=>{msub=k;mlim=40;go()};
+W.mFill=()=>{const s=q('ms1').value,dl=q('mcl');if(dl)dl.innerHTML=(CH[s]||[]).map(c=>'<option value="'+esc(c)+'">').join('')};
+W.mAdd=()=>{const note=q('mn1').value.trim(),fix=q('mx1').value.trim(),ch=q('mc1').value.trim();if(!note&&!fix&&!ch){toast('Add a chapter or a short note');return}
+ (S.mist=S.mist||[]).push({id:Date.now(),d:td(),sub:q('ms1').value,ch:ch.slice(0,80),why:q('mw1').value,note:note.slice(0,400),fix:fix.slice(0,400),rev:0});save();toast('Mistake logged');go()};
+W.mRev=id=>{const x=(S.mist||[]).find(m=>m.id===id);if(x){x.rev=x.rev?0:1;save();go()}};
+W.mDel=id=>{if(!confirm('Delete this entry?'))return;S.mist=(S.mist||[]).filter(m=>m.id!==id);save();go()};
+Object.defineProperty(W,'mlim',{get:()=>mlim,set:v=>{mlim=v},configurable:true});
+/* ---------- Command palette ---------- */
+function cmds(){const t=T(()=>tabsOf(),[]),c=t.map((x,i)=>({n:'Go to '+x[0],h:'Tab',f:()=>goTab(i)}));
+ c.push({n:'Open Harsh AI',h:'AI',f:()=>HarshAI.open()},{n:'Generate AI insights',h:'AI',f:()=>{const i=t.findIndex(x=>x[0]==='Insights');if(i>=0){goTab(i);setTimeout(()=>insGen(),60)}}},{n:'Log a wrong question',h:'Mistakes',f:()=>{const i=t.findIndex(x=>x[0]==='Mistakes');if(i>=0)goTab(i)}},{n:'Settings',h:'App',f:()=>T(()=>openSettings())},{n:'Export backup',h:'Data',f:()=>T(()=>exportData())},{n:'Help, shortcuts and FAQ',h:'Help',f:()=>W.openHelp()});return c}
+let ci=0,cl=[];
+function cpRender(){const v=(q('cpi').value||'').toLowerCase().trim();cl=cmds().filter(c=>!v||c.n.toLowerCase().includes(v));ci=Math.min(ci,Math.max(0,cl.length-1));q('cpl').innerHTML=cl.map((c,i)=>'<li class="'+(i===ci?'on':'')+'" data-i="'+i+'"><span>'+esc(c.n)+'</span><small>'+c.h+'</small></li>').join('')||'<li><small>No matches</small></li>'}
+function cpRun(i){const c=cl[i];cpClose();if(c)setTimeout(c.f,30)}
+function cpClose(){const p=q('cp');if(p)p.hidden=true}
+W.openPalette=()=>{if(document.body.classList.contains('locked')||!q('m')||(q('main-app')&&q('main-app').hidden))return;let p=q('cp');if(!p){p=document.createElement('div');p.id='cp';p.hidden=true;p.innerHTML='<div class="bx" role="dialog" aria-label="Command palette"><input id="cpi" placeholder="Type a command…" autocomplete="off" aria-label="Command"><ul id="cpl"></ul></div>';document.body.appendChild(p);
+  p.addEventListener('mousedown',e=>{if(e.target===p)cpClose();const l=e.target.closest('li[data-i]');if(l)cpRun(+l.dataset.i)});
+  q('cpi').addEventListener('input',()=>{ci=0;cpRender()});
+  q('cpi').addEventListener('keydown',e=>{if(e.key==='ArrowDown'){e.preventDefault();ci=Math.min(cl.length-1,ci+1);cpRender()}else if(e.key==='ArrowUp'){e.preventDefault();ci=Math.max(0,ci-1);cpRender()}else if(e.key==='Enter'){e.preventDefault();cpRun(ci)}else if(e.key==='Escape')cpClose()})}
+ p.hidden=false;q('cpi').value='';ci=0;cpRender();q('cpi').focus()};
+document.addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='k'){e.preventDefault();const p=q('cp');p&&!p.hidden?cpClose():openPalette()}});
+/* ---------- Help ---------- */
+W.openHelp=()=>{const F=[['How is my data saved?','Your progress is saved to your account, so you can sign in from any device. Export a backup from Settings now and then.'],['How do the Quizrr tests work?','Tests are grouped into JEE Main (QPT, QFT) and JEE Advanced (QAPT, QAFT). Tap a test to see its syllabus, log your score and open the analysis. Each QCT number in the Syllabus tab is one Quizrr chapter test.'],['What is Harsh AI?','A study mentor that reads your tracker (hours, syllabus, tests, mistakes, backlog, sleep) and answers using it. It also explains JEE concepts. It needs a Gemini API key, and only a summary of your stats is sent to Google when you ask something.'],['What do Insights show?','Weekly study change, streak, test trend, weak chapters, mistake patterns and your target scores. Press Generate for an AI report and a 7-day plan.'],['Keyboard shortcuts','Ctrl or Cmd + K opens the command palette. Esc closes panels.'],['Need help?','Use the Discord link in the page footer.']];
+ dlg('<div class="row"><h3>Help &amp; FAQ</h3><button class="icon-btn" onclick="closeDlg()" aria-label="Close">&times;</button></div>'+F.map(x=>'<div class="card" style="margin:8px 0"><b>'+x[0]+'</b><p style="margin:6px 0 0;font-size:13.5px">'+x[1]+'</p></div>').join(''))};
+const done=()=>{T(go)};
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',done);else done();
+})();
+
 </script>
 </body></html>
