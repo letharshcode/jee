@@ -14,7 +14,7 @@ window.SUPABASE_CONFIG = {
 </script>
 <link rel="apple-touch-icon" href="favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&family=Syne:wght@600;700;800&family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#070a12;--g:rgba(255,255,255,.045);--g2:rgba(255,255,255,.085);--bd:rgba(255,255,255,.09);--tx:#eef2f8;--mut:#8b95a7;--ac:#5b9dff;--ok:#34d399;--bad:#f87171;--warn:#fbbf24;--b1:rgba(91,157,255,.20);--b2:rgba(52,211,153,.10);color-scheme:dark}
 :root[data-theme=light]{--bg:#eef1f6;--g:rgba(255,255,255,.55);--g2:rgba(255,255,255,.85);--bd:rgba(15,23,42,.09);--tx:#0f172a;--mut:#5b6474;--ac:#2563eb;--ok:#059669;--bad:#dc2626;--warn:#d97706;--b1:rgba(37,99,235,.16);--b2:rgba(5,150,105,.10);color-scheme:light}
@@ -654,6 +654,71 @@ input:focus,select:focus,textarea:focus{border-color:var(--ac);box-shadow:0 0 0 
 .ai-tag{font-size:10.5px;font-weight:700;padding:2px 8px;border-radius:99px;letter-spacing:.04em}.ai-met{display:inline-block;font-size:12px;padding:3px 10px;border-radius:8px}
 .ai-sr{padding:12px 0;border-bottom:1px solid var(--bd)}.ai-sr:last-child{border:0}
 @media(max-width:560px){.ai-verd{flex-direction:column-reverse;align-items:flex-start}}
+
+/* ===== JeeTrack skin: same tokens, fonts, sidebar, cards, buttons ===== */
+:root:not([data-theme]),:root[data-theme=dark]{--bg:#0a0a0f;--sf:#111118;--sf2:#18181f;--sf3:#1e1e28;--g:#111118;--g2:#18181f;--bd:rgba(255,255,255,.07);--bd2:rgba(255,255,255,.12);--tx:#f0eff5;--mut:#7a7990;--mu2:#4a4960;--ac:#7c6af7;--ac2:#a695ff;--ok:#34d399;--bad:#f87171;--warn:#fbbf24;--bl:#60a5fa;--pk:#f472b6;--b1:rgba(124,106,247,.10);--b2:rgba(244,114,182,.05);--grad:linear-gradient(135deg,#7c6af7,#a695ff);--glow:0 4px 20px rgba(124,106,247,.35)}
+body{font-family:'DM Sans',system-ui,sans-serif!important;font-size:14px}
+:root:not([data-theme]) body,:root[data-theme=dark] body{background:#0a0a0f}
+:root:not([data-theme]) body::before,:root[data-theme=dark] body::before{background:radial-gradient(ellipse 70% 40% at 50% -5%,rgba(124,106,247,.10),transparent 70%)}
+h1,h2,main h3,.hg,.gh h1,.sb-brand,.auth-brand{font-family:'Syne',sans-serif!important;letter-spacing:-.02em}
+.mono,.kpi b,.stbadge{font-family:'Space Grotesk','DM Mono',monospace!important;font-variant-numeric:tabular-nums}
+/* cards */
+.card{border-radius:12px;padding:.9rem 1rem;backdrop-filter:none;-webkit-backdrop-filter:none}
+:root:not([data-theme]) .card,:root[data-theme=dark] .card{background:#111118;border-color:rgba(255,255,255,.07);box-shadow:none}
+:root:not([data-theme]) .card:hover,:root[data-theme=dark] .card:hover{border-color:rgba(124,106,247,.2);box-shadow:0 4px 24px rgba(0,0,0,.3)}
+.lbl{font-size:11px;font-weight:600;color:var(--mut);text-transform:uppercase;letter-spacing:.06em}
+.card>.lbl::before,.card .row>div>.lbl::before,.card .row>.lbl::before,section.card>.lbl::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--ac);opacity:.75;margin-right:8px;vertical-align:1px}
+.kpi .lbl::before,.ai-sec::before{display:none!important}
+.kpi{position:relative}.kpi b{font-size:28px;font-weight:700;letter-spacing:-.01em}
+/* controls */
+.btn{border-radius:8px;font-weight:600}
+:root:not([data-theme]) .btn:not(.pri),:root[data-theme=dark] .btn:not(.pri){background:#18181f;border:1px solid rgba(255,255,255,.12)}
+.btn.pri{background:linear-gradient(135deg,#7c6af7,#a695ff);box-shadow:0 4px 20px rgba(124,106,247,.35)}
+input,select,textarea{border-radius:8px}
+:root:not([data-theme]) input,:root:not([data-theme]) select,:root:not([data-theme]) textarea,:root[data-theme=dark] input,:root[data-theme=dark] select,:root[data-theme=dark] textarea{background:#18181f;border-color:rgba(255,255,255,.12)}
+.seg{border-radius:8px;padding:3px}.seg button{border-radius:6px;font-size:12px}
+.tag{border-radius:99px}
+.pbar,.bar{background:#1e1e28}
+/* page header (greeting) */
+.gh{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:18px;flex-wrap:wrap}
+.gh h1{font-size:clamp(22px,3.4vw,30px);font-weight:800;margin:0;line-height:1.15}.gh h1 em{font-style:normal;background:linear-gradient(135deg,#7c6af7,#f472b6);-webkit-background-clip:text;background-clip:text;color:transparent}
+.gh .gd{display:flex;align-items:center;gap:7px;color:var(--mut);font-size:12.5px;margin-top:5px}.gh .gd i{width:6px;height:6px;border-radius:50%;background:var(--ok)}
+.aib{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border-radius:10px;border:1px solid rgba(124,106,247,.35);background:rgba(124,106,247,.12);color:#f0eff5;font:600 13px 'DM Sans',sans-serif;cursor:pointer;transition:background .2s,border-color .2s}
+.aib:hover{background:rgba(124,106,247,.22);border-color:rgba(124,106,247,.6)}
+/* sidebar: always open, labelled, grouped, user card */
+@media(min-width:1100px){
+:root{--sw:224px!important}
+.side{width:224px!important;padding:1.25rem .9rem 0!important;gap:0!important;overflow-y:auto!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;box-shadow:none!important}
+:root:not([data-theme]) .side,:root[data-theme=dark] .side{background:#111118!important}
+.side .lb{opacity:1!important;max-width:none!important}
+.side .sb-brand{padding:0 6px;margin-bottom:6px;font-size:21px;font-weight:800;gap:0}.side .sb-brand img{display:none}
+.side .wm{color:#f0eff5}.side .wm em{font-style:normal;background:linear-gradient(135deg,#a695ff,#f472b6);-webkit-background-clip:text;background-clip:text;color:transparent}
+.sg{font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#4a4960;padding:0 6px;margin:18px 0 6px}
+.side button.nv{padding:9px 12px;border-radius:8px;font-size:13.5px;gap:10px;color:var(--mut);position:relative;transform:none!important;margin-bottom:2px}
+.side button.nv svg{width:16px;height:16px}
+.side button.nv:hover{background:rgba(255,255,255,.04);color:var(--tx)}
+.side button.nv.on{background:linear-gradient(90deg,rgba(124,106,247,.18),rgba(124,106,247,.04));color:#a695ff;box-shadow:none}
+.side button.nv.on::before{content:"";position:absolute;left:-14px;top:8px;bottom:8px;width:3px;border-radius:0 3px 3px 0;background:var(--ac)}
+.side button.nv.ai.on,.side button.nv.ai:hover{background:rgba(251,191,36,.08);color:#fbbf24;box-shadow:inset 0 0 0 1px rgba(251,191,36,.3)}
+.side button.nv.ai.on::before{display:none}
+.side .setc{display:none}
+.suc{margin:auto -.9rem 0;padding:12px .9rem 14px;border-top:1px solid rgba(255,255,255,.07);position:sticky;bottom:0;background:#111118}
+.suc>div{display:flex;align-items:center;gap:10px;padding:10px;border-radius:10px;background:#18181f;border:1px solid rgba(255,255,255,.07);cursor:pointer}
+.suc .av{width:34px;height:34px;border-radius:50%;flex:none;display:grid;place-items:center;font-weight:700;color:#fff;background:linear-gradient(135deg,#7c6af7,#f472b6)}
+.suc .nm{font-weight:600;font-size:13px;line-height:1.2}.suc .sub{font-size:11px;color:var(--mut);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.suc .tx{min-width:0;flex:1}
+.suc button{background:none;border:0;color:var(--mut);cursor:pointer;padding:4px;display:grid}.suc button:hover{color:var(--tx)}
+main{max-width:1180px!important}
+.top #xtag{display:none!important}
+header.top{background:transparent!important;border-bottom:0!important;backdrop-filter:none!important}
+.hw{max-width:1180px!important}
+}
+/* mobile bottom nav */
+:root:not([data-theme]) .tabbar,:root[data-theme=dark] .tabbar{background:rgba(17,17,24,.96);border-top:1px solid rgba(255,255,255,.07)}
+.tabbar button.on{color:#a695ff}
+/* login / boot */
+#jee-auth .auth-card{background:#111118;border-radius:16px;border:1px solid rgba(255,255,255,.1);position:relative;overflow:hidden}
+#jee-auth .auth-card::before{content:"";position:absolute;left:0;right:0;top:0;height:2px;background:linear-gradient(90deg,transparent,#7c6af7,#f472b6,transparent)}
+#jee-auth .auth-brand{font-family:'Syne',sans-serif;font-weight:800}
 </style>
 </head><body class="locked"><div id="boot" role="dialog" aria-label="Welcome"><div class="bw"><div class="ld"><div class="lg"><img src="favicon.png" alt="JEE 2027 Study Tracker logo" onerror="this.replaceWith(document.createTextNode('JE'))"></div><h1>JEE 2027 Study Tracker</h1><p>Structured preparation, measured progress.</p><div class="pb"><i></i></div><div class="mut" id="bootpct" style="font-size:12px">Preparing dashboard 0%</div></div><div class="ob"><div class="sl on"><div class="lg"><img src="favicon.png" alt="JEE 2027 Study Tracker logo" onerror="this.replaceWith(document.createTextNode('JE'))"></div><h1>Welcome to JEE 2027</h1><p>A structured workspace for your preparation: plan, study, practise and review in one place.</p></div><div class="sl"><div class="lg">&#9201;</div><h1>Study clock</h1><p>Run focus blocks, set a daily goal and keep a floating timer visible while you work in other tabs.</p></div><div class="sl"><div class="lg">&#128218;</div><h1>Syllabus and QCT tracker</h1><p>Record theory, questions and QCTs for every chapter and see exactly how much of each test you have covered.</p></div><div class="sl"><div class="lg">&#128200;</div><h1>Tests and analysis</h1><p>Review upcoming tests, enter results when the test is live and study score trends and weak chapters.</p></div><div class="sl"><div class="lg">&#127769;</div><h1>Planner, sleep and backup</h1><p>Organise tasks by day, keep a weekly sleep balance and export your data whenever you wish.</p></div><div class="dots"><i></i><i></i><i></i><i></i><i></i></div><div class="obn"><button class="btn" id="obS" onclick="bootHide()">Skip</button><span><button class="btn" id="obB" onclick="obGo(-1)">Back</button> <button class="btn pri" id="obN" onclick="obGo(1)">Next</button></span></div></div></div></div>
 <header class="top"><div class="hw">
@@ -2332,6 +2397,19 @@ document.addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key.toLower
 /* ---------- Help ---------- */
 W.openHelp=()=>{const F=[['How is my data saved?','Your progress is saved to your account, so you can sign in from any device. Export a backup from Settings now and then.'],['How do the Quizrr tests work?','Tests are grouped into JEE Main (QPT, QFT) and JEE Advanced (QAPT, QAFT). Tap a test to see its syllabus, log your score and open the analysis. Each QCT number in the Syllabus tab is one Quizrr chapter test.'],['What is Harsh AI?','A study mentor that reads your tracker (hours, syllabus, tests, mistakes, backlog, sleep) and answers using it. It also explains JEE concepts. It needs a Gemini API key, and only a summary of your stats is sent to Google when you ask something.'],['What do Insights show?','Weekly study change, streak, test trend, weak chapters, mistake patterns and your target scores. Press Generate for an AI report and a 7-day plan.'],['Keyboard shortcuts','Ctrl or Cmd + K opens the command palette. Esc closes panels.'],['Need help?','Use the Discord link in the page footer.']];
  dlg('<div class="row"><h3>Help &amp; FAQ</h3><button class="icon-btn" onclick="closeDlg()" aria-label="Close">&times;</button></div>'+F.map(x=>'<div class="card" style="margin:8px 0"><b>'+x[0]+'</b><p style="margin:6px 0 0;font-size:13.5px">'+x[1]+'</p></div>').join(''))};
+
+/* ---------- JeeTrack skin: grouped sidebar + greeting header ---------- */
+const GRP={Today:'Overview',Stats:'Intelligence',Tests:'Mock Tests',Syllabus:'Study',Practice:'Study','To Do':'Study',Backlog:'Study',Sleep:'Study',Insights:'Intelligence',Mistakes:'Intelligence'};
+function skinSide(){const s=q('side');if(!s||typeof tabsOf!=='function')return;const TB=tabsOf(),act=S.area==='all'?-1:tab,by={};
+ TB.forEach((t,i)=>{const g=GRP[t[0]]||'Menu';(by[g]=by[g]||[]).push([t,i])});
+ const ttl=String(T(()=>areaTitle(),'JEE 2027')).split(' '),nm=String(S.name||'Student').trim()||'Student',ini=nm.split(/\s+/).map(w=>w[0]).join('').slice(0,2).toUpperCase();
+ s.innerHTML='<div class="sb-brand" onclick="goTab(0)" role="link" tabindex="0" title="Home"><span class="lb wm">'+esc(ttl[0])+'<em>'+esc(ttl.slice(1).join(' '))+'</em></span></div>'+
+  ['Overview','Mock Tests','Study','Intelligence','Menu'].filter(g=>by[g]).map(g=>'<div class="sg">'+g+'</div>'+by[g].map(([t,i])=>'<button class="nv'+(t[0]==='Insights'?' ai':'')+(i==act?' on':'')+'" onclick="goTab('+i+')" title="'+esc(t[0])+'"'+(i==act?' aria-current="page"':'')+'>'+ic(t[1],16)+'<span class="lb">'+esc(t[0]==='Insights'?'AI Insights':t[0])+'</span></button>').join('')).join('')+
+  '<div class="suc"><div onclick="openSettings()" role="button" tabindex="0" aria-label="Settings"><span class="av">'+esc(ini)+'</span><span class="tx"><div class="nm">'+esc(nm)+'</div><div class="sub">'+esc(T(()=>(q('xtag')||{}).textContent,'')||'Signed in')+'</div></span><button tabindex="-1" aria-hidden="true">'+ic('gear',16)+'</button></div></div>'}
+const _nav=W.nav;if(typeof _nav==='function')W.nav=function(){const r=_nav.apply(this,arguments);try{skinSide()}catch(e){console.warn('skinSide failed: '+(e&&e.message))}return r};
+const _vT=W.vToday;
+if(typeof _vT==='function')W.vToday=function(){const h=new Date().getHours(),g=h<12?'Good morning':h<17?'Good afternoon':'Good evening',nm=String(S.name||'Student').trim().split(' ')[0]||'Student',ix=T(()=>tabsOf().findIndex(t=>t[0]==='Insights'),-1);
+ return '<div class="gh"><div><h1>'+g+', <em>'+esc(nm)+'</em></h1><div class="gd"><i></i>'+new Date().toLocaleDateString('en-IN',{weekday:'long',day:'numeric',month:'short',year:'numeric'})+'</div></div>'+(ix>=0?'<button class="aib" onclick="goTab('+ix+')">'+ic('spark',15)+'AI Insights</button>':'')+'</div>'+_vT.apply(this,arguments)};
 const done=()=>{T(go)};
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',done);else done();
 })();
