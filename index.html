@@ -2161,9 +2161,9 @@ const GEMINI_KEY=(k=>/^__.*__$/.test(k)?'':k)('AQ.Ab8RN6JQQ4NAGFdtEzrB2jr3duG5eq
 let REVN=0;try{const _sv=window.save;if(typeof _sv==='function'){window.save=function(){REVN++;window.__rev=REVN;return _sv.apply(this,arguments)}}}catch(e){}window.__rev=0;
 const W=window,q=id=>document.getElementById(id);
 const LS=k=>{try{return localStorage.getItem(k)||''}catch(e){return''}},SV=(k,v)=>{try{v?localStorage.setItem(k,v):localStorage.removeItem(k)}catch(e){}};
-const KEY=()=>(GEMINI_KEY||LS('harsh_key')).trim();
+const KEY=()=>(LS('harsh_key')||GEMINI_KEY).trim();
 const MODELS=()=>[...new Set([LS('harsh_model').trim(),'gemini-3.5-flash','gemini-3.1-flash-lite','gemini-2.5-flash','gemini-2.0-flash'].filter(Boolean))];
-const EPS={gl:'https://generativelanguage.googleapis.com/v1beta/models/',vx:'https://aiplatform.googleapis.com/v1/publishers/google/models/'};
+const EPS={gl:'https://generativelanguage.googleapis.com/v1beta/models/',vx:'https://aiplatform.googleapis.com/v1/publishers/google/models/',vq:'https://aiplatform.googleapis.com/v1/publishers/google/models/'};
 let cur=null,busy=false,ctl=null,view='chat',sess=[],attempts=[];
 const load=()=>{try{sess=JSON.parse(LS('harsh_sessions')||'[]')||[]}catch(e){sess=[]}};
 const persist=()=>{try{sess=sess.sort((a,b)=>b.t-a.t).slice(0,20);SV('harsh_sessions',JSON.stringify(sess))}catch(e){}};
@@ -2171,11 +2171,12 @@ const clean=s=>{const k=KEY();return String(s||'').split(k||'\u0000').join('•�
 const txt=j=>(((j.candidates||[])[0]||{}).content||{parts:[]}).parts.map(p=>p.text||'').join('');
 /* Routes to try (endpoint + model). The last route that worked is remembered and tried first. */
 function routes(){const r=[],seen={};const add=(e,m)=>{const k=e+'|'+m;if(!seen[k]){seen[k]=1;r.push([e,m])}};const last=LS('harsh_route').split('|');if(last.length===2&&EPS[last[0]])add(last[0],last[1]);
- const ms=MODELS();['gl','vx'].forEach(e=>ms.forEach(m=>add(e,m)));return r}
+ const ms=MODELS();['gl','vx','vq'].forEach(e=>ms.forEach(m=>add(e,m)));return r}
 async function gem(body,o){o=o||{};const k=KEY();if(!k)throw new Error('NOKEY');attempts=[];const dead={};let keyBad=0,lastMsg='';
  for(const rt of routes()){const ep=rt[0],m=rt[1];if(dead[ep])continue;
-  const url=EPS[ep]+encodeURIComponent(m)+(o.stream?':streamGenerateContent?alt=sse':':generateContent');
-  let r;try{r=await fetch(url,{method:'POST',headers:{'Content-Type':'application/json','x-goog-api-key':k},body:JSON.stringify(body),signal:o.signal})}
+  let url=EPS[ep]+encodeURIComponent(m)+(o.stream?':streamGenerateContent?alt=sse':':generateContent'),hd={'Content-Type':'application/json'};
+  if(ep==='vq')url+=(url.indexOf('?')>-1?'&':'?')+'key='+encodeURIComponent(k);else hd['x-goog-api-key']=k;
+  let r;try{r=await fetch(url,{method:'POST',headers:hd,body:JSON.stringify(body),signal:o.signal})}
   catch(e){if(e&&e.name==='AbortError')throw e;attempts.push({ep,m,s:'network',msg:'Request blocked or offline'});lastMsg='Network problem. Check your connection, ad blockers, and that the key allows this website.';continue}
   if(r.ok){SV('harsh_route',ep+'|'+m);
    if(!o.stream)return txt(await r.json());
@@ -2187,7 +2188,7 @@ async function gem(body,o){o=o||{};const k=KEY();if(!k)throw new Error('NOKEY');
   msg=clean(msg)||('HTTP '+r.status);attempts.push({ep,m,s:r.status,msg});lastMsg=msg;
   if((r.status===400||r.status===401||r.status===403)&&/api key|permission|credential|invalid|unauthor|forbidden|referer|not allowed|disabled|not enabled/i.test(msg)){keyBad++;dead[ep]=1}
  }
- if(keyBad&&keyBad>=Object.keys(dead).length&&Object.keys(dead).length>=1&&attempts.every(a=>a.s===400||a.s===401||a.s===403||a.s==='network'||a.s===404))throw new Error('Google rejected this key ('+lastMsg+'). Check the key is active, has Gemini access, and is not restricted to another website.');
+ if(keyBad&&keyBad>=Object.keys(dead).length&&Object.keys(dead).length>=1&&attempts.every(a=>a.s===400||a.s===401||a.s===403||a.s==='network'||a.s===404))throw new Error('Google rejected this API key ('+lastMsg.replace(/\.$/,'')+'). Create a fresh free key at aistudio.google.com/app/apikey (starts with AIza), paste it in Setup, then tap Test connection.');
  if(attempts.length&&attempts.every(a=>a.s===429))throw new Error('429: rate limit or quota reached on this key. Wait a minute and try again.');
  throw new Error(lastMsg||'No reply received.')}
 function ctx(){const L=[],T0=td(),s=f=>{try{const r=f();if(r)L.push(r)}catch(e){console.error('harsh ctx',e)}},h=o=>((DAYS()[dstr(o)]||{}).s||0)/3600,B=S.area==='board';
@@ -2219,7 +2220,7 @@ function paintMsgs(last){const m=q('hm');if(!m)return;
  if(last){const e=m.lastElementChild;if(e){e.innerHTML=md(cur.msgs[cur.msgs.length-1].t);m.scrollTop=m.scrollHeight;return}}
  const k=KEY();
  m.innerHTML=(cur.msgs.length?'':'<div class="hint"><b class="gtxt" style="font-size:18px">Hi, I\'m Harsh AI</b><br>'+(k?'Ask about your week, weak chapters, what to study next, or any JEE doubt. I read your real tracker data.':'Add a free Gemini API key in Setup (gear icon) to start chatting.')+'</div>')+
- cur.msgs.map(x=>'<div class="hb '+(x.r==='user'?'u':'a')+(x.err?' e':'')+'">'+(x.r==='user'?esc(x.t).replace(/\n/g,'<br>'):md(x.t))+'</div>').join('')+(busy&&cur.msgs.length&&cur.msgs[cur.msgs.length-1].r==='user'?'<div class="hb a"><span class="skel" style="display:block;width:90px"></span></div>':'');
+ cur.msgs.map(x=>'<div class="hb '+(x.r==='user'?'u':'a')+(x.err?' e':'')+'">'+(x.r==='user'?esc(x.t).replace(/\n/g,'<br>'):md(x.t))+(x.fix?'<br><button class="tag" style="margin-top:8px" onclick="hSetup()">Fix API key</button>':'')+'</div>').join('')+(busy&&cur.msgs.length&&cur.msgs[cur.msgs.length-1].r==='user'?'<div class="hb a"><span class="skel" style="display:block;width:90px"></span></div>':'');
  m.scrollTop=m.scrollHeight;const s=q('hsend');if(s){s.textContent=busy?'Stop':'Send';s.onclick=busy?hStop:hSend}}
 function show(v){view=v;['hchat','hs','hh'].forEach(i=>{const e=q(i);if(e)e.hidden=(i!=={chat:'hchat',set:'hs',his:'hh'}[v])});if(v==='chat')setTimeout(()=>{const i=q('hi');i&&i.focus()},30)}
 function paintHis(){const b=q('hhl');if(!b)return;b.innerHTML=sess.length?sess.map(s=>'<div class="it" style="cursor:pointer" onclick="hLoad(\''+s.id+'\')"><span>'+esc(s.title)+'<br><small class="mut">'+new Date(s.t).toLocaleDateString('en-IN',{day:'numeric',month:'short'})+' · '+s.msgs.length+' messages</small></span><button class="x" onclick="event.stopPropagation();hDel(\''+s.id+'\')" aria-label="Delete chat">Delete</button></div>').join(''):'<div class="empty">No saved chats yet.</div>'}
@@ -2228,11 +2229,11 @@ function build(){if(q('hp')||!document.body)return;load();if(!cur)newSess();
  document.head.appendChild(css);
  const b=document.createElement('button');b.id='hbtn';b.type='button';b.className='btn pri';b.setAttribute('aria-label','Open Harsh AI, your study mentor');b.innerHTML='<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z"/></svg><span>Harsh AI</span>';b.onclick=()=>W.hOpen();document.body.appendChild(b);
  const p=document.createElement('section');p.id='hp';p.hidden=true;p.setAttribute('role','dialog');p.setAttribute('aria-label','Harsh AI, study mentor');
- const keyLocked=!!GEMINI_KEY;
+ const keyLocked=false;
  p.innerHTML='<header><span class="hav">H</span><div style="flex:1;min-width:0"><b>Harsh AI</b><div class="mut" style="font-size:12px">Study mentor · reads your tracker</div></div><button class="x" onclick="hNew()" title="New chat">New</button><button class="x" onclick="hHis()" title="Past chats">History</button><button class="x" onclick="hSetup()" title="Setup" aria-label="Setup">Setup</button><button class="icon-btn" onclick="hClose()" aria-label="Close Harsh AI">&times;</button></header>'+
  '<div id="hchat" style="display:flex;flex-direction:column;flex:1;min-height:0"><div id="hm" aria-live="polite"></div><div id="hc">'+['Plan my day','Roast my week','Fix my weak chapters','Am I on track?'].map(t=>'<button class="tag" onclick="hQ(\''+t+'\')">'+t+'</button>').join('')+'</div><div class="hcomp"><textarea id="hi" rows="1" placeholder="Ask Harsh AI…" aria-label="Message Harsh AI"></textarea><button id="hsend" class="btn pri" onclick="hSend()">Send</button></div></div>'+
  '<div id="hh" hidden><b>Past chats</b><div id="hhl" style="margin-top:8px"></div><div class="f" style="margin-top:12px"><button class="btn" onclick="hBack()">Back</button></div></div>'+
- '<div id="hs" hidden><b>Setup</b>'+(keyLocked?'<div class="mut" style="font-size:13px;margin-top:8px">A Gemini key is already configured for this site.</div>':'<label for="hk">Gemini API key</label><input id="hk" type="password" autocomplete="off" spellcheck="false" placeholder="Paste your key"><div class="mut" style="font-size:12px;margin-top:6px">Free from <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener" style="color:var(--ac)">Google AI Studio</a>. Stored only in this browser and sent only to Google.</div>')+
+ '<div id="hs" hidden><b>Setup</b>'+(keyLocked?'<div class="mut" style="font-size:13px;margin-top:8px">A Gemini key is already configured for this site.</div>':'<label for="hk">Gemini API key</label><input id="hk" type="password" autocomplete="off" spellcheck="false" placeholder="Paste your key"><div class="mut" style="font-size:12px;margin-top:6px">Free from <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener" style="color:var(--ac)">Google AI Studio</a>. Stored only in this browser and sent only to Google.'+(GEMINI_KEY?' A site key is built in, and a key you paste here takes priority.':'')+'</div>')+
  '<label for="hab">About me and instructions (optional)</label><textarea id="hab" rows="4" placeholder="e.g. I am a dropper, weak in Physics, prefer short answers"></textarea><div class="f" style="margin-top:14px"><button class="btn pri" onclick="hSave()">Save</button><button class="btn" onclick="hTest()">Test connection</button><button class="btn" onclick="hBack()">Back</button>'+(keyLocked?'':'<button class="btn dng" onclick="hRemove()">Remove key</button>')+'</div><div id="htr" class="mut" style="font-size:12px;margin-top:12px;white-space:pre-wrap;line-height:1.6"></div></div>';
  document.body.appendChild(p);
  const i=q('hi');i.addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey&&!e.isComposing){e.preventDefault();if(!busy)hSend()}});i.addEventListener('input',e=>{e.target.style.height='auto';e.target.style.height=Math.min(110,e.target.scrollHeight)+'px'})}
@@ -2241,7 +2242,7 @@ async function ask(t){t=String(t||'').trim();if(!t||busy)return;if(!KEY()){W.hSe
  const msgs=cur.msgs;let started=false,raf=0;
  try{const out=await gem({systemInstruction:{parts:[{text:sys()}]},contents:hist(msgs),generationConfig:{temperature:.6,maxOutputTokens:2000}},{stream:true,signal:ctl.signal,onChunk:a=>{if(!started){started=true;msgs.push({r:'ai',t:a});paintMsgs()}else{msgs[msgs.length-1].t=a;if(!raf)raf=requestAnimationFrame(()=>{raf=0;paintMsgs(true)})}}});
   if(!started)msgs.push({r:'ai',t:out||'No reply came back. Try rephrasing.'});else msgs[msgs.length-1].t=out||msgs[msgs.length-1].t}
- catch(e){if(e&&e.name==='AbortError'){if(!started)msgs.push({r:'ai',t:'Stopped.',err:1})}else msgs.push({r:'ai',t:'Could not get a reply: '+clean(e&&e.message).replace(/\.$/,'')+'. Open Setup and tap Test connection for details.',err:1})}
+ catch(e){if(e&&e.name==='AbortError'){if(!started)msgs.push({r:'ai',t:'Stopped.',err:1})}else msgs.push({r:'ai',t:'Could not get a reply: '+clean(e&&e.message).replace(/\.$/,'')+'.',err:1,fix:/key|NOKEY|Setup/i.test(String(e&&e.message))?1:0})}
  busy=false;ctl=null;save1();paintMsgs()}
 async function generate(prompt,o){o=o||{};return gem({systemInstruction:{parts:[{text:o.system||sys()}]},contents:[{role:'user',parts:[{text:prompt}]}],generationConfig:Object.assign({temperature:.4,maxOutputTokens:o.max||3500},o.json?{responseMimeType:'application/json'}:{})},{signal:o.signal})}
 W.hSend=()=>{const i=q('hi'),v=i.value;i.value='';i.style.height='';ask(v)};W.hStop=()=>{ctl&&ctl.abort()};
@@ -2255,7 +2256,7 @@ W.hDel=id=>{sess=sess.filter(s=>s.id!==id);if(cur&&cur.id===id)newSess();persist
 W.hSetup=()=>{build();q('hp').hidden=false;show('set');const k=q('hk');if(k)k.value=LS('harsh_key');q('hab').value=LS('harsh_about')};
 W.hSave=()=>{const k=q('hk');if(k)SV('harsh_key',k.value.trim());SV('harsh_about',q('hab').value.trim());W.toast&&toast('Harsh AI settings saved on this device');W.hBack()};
 W.hTest=async function(){const o=q('htr');if(!o)return;o.style.color='';o.textContent='Testing connection…';const k=q('hk');if(k&&k.value.trim())SV('harsh_key',k.value.trim());
- try{await HarshAI.generate('Reply with the single word OK',{system:'Reply briefly.',max:300});o.style.color='var(--ok)';o.textContent='Connected. Harsh AI is ready (route: '+LS('harsh_route').replace('|',' · ')+').'}
+ try{await HarshAI.generate('Reply with the single word OK',{system:'Reply briefly.',max:300});o.style.color='var(--ok)';o.textContent='Connected. Harsh AI is ready (using '+(LS('harsh_key')?'your key':'the site key')+', route '+LS('harsh_route').replace('|',' · ')+').'}
  catch(e){o.style.color='var(--bad)';o.textContent=(e&&e.message==='NOKEY'?'No API key set.':'Failed: '+clean(e&&e.message))+(HarshAI.attempts().length?'\n\nTried:\n'+HarshAI.attempts().slice(0,8).map(a=>'• '+a.ep+' / '+a.m+' → '+a.s+' '+clean(a.msg).slice(0,90)).join('\n'):'')}};
 W.hRemove=()=>{if(!confirm('Remove your API key from this browser?'))return;SV('harsh_key','');const k=q('hk');if(k)k.value='';W.toast&&toast('API key removed');paintMsgs()};
 document.addEventListener('keydown',e=>{const p=q('hp');if(e.key==='Escape'&&p&&!p.hidden&&!(q('dlg')&&q('dlg').open))hClose()});
@@ -2340,7 +2341,7 @@ const STEPS=[[0,'Mock scores'],[2,'Study habits'],[4,'Syllabus pace'],[6,'Action
 const BC=v=>v>=75?'#34d399':v>=55?'#60a5fa':v>=40?'#fbbf24':'#f87171',TA=t=>t==='good'?'#34d399':t==='bad'?'#f87171':'#fbbf24',GC=g=>g==='A'?'#34d399':g==='B'?'#60a5fa':g==='C'?'#fbbf24':'#f87171';
 function aiBody(){const has=HarshAI.hasKey(),left=AI_MAX-usage().count;
  if(ai.st==='loading')return '<div class="ai-load"><div class="ai-orb"></div><div id="ai-lt" class="ai-lt">'+MSGS[Math.min(ai.step,MSGS.length-1)]+'</div><div class="ai-pg"><i id="ai-pb" style="width:'+Math.min(90,(ai.step+1)*13)+'%"></i></div><div class="ai-steps">'+STEPS.map((s,i)=>'<span id="ai-s'+i+'" class="'+(ai.step>s[0]?'done':ai.step===s[0]?'active':'')+'">'+s[1]+'</span>').join('')+'</div></div>';
- if(ai.st==='error')return '<div class="ai-bar"><b>AI Analysis</b><button class="btn" onclick="insGen()">Retry</button></div><div class="ai-err"><b>Couldn\'t generate insights</b><div>'+esc(ai.err)+'</div></div>';
+ if(ai.st==='error')return '<div class="ai-bar"><b>AI Analysis</b><button class="btn" onclick="insGen()">Retry</button></div><div class="ai-err"><b>Couldn\'t generate insights</b><div>'+esc(ai.err)+'</div><div style="margin-top:10px"><button class="btn" onclick="HarshAI.setup()">API key setup</button></div></div>';
  if(ai.st==='content'&&ai.data){const d=ai.data,C=2*Math.PI*45,mc=d.momentum==='rising'?'#34d399':d.momentum==='declining'?'#f87171':'#fbbf24',mi=d.momentum==='rising'?'↑':d.momentum==='declining'?'↓':'→';
   return '<div class="ai-bar"><span><b>AI Analysis</b> <span class="mut" style="font-size:12px;margin-left:6px">'+new Date(ai.ts).toLocaleString('en-IN',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'})+'</span></span><button class="btn" onclick="insGen()">Refresh · '+left+' left this week</button></div>'+
   '<div class="card ai-verd"><div style="flex:1;min-width:0"><div class="lbl">Overall assessment</div><p style="margin:8px 0 12px;font-size:14.5px;line-height:1.65">'+esc(d.overallVerdict)+'</p><span class="ai-mom" style="background:'+mc+'22;color:'+mc+'">'+mi+' '+d.momentum.toUpperCase()+'</span></div>'+
