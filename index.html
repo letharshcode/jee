@@ -2162,27 +2162,34 @@ let REVN=0;try{const _sv=window.save;if(typeof _sv==='function'){window.save=fun
 const W=window,q=id=>document.getElementById(id);
 const LS=k=>{try{return localStorage.getItem(k)||''}catch(e){return''}},SV=(k,v)=>{try{v?localStorage.setItem(k,v):localStorage.removeItem(k)}catch(e){}};
 const KEY=()=>(GEMINI_KEY||LS('harsh_key')).trim();
-const MODELS=()=>[...new Set([LS('harsh_model').trim(),'gemini-3.5-flash','gemini-3.1-flash-lite','gemini-2.5-flash'].filter(Boolean))];
-let cur=null,busy=false,ctl=null,view='chat',sess=[];
+const MODELS=()=>[...new Set([LS('harsh_model').trim(),'gemini-3.5-flash','gemini-3.1-flash-lite','gemini-2.5-flash','gemini-2.0-flash'].filter(Boolean))];
+const EPS={gl:'https://generativelanguage.googleapis.com/v1beta/models/',vx:'https://aiplatform.googleapis.com/v1/publishers/google/models/'};
+let cur=null,busy=false,ctl=null,view='chat',sess=[],attempts=[];
 const load=()=>{try{sess=JSON.parse(LS('harsh_sessions')||'[]')||[]}catch(e){sess=[]}};
 const persist=()=>{try{sess=sess.sort((a,b)=>b.t-a.t).slice(0,20);SV('harsh_sessions',JSON.stringify(sess))}catch(e){}};
 const clean=s=>{const k=KEY();return String(s||'').split(k||'\u0000').join('•••').slice(0,300)};
 const txt=j=>(((j.candidates||[])[0]||{}).content||{parts:[]}).parts.map(p=>p.text||'').join('');
-async function gem(body,o){o=o||{};const k=KEY();if(!k)throw new Error('NOKEY');let last='';
- for(const m of MODELS()){
-  const url='https://generativelanguage.googleapis.com/v1beta/models/'+encodeURIComponent(m)+(o.stream?':streamGenerateContent?alt=sse':':generateContent');
-  let r;try{r=await fetch(url,{method:'POST',headers:{'Content-Type':'application/json','x-goog-api-key':k},body:JSON.stringify(body),signal:o.signal})}catch(e){if(e&&e.name==='AbortError')throw e;last='Network problem. Check your connection and try again.';continue}
-  if(r.ok){
+/* Routes to try (endpoint + model). The last route that worked is remembered and tried first. */
+function routes(){const r=[],seen={};const add=(e,m)=>{const k=e+'|'+m;if(!seen[k]){seen[k]=1;r.push([e,m])}};const last=LS('harsh_route').split('|');if(last.length===2&&EPS[last[0]])add(last[0],last[1]);
+ const ms=MODELS();['gl','vx'].forEach(e=>ms.forEach(m=>add(e,m)));return r}
+async function gem(body,o){o=o||{};const k=KEY();if(!k)throw new Error('NOKEY');attempts=[];const dead={};let keyBad=0,lastMsg='';
+ for(const rt of routes()){const ep=rt[0],m=rt[1];if(dead[ep])continue;
+  const url=EPS[ep]+encodeURIComponent(m)+(o.stream?':streamGenerateContent?alt=sse':':generateContent');
+  let r;try{r=await fetch(url,{method:'POST',headers:{'Content-Type':'application/json','x-goog-api-key':k},body:JSON.stringify(body),signal:o.signal})}
+  catch(e){if(e&&e.name==='AbortError')throw e;attempts.push({ep,m,s:'network',msg:'Request blocked or offline'});lastMsg='Network problem. Check your connection, ad blockers, and that the key allows this website.';continue}
+  if(r.ok){SV('harsh_route',ep+'|'+m);
    if(!o.stream)return txt(await r.json());
    const rd=r.body.getReader(),dec=new TextDecoder();let buf='',acc='';
    for(;;){const x=await rd.read();if(x.done)break;buf+=dec.decode(x.value,{stream:true});const ls=buf.split('\n');buf=ls.pop();
     for(const l of ls){if(l.indexOf('data:')===0){try{const t=txt(JSON.parse(l.slice(5)));if(t){acc+=t;o.onChunk&&o.onChunk(acc)}}catch(e){}}}}
    return acc}
   let msg='';try{msg=((await r.json()).error||{}).message||''}catch(e){}
-  if((r.status===400||r.status===401||r.status===403)&&/api key|permission|credential|invalid/i.test(msg))throw new Error('Gemini rejected the API key. Check it in Harsh AI > Setup.');
-  last=clean(msg)||('Request failed ('+r.status+')');
+  msg=clean(msg)||('HTTP '+r.status);attempts.push({ep,m,s:r.status,msg});lastMsg=msg;
+  if((r.status===400||r.status===401||r.status===403)&&/api key|permission|credential|invalid|unauthor|forbidden|referer|not allowed|disabled|not enabled/i.test(msg)){keyBad++;dead[ep]=1}
  }
- throw new Error(last||'No reply received.')}
+ if(keyBad&&keyBad>=Object.keys(dead).length&&Object.keys(dead).length>=1&&attempts.every(a=>a.s===400||a.s===401||a.s===403||a.s==='network'||a.s===404))throw new Error('Google rejected this key ('+lastMsg+'). Check the key is active, has Gemini access, and is not restricted to another website.');
+ if(attempts.length&&attempts.every(a=>a.s===429))throw new Error('429: rate limit or quota reached on this key. Wait a minute and try again.');
+ throw new Error(lastMsg||'No reply received.')}
 function ctx(){const L=[],T0=td(),s=f=>{try{const r=f();if(r)L.push(r)}catch(e){console.error('harsh ctx',e)}},h=o=>((DAYS()[dstr(o)]||{}).s||0)/3600,B=S.area==='board';
  s(()=>{const ex=examDate();return `Student ${(S.name||'').trim()||'(no name)'}; area ${B?'II PUC Board':'JEE'}; target ${B?'board exam':examName()}${ex?' on '+ex+' ('+dd(ex)+' days left)':''}; today ${T0}; daily goal ${goalH()}h.`});
  s(()=>{let w=0;for(let o=0;o<7;o++)w+=h(o);return `Study today ${h(0).toFixed(1)}h; last 7 days ${w.toFixed(1)}h (avg ${(w/7).toFixed(1)}h/day); streak ${streak()} days.`});
@@ -2226,17 +2233,17 @@ function build(){if(q('hp')||!document.body)return;load();if(!cur)newSess();
  '<div id="hchat" style="display:flex;flex-direction:column;flex:1;min-height:0"><div id="hm" aria-live="polite"></div><div id="hc">'+['Plan my day','Roast my week','Fix my weak chapters','Am I on track?'].map(t=>'<button class="tag" onclick="hQ(\''+t+'\')">'+t+'</button>').join('')+'</div><div class="hcomp"><textarea id="hi" rows="1" placeholder="Ask Harsh AI…" aria-label="Message Harsh AI"></textarea><button id="hsend" class="btn pri" onclick="hSend()">Send</button></div></div>'+
  '<div id="hh" hidden><b>Past chats</b><div id="hhl" style="margin-top:8px"></div><div class="f" style="margin-top:12px"><button class="btn" onclick="hBack()">Back</button></div></div>'+
  '<div id="hs" hidden><b>Setup</b>'+(keyLocked?'<div class="mut" style="font-size:13px;margin-top:8px">A Gemini key is already configured for this site.</div>':'<label for="hk">Gemini API key</label><input id="hk" type="password" autocomplete="off" spellcheck="false" placeholder="Paste your key"><div class="mut" style="font-size:12px;margin-top:6px">Free from <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener" style="color:var(--ac)">Google AI Studio</a>. Stored only in this browser and sent only to Google.</div>')+
- '<label for="hab">About me and instructions (optional)</label><textarea id="hab" rows="4" placeholder="e.g. I am a dropper, weak in Physics, prefer short answers"></textarea><div class="f" style="margin-top:14px"><button class="btn pri" onclick="hSave()">Save</button><button class="btn" onclick="hBack()">Back</button>'+(keyLocked?'':'<button class="btn dng" onclick="hRemove()">Remove key</button>')+'</div></div>';
+ '<label for="hab">About me and instructions (optional)</label><textarea id="hab" rows="4" placeholder="e.g. I am a dropper, weak in Physics, prefer short answers"></textarea><div class="f" style="margin-top:14px"><button class="btn pri" onclick="hSave()">Save</button><button class="btn" onclick="hTest()">Test connection</button><button class="btn" onclick="hBack()">Back</button>'+(keyLocked?'':'<button class="btn dng" onclick="hRemove()">Remove key</button>')+'</div><div id="htr" class="mut" style="font-size:12px;margin-top:12px;white-space:pre-wrap;line-height:1.6"></div></div>';
  document.body.appendChild(p);
  const i=q('hi');i.addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey&&!e.isComposing){e.preventDefault();if(!busy)hSend()}});i.addEventListener('input',e=>{e.target.style.height='auto';e.target.style.height=Math.min(110,e.target.scrollHeight)+'px'})}
 async function ask(t){t=String(t||'').trim();if(!t||busy)return;if(!KEY()){W.hSetup();W.toast&&toast('Add your Gemini API key first');return}
  if(!cur)newSess();cur.msgs.push({r:'user',t});if(cur.title==='New chat')cur.title=title(t);busy=true;ctl=new AbortController();paintMsgs();
  const msgs=cur.msgs;let started=false,raf=0;
- try{const out=await gem({systemInstruction:{parts:[{text:sys()}]},contents:hist(msgs),generationConfig:{temperature:.6,maxOutputTokens:700}},{stream:true,signal:ctl.signal,onChunk:a=>{if(!started){started=true;msgs.push({r:'ai',t:a});paintMsgs()}else{msgs[msgs.length-1].t=a;if(!raf)raf=requestAnimationFrame(()=>{raf=0;paintMsgs(true)})}}});
+ try{const out=await gem({systemInstruction:{parts:[{text:sys()}]},contents:hist(msgs),generationConfig:{temperature:.6,maxOutputTokens:2000}},{stream:true,signal:ctl.signal,onChunk:a=>{if(!started){started=true;msgs.push({r:'ai',t:a});paintMsgs()}else{msgs[msgs.length-1].t=a;if(!raf)raf=requestAnimationFrame(()=>{raf=0;paintMsgs(true)})}}});
   if(!started)msgs.push({r:'ai',t:out||'No reply came back. Try rephrasing.'});else msgs[msgs.length-1].t=out||msgs[msgs.length-1].t}
- catch(e){if(e&&e.name==='AbortError'){if(!started)msgs.push({r:'ai',t:'Stopped.',err:1})}else msgs.push({r:'ai',t:'Could not get a reply: '+clean(e&&e.message)+'. Check your key and model in Setup.',err:1})}
+ catch(e){if(e&&e.name==='AbortError'){if(!started)msgs.push({r:'ai',t:'Stopped.',err:1})}else msgs.push({r:'ai',t:'Could not get a reply: '+clean(e&&e.message).replace(/\.$/,'')+'. Open Setup and tap Test connection for details.',err:1})}
  busy=false;ctl=null;save1();paintMsgs()}
-async function generate(prompt,o){o=o||{};return gem({systemInstruction:{parts:[{text:o.system||sys()}]},contents:[{role:'user',parts:[{text:prompt}]}],generationConfig:Object.assign({temperature:.4,maxOutputTokens:o.max||2200},o.json?{responseMimeType:'application/json'}:{})},{signal:o.signal})}
+async function generate(prompt,o){o=o||{};return gem({systemInstruction:{parts:[{text:o.system||sys()}]},contents:[{role:'user',parts:[{text:prompt}]}],generationConfig:Object.assign({temperature:.4,maxOutputTokens:o.max||3500},o.json?{responseMimeType:'application/json'}:{})},{signal:o.signal})}
 W.hSend=()=>{const i=q('hi'),v=i.value;i.value='';i.style.height='';ask(v)};W.hStop=()=>{ctl&&ctl.abort()};
 W.hQ=t=>ask(t);W.hNew=()=>{if(busy)return;newSess();show('chat');paintMsgs()};
 W.hOpen=()=>{build();q('hp').hidden=false;show('chat');paintMsgs()};
@@ -2247,9 +2254,12 @@ W.hLoad=id=>{const s=sess.find(x=>x.id===id);if(s){cur=s;show('chat');paintMsgs(
 W.hDel=id=>{sess=sess.filter(s=>s.id!==id);if(cur&&cur.id===id)newSess();persist();paintHis()};
 W.hSetup=()=>{build();q('hp').hidden=false;show('set');const k=q('hk');if(k)k.value=LS('harsh_key');q('hab').value=LS('harsh_about')};
 W.hSave=()=>{const k=q('hk');if(k)SV('harsh_key',k.value.trim());SV('harsh_about',q('hab').value.trim());W.toast&&toast('Harsh AI settings saved on this device');W.hBack()};
+W.hTest=async function(){const o=q('htr');if(!o)return;o.style.color='';o.textContent='Testing connection…';const k=q('hk');if(k&&k.value.trim())SV('harsh_key',k.value.trim());
+ try{await HarshAI.generate('Reply with the single word OK',{system:'Reply briefly.',max:300});o.style.color='var(--ok)';o.textContent='Connected. Harsh AI is ready (route: '+LS('harsh_route').replace('|',' · ')+').'}
+ catch(e){o.style.color='var(--bad)';o.textContent=(e&&e.message==='NOKEY'?'No API key set.':'Failed: '+clean(e&&e.message))+(HarshAI.attempts().length?'\n\nTried:\n'+HarshAI.attempts().slice(0,8).map(a=>'• '+a.ep+' / '+a.m+' → '+a.s+' '+clean(a.msg).slice(0,90)).join('\n'):'')}};
 W.hRemove=()=>{if(!confirm('Remove your API key from this browser?'))return;SV('harsh_key','');const k=q('hk');if(k)k.value='';W.toast&&toast('API key removed');paintMsgs()};
 document.addEventListener('keydown',e=>{const p=q('hp');if(e.key==='Escape'&&p&&!p.hidden&&!(q('dlg')&&q('dlg').open))hClose()});
-W.HarshAI={open:()=>W.hOpen(),setup:()=>W.hSetup(),hasKey:()=>!!KEY(),generate,ctx:fullCtx,clean};
+W.HarshAI={open:()=>W.hOpen(),setup:()=>W.hSetup(),hasKey:()=>!!KEY(),generate,ctx:fullCtx,clean,attempts:()=>attempts};
 const boot=()=>{try{build()}catch(e){console.error('Harsh AI failed to start')}};
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot);else boot();
 })();
@@ -2348,11 +2358,11 @@ W.insGen=async function(){if(ai.st==='loading')return;
  if(!canGen()){const d=toReset();toast('Weekly limit reached (3/3). Resets in '+d+' day'+(d===1?'':'s'));return}
  ai.st='loading';ai.step=0;paintAI();clearInterval(tmr);
  tmr=setInterval(()=>{ai.step++;const t=q('ai-lt'),b=q('ai-pb');if(t)t.textContent=MSGS[Math.min(ai.step,MSGS.length-1)];if(b)b.style.width=Math.min(90,(ai.step+1)*13)+'%';STEPS.forEach((s,i)=>{const e=q('ai-s'+i);if(e)e.className=ai.step>s[0]?'done':ai.step===s[0]?'active':''})},900);
- try{const a=agg(),raw=await HarshAI.generate(buildPrompt(a),{json:true,max:2600,system:'You are a JEE coach. Reply with a single valid JSON object only.'});
+ try{const a=agg(),raw=await HarshAI.generate(buildPrompt(a),{json:true,max:4096,system:'You are a JEE coach. Reply with a single valid JSON object only.'});
   const data=norm(parse(raw));ai={st:'content',err:'',data,ts:Date.now(),step:0};try{localStorage.setItem(CK,JSON.stringify({data,ts:ai.ts}))}catch(e){}bump();
   const miss=[];if(!a.mains.length&&!a.adv.length)miss.push('mock test scores');else if(a.mains.length+a.adv.length<3)miss.push('more mock tests');if(!a.hd)miss.push('study hours');else if(a.hd<5)miss.push('more study days');if(!a.overall)miss.push('syllabus progress');
   if(miss.length)setTimeout(()=>toast('Low data. Add '+miss.join(', ')+' for sharper insights.'),500);else toast('Insights ready')}
- catch(e){const m=HarshAI.clean(e&&e.message)||'Unknown error';ai={st:'error',err:/429|quota|rate/i.test(m)?'Rate limit hit. Try again in a few minutes.':/NOKEY/.test(m)?'No API key set. Add one in Harsh AI setup.':m,data:null,ts:0,step:0}}
+ catch(e){const m=HarshAI.clean(e&&e.message)||'Unknown error';ai={st:'error',err:/429|quota|rate limit/i.test(m)?'Rate limit hit. Try again in a few minutes.':/NOKEY/.test(m)?'No API key set. Add one in Harsh AI setup.':m,data:null,ts:0,step:0}}
  clearInterval(tmr);paintAI()};
 W.vInsights=function(){
  if(!booted){booted=true;const c=cached();if(c){ai={st:'content',err:'',data:c.data,ts:c.ts,step:0}}}
