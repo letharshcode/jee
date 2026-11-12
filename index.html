@@ -759,6 +759,64 @@ header.top{background:transparent!important;border-bottom:0!important;backdrop-f
 .lp-g{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}.lp-c{display:flex;flex-direction:column;gap:10px}.lp-c p,.lp-fq p{margin:0;color:var(--mut);font-size:13.5px;line-height:1.65}
 .lp-fq{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}.lp-fq b{display:block;margin-bottom:6px}
 #jee-auth .xf{margin-top:0}
+
+/* polish pass (design-taste principles: hierarchy, rhythm, restrained motion, accessible focus) */
+h1,h2,h3,.lp-h{text-wrap:balance}p,.ss,.mut{text-wrap:pretty}
+::selection{background:rgba(124,106,247,.35)}
+:focus-visible{outline:2px solid #a695ff;outline-offset:2px;border-radius:8px}
+button,.nv,select{touch-action:manipulation}
+@media(pointer:coarse){.btn,.nv,.seg button,select,input{min-height:44px}}
+.card{scroll-margin-top:80px}
+.dstats .card,.dgrid .card{transition:border-color .2s,transform .2s}
+@media(hover:hover){.dstats .card:hover,.dgrid .card:hover{transform:translateY(-1px)}}
+.sv,.big,.kpi b{font-feature-settings:"tnum" 1,"lnum" 1}
+.sg{color:#5d5c75}
+/* signed-out page is always the dark JeeTrack palette */
+#jee-auth{--bg:#0a0a0f;--tx:#f0eff5;--mut:#7a7990;--g:#111118;--g2:#18181f;--bd:rgba(255,255,255,.07);--ac:#7c6af7;--ok:#34d399;--bad:#f87171;background:#0a0a0f radial-gradient(ellipse 70% 45% at 50% -5%,rgba(124,106,247,.16),transparent 70%)!important;color:#f0eff5}
+#jee-auth .card,#jee-auth .auth-card{background:#111118!important;border:1px solid rgba(255,255,255,.08)!important;color:#f0eff5}
+#jee-auth input{background:#18181f!important;color:#f0eff5!important;border:1px solid rgba(255,255,255,.12)!important}
+#jee-auth input::placeholder{color:#5d5c75}
+#jee-auth .auth-card .auth-brand,#jee-auth .auth-card h1,#jee-auth .auth-card h2,#jee-auth .auth-card label{color:#f0eff5}
+#jee-auth .auth-card .auth-brand{color:#f0eff5!important}
+#jee-auth .btn:not(.pri){background:#18181f;color:#f0eff5;border-color:rgba(255,255,255,.12)}
+#jee-auth a{color:#a695ff}
+#jee-auth .lp-links a{color:#7a7990}#jee-auth .lp-links a:hover{color:#f0eff5}
+
+/* ===== taste pass: one accent, no glow, dividers over boxes (dense), asymmetric landing ===== */
+:root{--grad:linear-gradient(135deg,#8b7cf8,#7c6af7);--glow:none}
+body::before{background:radial-gradient(ellipse 60% 28% at 50% -8%,rgba(124,106,247,.07),transparent 70%)!important}
+.btn.pri,#hbtn{background:#7c6af7;box-shadow:none;border:1px solid rgba(255,255,255,.14)}
+.btn.pri:hover,#hbtn:hover{background:#8b7cf8;transform:none;filter:none}
+.gh h1 em,.lp .wm em,.side .wm em,.lp-l h1 em,.gtxt,.wm em{background:none!important;-webkit-background-clip:initial!important;background-clip:initial!important;color:#a695ff!important}
+.hero-i::after,.ai-orb{display:none}
+.ai-load::before{content:"";width:28px;height:28px;border-radius:50%;border:2px solid rgba(255,255,255,.1);border-top-color:#7c6af7;animation:sp .8s linear infinite}@keyframes sp{to{transform:rotate(360deg)}}
+.suc .av{background:#7c6af7}
+.pbar i,.ai-pg i{background:#7c6af7}
+.lp-l h1{font-size:clamp(30px,4.2vw,46px);font-weight:700;letter-spacing:-.025em;line-height:1.1}
+.lp-l p{font-size:15.5px}
+.lp-eye s{background:#7c6af7}
+.lp-badge{background:transparent}
+/* dense dashboard: metrics breathe, no generic card boxes */
+.dstats{gap:0;border-top:1px solid var(--bd);border-bottom:1px solid var(--bd);margin-bottom:26px}
+.dstats .card,.dgrid .card{background:transparent!important;box-shadow:none!important;border-radius:0!important}
+.dstats .card{border:0!important;border-right:1px solid var(--bd)!important;padding:18px 20px;min-height:0}
+.dstats .card:last-child{border-right:0!important}
+.dgrid{gap:0 36px}
+.dgrid .card{border:0!important;border-top:1px solid var(--bd)!important;padding:18px 0 26px}
+.dstats .card:hover,.dgrid .card:hover{transform:none;border-color:inherit}
+.dgrid .card:hover{border-top-color:rgba(255,255,255,.14)!important}
+.sc .sv{font-size:30px}
+@media(max-width:1180px){.dstats .card{border-bottom:1px solid var(--bd)!important}}
+/* landing: split, asymmetric, dividers */
+.lp-sec{display:grid;grid-template-columns:minmax(0,.6fr) minmax(0,1.5fr);gap:clamp(20px,5vw,72px);align-items:start}
+.lp-sec.lp-one{display:block}
+.lp-h{position:sticky;top:90px;font-size:clamp(20px,2.6vw,28px);font-weight:700;margin:0}
+.lp-list{border-top:1px solid var(--bd)}
+.lp-row{display:grid;grid-template-columns:40px minmax(0,.8fr) minmax(0,1.5fr);gap:16px;padding:18px 0;border-bottom:1px solid var(--bd);align-items:baseline}
+.lp-row .n{font:500 12px 'DM Mono',monospace;color:#5d5c75}.lp-row b{font-size:15px;font-weight:600}.lp-row p{margin:0;color:var(--mut);font-size:14px;line-height:1.65}
+@media(max-width:820px){.lp-sec{grid-template-columns:1fr}.lp-h{position:static}.lp-row{grid-template-columns:30px 1fr}.lp-row p{grid-column:2}}
+
+.sc>.row{flex-wrap:nowrap;gap:8px}.sc>.row .lbl{white-space:nowrap}.sc .si{width:26px;height:26px}
 </style>
 </head><body class="locked"><div id="boot" role="dialog" aria-label="Welcome"><div class="bw"><div class="ld"><div class="lg"><img src="favicon.png" alt="JEE 2027 Study Tracker logo" onerror="this.replaceWith(document.createTextNode('JE'))"></div><h1>JEE 2027 Study Tracker</h1><p>Structured preparation, measured progress.</p><div class="pb"><i></i></div><div class="mut" id="bootpct" style="font-size:12px">Preparing dashboard 0%</div></div><div class="ob"><div class="sl on"><div class="lg"><img src="favicon.png" alt="JEE 2027 Study Tracker logo" onerror="this.replaceWith(document.createTextNode('JE'))"></div><h1>Welcome to JEE 2027</h1><p>A structured workspace for your preparation: plan, study, practise and review in one place.</p></div><div class="sl"><div class="lg">&#9201;</div><h1>Study clock</h1><p>Run focus blocks, set a daily goal and keep a floating timer visible while you work in other tabs.</p></div><div class="sl"><div class="lg">&#128218;</div><h1>Syllabus and QCT tracker</h1><p>Record theory, questions and QCTs for every chapter and see exactly how much of each test you have covered.</p></div><div class="sl"><div class="lg">&#128200;</div><h1>Tests and analysis</h1><p>Review upcoming tests, enter results when the test is live and study score trends and weak chapters.</p></div><div class="sl"><div class="lg">&#127769;</div><h1>Planner, sleep and backup</h1><p>Organise tasks by day, keep a weekly sleep balance and export your data whenever you wish.</p></div><div class="dots"><i></i><i></i><i></i><i></i><i></i></div><div class="obn"><button class="btn" id="obS" onclick="bootHide()">Skip</button><span><button class="btn" id="obB" onclick="obGo(-1)">Back</button> <button class="btn pri" id="obN" onclick="obGo(1)">Next</button></span></div></div></div></div>
 <header class="top"><div class="hw">
@@ -2197,7 +2255,7 @@ const g1=W.go;W.go=function(){const r=g1.apply(this,arguments);T(post2);return r
    so the key never lives in source control. If it is not replaced, each student adds their own key under
    Harsh AI > Setup (kept only in that browser). The key is sent only in the x-goog-api-key header and never logged. */
 (function(){'use strict';
-const GEMINI_KEY=(k=>/^__.*__$/.test(k)?'':k)('__GEMINI_API_KEY__');
+const GEMINI_KEY=(k=>/^__.*__$/.test(k)?'':k)('AQ.Ab8RN6JQQ4NAGFdtEzrB2jr3duG5eqsuGPap2oMaFwYdZSc3VA');
 let REVN=0;try{const _sv=window.save;if(typeof _sv==='function'){window.save=function(){REVN++;window.__rev=REVN;return _sv.apply(this,arguments)}}}catch(e){}window.__rev=0;
 const W=window,q=id=>document.getElementById(id);
 const LS=k=>{try{return localStorage.getItem(k)||''}catch(e){return''}},SV=(k,v)=>{try{v?localStorage.setItem(k,v):localStorage.removeItem(k)}catch(e){}};
@@ -2318,7 +2376,7 @@ const hrs=o=>N(((DAYS()[dstr(o)]||{}).s||0))/3600;
 const sumH=(a,b)=>{let t=0;for(let o=a;o<b;o++)t+=hrs(o);return t};
 const isMain=k=>k==='QPT'||k==='QFT',isAdv=k=>k==='QAPT'||k==='QAFT';
 const pctOf=t=>{const v=tot(t);return v!==null&&t.mx?Math.round(v/t.mx*100):null};
-const recent=(f,n)=>S.tests.filter(t=>f(t.kind)&&pctOf(t)!==null).sort((a,b)=>a.date<b.date?-1:1).slice(-n);
+const recent=(f,n)=>(S.tests||[]).filter(t=>f(t.kind)&&pctOf(t)!==null).sort((a,b)=>a.date<b.date?-1:1).slice(-n);
 const avg=a=>a.length?Math.round(a.reduce((x,y)=>x+y,0)/a.length):null;
 const bar=p=>'<div class="pbar"><i style="width:'+Math.max(0,Math.min(100,p))+'%"></i></div>';
 const kpi=(l,v,s)=>'<div class="card kpi"><div class="lbl">'+l+'</div><b class="mono">'+v+'</b><small>'+(s||'')+'</small></div>';
@@ -2337,9 +2395,9 @@ const toReset=()=>(7-new Date().getDay())%7||7;
 const iso=o=>dstr(o);
 /* One pass over the data, memoised until the next save() */
 let memo={r:-1,v:null};
-function agg(){const rv=W.__rev|0;if(memo.r===rv&&memo.v)return memo.v;
+function agg(){const rv=W.__rev|0;if(memo.r===rv&&memo.d===td()&&memo.v)return memo.v;
  const subs=SUBS().slice(0,3),sk={};subs.forEach((s,i)=>sk[s]=['p','c','m'][i]);
- const scored=S.tests.filter(t=>pctOf(t)!==null).map(t=>({total:tot(t),max:t.mx,date:t.date||'',kind:t.kind,p:t.p,c:t.c,m:t.m})).sort((a,b)=>a.date<b.date?-1:a.date>b.date?1:0);
+ const scored=(S.tests||[]).filter(t=>pctOf(t)!==null).map(t=>({total:tot(t),max:t.mx,date:t.date||'',kind:t.kind,p:t.p,c:t.c,m:t.m})).sort((a,b)=>a.date<b.date?-1:a.date>b.date?1:0);
  const mains=scored.filter(t=>isMain(t.kind)),adv=scored.filter(t=>isAdv(t.kind));
  const trend=a=>{if(a.length<2)return'insufficient';const p=a.map(t=>t.total/t.max*100),d=p[p.length-1]-p[0],mid=p.slice(1,-1),mx=mid.length?Math.max(...mid):p[p.length-1],mn=mid.length?Math.min(...mid):p[p.length-1];if(mx-mn>15&&p.length>=3)return'fluctuating';return d>5?'increasing':d<-5?'decreasing':'plateau'};
  const sAvg=(a,s)=>{const f=sk[s],v=a.filter(t=>t.max&&t[f]!==''&&t[f]!==undefined&&t[f]!==null).map(t=>+t[f]/(t.max/3)*100);return v.length?+(v.reduce((x,y)=>x+y,0)/v.length).toFixed(1):0};
@@ -2353,14 +2411,14 @@ function agg(){const rv=W.__rev|0;if(memo.r===rv&&memo.v)return memo.v;
  const syl=subs.map(s=>{const L=CHD[s]||[];let dn=0,st=0,ns=0;L.forEach(c=>{const p=chPct(s,c);if(p>=100)dn++;else if(p>0)st++;else ns++});return{s,total:L.length,done:dn,started:st,notStarted:ns,pct:T(()=>sylPct(s),0)}});
  const tc=syl.reduce((x,y)=>x+y.total,0),overall=tc?Math.round(syl.reduce((x,y)=>x+y.pct*y.total,0)/tc):0;
  const ex=new Date(S.exam||'2027-01-21'),now=new Date(),dtm=Math.ceil((ex-now)/864e5),yr=ex.getFullYear(),ps=new Date((yr-2)+'-06-01'),exp=Math.max(0,Math.min(100,Math.round(Math.max(0,now-ps)/Math.max(1,ex-ps)*100)));
- const q14=S.qlog.filter(q=>q.d>=c14),qd=q14.reduce((x,q)=>x+(+q.done||0),0),qo=q14.reduce((x,q)=>x+(+q.ok||0),0);
+ const q14=(S.qlog||[]).filter(q=>q.d>=c14),qd=q14.reduce((x,q)=>x+(+q.done||0),0),qo=q14.reduce((x,q)=>x+(+q.ok||0),0);
  const qs={};subs.forEach(s=>{let d=0,o=0;S.qlog.forEach(q=>{if(q.sub===s){d+=+q.done||0;o+=+q.ok||0}});qs[s]=d?Math.round(o/d*100):null});
  const bp=(S.back||[]).filter(x=>!x.x),bh=bp.filter(x=>x.pri==='H'||/high/i.test(x.pri||'')).length,bAll=(S.back||[]).length;
- const td_=S.todos.filter(t=>t.x).length;
+ const td_=(S.todos||[]).filter(t=>t.x).length;
  const mo=(S.mist||[]).filter(x=>!x.rev),mr={};mo.forEach(x=>mr[x.why]=(mr[x.why]||0)+1);
  const roi=subs.map(s=>{const sc=sAvg(mains,s)||sAvg(adv,s),h=sh[s]||.001;return{s,score:sc,hrs:+sh[s].toFixed(1),roi:+(sc/h).toFixed(1)}});
  const v={subs,mains,adv,mt:trend(mains),at:trend(adv),sAvg,sk,h3:+h3.toFixed(1),h7:+h7.toFixed(1),hPrev7:+h14p.toFixed(1),h30:+h30.toFixed(1),mock:+mock.toFixed(1),d3,d7,d14,cons,subjH,gap:+gap.toFixed(1),syl,overall,dtm,yr,exp,qd,qo,qs,bp,bh,bAll,tdDone:td_,tdN:S.todos.length,mo,mr,roi,streak:T(()=>streak(),0),hd};
- memo={r:rv,v};return v}
+ memo={r:rv,d:td(),v};return v}
 const lc=s=>({Physics:'physics',Chemistry:'chemistry',Mathematics:'maths'}[s]||String(s).toLowerCase());
 function buildPrompt(a){const nm=(document.getElementById('sb-username')||{}).textContent||'the student',sc=t=>t.map(x=>x.total+'/'+x.max).join(' > ')||'none';
  return 'You are '+String(nm).trim().slice(0,40)+'\'s personal JEE '+a.yr+' coach. Analyze their data and generate smart, data-driven insights. Follow the INCLUSION RULES strictly.\n\nIMPORTANT: for test scores always say "X marks" or "scored X/300", never "X%". Percentages are only for syllabus completion and practice accuracy.\n\nTONE: a real coach who knows this student: honest, direct, specific with numbers, a little energy. No motivational-poster fluff, no drill sergeant. Call out real problems plainly and real wins plainly.\n\nSYLLABUS PACING: '+(a.dtm>0?'JEE Main '+a.yr+' is '+a.dtm+' days away (~'+(Math.round(a.dtm/30.44*10)/10)+' months).':'The exam date has passed.')+' With a ~2-year runway the student would realistically have covered ~'+a.exp+'% by now. Compare actual '+a.overall+'% to that expected pace. At or above pace = good news, say so. 10+ points behind = a real gap, name it and give a plan. Far from the exam with low % is not a problem by itself.\n\nINCLUSION RULES (include an insight only if its condition is met):\n- PRACTICE: always include. Questions done in last 14 days and accuracy. Accuracy < 60% = bad, 60-75% = warn, > 75% = good. Under ~100 questions in 14 days = warn.\n- NEGLECT: if hours gap between most and least studied subject > 10h.\n- TREND: always include if any test scores exist.\n- EFFICIENCY: if one subject has a noticeably worse score-per-hour ratio (ROI difference > 2).\n- CONSISTENCY: if active < 8/14 days (bad) or 0/3 recent days (breaking). 10+/14 = brief positive or skip.\n- SYLLABUS: if meaningfully below expected pace or any subject < 50%.\n- BACKLOG: if pending > 3, or high priority > 1.\n- MISTAKES: if open mistakes > 5; name the top cause.\n- TASKS: only if completion < 60% or pending > 3.\nTEXT LENGTH: bad/warn with a serious issue = 2-3 sentences with exact numbers. good = 1 short sentence or skip. Never mention chapter names.\n\nDATA:\nSCORES:\nMain ('+a.mains.length+' tests): '+sc(a.mains)+' | Trend: '+a.mt+'\n'+a.subs.map(s=>'  '+s+' avg: '+a.sAvg(a.mains,s)+'%').join(' | ')+'\nAdvanced ('+a.adv.length+' tests): '+sc(a.adv)+' | Trend: '+a.at+'\n\nSTUDY HOURS:\nLast 3d: '+a.h3+'h ('+a.d3+'/3 days) | Last 7d: '+a.h7+'h ('+a.d7+'/7 days) | previous 7d: '+a.hPrev7+'h | Last 14d: '+a.d14+'/14 days active | Last 30d: '+a.h30+'h'+(a.mock>0?' | Mock/analysis time: '+a.mock+'h':'')+'\nSubject hours: '+a.subjH.map(x=>x.s+':'+x.h+'h').join(' | ')+'\nHour gap most vs least studied: '+a.gap+'h (>10h = neglect)\n\nPRACTICE: last 14d '+a.qd+' questions, '+(a.qd?Math.round(a.qo/a.qd*100)+'% accuracy':'no data')+' | all-time accuracy: '+a.subs.map(s=>s+' '+(a.qs[s]===null?'n/a':a.qs[s]+'%')).join(', ')+'\n\nEFFICIENCY: '+a.roi.map(e=>e.s+': score '+e.score+'%, '+e.hrs+'h, ROI '+e.roi).join(' | ')+'\n\nSYLLABUS: '+a.overall+'% overall (expected ~'+a.exp+'%)\n'+a.syl.map(x=>x.s+': '+x.pct+'% ('+x.done+'/'+x.total+' complete, '+x.started+' in progress, '+x.notStarted+' not started)').join(' | ')+'\n\nBACKLOG: '+a.bp.length+' pending | High priority: '+a.bh+' | Streak: '+a.streak+'d\nOPEN MISTAKES: '+a.mo.length+(a.mo.length?' ('+Object.entries(a.mr).map(e=>e[0]+' '+e[1]).join(', ')+')':'')+'\nTASKS: '+a.tdDone+'/'+a.tdN+' done\nToday: '+new Date().toLocaleDateString('en-IN',{weekday:'short',day:'numeric',month:'short'})+
@@ -2385,7 +2443,7 @@ function aiBody(){const has=HarshAI.hasKey(),left=AI_MAX-usage().count;
  if(ai.st==='content'&&ai.data){const d=ai.data,C=2*Math.PI*45,mc=d.momentum==='rising'?'#34d399':d.momentum==='declining'?'#f87171':'#fbbf24',mi=d.momentum==='rising'?'↑':d.momentum==='declining'?'↓':'→';
   return '<div class="ai-bar"><span><b>AI Analysis</b> <span class="mut" style="font-size:12px;margin-left:6px">'+new Date(ai.ts).toLocaleString('en-IN',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'})+'</span></span><button class="btn" onclick="insGen()">Refresh · '+left+' left this week</button></div>'+
   '<div class="card ai-verd"><div style="flex:1;min-width:0"><div class="lbl">Overall assessment</div><p style="margin:8px 0 12px;font-size:14.5px;line-height:1.65">'+esc(d.overallVerdict)+'</p><span class="ai-mom" style="background:'+mc+'22;color:'+mc+'">'+mi+' '+d.momentum.toUpperCase()+'</span></div>'+
-  '<div class="ai-ring"><svg width="108" height="108" viewBox="0 0 108 108"><defs><linearGradient id="rg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#a695ff"/><stop offset="1" stop-color="#f472b6"/></linearGradient></defs><circle cx="54" cy="54" r="45" fill="none" stroke="rgba(255,255,255,.07)" stroke-width="7"/><circle cx="54" cy="54" r="45" fill="none" stroke="url(#rg)" stroke-width="7" stroke-linecap="round" stroke-dasharray="'+C+'" stroke-dashoffset="'+C*(1-d.overallScore/100)+'" transform="rotate(-90 54 54)"/></svg><div class="ai-rn"><b class="mono">'+d.overallScore+'</b><small>/ 100</small></div></div></div>'+
+  '<div class="ai-ring"><svg width="108" height="108" viewBox="0 0 108 108"><defs><linearGradient id="rg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#a695ff"/><stop offset="1" stop-color="#7c6af7"/></linearGradient></defs><circle cx="54" cy="54" r="45" fill="none" stroke="rgba(255,255,255,.07)" stroke-width="7"/><circle cx="54" cy="54" r="45" fill="none" stroke="url(#rg)" stroke-width="7" stroke-linecap="round" stroke-dasharray="'+C+'" stroke-dashoffset="'+C*(1-d.overallScore/100)+'" transform="rotate(-90 54 54)"/></svg><div class="ai-rn"><b class="mono">'+d.overallScore+'</b><small>/ 100</small></div></div></div>'+
   (d.insights.length?'<div class="lbl ai-sec">Detailed analysis</div><div class="ai-grid">'+d.insights.map(i=>'<div class="card ai-ins" style="border-left:3px solid '+TA(i.type)+'"><div class="row"><b>'+esc(i.icon)+' '+esc(i.title)+'</b><span class="ai-tag" style="background:'+TA(i.type)+'22;color:'+TA(i.type)+'">'+esc(i.tag)+'</span></div><p>'+esc(i.body)+'</p>'+(i.metric?'<span class="ai-met" style="background:'+TA(i.type)+'18;color:'+TA(i.type)+'">'+esc(i.metric)+'</span>':'')+'</div>').join('')+'</div>':'')+
   '<div class="lbl ai-sec">Subject report card</div><section class="card">'+['physics','chemistry','maths'].map(s=>{const r=d.subjectReport[s];return '<div class="ai-sr"><div class="row"><span><b style="text-transform:capitalize">'+s+'</b> <span class="ai-tag" style="background:'+GC(r.grade)+'22;color:'+GC(r.grade)+'">Grade '+r.grade+'</span></span><b class="mono" style="color:'+BC(r.score)+'">'+r.score+'%</b></div><div class="pbar" style="margin:8px 0"><i style="width:'+r.score+'%;background:'+BC(r.score)+'"></i></div>'+(r.comment?'<div class="mut" style="font-size:13px;line-height:1.6">'+esc(r.comment)+'</div>':'')+(r.action?'<div style="font-size:12.5px;color:var(--ac);margin-top:5px">→ '+esc(r.action)+'</div>':'')+'</div>'}).join('')+'</section>'+
   ((d.redFlag&&d.redFlag!=='null')||d.greenFlag?'<div class="lbl ai-sec">Flags</div><div class="ai-grid">'+(d.redFlag&&d.redFlag!=='null'?'<div class="card" style="border-color:rgba(248,113,113,.3);background:rgba(248,113,113,.06)"><b style="color:#f87171">Critical fix</b><p style="margin:6px 0 0;font-size:13.5px;line-height:1.6">'+esc(d.redFlag)+'</p></div>':'')+(d.greenFlag?'<div class="card" style="border-color:rgba(52,211,153,.3);background:rgba(52,211,153,.06)"><b style="color:#34d399">Your strength</b><p style="margin:6px 0 0;font-size:13.5px;line-height:1.6">'+esc(d.greenFlag)+'</p></div>':'')+'</div>':'')+
@@ -2407,7 +2465,7 @@ W.insGen=async function(){if(ai.st==='loading')return;
  clearInterval(tmr);paintAI()};
 W.vInsights=function(){
  if(!booted){booted=true;const c=cached();if(c){ai={st:'content',err:'',data:c.data,ts:c.ts,step:0}}}
- const a=agg(),w=a.h7,d=w-a.hPrev7,tl=S.tests.filter(t=>pctOf(t)!==null).sort((a,b)=>a.date<b.date?-1:1).slice(-5).map(pctOf),ta=avg(tl);
+ const a=agg(),w=a.h7,d=w-a.hPrev7,tl=(S.tests||[]).filter(t=>pctOf(t)!==null).sort((a,b)=>a.date<b.date?-1:1).slice(-5).map(pctOf),ta=avg(tl);
  const wk=T(()=>weakCh().slice(0,5),[]);
  return '<div class="row" style="margin-bottom:14px"><h3><span class="gtxt">AI Insights</span></h3><span class="mut" style="font-size:12.5px">'+(a.dtm>0?a.dtm+' days to JEE Main':'')+'</span></div><div id="ai-root">'+aiBody()+'</div>'+
  '<div class="lbl ai-sec" style="margin-top:22px">Your numbers</div><div class="kpis" style="margin-bottom:14px">'+kpi('Study · 7 days',w.toFixed(1)+'h','<span class="'+(d>=0?'up':'dn')+'">'+(d>=0?'+':'')+d.toFixed(1)+'h</span> vs last week')+kpi('Streak',a.streak+' days',goalH()+'h daily goal')+kpi('Recent tests',ta===null?'–':ta+'%',tl.length?'avg of last '+tl.length:'no scores yet')+kpi('Open mistakes',a.mo.length,a.bp.length+' backlog open')+'</div>'+goalCard()+
@@ -2476,10 +2534,10 @@ const fmtH=sec=>{const m=Math.round(sec/60);return Math.floor(m/60)+'h '+String(
 const dayLbl=k=>new Date(k+'T00:00:00').toLocaleDateString('en-IN',{weekday:'short'});
 const si=(n,c)=>'<span class="si" style="color:'+c+';background:'+c+'1f">'+ic(n,16)+'</span>';
 const sc_=(l,v,sub,icn,c)=>'<div class="card sc"><div class="row"><span class="lbl">'+l+'</span>'+si(icn,c)+'</div><div class="sv" style="color:'+c+'">'+v+'</div><div class="ss">'+sub+'</div></div>';
-const SC=['#7c6af7','#f472b6'];
+const SC=['#7c6af7','#c9c7d8'];
 function donut(days,total){const f=Math.max(0,Math.min(1,total?days/total:0)),C=2*Math.PI*40;
- return '<svg width="100" height="100" viewBox="0 0 100 100" role="img" aria-label="'+days+' days left"><circle cx="50" cy="50" r="40" fill="none" stroke="#1e1e28" stroke-width="10"/><circle cx="50" cy="50" r="40" fill="none" stroke="url(#dg1)" stroke-width="10" stroke-linecap="round" stroke-dasharray="'+C+'" stroke-dashoffset="'+C*(1-f)+'" transform="rotate(-90 50 50)"/><defs><linearGradient id="dg1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7c6af7"/><stop offset="1" stop-color="#f472b6"/></linearGradient></defs><text x="50" y="50" text-anchor="middle" font-size="22" font-weight="700" fill="#f0eff5" font-family="Space Grotesk,sans-serif">'+Math.max(0,days)+'</text><text x="50" y="64" text-anchor="middle" font-size="9" fill="#7a7990">days</text></svg>'}
-function series(f){const k=SK.find(x=>x[1]===dsub);return S.tests.filter(t=>f(t.kind)&&tot(t)!==null&&t.mx).sort((a,b)=>a.date<b.date?-1:a.date>b.date?1:0).map(t=>{let v,ok=1;if(dsub==='All')v=dm==='pct'?t.tot_||tot(t)/t.mx*100:tot(t);else{const r=t[k[0]];if(r===''||r==null){ok=0;v=0}else v=dm==='pct'?+r/(t.mx/3)*100:+r}return ok?{v:+v,d:t.date,n:t.name}:null}).filter(Boolean)}
+ return '<svg width="100" height="100" viewBox="0 0 100 100" role="img" aria-label="'+days+' days left"><circle cx="50" cy="50" r="40" fill="none" stroke="#1e1e28" stroke-width="10"/><circle cx="50" cy="50" r="40" fill="none" stroke="url(#dg1)" stroke-width="10" stroke-linecap="round" stroke-dasharray="'+C+'" stroke-dashoffset="'+C*(1-f)+'" transform="rotate(-90 50 50)"/><defs><linearGradient id="dg1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#a695ff"/><stop offset="1" stop-color="#7c6af7"/></linearGradient></defs><text x="50" y="50" text-anchor="middle" font-size="22" font-weight="700" fill="#f0eff5" font-family="Space Grotesk,sans-serif">'+Math.max(0,days)+'</text><text x="50" y="64" text-anchor="middle" font-size="9" fill="#7a7990">days</text></svg>'}
+function series(f){const k=SK.find(x=>x[1]===dsub);return (S.tests||[]).filter(t=>f(t.kind)&&tot(t)!==null&&t.mx).sort((a,b)=>a.date<b.date?-1:a.date>b.date?1:0).map(t=>{let v,ok=1;if(dsub==='All')v=dm==='pct'?t.tot_||tot(t)/t.mx*100:tot(t);else{const r=t[k[0]];if(r===''||r==null){ok=0;v=0}else v=dm==='pct'?+r/(t.mx/3)*100:+r}return ok?{v:+v,d:t.date,n:t.name}:null}).filter(Boolean)}
 function trend(){const A=series(isMain),B=series(ADV2);const all=A.concat(B);if(!all.length)return '<div class="empty" style="padding:70px 0">No scored tests yet. Add a result from JEE Mains or JEE Advanced to see your trend.</div>';
  const mx=dm==='pct'?100:Math.max(10,Math.ceil(Math.max(...all.map(p=>p.v))/50)*50),W_=620,H_=220,L=40,R=12,Tp=10,Bm=24,pw=W_-L-R,ph=H_-Tp-Bm,X=(i,n)=>L+(n<2?pw/2:i/(n-1)*pw),Y=v=>Tp+ph-Math.max(0,Math.min(mx,v))/mx*ph;
  const grid=[0,.25,.5,.75,1].map(f=>{const y=Tp+ph*(1-f);return '<line x1="'+L+'" x2="'+(W_-R)+'" y1="'+y+'" y2="'+y+'" stroke="rgba(255,255,255,.06)"/><text x="'+(L-6)+'" y="'+(y+3)+'" text-anchor="end" font-size="9" fill="#7a7990" font-family="DM Mono,monospace">'+Math.round(mx*f)+(dm==='pct'?'%':'')+'</text>'}).join('');
@@ -2493,10 +2551,10 @@ function weekBars(){const subs=SUBS().slice(0,3),days=[...Array(7)].map((_,i)=>{
  return '<svg viewBox="0 0 '+W_+' '+H_+'" style="width:100%;height:auto;display:block" role="img" aria-label="Study hours this week">'+g+bars+'</svg><div class="leg">'+subs.map(s=>'<span><i style="background:'+col(s)+'"></i>'+esc(s)+'</span>').join('')+'</div>'}
 const dTitle=(t,right)=>'<div class="row ch"><span class="lbl">'+t+'</span>'+(right||'')+'</div>';
 const viewBtn=(go,l)=>'<button class="btn vb" onclick="'+go+'">'+(l||'View')+' <span aria-hidden="true">→</span></button>';
-function dash(){const a=agg(),today=td(),dt=(S.days[today]||{s:0}),ls=f=>S.tests.filter(t=>f(t.kind)&&tot(t)!==null&&t.mx).sort((x,y)=>x.date<y.date?-1:1).pop(),lm=ls(isMain),la=ls(ADV2);
- const pend=S.todos.filter(t=>!t.x).length,ti=tIx('To Do'),pi=tIx('Practice'),si_=tIx('Syllabus'),up=S.tests.filter(t=>t.date>=today&&!t.at&&tot(t)===null).sort((x,y)=>x.date<y.date?-1:1).slice(0,4);
+function dash(){const a=agg(),today=td(),dt=(S.days[today]||{s:0}),ls=f=>(S.tests||[]).filter(t=>f(t.kind)&&tot(t)!==null&&t.mx).sort((x,y)=>x.date<y.date?-1:1).pop(),lm=ls(isMain),la=ls(ADV2);
+ const pend=(S.todos||[]).filter(t=>!t.x).length,ti=tIx('To Do'),pi=tIx('Practice'),si_=tIx('Syllabus'),up=(S.tests||[]).filter(t=>t.date>=today&&!t.at&&tot(t)===null).sort((x,y)=>x.date<y.date?-1:1).slice(0,4);
  const subs=SUBS().slice(0,3),tot_s=dt.s||0,runway=Math.max(1,Math.round((new Date(S.exam||'2027-01-21')-new Date((a.yr-2)+'-06-01'))/864e5));
- const qT=S.qlog.reduce((x,q)=>x+(+q.done||0),0),qO=S.qlog.reduce((x,q)=>x+(+q.ok||0),0),q7=S.qlog.filter(q=>q.d>=dstr(6)).reduce((x,q)=>x+(+q.done||0),0);
+ const qT=(S.qlog||[]).reduce((x,q)=>x+(+q.done||0),0),qO=(S.qlog||[]).reduce((x,q)=>x+(+q.ok||0),0),q7=(S.qlog||[]).filter(q=>q.d>=dstr(6)).reduce((x,q)=>x+(+q.done||0),0);
  const stat='<div class="dstats">'+sc_('Latest Mains',lm?tot(lm):'—',lm?'out of '+lm.mx+' · '+fdate(lm.date):'no scored test yet','test',SC[0])+sc_('Latest Advanced',la?tot(la):'—',la?'out of '+la.mx+' · '+fdate(la.date):'no scored test yet','target',SC[1])+
   sc_('Study streak',a.streak+'d',a.streak?'days in a row':'start today','spark','#fbbf24')+
   '<div class="card sc"><div class="row"><span class="lbl">Pending to-do</span>'+si('todo','#f87171')+'</div><div class="sv" style="color:#f87171">'+pend+'</div><div class="ss">tasks pending '+(ti>=0?viewBtn('goTab('+ti+')'):'')+'</div></div>'+
@@ -2505,7 +2563,7 @@ function dash(){const a=agg(),today=td(),dt=(S.days[today]||{s:0}),ls=f=>S.tests
  const todayC='<section class="card c4">'+dTitle("Today's study")+'<div class="big mono">'+(tot_s?fmtH(tot_s):'0h')+' today</div><div class="chips">'+subs.map(s=>{const v=(dt.sub||{})[s]||0;return '<span class="chip2" style="color:'+col(s)+';background:'+col(s)+'1a">'+esc(s.slice(0,4))+' '+(tot_s?Math.round(v/tot_s*100):0)+'%</span>'}).join('')+'</div><div class="mut" style="font-size:12.5px;margin:10px 0">'+(tot_s?'Goal '+goalH()+'h · '+Math.min(100,Math.round(tot_s/3600/goalH()*100))+'% done':'Nothing logged yet today')+'</div><div class="qlog"><div class="lbl" style="margin-bottom:8px">Quick log</div><button class="btn" onclick="document.getElementById(\'dash-planner\').scrollIntoView({behavior:\'smooth\'})">'+ic('clock',14)+' Open study timer</button></div></section>';
  const pracC='<section class="card c4">'+dTitle('Practice overview',pi>=0?viewBtn('goTab('+pi+')'):'')+(qT?'<div class="big mono">'+qT+'<small> questions</small></div><div class="chips"><span class="chip2" style="color:#34d399;background:#34d3991a">'+Math.round(qO/qT*100)+'% accuracy</span><span class="chip2" style="color:#60a5fa;background:#60a5fa1a">'+q7+' this week</span></div>':'<div class="empty" style="padding:26px 0">No questions logged yet</div>'+(pi>=0?'<div style="text-align:center"><button class="btn pri" onclick="goTab('+pi+')">Log practice</button></div>':''))+'</section>';
  const hoursC='<section class="card c4">'+dTitle('This week hours')+weekBars()+'</section>';
- const stC='<section class="card c4">'+dTitle('Quick status')+subs.map(s=>{const n=S.back.filter(b=>!b.x&&b.sub===s).length;return '<div class="qs"><span>'+esc(s)+'</span><span class="bdg" style="'+(n?'color:#fbbf24;background:#fbbf241a':'color:#34d399;background:#34d3991a')+'">'+n+' backlog</span></div>'}).join('')+'<div class="mut" style="font-size:12.5px;margin-top:10px">'+(up[0]?'Next: '+esc(up[0].name)+' · '+fdate(up[0].date):'No tests scheduled')+'</div></section>';
+ const stC='<section class="card c4">'+dTitle('Quick status')+subs.map(s=>{const n=(S.back||[]).filter(b=>!b.x&&b.sub===s).length;return '<div class="qs"><span>'+esc(s)+'</span><span class="bdg" style="'+(n?'color:#fbbf24;background:#fbbf241a':'color:#34d399;background:#34d3991a')+'">'+n+' backlog</span></div>'}).join('')+'<div class="mut" style="font-size:12.5px;margin-top:10px">'+(up[0]?'Next: '+esc(up[0].name)+' · '+fdate(up[0].date):'No tests scheduled')+'</div></section>';
  const sylC='<section class="card c8">'+dTitle('Syllabus progress',si_>=0?viewBtn('goTab('+si_+')'):'')+'<div class="row" style="margin:4px 0 6px"><b>Overall</b><span class="bdg" style="color:#a695ff;background:#7c6af71f">'+a.overall+'%</span></div>'+bar(a.overall)+a.syl.map(x=>'<div class="srow"><span style="color:'+col(x.s)+'">'+esc(x.s)+'</span>'+bar(x.pct)+'<b class="mono" style="text-align:right">'+x.pct+'%</b></div>').join('')+'<div class="mut" style="font-size:12px;margin-top:8px">Expected pace by now: about '+a.exp+'%</div></section>';
  const upC='<section class="card c4">'+dTitle('Upcoming tests',tIx('Tests')>=0?viewBtn('goMock(\'JEE Main\')','All'):'')+(up.length?up.map(t=>{const d=Math.ceil((new Date(t.date)-new Date(today))/864e5);return '<div class="it"><span>'+esc(t.name)+'<br><small class="mut">'+esc(t.kind||'')+' · '+fdate(t.date)+'</small></span><b class="mono" style="color:#a695ff">'+(d<=0?'today':d+'d')+'</b></div>'}).join(''):'<div class="empty">No upcoming tests</div>')+'</section>';
  return stat+'<div class="dgrid">'+trendC+todayC+pracC+hoursC+stC+sylC+upC+'</div>'}
@@ -2514,14 +2572,14 @@ if(typeof _vT==='function')W.vToday=function(){const h=new Date().getHours(),g=h
  return '<div class="gh"><div><h1>'+g+', <em>'+esc(nm)+'</em></h1><div class="gd"><i></i>'+new Date().toLocaleDateString('en-IN',{weekday:'long',day:'numeric',month:'short',year:'numeric'})+'</div></div>'+(ix>=0?'<button class="aib" onclick="goTab('+ix+')">'+ic('spark',15)+'AI Insights</button>':'')+'</div>'+body+'<div id="dash-planner" class="lbl ai-sec">Study timer and daily planner</div>'+_vT.apply(this,arguments)};
 /* ---- Compare ---- */
 let cA=-1,cB=-1;W.cmpSet=(w,v)=>{if(w==='a')cA=+v;else cB=+v;go()};
-W.vCompare=function(){const L=S.tests.filter(t=>tot(t)!==null&&t.mx).sort((a,b)=>a.date<b.date?1:a.date>b.date?-1:0);
+W.vCompare=function(){const L=(S.tests||[]).filter(t=>tot(t)!==null&&t.mx).sort((a,b)=>a.date<b.date?1:a.date>b.date?-1:0);
  const head='<div class="row" style="margin-bottom:14px"><h3><span class="gtxt">Compare tests</span></h3><span class="mut" style="font-size:12.5px">Pick any two scored tests</span></div>';
  if(L.length<2)return head+'<div class="card"><div class="empty">Add scores for at least two tests to compare them.</div></div>';
  if(cA<0||cA>=L.length)cA=Math.min(1,L.length-1);if(cB<0||cB>=L.length)cB=0;const A=L[cA],B=L[cB];
  const opt=(sel)=>L.map((t,i)=>'<option value="'+i+'"'+(i===sel?' selected':'')+'>'+esc(t.name)+' · '+fdate(t.date)+' · '+tot(t)+'/'+t.mx+'</option>').join('');
  const rows=[['Total',tot(A),tot(B),A.mx,B.mx]].concat(SK.map(([k,n])=>[n,A[k]===''||A[k]==null?null:+A[k],B[k]===''||B[k]==null?null:+B[k],A.mx/3,B.mx/3]));
  const row=r=>{const pa=r[1]===null?null:Math.round(r[1]/r[3]*100),pb=r[2]===null?null:Math.round(r[2]/r[4]*100),d=pa===null||pb===null?null:pb-pa;
-  return '<div class="cmr"><div class="row"><b>'+esc(r[0])+'</b><span class="mono '+(d===null?'mut':d>=0?'up':'dn')+'">'+(d===null?'—':(d>=0?'+':'')+d+' pts')+'</span></div><div class="cmb"><span class="mut">A</span>'+bar(pa||0)+'<b class="mono">'+(r[1]===null?'—':r[1])+'</b></div><div class="cmb"><span class="mut">B</span><div class="pbar"><i style="width:'+(pb||0)+'%;background:linear-gradient(90deg,#f472b6,#fbbf24)"></i></div><b class="mono">'+(r[2]===null?'—':r[2])+'</b></div></div>'};
+  return '<div class="cmr"><div class="row"><b>'+esc(r[0])+'</b><span class="mono '+(d===null?'mut':d>=0?'up':'dn')+'">'+(d===null?'—':(d>=0?'+':'')+d+' % pts')+'</span></div><div class="cmb"><span class="mut">A</span>'+bar(pa||0)+'<b class="mono">'+(r[1]===null?'—':r[1])+'</b></div><div class="cmb"><span class="mut">B</span><div class="pbar"><i style="width:'+(pb||0)+'%;background:#9b99b3"></i></div><b class="mono">'+(r[2]===null?'—':r[2])+'</b></div></div>'};
  return head+'<section class="card" style="margin-bottom:14px"><div class="f"><label class="fl">Test A<select onchange="cmpSet(\'a\',this.value)">'+opt(cA)+'</select></label><label class="fl">Test B<select onchange="cmpSet(\'b\',this.value)">'+opt(cB)+'</select></label></div></section><section class="card">'+rows.map(row).join('')+'</section>'};
 /* ---- Landing (shown while signed out) ---- */
 function landing(){const a=q('jee-auth');if(!a||a.querySelector('.lp'))return;const card=a.querySelector('.auth-card');if(!card)return;
@@ -2530,9 +2588,9 @@ function landing(){const a=q('jee-auth');if(!a||a.querySelector('.lp'))return;co
  const lp=document.createElement('div');lp.className='lp';
  lp.innerHTML='<nav class="lp-nav"><span class="wm">JEE<em>2027</em></span><div class="lp-links"><a href="#" onclick="lpTo(\'lp-f\');return false">Features</a><a href="#" onclick="lpTo(\'lp-q\');return false">FAQ</a><a href="#" onclick="lpTo(\'lp-a\');return false">About</a></div><button class="btn pri" onclick="lpTo(\'lp-card\')">Sign in</button></nav>'+
  '<section class="lp-hero"><div class="lp-l"><span class="lp-badge"><i></i>BUILT FOR JEE</span><div class="lp-eye"><s></s>SCORE INTELLIGENCE</div><h1>Know exactly where you <em>stand</em> and why</h1><p>Track every Quizrr test, chapter and study hour for JEE Main and Advanced. See subject-wise trends, find weak spots and get an AI plan built from your own data.</p><div class="lp-st"><div><b>'+nt+'</b><span>Quizrr tests</span></div><div><b>'+ch+'</b><span>Chapters</span></div><div><b>AI</b><span>Insights and mentor</span></div></div></div><div class="lp-r" id="lp-card"></div></section>'+
- '<section id="lp-f" class="lp-sec"><div class="lp-h">Everything in one place</div><div class="lp-g">'+F.map(f=>'<div class="card lp-c"><span class="si" style="color:'+f[3]+';background:'+f[3]+'1f">'+ic(f[2],18)+'</span><b>'+f[0]+'</b><p>'+f[1]+'</p></div>').join('')+'</div></section>'+
- '<section id="lp-q" class="lp-sec"><div class="lp-h">Questions</div><div class="lp-fq">'+FAQ.map(x=>'<div class="card"><b>'+x[0]+'</b><p>'+x[1]+'</p></div>').join('')+'</div></section>'+
- '<section id="lp-a" class="lp-sec"></section>';
+ '<section id="lp-f" class="lp-sec"><div class="lp-h">Everything in one place</div><div class="lp-list">'+F.map((f,i)=>'<div class="lp-row"><span class="n">'+String(i+1).padStart(2,'0')+'</span><b>'+f[0]+'</b><p>'+f[1]+'</p></div>').join('')+'</div></section>'+
+ '<section id="lp-q" class="lp-sec"><div class="lp-h">Questions</div><div class="lp-list">'+FAQ.map((x,i)=>'<div class="lp-row"><span class="n">'+String(i+1).padStart(2,'0')+'</span><b>'+x[0]+'</b><p>'+x[1]+'</p></div>').join('')+'</div></section>'+
+ '<section id="lp-a" class="lp-sec lp-one"></section>';
  a.insertBefore(lp,card);q('lp-card').appendChild(card);
  const ft=W.siteFooter?W.siteFooter(true):'';q('lp-a').innerHTML=ft;
  const sp=card.querySelector('.auth-brand span');if(sp&&/uh\?/.test(sp.textContent))sp.textContent='Sign in to your tracker'}
