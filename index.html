@@ -817,6 +817,124 @@ body::before{background:radial-gradient(ellipse 60% 28% at 50% -8%,rgba(124,106,
 @media(max-width:820px){.lp-sec{grid-template-columns:1fr}.lp-h{position:static}.lp-row{grid-template-columns:30px 1fr}.lp-row p{grid-column:2}}
 
 .sc>.row{flex-wrap:nowrap;gap:8px}.sc>.row .lbl{white-space:nowrap}.sc .si{width:26px;height:26px}
+
+/* email accounts */
+.pw{position:relative}.pw input{padding-right:64px!important}
+.pw-t{position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:0;color:#a695ff;font:600 12px 'DM Sans',sans-serif;cursor:pointer;padding:6px}
+.pw-m{display:flex;gap:4px;margin:10px 0 6px}.pw-m i{flex:1;height:4px;border-radius:3px;background:#1e1e28;transition:background .2s}
+.pw-m i.on1{background:#f87171}.pw-m i.on2{background:#fbbf24}.pw-m i.on3,.pw-m i.on4{background:#34d399}
+.pw-h,.pw-r{font-size:12px;color:var(--mut)}.pw-r{display:flex;justify-content:flex-end;margin:6px 0 2px}.pw-h+.pw-r{justify-content:flex-start}
+.lk{background:none;border:0;color:#a695ff;font:600 12.5px 'DM Sans',sans-serif;cursor:pointer;padding:4px 0}.lk:hover{text-decoration:underline}
+.auth-or{display:flex;align-items:center;gap:12px;color:var(--mut);font-size:12px;margin:14px 0 12px}.auth-or::before,.auth-or::after{content:"";flex:1;height:1px;background:rgba(255,255,255,.08)}
+.auth-or2{margin-top:14px;text-align:center;font-size:12.5px;color:var(--mut)}
+#jee-auth .btn.alt,.btn.alt.auth-btn{background:#18181f!important;border:1px solid rgba(255,255,255,.14)!important;color:#f0eff5;width:100%}
+.sent{text-align:center;display:flex;flex-direction:column;gap:10px;align-items:center;padding:6px 0}.sent b{font-size:17px}.sent p{margin:0;color:var(--mut);font-size:13.5px;line-height:1.65}.sent strong{color:#f0eff5;overflow-wrap:anywhere}
+.sent-i{width:46px;height:46px;border-radius:12px;display:grid;place-items:center;font-size:22px;background:rgba(124,106,247,.14);color:#a695ff}
+#jee-auth .auth-msg{margin-top:12px}
+
+/* ===== PW 360 dark: flat near-black, top navigation, pill tabs, rounded cards, one indigo accent ===== */
+:root[data-theme=pw360]{--bg:#0e0f13;--sf:#16171c;--g:#16171c;--g2:#1e2027;--bd:rgba(255,255,255,.08);--bd2:rgba(255,255,255,.14);--tx:#ececf1;--mut:#9698a7;--mu2:#6b6d7b;--ac:#7466f0;--ac2:#a198ff;--ok:#3ccf91;--bad:#ff6b6b;--warn:#ffb648;--b1:rgba(0,0,0,0);--b2:rgba(0,0,0,0);--grad:#7466f0;color-scheme:dark}
+:root[data-theme=pw360] body{background:#0e0f13;font-family:Inter,system-ui,-apple-system,sans-serif!important;color:#ececf1}
+:root[data-theme=pw360] body::before{display:none}
+:root[data-theme=pw360] h1,:root[data-theme=pw360] h2,:root[data-theme=pw360] main h3,:root[data-theme=pw360] .gh h1,:root[data-theme=pw360] .lp .wm{font-family:Inter,system-ui,sans-serif!important;font-weight:650;letter-spacing:-.015em}
+:root[data-theme=pw360] .mono,:root[data-theme=pw360] .sv,:root[data-theme=pw360] .big,:root[data-theme=pw360] .kpi b{font-family:Inter,system-ui,sans-serif!important;font-variant-numeric:tabular-nums;font-weight:650}
+/* top navigation instead of the sidebar */
+:root[data-theme=pw360] header.top{background:#0e0f13!important;border-bottom:1px solid var(--bd);backdrop-filter:none}
+:root[data-theme=pw360] .brand i{display:none}
+:root[data-theme=pw360] .brand{font-weight:650;font-size:16px}
+@media(min-width:1100px){
+:root[data-theme=pw360]{--sw:0px!important}
+:root[data-theme=pw360] body{padding-left:0!important}
+:root[data-theme=pw360] .side{display:none!important}
+:root[data-theme=pw360] .top .brand,:root[data-theme=pw360] .top .tabs,:root[data-theme=pw360] .top #setb{display:flex!important}
+:root[data-theme=pw360] .hw{max-width:1180px!important}
+:root[data-theme=pw360] main{max-width:1180px!important}
+:root[data-theme=pw360] .tabs{max-width:none;flex:1;margin-left:18px;gap:4px;overflow-x:auto}
+}
+/* pill tabs: filled accent when active */
+:root[data-theme=pw360] .tabs button,:root[data-theme=pw360] .seg button{border-radius:999px;padding:7px 14px;font-weight:500;color:var(--mut);border:1px solid transparent}
+:root[data-theme=pw360] .tabs button:hover{color:var(--tx);background:#1a1c22}
+:root[data-theme=pw360] .tabs button.on,:root[data-theme=pw360] .seg button.on{background:var(--ac);color:#fff;box-shadow:none}
+:root[data-theme=pw360] .seg{background:#16171c;border:1px solid var(--bd);border-radius:999px;padding:3px}
+:root[data-theme=pw360] .tabbar{background:#0e0f13;border-top:1px solid var(--bd);backdrop-filter:none}
+:root[data-theme=pw360] .tabbar button.on{color:var(--ac2)}
+/* cards, controls */
+:root[data-theme=pw360] .card{background:#16171c;border:1px solid var(--bd);border-radius:14px;padding:16px;box-shadow:none;backdrop-filter:none}
+:root[data-theme=pw360] .card:hover{border-color:var(--bd2);box-shadow:none}
+:root[data-theme=pw360] .lbl{color:var(--mut);letter-spacing:.08em}
+:root[data-theme=pw360] .lbl::before{display:none!important}
+:root[data-theme=pw360] .btn{background:#1e2027;border:1px solid var(--bd);border-radius:10px;color:var(--tx);font-weight:550}
+:root[data-theme=pw360] .btn:hover{border-color:var(--bd2);background:#23252d}
+:root[data-theme=pw360] .btn.pri,:root[data-theme=pw360] #hbtn{background:var(--ac);border:0;color:#fff;box-shadow:none}
+:root[data-theme=pw360] .btn.pri:hover,:root[data-theme=pw360] #hbtn:hover{background:#8579f5}
+:root[data-theme=pw360] input,:root[data-theme=pw360] select,:root[data-theme=pw360] textarea{background:#1e2027;border:1px solid var(--bd);border-radius:10px;color:var(--tx)}
+:root[data-theme=pw360] input:focus,:root[data-theme=pw360] select:focus,:root[data-theme=pw360] textarea:focus{border-color:var(--ac);box-shadow:0 0 0 3px rgba(116,102,240,.2)}
+:root[data-theme=pw360] .pbar,:root[data-theme=pw360] .bar{background:#23252d}
+:root[data-theme=pw360] .pbar i,:root[data-theme=pw360] .ai-pg i{background:var(--ac)}
+:root[data-theme=pw360] .gh h1 em,:root[data-theme=pw360] .wm em,:root[data-theme=pw360] .gtxt{color:var(--ac2)!important}
+:root[data-theme=pw360] .aib{background:#1e2027;border-color:var(--bd2)}
+:root[data-theme=pw360] .tag{background:#1e2027}
+/* dashboard: rounded cards, like the planner's day cards */
+:root[data-theme=pw360] .dstats{border:0;gap:12px;margin-bottom:16px}
+:root[data-theme=pw360] .dstats .card,:root[data-theme=pw360] .dgrid .card{background:#16171c!important;border:1px solid var(--bd)!important;border-radius:14px!important;padding:16px 18px}
+:root[data-theme=pw360] .dgrid{gap:12px}
+:root[data-theme=pw360] .dgrid .card:hover{border-color:var(--bd2)!important}
+:root[data-theme=pw360] .it{border-color:var(--bd)}
+
+:root[data-theme=pw360] .tabs{gap:2px}
+:root[data-theme=pw360] .tabs button{padding:7px 11px;font-size:13px;gap:5px;white-space:nowrap;flex:none}
+:root[data-theme=pw360] .tabs button svg{width:15px;height:15px}
+:root[data-theme=pw360] .tabs::-webkit-scrollbar{display:none}
+@media(max-width:700px){.dstats .sc.tl{grid-column:span 2}}
+
+/* ===== Quizrr light: white cards, soft grey page, indigo primary (#364fc7), top navigation ===== */
+:root[data-skin=quizrr]{--bg:#f4f6fb;--g:#ffffff;--g2:#eef1f9;--bd:#dfe3ee;--bd2:#c9cfe0;--tx:#1b2330;--mut:#48566a;--mu2:#7a869a;--ac:#364fc7;--ok:#2b8a3e;--bad:#e03131;--warn:#e8590c;--b1:transparent;--b2:transparent;--grad:#364fc7;color-scheme:light}
+:root[data-skin=quizrr] body{background:#f4f6fb;color:#1b2330;font-family:Inter,system-ui,-apple-system,sans-serif!important}
+:root[data-skin=quizrr] body::before{display:none}
+:root[data-skin=quizrr] h1,:root[data-skin=quizrr] h2,:root[data-skin=quizrr] main h3,:root[data-skin=quizrr] .gh h1{font-family:Inter,system-ui,sans-serif!important;font-weight:650;color:#1b2330}
+:root[data-skin=quizrr] .mono,:root[data-skin=quizrr] .sv,:root[data-skin=quizrr] .big,:root[data-skin=quizrr] .kpi b{font-family:Inter,system-ui,sans-serif!important;font-weight:650}
+:root[data-skin=quizrr] header.top{background:#fff!important;border-bottom:1px solid #dfe3ee;backdrop-filter:none}
+:root[data-skin=quizrr] .brand i{display:none}
+@media(min-width:1100px){
+:root[data-skin=quizrr]{--sw:0px!important}
+:root[data-skin=quizrr] body{padding-left:0!important}
+:root[data-skin=quizrr] .side{display:none!important}
+:root[data-skin=quizrr] .top .brand,:root[data-skin=quizrr] .top .tabs,:root[data-skin=quizrr] .top #setb{display:flex!important}
+:root[data-skin=quizrr] .hw,:root[data-skin=quizrr] main{max-width:1180px!important}
+:root[data-skin=quizrr] .tabs{max-width:none;flex:1;margin-left:18px;gap:2px;overflow-x:auto}
+}
+:root[data-skin=quizrr] .tabs button,:root[data-skin=quizrr] .seg button{border-radius:999px;padding:7px 11px;font-size:13px;font-weight:500;color:#48566a;border:1px solid transparent;white-space:nowrap;flex:none}
+:root[data-skin=quizrr] .tabs button:hover{background:#eef1f9;color:#1b2330}
+:root[data-skin=quizrr] .tabs button.on,:root[data-skin=quizrr] .seg button.on{background:#364fc7;color:#fff}
+:root[data-skin=quizrr] .seg{background:#fff;border:1px solid #dfe3ee;border-radius:999px;padding:3px}
+:root[data-skin=quizrr] .tabbar{background:#fff;border-top:1px solid #dfe3ee;backdrop-filter:none}
+:root[data-skin=quizrr] .tabbar button.on{color:#364fc7}
+:root[data-skin=quizrr] .card,:root[data-skin=quizrr] .dstats .card,:root[data-skin=quizrr] .dgrid .card{background:#fff!important;border:1px solid #dfe3ee!important;border-radius:14px!important;box-shadow:0 1px 2px rgba(27,35,48,.04);padding:16px 18px;backdrop-filter:none}
+:root[data-skin=quizrr] .dstats{border:0;gap:12px;margin-bottom:16px}:root[data-skin=quizrr] .dgrid{gap:12px}
+:root[data-skin=quizrr] .card:hover{border-color:#c9cfe0!important}
+:root[data-skin=quizrr] .lbl::before{display:none!important}
+:root[data-skin=quizrr] .btn{background:#fff;border:1px solid #dfe3ee;border-radius:10px;color:#1b2330;font-weight:550}
+:root[data-skin=quizrr] .btn:hover{border-color:#364fc7;background:#f3f5ff}
+:root[data-skin=quizrr] .btn.pri,:root[data-skin=quizrr] #hbtn{background:#364fc7;border:0;color:#fff;box-shadow:none}
+:root[data-skin=quizrr] .btn.pri:hover,:root[data-skin=quizrr] #hbtn:hover{background:#2f44ad}
+:root[data-skin=quizrr] input,:root[data-skin=quizrr] select,:root[data-skin=quizrr] textarea{background:#fff;border:1px solid #cfd5e3;border-radius:10px;color:#1b2330}
+:root[data-skin=quizrr] input:focus,:root[data-skin=quizrr] select:focus,:root[data-skin=quizrr] textarea:focus{border-color:#364fc7;box-shadow:0 0 0 3px rgba(54,79,199,.16)}
+:root[data-skin=quizrr] .pbar,:root[data-skin=quizrr] .bar{background:#e6e9f2}
+:root[data-skin=quizrr] .pbar i,:root[data-skin=quizrr] .ai-pg i{background:#364fc7}
+:root[data-skin=quizrr] .gh h1 em,:root[data-skin=quizrr] .gtxt{color:#364fc7!important}
+:root[data-skin=quizrr] .aib{background:#fff;border-color:#c9cfe0;color:#1b2330}
+:root[data-skin=quizrr] .it{border-color:#e6e9f2}
+:root[data-skin=quizrr] #hp{background:#fff}:root[data-skin=quizrr] .hb.a{background:#f1f3f9}:root[data-skin=quizrr] .hb.u{background:#e4e9ff}
+:root[data-skin=quizrr] .svg-grid line{stroke:#e6e9f2}
+:root[data-skin=quizrr] svg text{fill:#6b7688}
+
+/* light themes: keep chart tracks and the neutral series readable on white */
+:root[data-theme=light] circle[stroke="#1e1e28"]{stroke:#e6e9f2}
+:root[data-theme=light] [style*="#c9c7d8"]{color:#6b7688!important}
+:root[data-theme=light] svg polyline[stroke="#c9c7d8"]{stroke:#7a869a}
+:root[data-theme=light] svg circle[stroke="#c9c7d8"]{stroke:#7a869a}
+:root[data-theme=light] svg circle[fill="#0a0a0f"]{fill:#fff}
+:root[data-theme=light] .leg i[style*="#c9c7d8"]{background:#7a869a!important}
 </style>
 </head><body class="locked"><div id="boot" role="dialog" aria-label="Welcome"><div class="bw"><div class="ld"><div class="lg"><img src="favicon.png" alt="JEE 2027 Study Tracker logo" onerror="this.replaceWith(document.createTextNode('JE'))"></div><h1>JEE 2027 Study Tracker</h1><p>Structured preparation, measured progress.</p><div class="pb"><i></i></div><div class="mut" id="bootpct" style="font-size:12px">Preparing dashboard 0%</div></div><div class="ob"><div class="sl on"><div class="lg"><img src="favicon.png" alt="JEE 2027 Study Tracker logo" onerror="this.replaceWith(document.createTextNode('JE'))"></div><h1>Welcome to JEE 2027</h1><p>A structured workspace for your preparation: plan, study, practise and review in one place.</p></div><div class="sl"><div class="lg">&#9201;</div><h1>Study clock</h1><p>Run focus blocks, set a daily goal and keep a floating timer visible while you work in other tabs.</p></div><div class="sl"><div class="lg">&#128218;</div><h1>Syllabus and QCT tracker</h1><p>Record theory, questions and QCTs for every chapter and see exactly how much of each test you have covered.</p></div><div class="sl"><div class="lg">&#128200;</div><h1>Tests and analysis</h1><p>Review upcoming tests, enter results when the test is live and study score trends and weak chapters.</p></div><div class="sl"><div class="lg">&#127769;</div><h1>Planner, sleep and backup</h1><p>Organise tasks by day, keep a weekly sleep balance and export your data whenever you wish.</p></div><div class="dots"><i></i><i></i><i></i><i></i><i></i></div><div class="obn"><button class="btn" id="obS" onclick="bootHide()">Skip</button><span><button class="btn" id="obB" onclick="obGo(-1)">Back</button> <button class="btn pri" id="obN" onclick="obGo(1)">Next</button></span></div></div></div></div>
 <header class="top"><div class="hw">
@@ -838,14 +956,7 @@ body::before{background:radial-gradient(ellipse 60% 28% at 50% -8%,rgba(124,106,
   <div class="auth-loading" id="jee-auth-loading" role="status"><i class="auth-spin"></i>Loading your account…</div>
   <div class="auth-brand"><i class="auth-dot"></i><span>uh?</span></div>
   <div class="auth-sub" id="jee-auth-sub">Sign in.</div>
-  <form id="jee-auth-form">
-   <label for="jee-auth-user">Username</label>
-   <input id="jee-auth-user" autocomplete="username" required placeholder="harshie">
-   <label for="jee-auth-pass">Password</label>
-   <input id="jee-auth-pass" type="password" autocomplete="current-password" required placeholder="Password">
-   <button class="btn pri auth-btn" type="submit" id="jee-auth-submit">Sign in</button>
-   <div class="auth-msg" id="jee-auth-msg" role="alert"></div>
-  </form>
+  <form id="jee-auth-form"><label for="jee-auth-user">Username or email</label><input id="jee-auth-user" autocomplete="username" autocapitalize="none" spellcheck="false" required placeholder="Username or email"><label for="jee-auth-pass">Password</label><div class="pw"><input id="jee-auth-pass" type="password" autocomplete="current-password" required placeholder="Password"><button type="button" class="pw-t" data-for="jee-auth-pass" aria-label="Show password">Show</button></div><div class="pw-r"><button type="button" class="lk" data-m="forgot">Forgot password?</button></div><button class="btn pri auth-btn" type="submit" id="jee-auth-submit">Sign in</button><div class="auth-or"><span>or</span></div><button class="btn auth-btn alt" type="button" id="jee-auth-create" data-m="signup">Create account with email</button></form><div id="jee-auth-alt" hidden></div><div class="auth-msg" id="jee-auth-msg" role="alert"></div>
  </div>
 </div>
 <div id="jee-account-menu" role="menu" hidden>
@@ -863,7 +974,7 @@ body::before{background:radial-gradient(ellipse 60% 28% at 50% -8%,rgba(124,106,
 const IC2={cal:'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="3"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>',trash:'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6M10 11v6M14 11v6"/></svg>',sort:'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h13M3 12h9M3 18h5M17 8v10m0 0l-3-3m3 3l3-3"/></svg>'};
 
 const K='jee27';
-const THEMES=[['dark','Midnight violet'],['blue','Blue'],['rose','Transparent pink'],['light','Light'],['amoled','AMOLED'],['forest','Forest'],['violet','Violet'],['sunset','Sunset']],CH3=(k,a,d,cfg)=>`<div class="chips">${a.map(([v,l])=>`<button class="chip ${(S[k]||d)==v?'on':''}" onclick="${cfg?'setCfg':'setLook'}('${k}','${v}')">${l}</button>`).join('')}</div>`;
+const THEMES=[['pw360','PW 360 dark'],['quizrr','Quizrr light'],['dark','Midnight violet'],['blue','Blue'],['rose','Transparent pink'],['light','Light'],['amoled','AMOLED'],['forest','Forest'],['violet','Violet'],['sunset','Sunset']],CH3=(k,a,d,cfg)=>`<div class="chips">${a.map(([v,l])=>`<button class="chip ${(S[k]||d)==v?'on':''}" onclick="${cfg?'setCfg':'setLook'}('${k}','${v}')">${l}</button>`).join('')}</div>`;
 let S={exam:'2027-01-21',subs:['Physics','Chemistry','Mathematics'],cur:'Physics',days:{},qlog:[],todos:[],tests:[],notes:{},syl:{},sess:[],topic:'',mode:0};
 if(!S.start){const ks=Object.keys(S.days||{}).sort();S.start=ks[0]||ymd(new Date())}
 const save=()=>{try{if(window.JEE_AUTH&&typeof window.JEE_AUTH.saveState==='function')window.JEE_AUTH.saveState()}catch(e){}};
@@ -1055,7 +1166,7 @@ function ymd(d){const m=d.getMonth()+1,k=d.getDate();return d.getFullYear()+'-'+
 function go(){_tcm=new WeakMap();_cvm=new WeakMap();try{sweepMissed()}catch(e){}tab=S.area==='all'?0:(S.tabs&&S.tabs[S.area||'jee'])||0;const V=S.area==='all'?[vOverall]:S.area==='board'?[vToday,vBSyl,vBTests,vTodo,vBStats]:[vToday,vSyl,vTests,vPrac,vTodo,vBack,vStats,vSleep,(window.vInsights||(()=>'')),(window.vMist||(()=>'')),(window.vCompare||(()=>''))];if(tab>=V.length){tab=0;if(S.area!=='all'&&S.tabs&&S.tabs[S.area]!==0){S.tabs[S.area]=0;save()}}applyLook();nav();hdr();$('m').innerHTML=V[tab]();tick();cdTick()}
 function enterAnim(){const m=$('m');m.classList.add('enter');clearTimeout(enterAnim.t);enterAnim.t=setTimeout(()=>m.classList.remove('enter'),900)}
 function goTab(i){window._tabSw=1;try{if(S.area==='all')S.area=S.lastArea||'jee';S.tabs=S.tabs||{};S.tabs[S.area||'jee']=i;tab=i;S.tab=i;save();enterAnim();if(scrollY>0)scrollTo({top:0,behavior:'instant'});go()}finally{window._tabSw=0}}
-function theme(){const r=document.documentElement,l=r.dataset.theme!=='light';r.dataset.theme=l?'light':'dark';S.theme=r.dataset.theme;save();hdr()}
+function theme(){const r=document.documentElement,l=r.dataset.theme!=='light';r.dataset.theme=l?'light':'pw360';S.theme=r.dataset.theme;save();hdr()}
 function setExam(){const B=S.area==='board',v=prompt((B?'Board exam':'JEE Main')+' date (YYYY-MM-DD)',(B?S.bexam:S.exam)||'');if(v&&!isNaN(new Date(v))){if(B)S.bexam=v;else S.exam=v;save();go()}}
 function addSub(){const v=prompt('New subject name');if(v&&v.trim()&&!S.subs.includes(v.trim())){S.subs.push(v.trim());save();go()}}
 function dlg(h){if(document.body.classList.contains('locked'))return;const d=$('dlg');d.innerHTML=h;if(!d.open)d.showModal();d.scrollTop=0;if(window._fk){const e=d.querySelector('[data-k="'+window._fk+'"]');window._fk=null;if(e)e.classList.add('flashit')}}
@@ -1398,7 +1509,7 @@ setInterval(cdTick,1000);
 /* ---------- settings dialog ---------- */
 function applyLook(){const r=document.documentElement;r.dataset.rad=S.rad||'rounded';r.dataset.den=S.den||'normal';r.dataset.fs=S.fs||'m';r.dataset.anim=S.anim||'on';r.dataset.side=S.side||'auto';r.dataset.bg=S.bg||'on';r.dataset.blur=S.blur||'on';r.dataset.showxp=S.showxp||'on';applyX()}
 function setLook(k,v){S[k]=v;save();applyLook();window._fk=k+':'+v;rs()}
-function resetLook(){['rad','den','fs','anim','side','bg','blur','showxp','sa','acc','font','bgo'].forEach(k=>delete S[k]);S.theme='dark';document.documentElement.dataset.theme='dark';save();applyLook();window._fk='th:dark';rs();toast('Appearance reset')}
+function resetLook(){['rad','den','fs','anim','side','bg','blur','showxp','sa','acc','font','bgo'].forEach(k=>delete S[k]);S.theme='pw360';document.documentElement.dataset.theme='pw360';save();applyLook();window._fk='th:pw360';rs();toast('Appearance reset')}
 function setTheme(k){window._fk='th:'+k;S.theme=k;document.documentElement.dataset.theme=k;save();hdr();rs()}
 function resetAll(){if(prompt('Type DELETE to erase ALL data')==='DELETE'){JEE_AUTH.reset()}}
 function openSettings(){const th=S.theme||'dark',T=[['light','Light'],['blue','Blue'],['pink','Pink'],['dark','Dark'],['darkpink','Dark pink']];
@@ -1743,7 +1854,7 @@ function nowBar(){let e=$('nowbar');const sd=nbSave&&Date.now()-nbSave.t<2700?nb
  e.innerHTML=h;if(pipW&&!pipW.closed){try{pipW.document.body.innerHTML=`<div><div style="font-size:12px;opacity:.7">${run?nbLabel():'Paused'}</div><div style="font-weight:700;margin:4px 0">${esc(run?nm:sd.n)}</div><div style="font:700 26px ui-monospace,monospace">${run?hms(sessSec):hmsS(sd.sec)}</div></div>`}catch(x){}}}
 /* ---------- boot ---------- */
 {const TM={slate:'dark',ocean:'dark',graphite:'dark',midnight:'dark',jeetrack:'dark',chaosprep:'dark',youtube:'dark',pwdark:'dark',pw:'light',tracker:'light',pink:'rose',darkpink:'rose'};if(TM[S.theme])S.theme=TM[S.theme]}
-if(S.theme)document.documentElement.dataset.theme=S.theme;else if(matchMedia('(prefers-color-scheme: light)').matches)document.documentElement.dataset.theme='light';
+document.documentElement.dataset.theme=S.theme||'pw360';
 const dmy=iso=>{if(!iso)return'';const[a,b,c]=String(iso).split('-');return `${c}/${b}/${(a||'').slice(2)}`};
 function pdmy(v){const m=String(v).trim().match(/^(\d{1,2})[\/\-.](\d{1,2})[\/\-.](\d{2}|\d{4})$/);if(!m)return null;let d=+m[1],mo=+m[2],y=m[3].length==2?2000+ +m[3]:+m[3];const dt=new Date(y,mo-1,d);if(dt.getFullYear()!==y||dt.getMonth()!==mo-1||dt.getDate()!==d)return null;return `${y}-${p2(mo)}-${p2(d)}`}
 function enhanceDates(){document.querySelectorAll('input[type=date]:not([data-dp])').forEach(o=>{o.dataset.dp=1;const w=document.createElement('span');w.className='dp',t=document.createElement('input'),b=document.createElement('button');
@@ -1911,14 +2022,14 @@ set(){const cat=X.cat||'general',r=(t,d,c)=>`<div class="srow"><div><b>${t}</b><
 sw1=(on,f,l)=>`<button class="sw ${on?'on':''}" role="switch" aria-checked="${!!on}" aria-label="${l}" onclick="${f}"><i></i></button>`,
 g=(t,d,rows)=>`<div class="yg"><h2>${t}</h2>${d?`<p class="mut">${d}</p>`:''}<div class="card" style="padding:4px 16px">${rows}</div></div>`,
 sel=(l,f,o,cur)=>`<select aria-label="${l}" onchange="${f}">${o.map(([v,n])=>`<option value="${v}" ${cur==v?'selected':''}>${n}</option>`).join('')}</select>`,
-TH={dark:'#5b9dff',blue:'#2563eb',rose:'#ff7ba6',light:'#4f46e5',amoled:'#6b7280',forest:'#3deb9c',violet:'#a78bfa',sunset:'#fb923c'},
+TH={pw360:'#7466f0',quizrr:'#364fc7',dark:'#5b9dff',blue:'#2563eb',rose:'#ff7ba6',light:'#4f46e5',amoled:'#6b7280',forest:'#3deb9c',violet:'#a78bfa',sunset:'#fb923c'},
 pth=S.path==='cbse'?'puc':(S.path||(S.scope==='jee'?'jee':'puc')),
 T={
 general:['General','Your profile, exam path and start screen',
  g('Account','',r('Signed in as',esc(window.JEE_AUTH?JEE_AUTH.name():''),b('Switch account','JEE_AUTH.switchAccount()')+b('Sign out','JEE_AUTH.logout()'))+r('Exam, goals and profile','Name, exam date, daily goal, backup',b('Open','HX.os()'))+r('Your path','Decides tabs, syllabus and the II PUC tracker',sel('Path','XP.path(this.value)',[['jee','JEE only (dropper)'],['puc','JEE + II PUC (Karnataka)']],pth))+r('II PUC language medium','Kannada or Urdu: swaps the language paper in the II PUC tracker',sel('Medium','XP2.med(this.value)',[['kannada','Kannada medium'],['urdu','Urdu medium']],(S.h2||{}).med==='urdu'?'urdu':'kannada')))
  +g('Start screen','',r('Show welcome page when the website opens','The JEE 2027 Tracker start screen',sw1(!S.nolnd,'S.nolnd=S.nolnd?0:1;save();HX.pg()','Show welcome page'))+r('Open welcome page now','Opens it right away',b('Open','HX.close();showLanding()')))],
 appearance:['Appearance','Theme, colours and how the app looks',
- g('Theme','Choose how the app looks',`<div class="srow ycol"><div class="chips">${THEMES.map(([k,l])=>`<button class="chip ${(S.theme||'dark')===k?'on':''}" onclick="setTheme('${k}')"><span class="dot" style="background:${TH[k]}"></span>${l}</button>`).join('')}</div></div>`)
+ g('Theme','Choose how the app looks',`<div class="srow ycol"><div class="chips">${THEMES.map(([k,l])=>`<button class="chip ${(S.theme||'pw360')===k?'on':''}" onclick="setTheme('${k}')"><span class="dot" style="background:${TH[k]}"></span>${l}</button>`).join('')}</div></div>`)
  +g('Colours and type','',settingsExtra('look')+r('Text size','Applies everywhere',sel('Text size','XP.fs(this.value)',[[0,'Normal'],[1,'Large'],[2,'Larger']],+S.hs.fs)))
  +g('Display','',r('Layout density','Spacing inside cards',CH3('den',[['compact','Compact'],['normal','Normal'],['relaxed','Relaxed']],'normal'))+r('Animations','Motion across the app',CH3('anim',[['on','On'],['off','Off']],'on'))+r('Background glow','Soft gradient behind the app',CH3('bg',[['on','Show'],['off','Hide']],'on'))+r('Glass blur','Turn off for a faster feel',CH3('blur',[['on','On'],['off','Off']],'on'))+r('Reduce motion','Turn off animations',sw1(S.hs.rm,"HX.tg('rm')",'Reduce motion'))+r('Reset appearance','Back to the default look',b('Reset','resetLook()')))],
 focus:['Study and focus','Timer, sleep and test options',
@@ -2090,6 +2201,7 @@ function subscribe(){
 }
 async function finish(){
  await load();
+ try{const nm=user.user_metadata&&user.user_metadata.name;if(nm&&typeof S==='object'&&!(S.name||'').trim())S.name=String(nm).slice(0,40)}catch(e){}
  ready=true;switching=false;prev=null;sched();
  authEl().hidden=true;lock(false);msg('');
  const n=dname();
@@ -2105,7 +2217,7 @@ async function login(ev){
  try{
   const u=$a('jee-auth-user').value.trim().toLowerCase(),p=$a('jee-auth-pass').value;
   if(!u||!p)throw new Error('Enter your username and password.');
-  const email=getEmail(u);if(!email)throw new Error('Username not found.');
+  const email=u.indexOf('@')>0?u:getEmail(u);if(!email)throw new Error('Username not found. If you created an account with email, sign in with that email.');
   let r;
   if(switching){
    /* separate in-memory client: the previous account stays signed in, so Back always works */
@@ -2120,7 +2232,7 @@ async function login(ev){
   }
   user=r.data.user;
   await finish();
- }catch(e){console.error(e);msg((e&&e.message)||'Login failed.')}
+ }catch(e){console.error('Login failed:',e&&e.message);msg(friendly(e,'Login failed.'))}
  finally{busy(false)}
 }
 async function switchAccount(){
@@ -2155,8 +2267,78 @@ async function logout(){
  try{if(sb)await sb.auth.signOut({scope:'local'})}catch(e){console.error(e)}
  user=null;location.reload();
 }
+/* ---- Email accounts: create account, confirm by email, create a password, reset ---- */
+const friendly=(e,d)=>{const m=String((e&&e.message)||'');
+ if(/email not confirmed/i.test(m))return 'Confirm your email first. Open the link we sent (check spam), then sign in.';
+ if(/invalid login credentials/i.test(m))return 'Wrong username/email or password.';
+ if(/rate limit|too many|security purposes/i.test(m))return 'Too many emails sent. Wait a few minutes and try again.';
+ if(/already (been )?registered/i.test(m))return 'That email already has an account. Sign in instead.';
+ if(/password/i.test(m)&&/(least|short|weak|characters)/i.test(m))return m;
+ if(/failed to fetch|network/i.test(m))return 'Network problem. Check your connection and try again.';
+ return m||d||'Something went wrong. Try again.'};
+const redirectTo=()=>/^https?:$/.test(location.protocol)?location.origin+location.pathname:undefined;
+let pendingEmail='',cool=0,coolT=null;const recovery=/type=recovery/.test(location.hash+location.search);
+const altEl=()=>$a('jee-auth-alt'),formEl=()=>$a('jee-auth-form'),subEl=()=>$a('jee-auth-sub');
+const ea=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const pwOk=p=>p.length>=8&&/[A-Za-z]/.test(p)&&/\d/.test(p);
+const strength=p=>{let s=0;if(p.length>=8)s++;if(p.length>=12)s++;if(/[A-Z]/.test(p)&&/[a-z]/.test(p))s++;if(/\d/.test(p))s++;if(/[^A-Za-z0-9]/.test(p))s++;return pwOk(p)?Math.max(2,Math.min(4,s-0)):Math.min(1,s)};
+const pwField=(id,label,auto)=>'<label for="'+id+'">'+label+'</label><div class="pw"><input id="'+id+'" type="password" autocomplete="'+auto+'" required minlength="8" placeholder="At least 8 characters"><button type="button" class="pw-t" data-for="'+id+'" aria-label="Show password">Show</button></div>';
+function authMode(m){const alt=altEl(),f=formEl();if(!alt||!f)return;msg('');
+ if(m==='login'){alt.hidden=true;alt.innerHTML='';f.hidden=false;subEl().textContent='Sign in.';const u=$a('jee-auth-user');if(u)u.focus();return}
+ f.hidden=true;alt.hidden=false;
+ if(m==='signup'){subEl().textContent='Create your account with email.';
+  alt.innerHTML='<form id="jee-su-form" novalidate><label for="jee-su-name">Your name</label><input id="jee-su-name" autocomplete="name" maxlength="40" placeholder="Name (optional)"><label for="jee-su-email">Email</label><input id="jee-su-email" type="email" autocomplete="email" autocapitalize="none" spellcheck="false" required placeholder="you@example.com">'+pwField('jee-su-pass','Create a password','new-password')+'<div class="pw-m" aria-hidden="true"><i></i><i></i><i></i><i></i></div><div class="pw-h">Use 8+ characters with letters and numbers.</div><div class="pw-r"><button type="button" class="lk" id="jee-su-gen">Suggest a strong password</button></div>'+pwField('jee-su-pass2','Confirm password','new-password')+'<button class="btn pri auth-btn" type="submit" id="jee-su-btn">Create account</button></form><div class="auth-or2"><span>Already have an account?</span> <button type="button" class="lk" data-m="login">Sign in</button></div>';
+  const e=$a('jee-su-name');if(e)e.focus();return}
+ if(m==='forgot'){subEl().textContent='Reset your password.';
+  alt.innerHTML='<form id="jee-fg-form" novalidate><label for="jee-fg-email">Email</label><input id="jee-fg-email" type="email" autocomplete="email" autocapitalize="none" required placeholder="you@example.com"><button class="btn pri auth-btn" type="submit" id="jee-fg-btn">Send reset link</button></form><div class="auth-or2"><button type="button" class="lk" data-m="login">Back to sign in</button></div>';
+  const e=$a('jee-fg-email');if(e)e.focus();return}
+ if(m==='sent'){subEl().textContent='Almost there.';
+  alt.innerHTML='<div class="sent"><div class="sent-i" aria-hidden="true">&#9993;</div><b>Check your inbox</b><p>We sent a confirmation link to <strong>'+ea(pendingEmail)+'</strong>. Open it to activate your account, then sign in with your email and password.</p><button class="btn auth-btn alt" id="jee-resend" type="button">Resend email</button><button type="button" class="lk" data-m="login">Back to sign in</button></div>';paintCool();return}
+ if(m==='reset'){subEl().textContent='Create a new password.';
+  alt.innerHTML='<form id="jee-rs-form" novalidate>'+pwField('jee-rs-pass','New password','new-password')+'<div class="pw-m" aria-hidden="true"><i></i><i></i><i></i><i></i></div><div class="pw-h">Use 8+ characters with letters and numbers.</div>'+pwField('jee-rs-pass2','Confirm new password','new-password')+'<button class="btn pri auth-btn" type="submit" id="jee-rs-btn">Save password</button></form>'}
+}
+function paintCool(){const b=$a('jee-resend');if(!b)return;if(cool>0){b.disabled=true;b.textContent='Resend in '+cool+'s'}else{b.disabled=false;b.textContent='Resend email'}}
+function startCool(){cool=30;clearInterval(coolT);paintCool();coolT=setInterval(()=>{cool--;paintCool();if(cool<=0)clearInterval(coolT)},1000)}
+async function doSignup(){
+ if(switching){msg('Press Back, sign out, then create the new account.');return}
+ if(!sb){msg('Sign-up is unavailable. Check your connection and reload.');return}
+ const name=$a('jee-su-name').value.trim().slice(0,40),email=$a('jee-su-email').value.trim().toLowerCase(),p=$a('jee-su-pass').value,p2=$a('jee-su-pass2').value;
+ if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)){msg('Enter a valid email address.');return}
+ if(!pwOk(p)){msg('Password needs 8+ characters with at least one letter and one number.');return}
+ if(p!==p2){msg('The two passwords do not match.');return}
+ const b=$a('jee-su-btn');b.disabled=true;b.textContent='Creating account…';msg('');
+ try{const opts={data:{name,username:email.split('@')[0]}},rt=redirectTo();if(rt)opts.emailRedirectTo=rt;
+  const {data,error}=await sb.auth.signUp({email,password:p,options:opts});if(error)throw error;
+  if(data&&data.user&&Array.isArray(data.user.identities)&&data.user.identities.length===0){msg('That email already has an account. Sign in instead.');return}
+  if(data&&data.session){user=data.session.user||data.user;await finish();return}
+  pendingEmail=email;authMode('sent');startCool()}
+ catch(e){console.error('Sign-up failed:',e&&e.message);msg(friendly(e,'Could not create your account.'))}
+ finally{const bb=$a('jee-su-btn');if(bb){bb.disabled=false;bb.textContent='Create account'}}}
+async function doResend(){if(!sb||!pendingEmail||cool>0)return;msg('');try{const o={type:'signup',email:pendingEmail},rt=redirectTo();if(rt)o.options={emailRedirectTo:rt};const {error}=await sb.auth.resend(o);if(error)throw error;msg('Email sent again. Check your inbox and spam.',false);startCool();paintCool()}catch(e){console.error('Resend failed:',e&&e.message);msg(friendly(e,'Could not resend the email.'))}}
+async function doForgot(){if(!sb){msg('Service unavailable. Check your connection and reload.');return}
+ const email=$a('jee-fg-email').value.trim().toLowerCase();if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)){msg('Enter the email you signed up with.');return}
+ const b=$a('jee-fg-btn');b.disabled=true;
+ try{const o={},rt=redirectTo();if(rt)o.redirectTo=rt;const {error}=await sb.auth.resetPasswordForEmail(email,o);if(error)throw error;msg('If that email has an account, a reset link is on its way. Check your inbox and spam.',false)}
+ catch(e){console.error('Reset failed:',e&&e.message);msg(friendly(e,'Could not send the reset email.'))}finally{b.disabled=false}}
+async function doReset(){const p=$a('jee-rs-pass').value,p2=$a('jee-rs-pass2').value;
+ if(!pwOk(p)){msg('Password needs 8+ characters with at least one letter and one number.');return}
+ if(p!==p2){msg('The two passwords do not match.');return}
+ const b=$a('jee-rs-btn');b.disabled=true;b.textContent='Saving…';
+ try{const {error}=await sb.auth.updateUser({password:p});if(error)throw error;
+  const g=await sb.auth.getUser();user=(g&&g.data&&g.data.user)||user;try{history.replaceState(null,'',location.pathname)}catch(e){}await finish()}
+ catch(e){console.error('Password update failed:',e&&e.message);msg(friendly(e,'Could not save the new password.'));b.disabled=false;b.textContent='Save password'}}
+function suggestPw(){const al='ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz23456789!@#$%';let p='',n=0;do{p='';const a=new Uint32Array(14);crypto.getRandomValues(a);a.forEach(x=>p+=al[x%al.length]);n++}while(!pwOk(p)&&n<20);
+ ['jee-su-pass','jee-su-pass2'].forEach(id=>{const i=$a(id);if(i){i.value=p;i.type='text'}});document.querySelectorAll('#jee-auth-alt .pw-t').forEach(t=>t.textContent='Hide');meter(p);msg('Strong password filled in. Save it somewhere safe.',false)}
+function meter(p){const s=p?strength(p):0;document.querySelectorAll('#jee-auth-alt .pw-m').forEach(m=>[...m.children].forEach((i,k)=>{i.className=k<s?'on'+s:''}))}
+function wireAuth(){const root=authEl();if(!root||root._w)return;root._w=1;
+ root.addEventListener('click',e=>{const t=e.target.closest('.pw-t');if(t){const i=$a(t.dataset.for);if(i){const show=i.type==='password';i.type=show?'text':'password';t.textContent=show?'Hide':'Show'}return}
+  const m=e.target.closest('[data-m]');if(m){authMode(m.dataset.m);return}
+  if(e.target.id==='jee-su-gen'){suggestPw();return}if(e.target.id==='jee-resend'){doResend()}});
+ root.addEventListener('submit',e=>{const id=e.target&&e.target.id;if(id==='jee-su-form'){e.preventDefault();doSignup()}else if(id==='jee-fg-form'){e.preventDefault();doForgot()}else if(id==='jee-rs-form'){e.preventDefault();doReset()}});
+ root.addEventListener('input',e=>{if(e.target.id==='jee-su-pass'||e.target.id==='jee-rs-pass')meter(e.target.value)})}
+
 window.JEE_AUTH={
- saveState:sched,logout,switchAccount,cancelSwitch,
+ saveState:sched,logout,switchAccount,cancelSwitch,mode:authMode,
  name:()=>user?dname()+' (@'+uname()+')':'',
  toggleAccountMenu(){const m=menuEl();if(!m)return;if(m.hidden){const n=dname();$a('jee-account-name').textContent=n;$a('jee-account-user').textContent='@'+uname();$a('jee-am-av').textContent=n.split(/\s+/).map(w=>w[0]).join('').slice(0,2).toUpperCase()}m.hidden=!m.hidden},
  openSettings(){const m=menuEl();if(m)m.hidden=true;if(typeof window.openSettings==='function')window.openSettings()},
@@ -2173,13 +2355,16 @@ async function init(){
  if(!cfg.url||!cfg.anonKey){showAuth(false);msg('Sign-in is not configured.');return}
  sb=window.supabase.createClient(cfg.url,cfg.anonKey);
  const {data,error}=await sb.auth.getSession();
+ wireAuth();try{if(!recovery&&/access_token=|[?&]code=|type=signup|type=magiclink/.test(location.hash+location.search))history.replaceState(null,'',location.pathname)}catch(e){}
  if(error){console.error(error);showAuth(false);msg('Could not check your login session.')}
+ else if(data.session&&recovery){user=data.session.user;showAuth(false);authMode('reset')}
  else if(data.session){
   user=data.session.user;
   try{await finish()}
   catch(e){console.error(e);ready=false;showAuth(false);msg('Could not load your account data. Check your connection and reload. You are still signed in.')}   /* a network blip no longer signs you out */
  }else showAuth(false);
  sb.auth.onAuthStateChange((_ev,session)=>{
+  if(_ev==='PASSWORD_RECOVERY'){showAuth(false);authMode('reset');return}
   if(session){user=session.user;return}
   if(switching)return;                       /* switch flow manages its own screen and Back button */
   ready=false;user=null;dropChannel();showAuth(false);
@@ -2602,4 +2787,14 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 })();
 
 </script>
+<script id="pw-theme">
+/* PW 360 dark is the default look; keeps the theme in sync after sign-in and migrates the old default once */
+(function(){'use strict';
+const apply=()=>{try{if(typeof S!=='object')return;if(S.theme==='dark'&&!S.themeV){S.theme='pw360';S.themeV=1;try{save()}catch(e){}}
+ const t=S.theme||'pw360',r=document.documentElement,d=t==='quizrr'?'light':t;if(r.dataset.theme!==d)r.dataset.theme=d;if(t==='quizrr')r.dataset.skin='quizrr';else delete r.dataset.skin}catch(e){}};
+const _st=window.setTheme;if(typeof _st==='function')window.setTheme=function(k){try{S.themeV=1}catch(e){}const r=_st.apply(this,arguments);apply();return r};
+const _go=window.go;if(typeof _go==='function')window.go=function(){apply();return _go.apply(this,arguments)};
+apply();})();
+</script>
+
 </body></html>
